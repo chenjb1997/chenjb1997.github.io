@@ -9,26 +9,23 @@
 }
 
 .content {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    max-width: 1200px;
-    flex-wrap: wrap;
+    position: relative;
     width: 100%;
+    max-width: 880px;
+    margin: 0 auto;
 }
 
 .textContent {
-    flex: 0.6;
-    padding-right: 20px;
-    min-width: 300px;
+    width: 100%;
 }
 
 .profilePic {
-    width: 305px;
-    height: 438px;
+    float: right;
+    width: 250px;
+    height: auto;
+    margin: 0 0 20px 20px;
     border-radius: 8px;
-    margin-top: 50px;
-    margin-bottom: 20px;
+    shape-outside: margin-box;
 }
 
 .heading {
@@ -65,7 +62,7 @@
 
 .sectionContainer {
     width: 100%;
-    max-width: 800px;
+    max-width: 880px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -79,7 +76,7 @@
     margin-bottom: 3px;
     padding-bottom: 10px;
     border-bottom: 1px solid #eee;
-    max-width: 800px;
+    max-width: 880px;
 }
 
 .title::before {
@@ -147,65 +144,23 @@
     color:black;
 }
 
-/* Home.css */
-
 .newsText {
     text-indent: -20px;
     padding-left: 20px; /* Positive padding to push the subsequent lines forward */
 }
 
-@media (max-width: 768px) {
-    .content {
-        flex-direction: column;
-        align-items: center;
-        padding: 10px;
-    }
-    .textContent {
-        padding-right: 0;
-        text-align: center;
-    }
+/* 响应式设计 */
+@media screen and (max-width: 768px) {
     .profilePic {
-        width: 150px;
-        height: 150px;
-    }
-    .heading {
-        font-size: 24px;
-    }
-    .text {
-        font-size: 14px;
-    }
-    .subHeading {
-        font-size: 18px;
-    }
-    .list {
-        font-size: 14px;
+        width: 180px;
+        margin: 0 0 15px 15px;
     }
 }
 
-@media (max-width: 480px) {
-    .content {
-        flex-direction: column;
-        align-items: center;
-        padding: 5px;
-    }
-    .textContent {
-        padding-right: 0;
-        text-align: center;
-    }
+/* 更小屏幕的响应式设计 */
+@media screen and (max-width: 480px) {
     .profilePic {
         width: 120px;
-        height: 120px;
-    }
-    .heading {
-        font-size: 20px;
-    }
-    .text {
-        font-size: 12px;
-    }
-    .subHeading {
-        font-size: 16px;
-    }
-    .list {
-        font-size: 12px;
+        margin: 0 0 10px 10px;
     }
 }
