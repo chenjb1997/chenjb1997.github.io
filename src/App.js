@@ -6,13 +6,12 @@ import Publications from './Publications';
 import CompetitiveProgramming from './CompetitiveProgramming';
 import Contact from './Contact';
 
-
 function App() {
   return (
     <Router>
-      <div style={{ display: 'flex' }}>
+      <div className="App">
         {/* <Sidebar /> */}
-        <div style={{ marginLeft: '220px', flex: '1', padding: '20px' }}> {/* Content area */}
+        <div>
           <Navbar />
           <Routes>
             <Route path="" element={<Home />} />

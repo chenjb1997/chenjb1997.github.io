@@ -1,0 +1,71 @@
+.cp-container {
+    padding: 20px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.cp-content {
+    max-width: 880px;
+}
+
+.cp-heading {
+    font-size: 30px;
+    font-weight: normal;
+    color: #333;
+}
+
+.cp-subheading {
+    font-size: 20px;
+    font-weight: normal;
+    font-style: italic;
+    color: #333;
+}
+
+.cp-text-container {
+    margin-bottom: 25px;
+}
+
+.cp-text {
+    color: #666;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+.cp-list {
+    list-style-type: circle;
+    padding-left: 20px;
+    color: #666;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+.cp-text a {
+    color: #0066cc;
+    text-decoration: none;
+}
+
+.cp-text a:hover {
+    text-decoration: underline;
+}
+
+/* 响应式设计 */
+@media screen and (max-width: 768px) {
+    .cp-container {
+        padding: 15px;
+    }
+
+    .cp-heading {
+        font-size: 24px;
+    }
+
+    .cp-subheading {
+        font-size: 18px;
+    }
+
+    .cp-text,
+    .cp-list {
+        font-size: 14px;
+    }
+}

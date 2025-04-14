@@ -1,6 +1,6 @@
 import profilePic from './chenjb.jpg';  // Update the path to where your image is stored
 import React, { useState } from 'react';
-import './Home.css';  // Import the CSS file
+import './Home.css';
 
 const Home = () => {
     const [visibleAbstractIndex, setVisibleAbstractIndex] = useState(null);
@@ -187,12 +187,14 @@ const Home = () => {
 
     return (
         <div className="homeContainer">
+
             <div className="content">
                 <div className="textContent">
                     <h1 className="heading">陈靖邦 Jingbang Chen</h1>
+                    <img src={profilePic} alt="Jingbang Chen" className="profilePic" />
                     <p className="cvLink"><a href="/CV.pdf">[CV]</a> (Last updated Mar. 2025)</p>
                     <p className="text">
-                        I am a last-year PhD student in the <a href = "https://algcomp.uwaterloo.ca/" target = "_blank">Algorithms & Complexity Group</a> of University of Waterloo starting in Winter 2023. I am fortunate to be advised by <a href = "https://www.cs.cmu.edu/~yangp/" target = "_blank">Richard Peng</a>. Prior to this, I received my Master at Georgia Institute of Technology and B.Eng (Honors) at Zhejiang University under supervision of <a href = "https://person.zju.edu.cn/wangcan" target = "_blank">Can Wang</a>.
+                        I am a last-year PhD student in the <a href="https://algcomp.uwaterloo.ca/" target="_blank" rel="noopener noreferrer">Algorithms & Complexity Group</a> of University of Waterloo starting in Winter 2023. I am fortunate to be advised by <a href = "https://www.cs.cmu.edu/~yangp/" target = "_blank">Richard Peng</a>. Prior to this, I received my Master at Georgia Institute of Technology and B.Eng (Honors) at Zhejiang University under supervision of <a href = "https://person.zju.edu.cn/wangcan" target = "_blank">Can Wang</a>.
                         <br /><br />
                         My research revolves around the design, analysis, and implementation of provably efficient algorithms and data structures, with a focus on graphs.
                         <br /><br />
@@ -200,7 +202,6 @@ const Home = () => {
                         <br /><br />
                         When not thinking about problems, I enjoy playing table tennis. Currently, I am using Fan Zhendong Super ALC with Dignics 09C on front and Dignics 64 on back.
                     </p>
-
                     <h2 className="subHeading">Education</h2>
                     <ul className="list">
                         <li>Ph.D., Computer Science, <a href = 'https://uwaterloo.ca' target = '_blank'>University of Waterloo</a>, Waterloo, 2023 - Current</li>
@@ -209,8 +210,8 @@ const Home = () => {
                         <li><a href="https://www.gdgzez.com.cn/" target="_blank">Guangzhou No.2 High School</a>, Guangzhou, 2010 - 2016</li>
                     </ul>
                 </div>
-                <img src={profilePic} alt="Jingbang Chen" className="profilePic" />
             </div>
+
             {renderSection(news, "News")}
             {renderSection(publications, "Selected Publications")}
             {renderSection(preprints, "Manuscripts")}
