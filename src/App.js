@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Navbar from './Navbar';
 import Home from './Home';
 import Publications from './Publications';
@@ -18,6 +18,7 @@ function App() {
             <Route path="/competitive-programming" element={<CompetitiveProgramming />} />
             <Route path="/publications" element={<Publications />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </div>
       </div>
