@@ -6,6 +6,15 @@ const Home = () => {
     const [visibleAbstractIndex, setVisibleAbstractIndex] = useState(null);
 
     const publications = [
+        ,
+        {
+            title: "On the Power of Learning-Augmented Search Trees",
+            authors: "Jingbang Chen*, Xinyuan Cao*, Alicia Stepin, Li Chen",
+            year: "International Conference on Machine Learning (ICML 2025)",
+            links: [
+                { text: "arXiv", url: "https://arxiv.org/abs/2211.09251" }
+            ]
+        },
         {
             title: "Efficient Historical Butterfly Counting in Large Temporal Bipartite Networks via Graph Structure-aware Index",
             authors: "Qiuyang Mang*, Jingbang Chen*, Hangrui Zhou*, Yu Gao, Yingli Zhou, Qingyu Shi, Richard Peng, Yixiang Fang, Chenhao Ma",
@@ -76,18 +85,13 @@ const Home = () => {
             links: [
                 { text: "arXiv", url: "https://arxiv.org/abs/2307.07711" }
             ]
-        },
-        {
-            title: "On the Power of Learning-Augmented Search Trees",
-            authors: "Jingbang Chen*, Xinyuan Cao*, Alicia Stepin, Li Chen",
-            year: "2022",
-            links: [
-                { text: "arXiv", url: "https://arxiv.org/abs/2211.09251" }
-            ]
         }
     ];
 
     const news = [
+        {
+            title: 'May, 2025: Our paper "On the Power of Learning-Augmented Search Trees" is accepted by the 42nd International Conference on Machine Learning (ICML 2025).',
+        },
         {
             title: (
                 <span>
@@ -192,7 +196,7 @@ const Home = () => {
                 <div className="textContent">
                     <h1 className="heading">陈靖邦 Jingbang Chen</h1>
                     <img src={profilePic} alt="Jingbang Chen" className="profilePic" />
-                    <p className="cvLink"><a href="/CV.pdf">[CV]</a> (Last updated Mar. 2025)</p>
+                    <p className="cvLink"><a href="/CV.pdf">[CV]</a> (Last updated May. 2025)</p>
                     <p className="text">
                         I am a last-year PhD student in the <a href="https://algcomp.uwaterloo.ca/" target="_blank" rel="noopener noreferrer">Algorithms & Complexity Group</a> of University of Waterloo starting in Winter 2023. I am fortunate to be advised by <a href = "https://www.cs.cmu.edu/~yangp/" target = "_blank">Richard Peng</a>. Prior to this, I received my Master at Georgia Institute of Technology and B.Eng (Honors) at Zhejiang University under supervision of <a href = "https://person.zju.edu.cn/wangcan" target = "_blank">Can Wang</a>.
                         <br /><br />
