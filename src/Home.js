@@ -71,6 +71,14 @@ const Home = () => {
 
     const preprints = [
         {
+            title: "Scalable Approximate Biclique Counting over Large Bipartite Graphs",
+            authors: "Jingbang Chen*, Weinuo Li*, Yingli Zhou*, Hangrui Zhou, Qiuyang Mang, Can Wang, Yixiang Fang, Chenhao Ma",
+            year: "2025",
+            links: [
+                { text: "arXiv", url: "https://arxiv.org/abs/2505.10471" }
+            ]
+        },
+        {
             title: "Nearly Optimal Internal Dictionary Matching",
             authors: "Jingbang Chen, Jiangqi Dai, Qiuyang Mang, Qingyu Shi, Tingqiang Xu",
             year: "2024",
@@ -79,8 +87,8 @@ const Home = () => {
             ]
         },
         {
-            title: "Scalable Algorithm for Sandpile Prediction",
-            authors: "Jingbang Chen*, Ruinian Chang*, Zeyu Zheng*, Qingyu Shi, J. Ian Munro, Richard Peng",
+            title: "Sandpile Prediction on Undirected Graphs",
+            authors: "Ruinian Chang, Jingbang Chen, Ian Munro, Richard Peng, Qingyu Shi, Zeyu Zheng",
             year: "2023",
             links: [
                 { text: "arXiv", url: "https://arxiv.org/abs/2307.07711" }
