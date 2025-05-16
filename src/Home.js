@@ -98,7 +98,7 @@ const Home = () => {
 
     const news = [
         {
-            title: 'May, 2025: Our paper "On the Power of Learning-Augmented Search Trees" is accepted by the 51st International Conference on Machine Learning (ICML 2025).',
+            title: 'May, 2025: Our paper "On the Power of Learning-Augmented Search Trees" is accepted by the 42nd International Conference on Machine Learning (ICML 2025).',
         },
         {
             title: (
