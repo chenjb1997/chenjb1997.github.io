@@ -8,7 +8,7 @@ const Home = () => {
     const publications = [
         ,
         {
-            title: "On the Power of Learning-Augmented Search Trees",
+            title: "On the Power of Test Learning-Augmented Search Trees",
             authors: "Jingbang Chen*, Xinyuan Cao*, Alicia Stepin, Li Chen",
             year: "International Conference on Machine Learning (ICML 2025)",
             links: [
