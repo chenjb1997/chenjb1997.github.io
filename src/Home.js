@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { FileText, ChevronDown, ChevronUp } from 'lucide-react';
-import profileImage from '../assets/chenjb.jpg';
+import profileImage from '/chenjb.jpg';
 
 const Home = () => {
   const [isNewsExpanded, setIsNewsExpanded] = useState(false);
