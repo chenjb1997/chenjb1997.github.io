@@ -20,7 +20,7 @@ const Home = () => {
       <div className="prose max-w-none text-lg">
         <div className="mb-10">
           <img
-            src={profileImage}
+            src={profilePic}
             alt="Jingbang Chen at The 2025 Universal Cup Finals"
             className="float-right w-48 max-w-[45%] rounded-lg shadow-md ml-4 mb-2"
           />
