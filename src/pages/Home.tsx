@@ -3,8 +3,7 @@ import { FileText, ChevronDown, ChevronUp } from 'lucide-react';
 import profileImage from '../assets/chenjb.jpg';
 
 const Home = () => {
-  const [isNewsExpanded, setIsNewsExpanded] = useState(false);
-
+  const [isNewsExpanded, setIsNewsExpanded] = useState(true);
   return (
     <div className="max-w-4xl mx-auto px-4">
       <h1 className="text-4xl font-bold mb-2">陈靖邦 Jingbang Chen</h1>
@@ -14,7 +13,7 @@ const Home = () => {
           <FileText className="w-4 h-4" />
           <span>[CV]</span>
         </a>
-        <span className="text-gray-500">Last updated Mar. 2025</span>
+        <span className="text-gray-500">Last updated May. 2025</span>
       </div>
 
       <div className="prose max-w-none text-lg">
@@ -64,7 +63,7 @@ const Home = () => {
           </p>
 
           <p className="text-gray-900 leading-relaxed mt-6">
-            When not thinking about problems, I enjoy playing table tennis. Currently, I am using Fan Zhendong Super ALC with Dignics&nbsp;09C on front and Dignics&nbsp;64 on back.
+            When not thinking about problems, I enjoy playing table tennis. Currently, I am using Fan Zhendong Super ALC with Dignics&nbsp;09C on both sides.
           </p>
         </div>
 
@@ -145,6 +144,9 @@ const Home = () => {
           </div>
           <ul className={`list-disc pl-6 space-y-3 text-lg text-gray-900 ${!isNewsExpanded ? 'md:block hidden' : ''}`}>
             <li>
+              <span className="font-medium">May. 2025:</span> Our paper "On the Power of Learning-Augmented Search Trees" is accepted by the 42nd International Conference on Machine Learning (ICML&nbsp;2025).
+            </li>
+            <li>
               <span className="font-medium">Mar. 2025:</span> Prof.&nbsp;
               <a href="https://chenhao-ma.github.io/" className="text-blue-600 hover:text-yellow-500 no-underline" target="_blank" rel="noopener noreferrer">
                 Chenhao Ma
@@ -175,6 +177,15 @@ const Home = () => {
           <ul className="space-y-6 text-lg">
             {/* Publication 1 */}
             <li>
+              <div className="font-medium mb-1">On the Power of Learning‑Augmented Search Trees</div>
+              <div className="text-gray-700"><span className="font-bold">Jingbang Chen</span>*, <a href="https://youki-cao.github.io/" className="text-blue-600 hover:text-yellow-500 no-underline">Xinyuan Cao</a>*, <a href="https://csd.cmu.edu/people/doctoral-student/alicia-stepin" className="text-blue-600 hover:text-yellow-500 no-underline">Alicia Stepin</a>, <a href="https://lic225.github.io/" className="text-blue-600 hover:text-yellow-500 no-underline">Li Chen</a></div>
+              <div className="text-gray-600 mt-1">International Conference on Machine Learning (ICML&nbsp;2025)</div>
+              <div className="mt-1">
+                <a href="https://arxiv.org/abs/2211.09251" className="text-blue-600 hover:text-yellow-500 no-underline" target="_blank" rel="noopener noreferrer">arXiv</a>
+              </div>
+            </li>
+            {/* Publication 1 */}
+            <li>
               <div className="font-medium mb-1">Efficient Historical Butterfly Counting in Large Temporal Bipartite Networks via Graph Structure‑aware Index</div>
               <div className="text-gray-700"><a href="https://joyemang33.github.io/" className="text-blue-600 hover:text-yellow-500 no-underline">Qiuyang Mang</a>*, <span className="font-bold">Jingbang Chen</span>*, <a href="https://hehezhou.github.io/" className="text-blue-600 hover:text-yellow-500 no-underline">Hangrui Zhou</a>*, <a href="https://sites.google.com/view/ygao2606/home" className="text-blue-600 hover:text-yellow-500 no-underline">Yu Gao</a>, <a href="https://jaylzhou.github.io/" className="text-blue-600 hover:text-yellow-500 no-underline">Yingli Zhou</a>, <a href="https://qoj.ac/" className="text-blue-600 hover:text-yellow-500 no-underline">Qingyu Shi</a>, <a href="https://www.cs.cmu.edu/~yangp/" className="text-blue-600 hover:text-yellow-500 no-underline">Richard Peng</a>, <a href="https://fangyixiang.github.io/" className="text-blue-600 hover:text-yellow-500 no-underline">Yixiang Fang</a>, <a href="https://chenhao-ma.github.io/" className="text-blue-600 hover:text-yellow-500 no-underline">Chenhao Ma</a></div>
               <div className="text-gray-600 mt-1">International Conference on Very Large Data Bases (VLDB&nbsp;2025)</div>
@@ -182,6 +193,7 @@ const Home = () => {
                 <a href="https://arxiv.org/abs/2406.00344" className="text-blue-600 hover:text-yellow-500 no-underline" target="_blank" rel="noopener noreferrer">arXiv</a>
               </div>
             </li>
+            
             {/* Publication 2 */}
             <li>
               <div className="font-medium mb-1">Scalable Algorithm for Finding Balanced Subgraphs with Tolerance in Signed Networks</div>
@@ -239,6 +251,14 @@ const Home = () => {
           <h2 className="text-3xl font-bold mb-4">Manuscripts</h2>
           <ul className="space-y-6 text-lg">
             <li>
+              <div className="font-medium mb-1">Scalable Approximate Biclique Counting over Large Bipartite Graphs</div>
+              <div className="text-gray-700"><span className="font-bold">Jingbang Chen</span>, <a href="#" className="text-blue-600 hover:text-yellow-500 no-underline">Weinuo Li</a>, <a href="https://jaylzhou.github.io/" className="text-blue-600 hover:text-yellow-500 no-underline">Yingli Zhou</a>, <a href="https://hehezhou.github.io/" className="text-blue-600 hover:text-yellow-500 no-underline">Hangrui Zhou</a>, <a href="https://joyemang33.github.io/" className="text-blue-600 hover:text-yellow-500 no-underline">Qiuyang Mang</a>, <a href="https://person.zju.edu.cn/wangcan" className="text-blue-600 hover:text-yellow-500 no-underline">Can Wang</a>, <a href="https://fangyixiang.github.io/" className="text-blue-600 hover:text-yellow-500 no-underline">Yixiang Fang</a>, <a href="https://chenhao-ma.github.io/" className="text-blue-600 hover:text-yellow-500 no-underline">Chenhao Ma</a></div>
+              <div className="text-gray-600 mt-1">2025</div>
+              <div className="mt-1">
+                <a href="https://arxiv.org/abs/2505.10471" className="text-blue-600 hover:text-yellow-500 no-underline" target="_blank" rel="noopener noreferrer">arXiv</a>
+              </div>
+            </li>
+            <li>
               <div className="font-medium mb-1">Nearly Optimal Internal Dictionary Matching</div>
               <div className="text-gray-700"><span className="font-bold">Jingbang Chen</span>, <a href="https://dblp.org/pid/365/4525.html" className="text-blue-600 hover:text-yellow-500 no-underline">Jiangqi Dai</a>, <a href="https://joyemang33.github.io/" className="text-blue-600 hover:text-yellow-500 no-underline">Qiuyang Mang</a>, <a href="https://qoj.ac/" className="text-blue-600 hover:text-yellow-500 no-underline">Qingyu Shi</a>, <a href="https://scholar.google.com/citations?user=HGTHVUgAAAAJ&hl" className="text-blue-600 hover:text-yellow-500 no-underline">Tingqiang Xu</a></div>
               <div className="text-gray-600 mt-1">2024</div>
@@ -247,19 +267,11 @@ const Home = () => {
               </div>
             </li>
             <li>
-              <div className="font-medium mb-1">Scalable Algorithm for Sandpile Prediction</div>
-              <div className="text-gray-700"><span className="font-bold">Jingbang Chen</span>*, <a href="#" className="text-blue-600 hover:text-yellow-500 no-underline">Ruinian Chang</a>*, <a href="https://scholar.google.com/citations?user=sNENLo8AAAAJ&hl=en" className="text-blue-600 hover:text-yellow-500 no-underline">Zeyu Zheng</a>*, <a href="https://qoj.ac/" className="text-blue-600 hover:text-yellow-500 no-underline">Qingyu Shi</a>, <a href="https://cs.uwaterloo.ca/~imunro/" className="text-blue-600 hover:text-yellow-500 no-underline">J. Ian Munro</a>, <a href="https://www.cs.cmu.edu/~yangp/" className="text-blue-600 hover:text-yellow-500 no-underline">Richard Peng</a></div>
+              <div className="font-medium mb-1">Sandpile Prediction on Undirected Graphs</div>
+              <div className="text-gray-700"><a href="#" className="text-blue-600 hover:text-yellow-500 no-underline">Ruinian Chang</a>, <span className="font-bold">Jingbang Chen</span>, <a href="https://cs.uwaterloo.ca/~imunro/" className="text-blue-600 hover:text-yellow-500 no-underline">J. Ian Munro</a>, <a href="https://www.cs.cmu.edu/~yangp/" className="text-blue-600 hover:text-yellow-500 no-underline">Richard Peng</a>, <a href="https://qoj.ac/" className="text-blue-600 hover:text-yellow-500 no-underline">Qingyu Shi</a>, <a href="https://scholar.google.com/citations?user=sNENLo8AAAAJ&hl=en" className="text-blue-600 hover:text-yellow-500 no-underline">Zeyu Zheng</a></div>
               <div className="text-gray-600 mt-1">2023</div>
               <div className="mt-1">
                 <a href="https://arxiv.org/abs/2307.07711" className="text-blue-600 hover:text-yellow-500 no-underline" target="_blank" rel="noopener noreferrer">arXiv</a>
-              </div>
-            </li>
-            <li>
-              <div className="font-medium mb-1">On the Power of Learning‑Augmented Search Trees</div>
-              <div className="text-gray-700"><span className="font-bold">Jingbang Chen</span>*, <a href="https://youki-cao.github.io/" className="text-blue-600 hover:text-yellow-500 no-underline">Xinyuan Cao</a>*, <a href="https://csd.cmu.edu/people/doctoral-student/alicia-stepin" className="text-blue-600 hover:text-yellow-500 no-underline">Alicia Stepin</a>, <a href="https://lic225.github.io/" className="text-blue-600 hover:text-yellow-500 no-underline">Li Chen</a></div>
-              <div className="text-gray-600 mt-1">2022</div>
-              <div className="mt-1">
-                <a href="https://arxiv.org/abs/2211.09251" className="text-blue-600 hover:text-yellow-500 no-underline" target="_blank" rel="noopener noreferrer">arXiv</a>
               </div>
             </li>
           </ul>
