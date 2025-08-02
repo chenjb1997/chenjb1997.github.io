@@ -24,14 +24,14 @@ const Home = () => {
             className="float-right w-48 max-w-[45%] rounded-lg shadow-md ml-4 mb-2"
           />
           <p className="text-gray-900 leading-relaxed">
-            I am a last-year PhD student in the{' '}
+            I am a research assistant professor in the Chinese University of Hong Kong (Shenzhen) starting in September 2025. I received my Ph.D. in the{' '}
             <a href="https://algcomp.uwaterloo.ca/" className="text-blue-600 hover:text-yellow-500 no-underline" target="_blank" rel="noopener noreferrer">
               Algorithms &amp; Complexity Group
             </a>{' '}
             of{' '}
             <a href="https://uwaterloo.ca" className="text-blue-600 hover:text-yellow-500 no-underline" target="_blank" rel="noopener noreferrer">
               University of Waterloo
-            </a>{' '}starting in Winter 2023. I am fortunate to be advised by{' '}
+            </a>{''}. I am fortunate to be advised by{' '}
             <a href="https://www.cs.cmu.edu/~yangp/" className="text-blue-600 hover:text-yellow-500 no-underline" target="_blank" rel="noopener noreferrer">
               Richard Peng
             </a>
@@ -49,7 +49,7 @@ const Home = () => {
           </p>
 
           <p className="text-gray-900 leading-relaxed mt-6">
-            My research revolves around the design, analysis, and implementation of provably efficient algorithms and data structures, with a focus on graphs.
+            My research revolves around the design, analysis, and implementation of provably efficient algorithms and data structures, with a focus on graphs. I am currently exploring researches involving AI.
           </p>
 
           <p className="text-gray-900 leading-relaxed mt-6">
