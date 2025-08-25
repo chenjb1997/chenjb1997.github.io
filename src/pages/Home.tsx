@@ -13,7 +13,7 @@ const Home = () => {
           <FileText className="w-4 h-4" />
           <span>[CV]</span>
         </a>
-        <span className="text-gray-500">Last updated May. 2025</span>
+        <span className="text-gray-500">Last updated August. 2025</span>
       </div>
 
       <div className="prose max-w-none text-lg">
