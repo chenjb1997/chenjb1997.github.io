@@ -13,7 +13,7 @@ const Contact = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <a
-          href="mailto:chenjb1997@gmail.com"
+          href="mailto:chenjb@cuhk.edu.cn"
           className="flex items-center justify-center gap-3 p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow"
         >
           <Mail className="w-5 h-5 text-gray-600" />
