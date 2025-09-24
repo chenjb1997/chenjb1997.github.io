@@ -24,7 +24,7 @@ const Home = () => {
             className="float-right w-48 max-w-[45%] rounded-lg shadow-md ml-4 mb-2"
           />
           <p className="text-gray-900 leading-relaxed">
-            I am an assistant professor (research) in the Chinese University of Hong Kong, Shenzhen (CUHK-Shenzhen) starting in September 2025. I received my Ph.D. in the{' '}
+            I am a research assistant professor at the Chinese University of Hong Kong, Shenzhen (CUHK-Shenzhen) and Shenzhen Loop Area Institute (SLAI) starting in September 2025. I received my Ph.D. in the{' '}
             <a href="https://algcomp.uwaterloo.ca/" className="text-blue-600 hover:text-yellow-500 no-underline" target="_blank" rel="noopener noreferrer">
               Algorithms &amp; Complexity Group
             </a>{' '}
