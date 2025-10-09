@@ -70,7 +70,7 @@
   "personal-profile-2": "数据科学学院",
   "personal-profile-3": "香港中文大学，深圳",
   "personal-profile-4": "滑铁卢大学博士",
-  "personal-profile-5": "Joint Faculty in Shenzhen Loop Area Institute (SLAI)",
+  "personal-profile-5": "深圳河套学院（SLAI）双聘",
 
 
   "bio": "个人简介",
@@ -112,29 +112,13 @@
   "MaChenhao": "马晨昊教授",
  
   "SelectedPublications": "主要著作",
-  "SelectedPublications-1": "*代表第一作者（包含共同一作和理论计算机科学领域投稿），＊代表通讯作者。",
+  "SelectedPublications-1": "*代表第一作者（包含共同一作和理论计算机科学领域投稿），†代表通讯作者。",
 
   "year-2025":"2025年",
-  "SelectedPublications-2025-publications-1-title":"论学习的力量——增强搜索树",
-  "SelectedPublications-2025-publications-2-title":"通过图结构感知索引实现大型时态二分网络中的高效历史蝴蝶计数",
-  "SelectedPublications-2025-publications-1-venue":"国际机器学习会议（ICML 2025）",
-  "SelectedPublications-2025-publications-2-venue":"国际超大数据库会议（VLDB 2025）",
   "year-2024":"2024年",
-  "SelectedPublications-2024-publications-1-title":"在有符号网络中寻找具有容差的平衡子图的可扩展算法",
-  "SelectedPublications-2024-publications-1-venue":"ACM SIGKDD知识发现和数据挖掘会议（KDD 2024）",
   "year-2023":"2023年",
-  "SelectedPublications-2023-publications-1-title":"动态区间图上的距离查询",
-  "SelectedPublications-2023-publications-2-title":"正则化调度下Sinkhorn的指数收敛性",
-  "SelectedPublications-2023-publications-3-title":"图结构代数和符号问题的硬度",
-  "SelectedPublications-2023-publications-1-venue":"算法与计算国际研讨会（ISAAC 2023）和计算几何：理论与应用（第122卷）",
-  "SelectedPublications-2023-publications-2-venue":"SIAM应用与计算离散算法会议（ACDA 2023）",
-  "SelectedPublications-2023-publications-3-venue":"算法和数据结构（WADS 2023）",
   "year-2020":"2020年",
-  "SelectedPublications-2020-publications-1-title":"用于隐式反馈推荐的快速自适应加权矩阵分解",
-  "SelectedPublications-2020-publications-1-venue":"AAAI人工智能会议（AAAI 2020）",
 
   "Manuscripts": "未发表原稿",
-  "Manuscripts-2025-title":"大二分图上的可伸缩近似对偶计数",
-  "Manuscripts-2024-title":"近乎最优的内部字典匹配",
-  "Manuscripts-2023-title":"无向图上的沙堆预测"
+  "SUA": "SUA 程序设计竞赛命题组"
 }

@@ -28,11 +28,12 @@ const CompetitiveProgramming = () => {
           {t("programming-second-paragraph")}
         </p>
         <p className="mb-4  text-[16px]">
-          <SingleParagraph text="Codeforce" tkey="programming-third-paragraph" href="https://codeforces.com/profile/chenjb" />
+          <SingleParagraph text="Codeforces" tkey="programming-third-paragraph" href="https://codeforces.com/profile/chenjb" />
         </p>
 
         <p className="mb-4  text-[16px]">
-          <SingleParagraph text="SUA Programming Competitions Problems Setter Team" tkey="programming-fourth-paragraph" href="https://sua.ac/" />
+          {/*  SUA 程序设计竞赛命题组 */}
+          <SingleParagraph text={t("SUA")} tkey="programming-fourth-paragraph" href="https://sua.ac/" />
         </p>
 
         <p className="mb-8  text-[16px]">

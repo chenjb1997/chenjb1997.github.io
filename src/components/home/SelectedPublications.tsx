@@ -91,7 +91,7 @@ const SelectedPublications = () => {
           title: t("SelectedPublications-2025-publications-1-title"),
           authors: [
             { name: "Jingbang Chen*", href: "" },
-            { name: "Xinyuan Cao*", href: "https://youki-cao.github.io/" },
+            { name: "Xinyuan Cao", href: "https://youki-cao.github.io/" },
             {
               name: "Alicia Stepin",
               href: "https://csd.cmu.edu/people/doctoral-student/alicia-stepin",
@@ -109,9 +109,9 @@ const SelectedPublications = () => {
         {
           title: t("SelectedPublications-2025-publications-2-title"),
           authors: [
-            { name: "Qiuyang Mang*", href: "https://joyemang33.github.io/" },
+            { name: "Qiuyang Mang", href: "https://joyemang33.github.io/" },
             { name: "Jingbang Chen*", href: "" },
-            { name: "Hangrui Zhou*", href: "https://hehezhou.github.io/" },
+            { name: "Hangrui Zhou", href: "https://hehezhou.github.io/" },
             {
               name: "Yu Gao",
               href: "https://sites.google.com/view/ygao2606/home",
@@ -139,8 +139,8 @@ const SelectedPublications = () => {
           title: t("SelectedPublications-2024-publications-1-title"),
           authors: [
             { name: "Jingbang Chen*", href: "" },
-            { name: "Qiuyang Mang*", href: "https://joyemang33.github.io/" },
-            { name: "Hangrui Zhou*", href: "https://hehezhou.github.io/" },
+            { name: "Qiuyang Mang", href: "https://joyemang33.github.io/" },
+            { name: "Hangrui Zhou", href: "https://hehezhou.github.io/" },
             { name: "Richard Peng", href: "https://www.cs.cmu.edu/~yangp/" },
             {
               name: "Yu Gao",

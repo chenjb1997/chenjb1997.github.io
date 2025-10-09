@@ -152,7 +152,7 @@ const Manuscripts = () => {
   return (
     <div className="mb-10">
       <h2 className="border-b-[1px] border-gray-300 pb-2 text-[24px] font-bold mb-3">
-        Manuscripts
+        {t("Manuscripts")}
       </h2>
       <div>
         {SelectedPublicationsList.map((item, index) => (
