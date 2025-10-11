@@ -164,7 +164,7 @@ const SelectedPublications = () => {
         {
           title: t("SelectedPublications-2023-publications-1-title"),
           authors: [
-            { name: "Jingbang Chen", href: "" },
+            { name: "Jingbang Chen*", href: "" },
             { name: "Meng He", href: "https://web.cs.dal.ca/~mhe/" },
             { name: "J. Ian Munro", href: "https://cs.uwaterloo.ca/~imunro/" },
             { name: "Richard Peng", href: "https://www.cs.cmu.edu/~yangp/" },
@@ -190,7 +190,7 @@ const SelectedPublications = () => {
         {
           title: t("SelectedPublications-2023-publications-2-title"),
           authors: [
-            { name: "Jingbang Chen", href: "" },
+            { name: "Jingbang Chen*", href: "" },
             { name: "Li Chen", href: "https://lic225.github.io/" },
             { name: "Yang P. Liu", href: "https://yangpliu.github.io/index.html" },
             { name: "Richard Peng", href: "https://www.cs.cmu.edu/~yangp/" },
@@ -211,7 +211,7 @@ const SelectedPublications = () => {
         {
           title: t("SelectedPublications-2023-publications-3-title"),
           authors: [
-            { name: "Jingbang Chen", href: "" },
+            { name: "Jingbang Chen*", href: "" },
             {
               name: "Yu Gao",
               href: "https://sites.google.com/view/ygao2606/home",

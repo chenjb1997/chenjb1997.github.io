@@ -68,8 +68,8 @@
 
   "personal-profile-1": "研究助理教授",
   "personal-profile-2": "数据科学学院",
-  "personal-profile-3": "香港中文大学，深圳",
-  "personal-profile-4": "滑铁卢大学博士",
+  "personal-profile-3": "香港中文大学（深圳）",
+  "personal-profile-4": "滑铁卢大学计算机博士",
   "personal-profile-5": "深圳河套学院（SLAI）双聘",
 
 
@@ -81,7 +81,7 @@
   "Zhejiang-University": "浙江大学",
   "CanWang": "王灿",
   "bio-second-paragraph":"我的研究围绕有理论分析保证的高效算法及数据结构设计、分析和实现展开，注重于图论研究。目前，我正在积极探索AI相关的研究，如AI4DB等。",
-  "bio-third-paragraph":"我高度参与算法竞赛相关活动。2017-2021年间，我代表浙江大学及佐治亚理工学院参加国际大学生程序设计竞赛(ICPC)世界总决赛（2018北京，2022埃及）。除此之外，我两次获得区域赛冠军，十二次获得区域赛金牌。自2023年起，我担任埃及信息学竞赛国家队教练。我还多次担任ICPC亚洲区域赛裁判长及训练营教练，其中包括North American Programming Camp (NAPC)等。我是Universal Cup的创始人兼联合主席。",
+  "bio-third-paragraph":"我高度参与算法竞赛相关活动。2017-2021年间，我代表浙江大学及佐治亚理工学院参加国际大学生程序设计竞赛(ICPC)世界总决赛（2018北京，2022埃及），曾获全球第十三名。除此之外，我两次获得区域赛冠军，十二次获得区域赛金牌。自2023年起，我担任埃及信息学竞赛国家队教练。我还多次担任ICPC亚洲区域赛裁判长及训练营教练，其中包括North American Programming Camp (NAPC)等。我是Universal Cup的创始人兼联合主席。",
   "North-American-Programming-Camp": "North American Programming Camp (NAPC)",
   "bio-fourth-paragraph":"在工作之余，我是一位乒乓球爱好者。我目前使用的器材是樊振东超级ALC，两面均使用Dignics 09C。",
 
@@ -94,7 +94,7 @@
   "edu-2-school": "佐治亚理工学院",
   "edu-2-location": "亚特兰大",
   "edu-2-time": "2020-2022",
-  "edu-3-degree": "工学荣誉硕士，求是科学班",
+  "edu-3-degree": "工学荣誉学士，求是科学班",
   "edu-3-school": "竺可桢学院（计算机科学与技术学院联合培养），浙江大学",
   "edu-3-location": "杭州",
   "edu-3-time": "2016-2020",
