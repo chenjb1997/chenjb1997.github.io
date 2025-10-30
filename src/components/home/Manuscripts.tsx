@@ -78,7 +78,7 @@ const Manuscripts = () => {
       year: "2025",
       publications: [
         {
-          title: t("Curing ``Miracle Steps'' in LLM Math Reasoning with Rubric Rewards"),
+          title: t("Curing ''Miracle Steps'' in LLM Math Reasoning with Rubric Rewards"),
           authors: [
             { name: "Youliang Yuan", href: "https://youliangyuan.github.io/" },
             { name: "Qiuyang Mang", href: "https://joyemang33.github.io/" },
