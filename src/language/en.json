@@ -113,14 +113,16 @@
   "news-2-time": "Mar. 2025",
   "news-2": "Currently, I am hiring MPhi (Research-oriented Master) and PhD through multiple threads. Possible research directions include Graph Mining, AI/LLM + Database or traditional graph algorithms/data structures. Other topics related to AI are also open. If you are interested, please contact me through E-mail/QQ/Wechat. For students with students with strong background in competitive programming (e.g., ICPC World Finalist, ICPC Regional Top 20, China NOI Medalist, Codeforces Rating ≥ 2300, …) and have great interests in research, Prof. Chenhao Ma and I are looking for 1 - 2 highly self‑motivated PhD students and would like to prioritize such background even if lacking research experience. Moreover, if you are interested in applying Shenzhen Loop Area Institute (SLAI) or already have obtained a conditional offer from there, if you are interested in me being your advisor, please contact me and we can arrange your enrollment if fits. In this case, any research direction is welcome while I personally prefer it to be related to AI + Science/Engineering.",
   "MaChenhao": "Chenhao Ma",
-  "news-3-time": "Feb. 2025",
-  "news-3": "Our paper \"Efficient Historical Butterfly Counting in Large Temporal Bipartite Networks via Graph Structure‑aware Index\" is accepted by the 51st International Conference on Very Large Data Bases (VLDB 2025).",
-  "news-4-time": "Jan. 2025",
-  "news-4": "Although many things are still under processing, if everything goes through (I really hope so), I will be joining the School of Data Science (SDS) at The Chinese University of Hong Kong, Shenzhen after my graduation. I will be working as a research assistant professor in the first one or many terms.",
+  "news-3-time": "Nov. 2025",
+  "news-3": "Our paper \"Scalable Approximate Biclique Counting over Large Bipartite Graphs\" is accepted by the 52nd International Conference on Very Large Data Bases (VLDB 2026).",
+  "news-4-time": "Feb. 2025",
+  "news-4": "Our paper \"Efficient Historical Butterfly Counting in Large Temporal Bipartite Networks via Graph Structure‑aware Index\" is accepted by the 51st International Conference on Very Large Data Bases (VLDB 2025).",
   "SelectedPublications": "Selected Publications",
   "SelectedPublications-1": " * indicates the first author (may share equal contributions, also labeled for TCS venues) and † indicates the corresponding author.",
 
-
+  "year-2026":"In the Year of 2026",
+  "SelectedPublications-2026-publications-1-title":"Scalable Approximate Biclique Counting over Large Bipartite Graphs",
+  "SelectedPublications-2026-publications-1-venue":"International Conference on Very Large Data Bases (VLDB 2026)",
   "year-2025":"In the Year of 2025",
   "SelectedPublications-2025-publications-1-title":"On the Power of Learning‑Augmented Search Trees",
   "SelectedPublications-2025-publications-2-title":"Efficient Historical Butterfly Counting in Large Temporal Bipartite Networks via Graph Structure‑aware Index",
@@ -141,7 +143,6 @@
   "SelectedPublications-2020-publications-1-venue":"AAAI Conference on Artificial Intelligence (AAAI 2020)",
 
   "Manuscripts": "Manuscripts",
-  "Manuscripts-2025-title":"Scalable Approximate Biclique Counting over Large Bipartite Graphs",
   "Manuscripts-2024-title":"Nearly Optimal Internal Dictionary Matching",
   "Manuscripts-2023-title":"Sandpile Prediction on Undirected Graphs",
 
