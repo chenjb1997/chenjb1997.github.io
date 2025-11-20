@@ -104,7 +104,15 @@ const Bio = () => {
       <p className="text-gray-900 leading-relaxed mt-6 text-[16px]">
         {t("bio-fourth-paragraph")}
       </p>
+
+      <h2 className="text-2xl font-semibold mt-8 mb-4">{t("Student")}</h2>
+        <ul className="list-disc pl-5 space-y-2  text-[16px]">
+          <li>Yuyang Zhao, Ph.D. Fall 2025 - present @ SLAI (Co-advice with Prof. Zhi-Quan (Tom) Luo).</li>
+          <li>Guanghao Liang, Ph.D. Fall 2025 - present @ SLAI (Co-advice with Prof. Yixiang Fang).</li>
+        </ul>
     </div>
+
+    
   );
 };
 export default Bio;
