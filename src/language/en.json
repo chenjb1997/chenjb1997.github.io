@@ -118,6 +118,8 @@
   "news-3": "Our paper \"Scalable Approximate Biclique Counting over Large Bipartite Graphs\" is accepted by the 52nd International Conference on Very Large Data Bases (VLDB 2026).",
   "news-4-time": "Feb. 2025",
   "news-4": "Our paper \"Efficient Historical Butterfly Counting in Large Temporal Bipartite Networks via Graph Structure‑aware Index\" is accepted by the 51st International Conference on Very Large Data Bases (VLDB 2025).",
+  "news-5-time": "Jan. 2026",
+  "news-5": "Our paper \"TopKGAT: A Top-K Objective-Driven Architecture for Recommendation\" is accepted by the Web Conference 2026 (WWW 2026).",
   "SelectedPublications": "Selected Publications",
   "SelectedPublications-1": " * indicates the first author (may share equal contributions, also labeled for TCS venues) and † indicates the corresponding author.",
 

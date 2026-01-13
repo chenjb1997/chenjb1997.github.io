@@ -34,6 +34,9 @@ const News = () => {
         <li className="p-[3_0]">
           <span className="text-[16px]">{t("news-3")}</span>
         </li>
+        <li className="p-[3_0]">
+          <span className="text-[16px]">{t("news-5")}</span>
+        </li>
       </ul>
     </div>
   );

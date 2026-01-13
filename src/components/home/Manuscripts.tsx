@@ -98,6 +98,69 @@ const Manuscripts = () => {
             },
           ],
         },
+        {
+        title: t("FrontierCS: Evolving Challenges for Evolving Intelligence"),
+        authors: [
+          { name: "Qiuyang Mang", href: "https://joyemang33.github.io/" }, // :contentReference[oaicite:1]{index=1}
+          { name: "Wenhao Chai", href: "" },
+          { name: "Zhifei Li", href: "" },
+          { name: "Huanzhi Mao", href: "" },
+          { name: "Shang Zhou", href: "" },
+          { name: "Alexander Du", href: "" },
+          { name: "Hanchen Li", href: "" },
+          { name: "Shu Liu", href: "" },
+          { name: "Edwin Chen", href: "" },
+          { name: "Yichuan Wang", href: "" },
+          { name: "Xieting Chu", href: "" },
+          { name: "Zerui Cheng", href: "" },
+          { name: "Yuan Xu", href: "" },
+          { name: "Tian Xia", href: "" },
+          { name: "Zirui Wang", href: "" },
+          { name: "Tianneng Shi", href: "" },
+          { name: "Jianzhu Yao", href: "" },
+          { name: "Yilong Zhao", href: "" },
+          { name: "Qizheng Zhang", href: "" },
+          { name: "Charlie Ruan", href: "" },
+          { name: "Zeyu Shen", href: "" },
+          { name: "Kaiyuan Liu", href: "" },
+          { name: "Runyuan He", href: "" },
+          { name: "Dong Xing", href: "" },
+          { name: "Zerui Li", href: "" },
+          { name: "Zirong Zeng", href: "" },
+          { name: "Yige Jiang", href: "" },
+          { name: "Lufeng Cheng", href: "" },
+          { name: "Ziyi Zhao", href: "" },
+          { name: "Youran Sun", href: "" },
+          { name: "Wesley Zheng", href: "" },
+          { name: "Meiyuwang Zhang", href: "" },
+          { name: "Ruyi Ji", href: "" },
+          { name: "Xuechang Tu", href: "" },
+          { name: "Zihan Zheng", href: "" },
+          { name: "Zexing Chen", href: "" },
+          { name: "Kangyang Zhou", href: "" },
+          { name: "Zhaozi Wang", href: "" },
+          { name: "Jingbang Chen", href: "" },
+
+          { name: "Aleksandra Korolova", href: "" },
+          { name: "Peter Henderson", href: "https://www.peterhenderson.co/" }, // :contentReference[oaicite:2]{index=2}
+          { name: "Pramod Viswanath", href: "" },
+          { name: "Vijay Ganesh", href: "" },
+          { name: "Saining Xie", href: "" },
+          { name: "Zhuang Liu", href: "" },
+          { name: "Dawn Song", href: "https://dawnsong.io/" }, // :contentReference[oaicite:3]{index=3}
+          { name: "Sewon Min", href: "https://www.sewonmin.com/" }, // :contentReference[oaicite:4]{index=4}
+          { name: "Ion Stoica", href: "https://people.eecs.berkeley.edu/~istoica/" }, // :contentReference[oaicite:5]{index=5}
+          { name: "Joseph E. Gonzalez", href: "https://people.eecs.berkeley.edu/~jegonzal/" }, // :contentReference[oaicite:6]{index=6}
+          { name: "Jingbo Shang", href: "https://shangjingbo1226.github.io/" }, // :contentReference[oaicite:7]{index=7}
+          { name: "Alvin Cheung", href: "https://people.eecs.berkeley.edu/~akcheung/" }, // :contentReference[oaicite:8]{index=8}
+        ],
+        arXiv: [
+          {
+            name: "arXiv",
+            href: "https://arxiv.org/abs/2512.15699",
+          },
+        ],
+      },
       ],
     },
     {

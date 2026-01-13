@@ -107,6 +107,22 @@ const SelectedPublications = () => {
             },
           ],
         },
+        {
+          title: t("TopKGAT: A Top-K Objective-Driven Architecture for Recommendation"),
+          authors: [
+            { name: "Sirui Chen", href: "" }, // :contentReference[oaicite:0]{index=0}
+            { name: "Jiawei Chen", href: "https://jiawei-chen.github.io/" }, // :contentReference[oaicite:1]{index=1}
+            { name: "Canghong Jin", href: "" }, // (no clear personal homepage found; ResearchGate exists) :contentReference[oaicite:2]{index=2}
+            { name: "Sheng Zhou", href: "https://zhoushengisnoob.github.io/" }, // :contentReference[oaicite:3]{index=3}
+            { name: "Jingbang Chen", href: "" },
+            { name: "Wujie Sun", href: "https://zju-swj.github.io/" }, // :contentReference[oaicite:4]{index=4}
+            { name: "Can Wang", href: "https://person.zju.edu.cn/wangcan" }, // :contentReference[oaicite:5]{index=5}
+          ],
+          venue: t("The Web Conference 2026 (WWW 2026)"),
+          arXiv: [
+            
+          ],
+        },
       ],
     },
     {
