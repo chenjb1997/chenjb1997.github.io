@@ -24,6 +24,12 @@ const News = () => {
         className={`px-3 list-disc space-y-3 text-lg text-gray-900`}
       >
         <li className="p-[3_0]">
+          <span className="text-[16px]">{t("recruit1")}</span>
+        </li>
+        <li className="p-[3_0]">
+          <span className="text-[16px]">{t("recruit2")}</span>
+        </li>
+        <li className="p-[3_0]">
           <span className="text-[16px]">
             <SingleParagraph text={t("MaChenhao")} tkey="news-2" href="https://chenhao-ma.github.io/" />
           </span>
