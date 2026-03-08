@@ -2,6 +2,7 @@
   "Home": "Home",
   "Competitive-Programming": "Competitive Programming",
   "Student":"Students",
+  "Teaching":"Teaching",
   "programming-first-paragraph": "I started doing competitive programming since high school. I received a Bronze Medal in National Olympiad in Informatics (NOI) in 2015. Then I joined the Competitive Programming Team of Zhejiang University and competed as the team leader of Team Legilimens (2017-2019) and the student co-coach (2018-2021). During my undergraduate life, I won 12 gold medals in International Collegiate Programming Contest (ICPC), China Collegiate Programming Contest (CCPC) series competitions including the very first domestic ICPC Regional Champion of Zhejiang University in 2017. On behalf of Zhejiang University, I participated in ICPC World Finals 2018 (Beijing).",
   "programming-second-paragraph": "During my first year in Georgia Tech, I won the Champion of the 2020 ICPC Southeast USA Regional Contest and Second Runner-up in the 2021 North America Championship. I participated in ICPC World Finals 2022 (Luxor) as a two-person team and ranked 13th place.",
   "programming-third-paragraph": "I am an International Grandmaster on Codeforces (Max Rating 2735).",
@@ -39,10 +40,12 @@
   "ProblemSettingJudging-4": "International Collegiate Programming Contest Nanjing Regional Contest, 2022",
   "ProblemSettingJudging-5": "International Collegiate Programming Contest Nanjing Regional Contest, 2023",
   "ProblemSettingJudging-6": "International Collegiate Programming Contest Nanjing Regional Contest, 2024",
+  "ProblemSettingJudging-28": "International Collegiate Programming Contest Nanjing Regional Contest, 2025",
   "ProblemSettingJudging-7": "International Collegiate Programming Contest Macau Regional Contest, 2021",
   "ProblemSettingJudging-8": "International Collegiate Programming Contest Macau Regional Contest, 2022",
   "ProblemSettingJudging-9": "International Collegiate Programming Contest Jinan Regional Contest, 2023",
   "ProblemSettingJudging-10": "International Collegiate Programming Contest Hangzhou Regional Contest, 2024",
+  "ProblemSettingJudging-27": "International Collegiate Programming Contest East-Continent Finals, 2025",
   "ProblemSettingJudging-11": "Zhejiang University Programming Competition, 2019",
   "ProblemSettingJudging-12": "Zhejiang Province Collegiate Programming Competition, 2019",
   "ProblemSettingJudging-13": "Zhejiang Province Collegiate Programming Competition, 2021",
@@ -72,7 +75,7 @@
   "personal-profile-2": "School of Data Science",
   "personal-profile-3": "The Chinese University of Hong Kong, Shenzhen",
   "personal-profile-4": "Ph.D., University of Waterloo",
-  "personal-profile-5": "Joint Faculty in Shenzhen Loop Area Institute (SLAI)",
+  "personal-profile-5": "Shenzhen Loop Area Institute (SLAI)",
   
   
   "bio": "Bio",
@@ -83,7 +86,7 @@
   "Zhejiang-University": "Zhejiang University",
   "CanWang": "Can Wang",
   "bio-second-paragraph":"My research revolves around the design, analysis, and implementation of provably efficient algorithms and data structures, with a focus on graphs. I am currently exploring researches involving AI.",
-  "bio-third-paragraph":"I am highly involved with Competitive Programming activities. Previously, I competed representing Zhejiang University and Georgia Tech in 2017 - 2021, participating in ICPC World Finals 2018 (Beijing), 2022 (Egypt), winning ICPC regional champion titles along with several gold medals. I started helping Egyptian Olympiad in Informatics (EOI) since 2023. And I also have served as the chief judge for several ICPC Asia regionals and the coach of training camps including North American Programming Camp (NAPC). I am also the founder and co-president of the Universal Cup.",
+  "bio-third-paragraph":"I am highly involved with Competitive Programming activities. Previously, I competed representing Zhejiang University and Georgia Tech in 2017 - 2021, participating in ICPC World Finals 2018 (Beijing), 2022 (Egypt), winning 2 ICPC regional champion titles along with 12 gold medals. I started helping Egyptian Olympiad in Informatics (EOI) since 2023. And I also have served as the chief judge for ICPC Asia regionals, including the 2025 ICPC East-Continent Finals. I am the contest director of the upcoming ICPC national invitational in CUHK-Shenzhen (April 11th). I am also invited as lecturers in events like North American Programming Camp (NAPC). I am the founder and co-president of the Universal Cup.",
   "North-American-Programming-Camp": "North American Programming Camp (NAPC)",
   "bio-fourth-paragraph":"When not thinking about problems, I enjoy playing table tennis. Currently, I am using Fan Zhendong Super ALC with Dignics 09C on both sides.",
  

@@ -73,12 +73,14 @@ const CompetitiveProgramming = () => {
 
         <h2 className="text-2xl font-semibold mt-8 mb-4">{t("ProblemSettingJudging")}</h2>
         <ul className="list-disc pl-5 space-y-2  text-[16px]">
+          <li>{t("ProblemSettingJudging-27")}</li>
           <li>{t("ProblemSettingJudging-1")}</li>
           <li>{t("ProblemSettingJudging-2")}</li>
           <li>{t("ProblemSettingJudging-3")}</li>
           <li>{t("ProblemSettingJudging-4")}</li>
           <li>{t("ProblemSettingJudging-5")}</li>
           <li>{t("ProblemSettingJudging-6")}</li>
+          <li>{t("ProblemSettingJudging-28")}</li>
           <li>{t("ProblemSettingJudging-7")}</li>
           <li>{t("ProblemSettingJudging-8")}</li>
           <li>{t("ProblemSettingJudging-9")}</li>

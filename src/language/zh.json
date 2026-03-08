@@ -41,10 +41,12 @@
   "ProblemSettingJudging-4":  "第47届国际大学生程序设计竞赛南京站，2022",
   "ProblemSettingJudging-5":  "第48届国际大学生程序设计竞赛南京站，2023",
   "ProblemSettingJudging-6":  "第49届国际大学生程序设计竞赛南京站，2024",
+  "ProblemSettingJudging-28":  "第50届国际大学生程序设计竞赛南京站，2025",
   "ProblemSettingJudging-7":  "第46届国际大学生程序设计竞赛澳门站，2021",
   "ProblemSettingJudging-8":  "第47届国际大学生程序设计竞赛澳门站，2022",
   "ProblemSettingJudging-9":  "第48届国际大学生程序设计竞赛济南站，2023",
   "ProblemSettingJudging-10":  "第49届国际大学生程序设计竞赛杭州站，2024",
+  "ProblemSettingJudging-27":  "第50届国际大学生程序设计竞赛东大陆总决赛，2025",
   "ProblemSettingJudging-11":  "浙江大学程序设计竞赛，2019",
   "ProblemSettingJudging-12":  "浙江省大学生程序设计竞赛，2019",
   "ProblemSettingJudging-13":  "浙江省大学生程序设计竞赛，2021",
@@ -72,7 +74,7 @@
   "personal-profile-2": "数据科学学院",
   "personal-profile-3": "香港中文大学（深圳）",
   "personal-profile-4": "滑铁卢大学计算机博士",
-  "personal-profile-5": "深圳河套学院（SLAI）双聘",
+  "personal-profile-5": "深圳河套学院（SLAI）",
 
 
   "bio": "个人简介",
@@ -82,8 +84,8 @@
   "Georgia-Institute-of-Technology": "佐治亚理工学院",
   "Zhejiang-University": "浙江大学",
   "CanWang": "王灿",
-  "bio-second-paragraph":"我的研究围绕有理论分析保证的高效算法及数据结构设计、分析和实现展开，注重于图论研究。目前，我正在积极探索AI相关的研究，如AI4DB等。",
-  "bio-third-paragraph":"我高度参与算法竞赛相关活动。2017-2021年间，我代表浙江大学及佐治亚理工学院参加国际大学生程序设计竞赛(ICPC)世界总决赛（2018北京，2022埃及），曾获全球第十三名。除此之外，我两次获得区域赛冠军，十二次获得区域赛金牌。自2023年起，我担任埃及信息学竞赛国家队教练。我还多次担任ICPC亚洲区域赛裁判长及训练营教练，其中包括North American Programming Camp (NAPC)等。我是Universal Cup的创始人兼联合主席。",
+  "bio-second-paragraph":"我的研究围绕有理论分析保证的高效算法及数据结构设计、分析和实现展开，注重于图论研究。目前，我正在积极探索AI相关的研究，相关方面见招生要求。",
+  "bio-third-paragraph":"我高度参与算法竞赛相关活动。2017-2021年间，我代表浙江大学及佐治亚理工学院参加国际大学生程序设计竞赛(ICPC)世界总决赛（2018北京，2022埃及），曾获全球第十三名。除此之外，我两次获得区域赛冠军，十二次获得区域赛金牌。自2023年起，我担任埃及信息学竞赛国家队教练。我多次担任ICPC亚洲区域赛裁判长，其中包括2025年第50届东大陆总决赛（EC-Final)。我校将于4月11日举办ICPC全国邀请赛（深圳），其中我为比赛负责人及裁判长。我多次受邀担任训练营教练，其中包括North American Programming Camp (NAPC)等。我是Universal Cup的创始人兼联合主席。",
   "North-American-Programming-Camp": "North American Programming Camp (NAPC)",
   "bio-fourth-paragraph":"在工作之余，我是一位乒乓球爱好者。我目前使用的器材是樊振东超级ALC，两面均使用Dignics 09C。",
 
