@@ -107,8 +107,18 @@ const Bio = () => {
 
       <h2 className="text-2xl font-semibold mt-8 mb-4">{t("Student")}</h2>
         <ul className="list-disc pl-5 space-y-2  text-[16px]">
-          <li>Yuyang Zhao, Ph.D. Fall 2025 - present @ SLAI (Co-advice with Prof. Zhi-Quan (Tom) Luo).</li>
-          <li>Guanghao Liang, Ph.D. Fall 2025 - present @ SLAI (Co-advice with Prof. Yixiang Fang).</li>
+          <li>Yuanjin Zheng, Ph.D., Fall 2026 - present @ CUHK-Shenzhen+SLAI.</li>
+          <li>Yuyang Zhao, Ph.D., Fall 2025 - present @ CUHK-Shenzhen+SLAI (Co-advice with Prof. Zhi-Quan (Tom) Luo).</li>
+          <li>Zeyu Wang, Ph.D., Fall 2025 - present @ Zhejiang University (Co-advice with Prof. Can Wang).</li>
+          <li>Junyang Chen, M.Phil., Fall 2026 - present @ CUHK-Shenzhen.</li>
+          <li>Hao Wu, Undergraduate, Fall 2025 - present @ Zhejiang University.</li>
+          <li>Tianran Zhu, Research Assistant, Spring 2026 - present.</li>
+        </ul>
+      <h2 className="text-2xl font-semibold mt-8 mb-4">{t("Teaching")}</h2>
+        <ul className="list-disc pl-5 space-y-2  text-[16px]">
+          <li>CSC 5001 Design and Analysis of Computer Algorithms, Fall 2025 @ CUHK-Shenzhen.</li>
+          <li>CSC 5003 Algorithm Art and Programming Practice, Spring 2026 @ CUHK-Shenzhen.</li>
+          <li>MF 0005 Analysis of Algorithms, Spring 2026 @ SLAI (Co-teaching with Prof. Konstantinos Courcoubetis).</li>
         </ul>
     </div>
 
