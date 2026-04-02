@@ -114,9 +114,9 @@ const Bio = () => {
           <li>Junyang Chen, M.Phil., Fall 2026 - present @ CUHK-Shenzhen.</li>
           <li>Jiajun Hou, M.Phil., Fall 2026 - present @ CUHK-Shenzhen.</li>
           <li>Zixuan Yu, M.Phil., Fall 2026 - present @ CUHK-Shenzhen.</li>
-          <li>Hao Wu, Undergraduate, Fall 2025 - present @ Zhejiang University.</li>
-          <li>Tianran Zhu, Research Assistant, Spring 2026 - present.</li>
-          <li>Daniel Skachkov, Research Assistant, Spring 2026 - present.</li>
+          <li>Hao Wu, Research Assistant, Fall 2025 - present @ Zhejiang University.</li>
+          <li>Tianran Zhu, Research Assistant, Spring 2026 - present @ Peking University.</li>
+          <li>Daniel Skachkov, Research Assistant, Spring 2026 - present @ Moscos State University.</li>
         </ul>
       <h2 className="text-2xl font-semibold mt-8 mb-4">{t("Teaching")}</h2>
         <ul className="list-disc pl-5 space-y-2  text-[16px]">
