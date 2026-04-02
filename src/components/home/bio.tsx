@@ -113,6 +113,7 @@ const Bio = () => {
           <li>Zeyu Wang, Ph.D., Fall 2025 - present @ Zhejiang University (Co-advice with Prof. Can Wang).</li>
           <li>Junyang Chen, M.Phil., Fall 2026 - present @ CUHK-Shenzhen.</li>
           <li>Jiajun Hou, M.Phil., Fall 2026 - present @ CUHK-Shenzhen.</li>
+          <li>Zixuan Yu, M.Phil., Fall 2026 - present @ CUHK-Shenzhen.</li>
           <li>Hao Wu, Undergraduate, Fall 2025 - present @ Zhejiang University.</li>
           <li>Tianran Zhu, Research Assistant, Spring 2026 - present.</li>
           <li>Daniel Skachkov, Research Assistant, Spring 2026 - present.</li>
