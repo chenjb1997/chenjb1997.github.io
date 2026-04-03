@@ -118,9 +118,26 @@ const SelectedPublications = () => {
             { name: "Wujie Sun", href: "https://zju-swj.github.io/" }, // :contentReference[oaicite:4]{index=4}
             { name: "Can Wang", href: "https://person.zju.edu.cn/wangcan" }, // :contentReference[oaicite:5]{index=5}
           ],
-          venue: t("The Web Conference 2026 (WWW 2026)"),
+          venue: t("The Web Conference (WWW 2026)"),
           arXiv: [
             
+          ],
+        },
+        {
+          title: t("BEAR: Towards Beam-Search-Aware Optimization for Recommendation with Large Language Models"),
+          authors: [
+            { name: "Weiqin Yang", href: "https://tiny-snow.github.io/" }, // personal homepage :contentReference[oaicite:1]{index=1}
+            { name: "Bohao Wang", href: "" }, // no clear personal homepage found; Google Scholar available :contentReference[oaicite:2]{index=2}
+            { name: "Zhenxiang Xu", href: "" }, // no clear personal homepage found; author info on paper / ResearchGate available :contentReference[oaicite:3]{index=3}
+            { name: "Jiawei Chen", href: "https://jiawei-chen.github.io/" }, // personal homepage :contentReference[oaicite:4]{index=4}
+            { name: "Shengjia Zhang", href: "" }, // no clear personal homepage found; ACM / ResearchGate profile available :contentReference[oaicite:5]{index=5}
+            { name: "Jingbang Chen", href: "" },
+            { name: "Canghong Jin", href: "" }, // no clear personal homepage found; ResearchGate available :contentReference[oaicite:6]{index=6}
+            { name: "Can Wang", href: "https://person.zju.edu.cn/wangcan" }, // personal homepage / institutional page :contentReference[oaicite:7]{index=7}
+          ],
+          venue: t("International ACM SIGIR Conference on Research and Development in Information Retrieval (SIGIR 2026)"),
+          arXiv: [
+            "https://arxiv.org/abs/2601.22925",
           ],
         },
       ],

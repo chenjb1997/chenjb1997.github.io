@@ -34,7 +34,7 @@ const News = () => {
             <SingleParagraph text={t("MaChenhao")} tkey="news-2" href="https://chenhao-ma.github.io/" />
           </span>
         </li>
-        <li className="p-[3_0]">
+        {/* <li className="p-[3_0]">
           <span className="text-[16px]">{t("news-1")}</span>
         </li>
         <li className="p-[3_0]">
@@ -42,7 +42,7 @@ const News = () => {
         </li>
         <li className="p-[3_0]">
           <span className="text-[16px]">{t("news-5")}</span>
-        </li>
+        </li> */}
       </ul>
     </div>
   );
