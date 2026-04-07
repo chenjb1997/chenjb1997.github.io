@@ -78,27 +78,6 @@ const Manuscripts = () => {
       year: "2025",
       publications: [
         {
-          title: t("Curing ''Miracle Steps'' in LLM Math Reasoning with Rubric Rewards"),
-          authors: [
-            { name: "Youliang Yuan", href: "https://youliangyuan.github.io/" },
-            { name: "Qiuyang Mang", href: "https://joyemang33.github.io/" },
-            { name: "Jingbang Chen", href: "" },
-            { name: "Hong Wan", href: "" },
-            { name: "Xiaoyuan Liu", href: "https://xyliu-cs.github.io/" },
-            { name: "Junjielong Xu", href: "https://siyuexi.github.io/" },
-            { name: "Jen-tse Huang", href: "" },
-            { name: "Wenxuan Wang", href: "" },
-            { name: "Wenxiang Jiao", href: "" },
-            { name: "Pinjia He", href: "https://pinjiahe.github.io/" },
-          ],
-          arXiv: [
-            {
-              name: "arXiv",
-              href: "https://arxiv.org/abs/2510.07774",
-            },
-          ],
-        },
-        {
         title: t("FrontierCS: Evolving Challenges for Evolving Intelligence"),
         authors: [
           { name: "Qiuyang Mang", href: "https://joyemang33.github.io/" }, // :contentReference[oaicite:1]{index=1}

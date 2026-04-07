@@ -120,7 +120,10 @@ const SelectedPublications = () => {
           ],
           venue: t("The Web Conference (WWW 2026)"),
           arXiv: [
-            
+            {
+              name: "arXiv",
+              href: "https://arxiv.org/abs/2601.18432",
+            },
           ],
         },
         {
@@ -137,7 +140,32 @@ const SelectedPublications = () => {
           ],
           venue: t("International ACM SIGIR Conference on Research and Development in Information Retrieval (SIGIR 2026)"),
           arXiv: [
-            "https://arxiv.org/abs/2601.22925",
+            {
+              name: "arXiv",
+              href: "https://arxiv.org/abs/2601.22925",
+            },
+          ],
+        },
+        {
+          title: t("Curing ''Miracle Steps'' in LLM Math Reasoning with Rubric Rewards"),
+          authors: [
+            { name: "Youliang Yuan", href: "https://youliangyuan.github.io/" },
+            { name: "Qiuyang Mang", href: "https://joyemang33.github.io/" },
+            { name: "Jingbang Chen", href: "" },
+            { name: "Hong Wan", href: "" },
+            { name: "Xiaoyuan Liu", href: "https://xyliu-cs.github.io/" },
+            { name: "Junjielong Xu", href: "https://siyuexi.github.io/" },
+            { name: "Jen-tse Huang", href: "" },
+            { name: "Wenxuan Wang", href: "" },
+            { name: "Wenxiang Jiao", href: "" },
+            { name: "Pinjia He", href: "https://pinjiahe.github.io/" },
+          ],
+          venue: t("Annual Meeting of the Association for Computational Linguistics - Main Conference (ACL 2026)"),
+          arXiv: [
+            {
+              name: "arXiv",
+              href: "https://arxiv.org/abs/2510.07774",
+            },
           ],
         },
       ],
