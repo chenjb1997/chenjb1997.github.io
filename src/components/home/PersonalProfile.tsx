@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import profileImage from "../../assets/chenjb.jpg";
+import profileImage from "../../assets/chenjb.png";
 import { FileText, Mail, Github } from "lucide-react";
 const PersonalProfile = () => {
   const { t } = useTranslation();
