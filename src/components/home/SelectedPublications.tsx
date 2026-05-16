@@ -174,7 +174,6 @@ const SelectedPublications = () => {
             { name: "Qiuyang Mang", href: "https://joyemang33.github.io/" },
             { name: "...", href: "" },
             { name: "Jingbang Chen", href: "" },
-            { name: "...", href: "" },
             { name: "Aleksandra Korolova", href: "" },
             { name: "Peter Henderson", href: "https://www.peterhenderson.co/" },
             { name: "Pramod Viswanath", href: "" },
