@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, Moon, Sun, X } from "lucide-react";
+import { Languages, Menu, Moon, Sun, X } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import zhPng from "../assets/zh.png";
-import enPng from "../assets/en.png";
 // 定义 Navbar 组件的 props 类型
 interface NavbarProps {
   currentLanguage: string;
@@ -21,12 +19,27 @@ const Navbar: React.FC<NavbarProps> = ({
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
+  const nextLanguage = currentLanguage === "zh" ? "en" : "zh";
+  const nextLanguageLabel = currentLanguage === "zh" ? "EN" : "中";
 
   const navigation = [
     { name: t("Home"), href: "/" },
     { name: t("Competitive-Programming"), href: "/competitive-programming" },
     // { name: t("Contact"), href: "/contact" },
   ];
+
+  const languageToggle = (
+    <button
+      type="button"
+      onClick={() => changeLanguage(nextLanguage)}
+      aria-label={`Switch to ${nextLanguage === "zh" ? "Chinese" : "English"}`}
+      title={nextLanguage === "zh" ? "中文" : "English"}
+      className="language-toggle inline-flex h-8 min-w-12 items-center justify-center gap-1 rounded-sm px-2 text-gray-600 transition-colors hover:bg-gray-100 hover:text-blue-600"
+    >
+      <Languages size={17} strokeWidth={2.1} />
+      <span className="text-[13px] font-semibold leading-none">{nextLanguageLabel}</span>
+    </button>
+  );
 
   return (
     <div className="relative h-16">
@@ -55,16 +68,7 @@ const Navbar: React.FC<NavbarProps> = ({
                     {item.name}
                   </Link>
                 ))}
-                <div className="relative">
-                  <img
-                    onClick={() =>
-                      changeLanguage(currentLanguage === "zh" ? "en" : "zh")
-                    }
-                    src={currentLanguage === "zh" ? zhPng : enPng}
-                    alt="zh"
-                    className="theme-control-icon w-7 h-7 cursor-pointer"
-                  />
-                </div>
+                {languageToggle}
                 <button
                   type="button"
                   onClick={toggleColorMode}
@@ -84,16 +88,7 @@ const Navbar: React.FC<NavbarProps> = ({
                 >
                   {isOpen ? <X size={24} /> : <Menu size={24} />}
                 </button>
-                <div className="relative">
-                  <img
-                    onClick={() =>
-                      changeLanguage(currentLanguage === "zh" ? "en" : "zh")
-                    }
-                    src={currentLanguage === "zh" ? zhPng : enPng}
-                    alt="zh"
-                    className="theme-control-icon w-7 h-7 cursor-pointer"
-                  />
-                </div>
+                {languageToggle}
                 <button
                   type="button"
                   onClick={toggleColorMode}

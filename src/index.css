@@ -18,4 +18,8 @@
   html.inverted-theme img.theme-control-icon {
     filter: none;
   }
+
+  html.inverted-theme .language-toggle svg {
+    filter: none;
+  }
 }

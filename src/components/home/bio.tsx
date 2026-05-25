@@ -1,12 +1,13 @@
 import { useTranslation } from "react-i18next";
 const Bio = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const students = [
     {
       group: "Ph.D. Students",
       people: [
         {
           name: "Tianran Zhu",
+          zhName: "祝天然",
           period: "Fall 2026 - present",
           affiliation: "CUHK-Shenzhen",
           background: ["B.S. at Peking University"],
@@ -14,12 +15,14 @@ const Bio = () => {
         },
         {
           name: "Yuanjin Zheng",
+          zhName: "郑远金",
           period: "Fall 2026 - present",
           affiliation: "CUHK-Shenzhen + SLAI",
           background: ["B.S. at Zhejiang University"],
         },
         {
           name: "Minghao Li",
+          zhName: "黎明昊",
           period: "Fall 2026 - present",
           affiliation: "CUHK-Shenzhen + SLAI",
           background: [
@@ -29,6 +32,7 @@ const Bio = () => {
         },
         {
           name: "Yuyang Zhao",
+          zhName: "赵雨扬",
           period: "Fall 2025 - present",
           affiliation: "CUHK-Shenzhen + SLAI",
           background: ["B.S. at Huaqiao University"],
@@ -37,6 +41,7 @@ const Bio = () => {
         },
         {
           name: "Zeyu Wang",
+          zhName: "王泽宇",
           period: "Fall 2025 - present",
           affiliation: "Zhejiang University",
           coadvisor: "Prof. Can Wang",
@@ -48,18 +53,21 @@ const Bio = () => {
       people: [
         {
           name: "Junyang Chen",
+          zhName: "陈俊扬",
           period: "Fall 2026 - present",
           affiliation: "CUHK-Shenzhen",
           background: ["B.S. at South China Normal University"],
         },
         {
           name: "Jiajun Hou",
+          zhName: "侯嘉俊",
           period: "Fall 2026 - present",
           affiliation: "CUHK-Shenzhen",
           background: ["B.S. at Beijing Normal-Hong Kong Baptist University"],
         },
         {
           name: "Zixuan Yu",
+          zhName: "喻梓轩",
           period: "Fall 2026 - present",
           affiliation: "CUHK-Shenzhen",
           background: ["B.S. at Sun Yat-sen University"],
@@ -71,6 +79,7 @@ const Bio = () => {
       people: [
         {
           name: "Hao Wu",
+          zhName: "吴浩",
           period: "Fall 2025 - present",
           affiliation: "Zhejiang University",
         },
@@ -86,20 +95,29 @@ const Bio = () => {
     {
       code: "CSC 5001",
       title: "Design and Analysis of Computer Algorithms",
-      term: "Fall 2025",
-      place: "CUHK-Shenzhen",
+      zhTitle: "计算机算法设计与分析",
+      offerings: [{ term: "Fall 2025", place: "CUHK-Shenzhen" }],
     },
     {
       code: "CSC 5003",
       title: "Algorithm Art and Programming Practice",
-      term: "Spring 2026",
-      place: "CUHK-Shenzhen",
+      zhTitle: "算法艺术与编程实战",
+      offerings: [
+        { term: "Spring 2026", place: "CUHK-Shenzhen" },
+        { term: "Spring 2027", place: "CUHK-Shenzhen" },
+      ],
+    },
+    {
+      code: "CSC 3200",
+      title: "Data Structures and Advanced Programming",
+      zhTitle: "数据结构与高级程序设计",
+      offerings: [{ term: "Fall 2026", place: "CUHK-Shenzhen" }],
     },
     {
       code: "MF 0005",
       title: "Analysis of Algorithms",
-      term: "Spring 2026",
-      place: "SLAI",
+      zhTitle: "算法分析",
+      offerings: [{ term: "Spring 2026", place: "SLAI" }],
       note: "Co-teaching with Prof. Konstantinos Courcoubetis",
     },
   ];
@@ -225,7 +243,9 @@ const Bio = () => {
                 >
                   <div className="grid gap-0.5 md:grid-cols-[120px_minmax(115px,0.75fr)_minmax(170px,1.3fr)] md:items-baseline md:gap-x-3">
                     <div className="font-semibold leading-snug text-gray-900">
-                      {person.name}
+                      {i18n.language.startsWith("zh") && person.zhName
+                        ? person.zhName
+                        : person.name}
                     </div>
                     <div className="text-[12px] leading-snug text-gray-500">
                       {person.period}
@@ -274,7 +294,7 @@ const Bio = () => {
             <div>
               <div className="text-[14px] font-semibold leading-snug text-gray-900">
                 <span className="text-gray-500">{course.code}</span>{" "}
-                {course.title}
+                {i18n.language.startsWith("zh") ? course.zhTitle : course.title}
               </div>
               {course.note && (
                 <div className="mt-0.5 text-[12px] leading-snug text-gray-600">
@@ -282,8 +302,15 @@ const Bio = () => {
                 </div>
               )}
             </div>
-            <div className="shrink-0 text-[12px] leading-snug text-gray-600 md:text-right">
-              {course.term} @ {course.place}
+            <div className="flex shrink-0 flex-wrap gap-1 text-[12px] leading-snug text-gray-600 md:justify-end md:text-right">
+              {course.offerings.map((offering) => (
+                <span
+                  key={`${course.code}-${offering.term}-${offering.place}`}
+                  className="inline-flex rounded-sm bg-gray-100 px-1.5 py-0.5 leading-tight"
+                >
+                  {offering.term} @ {offering.place}
+                </span>
+              ))}
             </div>
           </div>
         ))}
