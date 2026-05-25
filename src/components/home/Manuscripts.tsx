@@ -24,22 +24,24 @@ const Publications: React.FC<{ publications: SelectedPublicationsItem }> = ({
   publications,
 }) => {
   return (
-    <div className="border-[1px] border-solid border-[#e5e7eb] rounded-md mb-5 overflow-hidden">
-      <div className="gap-4 p-2">
+    <div className="mb-4 overflow-hidden border border-gray-200 bg-white shadow-sm">
+      <div className="px-3 py-2">
         {publications.publications.map((pub, index) => (
           <div
             key={index}
-            className="mb-4 border-b-[1px] border-[#e5e7eb] last:border-b-0"
+            className="border-b border-gray-100 py-2 first:pt-0 last:border-b-0 last:pb-0"
           >
-            <div className="text-[16px] font-bold">{pub.title}</div>
-            <div className="text-[14px] text-gray-600">
+            <div className="text-[15px] font-semibold leading-snug text-gray-900">
+              {pub.title}
+            </div>
+            <div className="mt-0.5 text-[13px] leading-snug text-gray-600">
               {pub.authors.map(({ name, href }, index) => (
-                <span key={index} className="text-[14px] inline-block mr-2">
+                <span key={index} className="mr-1.5 inline-block">
                   {name.includes("Jingbang Chen") ? (
-                    <span className="font-bold text-black cursor-pointer">
+                    <span className="font-bold text-black">
                       {name}
                     </span>
-                  ) : (
+                  ) : href && href !== "#" ? (
                     <a
                       href={href}
                       target="_blank"
@@ -47,18 +49,20 @@ const Publications: React.FC<{ publications: SelectedPublicationsItem }> = ({
                     >
                       {name}
                     </a>
+                  ) : (
+                    <span>{name}</span>
                   )}
                   <span>{index === pub.authors.length - 1 ? "" : ","}</span>
                 </span>
               ))}
             </div>
-            <div className="text-[14px]">
+            <div className="mt-1 flex flex-wrap gap-1">
               {pub.arXiv.map(({ name, href }, index) => (
                 <a
                   href={href}
                   key={index}
                   target="_blank"
-                  className="text-[#1a73e8] hover:text-[#eab308] cursor-pointer"
+                  className="inline-flex rounded-sm border border-blue-200 bg-white px-1.5 py-0.5 text-[11px] font-medium leading-tight text-blue-700 hover:border-amber-300 hover:text-amber-700"
                 >
                   {name}
                 </a>

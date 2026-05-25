@@ -16,6 +16,12 @@
   "Coaching-5": "CCPC-Wannafly Winter Training Camp, 2020",
   "Coaching-6": "ByteDance Winter Training Camp, 2020 - 2021",
   "Awards": "Awards",
+  "award-group-champion": "Champion",
+  "award-group-third": "3rd Place",
+  "award-group-world-finals": "World Finals",
+  "award-group-gold": "Gold Medal",
+  "award-group-bronze": "Bronze Medal",
+  "award-group-other": "Other",
   "Awards-1": "Champion, 42nd International Collegiate Programming Contest Qingdao Regional Contest, 2017",
   "Awards-2": "Champion, 45th International Collegiate Programming Contest Southeast USA Regional, 2021",
   "Awards-3": "Champion, 15th Zhejiang Province Collegiate Programming Competition, 2018",
@@ -34,6 +40,7 @@
   "Awards-16": "Gold Medal, 4th China Collegiate Programming Contest Qinhuangdao Regional Contest, 2019",
   "Awards-17": "Bronze Medal, National Olympiad of Informatics Finals, 2015",
   "ProblemSettingJudging": "Problem Setting and Judging",
+  "problem-setting-recurring": "Recurring",
   "ProblemSettingJudging-1": "International Collegiate Programming Contest Qingdao Regional Contest, 2018",
   "ProblemSettingJudging-2": "International Collegiate Programming Contest Nanjing Regional Contest, 2020",
   "ProblemSettingJudging-3": "International Collegiate Programming Contest Nanjing Regional Contest, 2021",
@@ -63,6 +70,7 @@
   "ProblemSettingJudging-25": "ZOJ Monthly, 2018 - 2019",
   "ProblemSettingJudging-26": "Codeforces, Round #573, 2019",
   "Others": "Others",
+  "Wiki": "Wiki",
   "Others-1": "Keystone Wiki (Feel free contact me for the authority)",
 
 
@@ -108,6 +116,9 @@
   "edu-4-school": "Guangzhou No.2 High School",
   "edu-4-location": "Guangzhou",
   "edu-4-time": "2010-2016",
+  "country-canada": "Canada",
+  "country-usa": "USA",
+  "country-china": "China",
 
 
 

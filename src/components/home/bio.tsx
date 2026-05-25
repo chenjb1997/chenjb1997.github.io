@@ -1,6 +1,108 @@
 import { useTranslation } from "react-i18next";
 const Bio = () => {
   const { t } = useTranslation();
+  const students = [
+    {
+      group: "Ph.D. Students",
+      people: [
+        {
+          name: "Tianran Zhu",
+          period: "Fall 2026 - present",
+          affiliation: "CUHK-Shenzhen",
+          background: ["B.S. at Peking University"],
+          highlight: ["ICPC Gold", "NOI Silver"],
+        },
+        {
+          name: "Yuanjin Zheng",
+          period: "Fall 2026 - present",
+          affiliation: "CUHK-Shenzhen + SLAI",
+          background: ["B.S. at Zhejiang University"],
+        },
+        {
+          name: "Minghao Li",
+          period: "Fall 2026 - present",
+          affiliation: "CUHK-Shenzhen + SLAI",
+          background: [
+            "B.S. at Nankai University",
+            "M.S. at The University of Hong Kong",
+          ],
+        },
+        {
+          name: "Yuyang Zhao",
+          period: "Fall 2025 - present",
+          affiliation: "CUHK-Shenzhen + SLAI",
+          background: ["B.S. at Huaqiao University"],
+          coadvisor: "Prof. Zhi-Quan (Tom) Luo",
+          highlight: ["ICPC Gold", "NOI Silver"],
+        },
+        {
+          name: "Zeyu Wang",
+          period: "Fall 2025 - present",
+          affiliation: "Zhejiang University",
+          coadvisor: "Prof. Can Wang",
+        },
+      ],
+    },
+    {
+      group: "M.Phil. Students",
+      people: [
+        {
+          name: "Junyang Chen",
+          period: "Fall 2026 - present",
+          affiliation: "CUHK-Shenzhen",
+          background: ["B.S. at South China Normal University"],
+        },
+        {
+          name: "Jiajun Hou",
+          period: "Fall 2026 - present",
+          affiliation: "CUHK-Shenzhen",
+          background: ["B.S. at Beijing Normal-Hong Kong Baptist University"],
+        },
+        {
+          name: "Zixuan Yu",
+          period: "Fall 2026 - present",
+          affiliation: "CUHK-Shenzhen",
+          background: ["B.S. at Sun Yat-sen University"],
+        },
+      ],
+    },
+    {
+      group: "Research Assistants",
+      people: [
+        {
+          name: "Hao Wu",
+          period: "Fall 2025 - present",
+          affiliation: "Zhejiang University",
+        },
+        {
+          name: "Daniel Skachkov",
+          period: "Spring 2026 - present",
+          affiliation: "Moscow State University",
+        },
+      ],
+    },
+  ];
+  const courses = [
+    {
+      code: "CSC 5001",
+      title: "Design and Analysis of Computer Algorithms",
+      term: "Fall 2025",
+      place: "CUHK-Shenzhen",
+    },
+    {
+      code: "CSC 5003",
+      title: "Algorithm Art and Programming Practice",
+      term: "Spring 2026",
+      place: "CUHK-Shenzhen",
+    },
+    {
+      code: "MF 0005",
+      title: "Analysis of Algorithms",
+      term: "Spring 2026",
+      place: "SLAI",
+      note: "Co-teaching with Prof. Konstantinos Courcoubetis",
+    },
+  ];
   interface TextItem {
     text: string;
     href?: string;
@@ -49,7 +151,7 @@ const Bio = () => {
 
   return (
     <div className="mb-10">
-      <p className="text-gray-900 leading-relaxed text-[16px]">
+      <p className="text-[15px] leading-relaxed text-gray-900">
         <ContentWrapper
           tkey="bio-first-paragraph"
           texts={[
@@ -81,11 +183,11 @@ const Bio = () => {
         />
       </p>
 
-      <p className="text-gray-900 leading-relaxed mt-6 text-[16px]">
+      <p className="mt-4 text-[15px] leading-relaxed text-gray-900">
         {t("bio-second-paragraph")}
       </p>
 
-      <p className="text-gray-900 leading-relaxed mt-6 text-[16px]">
+      <p className="mt-4 text-[15px] leading-relaxed text-gray-900">
         <ContentWrapper
           tkey="bio-third-paragraph"
           texts={[
@@ -101,29 +203,91 @@ const Bio = () => {
         />
       </p>
 
-      <p className="text-gray-900 leading-relaxed mt-6 text-[16px]">
+      <p className="mt-4 text-[15px] leading-relaxed text-gray-900">
         {t("bio-fourth-paragraph")}
       </p>
 
       <h2 className="text-2xl font-semibold mt-8 mb-4">{t("Student")}</h2>
-        <ul className="list-disc pl-5 space-y-2  text-[16px]">
-          <li>Tianran Zhu, Ph.D., Fall 2026 - present @ CUHK-Shenzhen (B.S. at Peking University).</li>
-          <li>Yuanjin Zheng, Ph.D., Fall 2026 - present @ CUHK-Shenzhen+SLAI (B.S. at Zhejiang University).</li>
-          <li>Minghao Li, Ph.D., Fall 2026 - present @ CUHK-Shenzhen+SLAI  (B.S. at Nankai University).</li>
-          <li>Yuyang Zhao, Ph.D., Fall 2025 - present @ CUHK-Shenzhen+SLAI (B.S. at Huaqiao University, Co-advice with Prof. Zhi-Quan (Tom) Luo).</li>
-          <li>Zeyu Wang, Ph.D., Fall 2025 - present @ Zhejiang University (Co-advice with Prof. Can Wang).</li>
-          <li>Junyang Chen, M.Phil., Fall 2026 - present @ CUHK-Shenzhen.</li>
-          <li>Jiajun Hou, M.Phil., Fall 2026 - present @ CUHK-Shenzhen.</li>
-          <li>Zixuan Yu, M.Phil., Fall 2026 - present @ CUHK-Shenzhen.</li>
-          <li>Hao Wu, Research Assistant, Fall 2025 - present @ Zhejiang University.</li>
-          <li>Daniel Skachkov, Research Assistant, Spring 2026 - present @ Moscos State University.</li>
-        </ul>
+      <div className="grid gap-2">
+        {students.map((section) => (
+          <div
+            key={section.group}
+            className="border-l-[3px] border-blue-500 bg-white px-3 py-2 shadow-sm"
+          >
+            <div className="mb-1 text-[12px] font-semibold uppercase tracking-wide text-gray-500">
+              {section.group}
+            </div>
+            <ul className="divide-y divide-gray-100 text-[14px] text-gray-900">
+              {section.people.map((person) => (
+                <li
+                  key={person.name}
+                  className="py-1 first:pt-0 last:pb-0"
+                >
+                  <div className="grid gap-0.5 md:grid-cols-[120px_minmax(115px,0.75fr)_minmax(170px,1.3fr)] md:items-baseline md:gap-x-3">
+                    <div className="font-semibold leading-snug text-gray-900">
+                      {person.name}
+                    </div>
+                    <div className="text-[12px] leading-snug text-gray-500">
+                      {person.period}
+                    </div>
+                    <div className="text-[14px] leading-snug text-gray-700 md:text-[13px]">
+                      @ {person.affiliation}
+                    </div>
+                  </div>
+                  <div className="mt-0.5 flex min-h-[20px] flex-wrap items-center gap-1 md:ml-[calc(120px+0.75rem)]">
+                      {person.highlight?.map((item) => (
+                        <span
+                          key={item}
+                          className="inline-flex rounded-sm bg-amber-100 px-1.5 py-0.5 text-[12px] font-semibold leading-tight text-amber-800 md:text-[11px]"
+                        >
+                          {item}
+                        </span>
+                      ))}
+                      {person.background?.map((item) => (
+                        <span
+                          key={item}
+                          className="inline-flex rounded-sm bg-gray-100 px-1.5 py-0.5 text-[12px] leading-tight text-gray-700 md:text-[11px]"
+                        >
+                          {item}
+                        </span>
+                      ))}
+                      {person.coadvisor && (
+                        <span className="inline-flex rounded-sm bg-blue-50 px-1.5 py-0.5 text-[12px] leading-tight text-blue-700 md:text-[11px]">
+                          Co-advised with {person.coadvisor}
+                        </span>
+                      )}
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+
       <h2 className="text-2xl font-semibold mt-8 mb-4">{t("Teaching")}</h2>
-        <ul className="list-disc pl-5 space-y-2  text-[16px]">
-          <li>CSC 5001 Design and Analysis of Computer Algorithms, Fall 2025 @ CUHK-Shenzhen.</li>
-          <li>CSC 5003 Algorithm Art and Programming Practice, Spring 2026 @ CUHK-Shenzhen.</li>
-          <li>MF 0005 Analysis of Algorithms, Spring 2026 @ SLAI (Co-teaching with Prof. Konstantinos Courcoubetis).</li>
-        </ul>
+      <div className="space-y-2">
+        {courses.map((course) => (
+          <div
+            key={course.code}
+            className="flex flex-col gap-0.5 border-l-[3px] border-emerald-500 bg-white px-3 py-2 shadow-sm md:flex-row md:items-baseline md:justify-between md:gap-3"
+          >
+            <div>
+              <div className="text-[14px] font-semibold leading-snug text-gray-900">
+                <span className="text-gray-500">{course.code}</span>{" "}
+                {course.title}
+              </div>
+              {course.note && (
+                <div className="mt-0.5 text-[12px] leading-snug text-gray-600">
+                  {course.note}
+                </div>
+              )}
+            </div>
+            <div className="shrink-0 text-[12px] leading-snug text-gray-600 md:text-right">
+              {course.term} @ {course.place}
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
 
     

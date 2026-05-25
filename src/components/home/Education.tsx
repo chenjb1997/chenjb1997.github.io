@@ -7,25 +7,29 @@ const Education = () => {
       degree: t("edu-1-degree"),
       school: t("edu-1-school"),
       location: t("edu-1-location"),
-      time: t("edu-1-time")
+      time: t("edu-1-time"),
+      country: t("country-canada"),
     },
     {
       degree: t("edu-2-degree"),
       school: t("edu-2-school"),
       location: t("edu-2-location"),
-      time: t("edu-2-time")
+      time: t("edu-2-time"),
+      country: t("country-usa"),
     },
     {
       degree: t("edu-3-degree"),
       school: t("edu-3-school"),
       location: t("edu-3-location"),
-      time: t("edu-3-time")
+      time: t("edu-3-time"),
+      country: t("country-china"),
     },
     {
       degree: t("edu-4-degree"),
       school: t("edu-4-school"),
       location: t("edu-4-location"),
-      time: t("edu-4-time")
+      time: t("edu-4-time"),
+      country: t("country-china"),
     }
   ]
 
@@ -35,20 +39,31 @@ const Education = () => {
       <h2 className="border-b-[1px] border-gray-300 pb-2 text-[24px] font-bold mb-3">
         {t("education")}
       </h2>
-      <div className='relative'>
+      <div className="grid gap-2">
         {
           list.map((item) => (
-            <div key={item.degree} className="p-3 rounded-[3] border-l-[3px] border-solid mt-2">
-              <div className="flex justify-between">
-                <div className="font-bold flex-[1]  text-[16px]">{item.degree}</div>
-                <div className="text-[16px]">{item.time}</div>
+            <div
+              key={item.degree}
+              className="border-l-[3px] border-sky-500 bg-white px-3 py-2 shadow-sm"
+            >
+              <div className="flex flex-col gap-0.5 md:flex-row md:items-baseline md:justify-between md:gap-3">
+                <div className="text-[14px] font-semibold leading-snug text-gray-900">
+                  {item.degree}
+                </div>
+                <div className="shrink-0 text-[12px] leading-snug text-gray-500">
+                  {item.time}
+                </div>
               </div>
-              <div className="text-[16px]"> 
-               {item.school}
+              <div className="mt-0.5 text-[13px] leading-snug text-gray-700">
+                {item.school}
               </div>
-              <div className="text-[14px] text-gray-500 flex items-center">
-                <img src={localPng} alt="" className="w-[13px] h-[13px] inline-block mr-[4px]"/>
-                {item.location}
+              <div className="mt-0.5 flex items-center text-[12px] leading-snug text-gray-500">
+                <img
+                  src={localPng}
+                  alt=""
+                  className="mr-1 inline-block h-[12px] w-[12px]"
+                />
+                {item.location}, {item.country}
               </div>
             </div>
           ))

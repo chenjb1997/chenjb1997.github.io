@@ -25,25 +25,27 @@ const Publications: React.FC<{ publications: SelectedPublicationsItem }> = ({
   publications,
 }) => {
   return (
-    <div className="border-[1px] border-solid border-[#e5e7eb] rounded-md mb-5 overflow-hidden">
-      <h3 className="text-[18px] font-bold p-2 bg-[#e5e7eb]">
+    <div className="mb-4 overflow-hidden border border-gray-200 bg-white shadow-sm">
+      <h3 className="border-l-[3px] border-indigo-500 bg-gray-50 px-3 py-1.5 text-[15px] font-semibold text-gray-900">
         {publications.year}
       </h3>
-      <div className="gap-4 p-2">
+      <div className="px-3 py-2">
         {publications.publications.map((pub, index) => (
           <div
             key={index}
-            className="mb-4 border-b-[1px] border-[#e5e7eb] last:border-b-0"
+            className="border-b border-gray-100 py-2 first:pt-0 last:border-b-0 last:pb-0"
           >
-            <div className="text-[16px] font-bold">{pub.title}</div>
-            <div className="text-[14px] text-gray-600">
+            <div className="text-[15px] font-semibold leading-snug text-gray-900">
+              {pub.title}
+            </div>
+            <div className="mt-0.5 text-[13px] leading-snug text-gray-600">
               {pub.authors.map(({ name, href }, index) => (
-                <span key={index} className="text-[14px] inline-block mr-2">
+                <span key={index} className="mr-1.5 inline-block">
                   {name.includes("Jingbang Chen") ? (
-                    <span className="font-bold text-black cursor-pointer">
+                    <span className="font-bold text-black">
                       {name}
                     </span>
-                  ) : (
+                  ) : href && href !== "#" ? (
                     <a
                       className="text-[#1a73e8] hover:text-[#eab308] cursor-pointer"
                       href={href}
@@ -51,27 +53,28 @@ const Publications: React.FC<{ publications: SelectedPublicationsItem }> = ({
                     >
                       {name}
                     </a>
+                  ) : (
+                    <span>{name}</span>
                   )}
                   <span>{index === pub.authors.length - 1 ? "" : ","}</span>
                 </span>
               ))}
             </div>
-            <span className="text-[14px]  rounded-md inline-block my-1">
+            <span className="my-1 inline-block text-[13px] leading-snug text-gray-700">
               {pub.venue}
             </span>
-            <div className="text-[14px]">
+            <div className="flex flex-wrap gap-1">
               {pub.arXiv.map(({ name, href }, index) => (
-                <>
+                <span key={`${name}-${index}`}>
                   <a
                     key={index}
-                    className="text-[#1a73e8] hover:text-[#eab308] cursor-pointer"
+                  className="inline-flex rounded-sm border border-blue-200 bg-white px-1.5 py-0.5 text-[11px] font-medium leading-tight text-blue-700 hover:border-amber-300 hover:text-amber-700"
                     href={href}
                     target="_blank"
                   >
                     {name}
                   </a> 
-                  <span>{index === pub.arXiv.length - 1 ? "" : " · "}</span>
-                </>
+                </span>
               ))}
             </div>
           </div>

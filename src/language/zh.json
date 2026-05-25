@@ -16,6 +16,12 @@
   "Coaching-5": "CCPC-Wannafly冬季训练营教练，2020",
   "Coaching-6": "字节跳动冬季训练营教练，2020 - 2021",
   "Awards": "奖项",
+  "award-group-champion": "冠军",
+  "award-group-third": "季军",
+  "award-group-world-finals": "世界总决赛",
+  "award-group-gold": "金牌",
+  "award-group-bronze": "铜牌",
+  "award-group-other": "其他",
   "Awards-1": "冠军，第42届国际大学生程序设计竞赛青岛站，2017",
   "Awards-2": "冠军，第45届国际大学生程序设计竞赛美国东南赛区，2021",
   "Awards-3": "冠军，第15届浙江省大学生程序设计竞赛，2018",
@@ -35,6 +41,7 @@
   "Awards-17": "铜牌，中国信息学奥林匹克决赛，2015",
 
   "ProblemSettingJudging": "命题及裁判工作",
+  "problem-setting-recurring": "连续性工作",
   "ProblemSettingJudging-1":  "第43届国际大学生程序设计竞赛青岛站，2018",
   "ProblemSettingJudging-2":  "第45届国际大学生程序设计竞赛南京站，2020",
   "ProblemSettingJudging-3":  "第46届国际大学生程序设计竞赛南京站，2021",
@@ -65,6 +72,7 @@
   "ProblemSettingJudging-26": "Codeforces, Round #573, 2019",
 
   "Others": "其他",
+  "Wiki": "队伍维基",
   "Others-1": "Keystone Wiki（如果有意使用欢迎联系）",
 
   "site-title": "陈靖邦",
@@ -102,10 +110,13 @@
   "edu-3-school": "竺可桢学院（计算机科学与技术学院联合培养），浙江大学",
   "edu-3-location": "杭州",
   "edu-3-time": "2016-2020",
-  "edu-4-degree": "高中",
+  "edu-4-degree": "中学",
   "edu-4-school": "广州市第二中学",
   "edu-4-location": "广州",
   "edu-4-time": "2010-2016",
+  "country-canada": "加拿大",
+  "country-usa": "美国",
+  "country-china": "中国",
  
 
   "news": "招生",
