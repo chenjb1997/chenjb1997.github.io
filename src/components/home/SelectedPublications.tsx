@@ -105,6 +105,10 @@ const SelectedPublications = () => {
               name: "arXiv",
               href: "https://arxiv.org/abs/2505.10471",
             },
+            {
+              name: "Proceeding",
+              href: "https://doi.org/10.14778/3785297.3785301",
+            },
           ],
         },
         {
@@ -123,6 +127,10 @@ const SelectedPublications = () => {
             {
               name: "arXiv",
               href: "https://arxiv.org/abs/2601.18432",
+            },
+            {
+              name: "Proceeding",
+              href: "https://doi.org/10.1145/3774904.3792717",
             },
           ],
         },
@@ -217,6 +225,10 @@ const SelectedPublications = () => {
               name: "arXiv",
               href: "https://arxiv.org/abs/2211.09251",
             },
+            {
+              name: "Proceeding",
+              href: "https://proceedings.mlr.press/v267/chen25e.html",
+            },
           ],
         },
         {
@@ -240,6 +252,10 @@ const SelectedPublications = () => {
             {
               name: "arXiv",
               href: "https://arxiv.org/abs/2406.00344",
+            },
+            {
+              name: "Proceeding",
+              href: "https://doi.org/10.14778/3725688.3725693",
             },
           ],
         },
@@ -266,6 +282,10 @@ const SelectedPublications = () => {
             {
               name: "arXiv",
               href: "https://arxiv.org/abs/2402.05006",
+            },
+            {
+              name: "Proceeding",
+              href: "https://doi.org/10.1145/3637528.3671674",
             },
           ],
         },

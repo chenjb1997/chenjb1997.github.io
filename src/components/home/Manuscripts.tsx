@@ -75,6 +75,29 @@ const Manuscripts = () => {
   const { t } = useTranslation();
   const SelectedPublicationsList: SelectedPublicationsItem[] = [
     {
+      year: "2026",
+      publications: [
+        {
+          title: t("Manuscripts-2026-title"),
+          authors: [
+            { name: "Zeyu Wang", href: "" },
+            { name: "Kudria Sergei", href: "https://sds.cuhk.edu.cn/en/node/686" },
+            { name: "Jingbang Chen\u2020", href: "" },
+            { name: "Jiawei Chen", href: "https://jiawei-chen.github.io/" },
+            { name: "Xinyu Wang", href: "" },
+            { name: "Xiaodong Luo", href: "" },
+            { name: "Can Wang", href: "https://person.zju.edu.cn/wangcan" },
+          ],
+          arXiv: [
+            {
+              name: "arXiv",
+              href: "https://arxiv.org/abs/2605.17492",
+            },
+          ],
+        },
+      ],
+    },
+    {
       year: "2024",
       publications: [
         {
