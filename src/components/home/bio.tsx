@@ -94,7 +94,6 @@ const Bio = () => {
           zhName: "王司晨",
           period: "Fall 2025 - present",
           affiliation: "Shenzhen MSU-BIT University",
-          zhAffiliation: "深圳北理莫斯科大学",
         },
       ],
     },
@@ -259,10 +258,7 @@ const Bio = () => {
                       {person.period}
                     </div>
                     <div className="text-[14px] leading-snug text-gray-700 md:text-[13px]">
-                      @{" "}
-                      {i18n.language.startsWith("zh") && person.zhAffiliation
-                        ? person.zhAffiliation
-                        : person.affiliation}
+                      @ {person.affiliation}
                     </div>
                   </div>
                   <div className="mt-0.5 flex min-h-[20px] flex-wrap items-center gap-1 md:ml-[calc(120px+0.75rem)]">
