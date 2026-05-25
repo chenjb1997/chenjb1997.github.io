@@ -1,0 +1,6 @@
+.TinyTeX/
+TinyTeX-*.exe
+*.aux
+*.log
+*.out
+*.synctex.gz

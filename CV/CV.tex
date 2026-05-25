@@ -1,0 +1,222 @@
+\documentclass[10pt]{article}
+
+\usepackage[letterpaper,margin=0.65in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{xcolor}
+
+\hypersetup{
+  colorlinks=true,
+  urlcolor=blue!55!black,
+  linkcolor=blue!55!black
+}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\raggedright
+\setlist[itemize]{leftmargin=1.2em,itemsep=1pt,topsep=2pt,parsep=0pt}
+\titleformat{\section}{\large\bfseries}{}{0em}{}[\titlerule]
+\titlespacing*{\section}{0pt}{8pt}{5pt}
+
+\newcommand{\entry}[4]{%
+  \textbf{#1} \hfill \emph{#2}\\
+  #3 \hfill #4\\[-2pt]
+}
+
+\newcommand{\ccf}[1]{\textcolor{red}{(CCF-#1)}}
+
+\newcommand{\pub}[4]{%
+  \item \textit{#1}.\\
+  #2\\
+  #3 #4
+}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE \textbf{Jingbang Chen}}\\
+  Research Assistant Professor, School of Data Science, The Chinese University of Hong Kong, Shenzhen\\
+  Research Assistant Professor, Shenzhen Loop Area Institute (SLAI)\\
+  \href{mailto:chenjb@cuhk.edu.cn}{chenjb@cuhk.edu.cn}
+  \quad|\quad +86 13922158991
+  \quad|\quad \url{https://chenjb1997.github.io}
+\end{center}
+
+\section*{Research Interests}
+Design, analysis, and implementation of provably efficient graph algorithms and data structures, with extensions on large-scale data management, data mining, machine learning and artificial intelligence.
+
+\section*{Career}
+\entry{Research Assistant Professor}{Sep 2025 -- present}
+{School of Data Science, The Chinese University of Hong Kong, Shenzhen}{Shenzhen, China}
+\entry{Research Assistant Professor}{Sep 2025 -- present}
+{Shenzhen Loop Area Institute (SLAI)}{Shenzhen, China}
+\textbf{Co-founder and Co-president} \hfill \emph{2022 -- present}\\
+Universal Cup, \url{https://ucup.ac/}\\[-2pt]
+\begin{itemize}
+  \item Co-founded and co-lead a non-profit organization serving the global competitive programming community.
+  \item Provide high-quality training resources and host onsite global events for top competitive programmers.
+  \item Build communication bridges across industry, academia, and the competitive programming community.
+  \item Supported participation from over 8,000 teams from more than 500 affiliations worldwide.
+  \item Hosted the 2024 Universal Cup Summer Summit in Cancun and the 2025 and 2026 Universal Cup Finals in Dongguan and Shanghai.
+\end{itemize}
+
+\section*{Education}
+\entry{University of Waterloo}{2023 -- 2025}
+{Ph.D. in Computer Science, Algorithms \& Complexity Group}{Waterloo, Canada}
+Advisor: Richard Peng
+
+\entry{Georgia Institute of Technology}{2020 -- 2022}
+{M.S. in Computer Science}{Atlanta, USA}
+Advisor: Richard Peng
+
+\entry{Zhejiang University}{2016 -- 2020}
+{B.Eng. (Honors), Pursuit Science Class in Computer Science, Chu Kochen Honors College}{Hangzhou, China}
+Advisor: Can Wang
+
+\section*{Students}
+\textbf{CUHK-Shenzhen}
+\begin{itemize}
+  \item \textbf{Tianran Zhu}, Ph.D., Fall 2026 -- current. B.S. Peking University; ICPC Gold; NOI Silver.
+  \item \textbf{Junyang Chen}, M.Phil., Fall 2026 -- current. B.S. South China Normal University.
+  \item \textbf{Jiajun Hou}, M.Phil., Fall 2026 -- current. B.S. Beijing Normal-Hong Kong Baptist University.
+  \item \textbf{Zixuan Yu}, M.Phil., Fall 2026 -- current. B.S. Sun Yat-sen University.
+\end{itemize}
+
+\textbf{CUHK-Shenzhen + SLAI}
+\begin{itemize}
+  \item \textbf{Yuyang Zhao}, Ph.D., Fall 2025 -- current. B.S. Huaqiao University; ICPC Gold; NOI Silver. Co-advised with Prof. Zhi-Quan (Tom) Luo.
+  \item \textbf{Yuanjin Zheng}, Ph.D., Fall 2026 -- current. B.S. Zhejiang University.
+  \item \textbf{Minghao Li}, Ph.D., Fall 2026 -- current. B.S. Nankai University; M.S. The University of Hong Kong.
+\end{itemize}
+
+\textbf{External Ph.D.}
+\begin{itemize}
+  \item \textbf{Zeyu Wang}, Zhejiang University, Fall 2025 -- current. Co-advised with Prof. Can Wang.
+  \item \textbf{Daniel Skachkov}, Moscow State University, Spring 2026 -- current. Co-advised with Prof. Yuriy Dorn.
+\end{itemize}
+
+\textbf{Research Assistants}
+\begin{itemize}
+  \item \textbf{Hao Wu}, research assistant, Zhejiang University, Fall 2025 -- current.
+\end{itemize}
+
+\section*{Teaching}
+\begin{itemize}
+  \item CSC 5001, Design and Analysis of Computer Algorithms, CUHK-Shenzhen, Fall 2025.
+  \item CSC 5003, Algorithm Art and Programming Practice, CUHK-Shenzhen, Spring 2026 and Spring 2027.
+  \item CSC 3200, Data Structures and Advanced Programming, CUHK-Shenzhen, Fall 2026.
+  \item MF 0005, Analysis of Algorithms, SLAI, Spring 2026. Co-teaching with Prof. Konstantinos Courcoubetis.
+\end{itemize}
+
+\section*{Publications}
+* indicates first author or equal contribution; \textsuperscript{\textdagger} indicates corresponding author.
+\begin{enumerate}[leftmargin=1.7em,itemsep=4pt,topsep=3pt]
+  \pub{Scalable Approximate Biclique Counting over Large Bipartite Graphs}
+  {\textbf{Jingbang Chen}*, Weinuo Li, Yingli Zhou, Hangrui Zhou, Qiuyang Mang, Can Wang, Yixiang Fang, Chenhao Ma.}
+  {International Conference on Very Large Data Bases (VLDB 2026) \ccf{A}.}
+  { \href{https://arxiv.org/abs/2505.10471}{arXiv}; \href{https://doi.org/10.14778/3785297.3785301}{DOI}}
+
+  \pub{On the Power of Learning-Augmented Search Trees}
+  {\textbf{Jingbang Chen}*, Xinyuan Cao, Alicia Stepin, Li Chen.}
+  {International Conference on Machine Learning (ICML 2025) \ccf{A}.}
+  { \href{https://arxiv.org/abs/2211.09251}{arXiv}; \href{https://proceedings.mlr.press/v267/chen25e.html}{Proceedings}}
+
+  \pub{Scalable Algorithm for Finding Balanced Subgraphs with Tolerance in Signed Networks}
+  {\textbf{Jingbang Chen}*, Qiuyang Mang, Hangrui Zhou, Richard Peng, Yu Gao, Chenhao Ma.}
+  {ACM SIGKDD Conference on Knowledge Discovery and Data Mining (KDD 2024) \ccf{A}.}
+  { \href{https://arxiv.org/abs/2402.05006}{arXiv}; \href{https://doi.org/10.1145/3637528.3671674}{DOI}}
+
+  \pub{Efficient Historical Butterfly Counting in Large Temporal Bipartite Networks via Graph Structure-aware Index}
+  {Qiuyang Mang, \textbf{Jingbang Chen}*, Hangrui Zhou, Yu Gao, Yingli Zhou, Qingyu Shi, Richard Peng, Yixiang Fang, Chenhao Ma.}
+  {International Conference on Very Large Data Bases (VLDB 2025) \ccf{A}.}
+  { \href{https://arxiv.org/abs/2406.00344}{arXiv}; \href{https://doi.org/10.14778/3725688.3725693}{DOI}}
+
+  \pub{Curing ``Miracle Steps'' in LLM Math Reasoning with Rubric Rewards}
+  {Youliang Yuan, Qiuyang Mang, \textbf{Jingbang Chen}, Hong Wan, Xiaoyuan Liu, Junjielong Xu, Jen-tse Huang, Wenxuan Wang, Wenxiang Jiao, Pinjia He.}
+  {Annual Meeting of the Association for Computational Linguistics, Main Conference (ACL 2026) \ccf{A}.}
+  { \href{https://arxiv.org/abs/2510.07774}{arXiv}}
+
+  \pub{FrontierCS: Evolving Challenges for Evolving Intelligence}
+  {Qiuyang Mang et al., including \textbf{Jingbang Chen}, Aleksandra Korolova, Peter Henderson, Pramod Viswanath, Vijay Ganesh, Saining Xie, Zhuang Liu, Dawn Song, Sewon Min, Ion Stoica, Joseph E. Gonzalez, Jingbo Shang, Alvin Cheung.}
+  {International Conference on Machine Learning (ICML 2026) \ccf{A}.}
+  { \href{https://arxiv.org/abs/2512.15699}{arXiv}}
+
+  \pub{BEAR: Towards Beam-Search-Aware Optimization for Recommendation with Large Language Models}
+  {Weiqin Yang, Bohao Wang, Zhenxiang Xu, Jiawei Chen, Shengjia Zhang, \textbf{Jingbang Chen}, Canghong Jin, Can Wang.}
+  {International ACM SIGIR Conference on Research and Development in Information Retrieval (SIGIR 2026) \ccf{A}.}
+  { \href{https://arxiv.org/abs/2601.22925}{arXiv}}
+
+  \pub{TopKGAT: A Top-K Objective-Driven Architecture for Recommendation}
+  {Sirui Chen, Jiawei Chen, Canghong Jin, Sheng Zhou, \textbf{Jingbang Chen}, Wujie Sun, Can Wang.}
+  {The Web Conference (WWW 2026) \ccf{A}.}
+  { \href{https://arxiv.org/abs/2601.18432}{arXiv}; \href{https://doi.org/10.1145/3774904.3792717}{DOI}}
+
+  \pub{Distance Queries over Dynamic Interval Graphs}
+  {\textbf{Jingbang Chen}*, Meng He, J. Ian Munro, Richard Peng, Kaiyu Wu, Daniel J. Zhang.}
+  {International Symposium on Algorithms and Computation (ISAAC 2023) \ccf{C}; Computational Geometry: Theory and Applications, Volume 122 \ccf{C}.}
+  { \href{https://doi.org/10.4230/LIPIcs.ISAAC.2023.18}{DOI}; \href{https://doi.org/10.1016/j.comgeo.2024.102103}{Journal DOI}}
+
+  \pub{Exponential Convergence of Sinkhorn Under Regularization Scheduling}
+  {\textbf{Jingbang Chen}*, Li Chen, Yang P. Liu, Richard Peng, Arvind Ramaswami.}
+  {SIAM Conference on Applied and Computational Discrete Algorithms (ACDA 2023).}
+  { \href{https://arxiv.org/abs/2207.00736}{arXiv}; \href{https://doi.org/10.1137/1.9781611977714.16}{DOI}}
+
+  \pub{Hardness of Graph-Structured Algebraic and Symbolic Problems}
+  {\textbf{Jingbang Chen}*, Yu Gao, Yufan Huang, Richard Peng, Runze Wang.}
+  {Algorithms and Data Structures Symposium (WADS 2023).}
+  { \href{https://arxiv.org/abs/2109.12736}{arXiv}}
+
+  \pub{Fast Adaptively Weighted Matrix Factorization for Recommendation with Implicit Feedback}
+  {Jiawei Chen, Can Wang, Sheng Zhou, Qihao Shi, \textbf{Jingbang Chen}, Yan Feng, Chun Chen.}
+  {AAAI Conference on Artificial Intelligence (AAAI 2020) \ccf{A}.}
+  { \href{https://arxiv.org/abs/2003.01892}{arXiv}; \href{https://ojs.aaai.org/index.php/AAAI/article/view/5751}{Proceedings}}
+\end{enumerate}
+
+\section*{Manuscripts}
+\begin{enumerate}[leftmargin=1.7em,itemsep=4pt,topsep=3pt]
+  \pub{Finding the Balance Rate of Uncertain Signed Graphs}
+  {Zeyu Wang, Kudria Sergei, \textbf{Jingbang Chen}\textsuperscript{\textdagger}, Jiawei Chen, Xinyu Wang, Xiaodong Luo, Can Wang.}
+  {Manuscript, 2026.}
+  { \href{https://arxiv.org/abs/2605.17492}{arXiv}}
+
+  \pub{Nearly Optimal Internal Dictionary Matching}
+  {\textbf{Jingbang Chen}*, Jiangqi Dai, Qiuyang Mang, Qingyu Shi, Tingqiang Xu.}
+  {Manuscript, 2024.}
+  { \href{https://arxiv.org/abs/2312.11873}{arXiv}}
+
+  \pub{Sandpile Prediction on Undirected Graphs}
+  {Ruinian Chang, \textbf{Jingbang Chen}*, J. Ian Munro, Richard Peng, Qingyu Shi, Zeyu Zheng.}
+  {Manuscript, 2023.}
+  { \href{https://arxiv.org/abs/2307.07711}{arXiv}}
+\end{enumerate}
+
+\section*{Competitive Programming}
+\textbf{Selected results as contestant}
+\begin{itemize}
+  \item International Grandmaster on Codeforces, max rating 2735.
+  \item Champion, ICPC Asia Qingdao Regional, 2017; Champion, ICPC Southeast USA Regional, 2021.
+  \item 3rd Place, ICPC North America Championship, 2021; 13th Place, 46th ICPC World Finals, 2024; 56th Place, 42nd ICPC World Finals, 2018.
+  \item 12 gold medals in ICPC/CCPC series contests; Bronze Medal, National Olympiad in Informatics (NOI), 2015.
+\end{itemize}
+
+\textbf{Coaching, judging, and community}
+\begin{itemize}
+  \item Coach and deputy leader, Egyptian Olympiad in Informatics (EOI), 2023 -- present.
+  \item Trainer, North American Programming Camp (NAPC), 2024 -- present.
+  \item Coach, Georgia Tech Programming Team, 2021 -- 2023; Student co-coach, Zhejiang University Competitive Programming Team, 2018 -- 2021.
+  \item Contest director and chief judge, ICPC National Invitational Contest (Shenzhen), the first ICPC event hosted at CUHK-Shenzhen.
+  \item Chief judge, ICPC East-Continent Finals, 2025.
+  \item Problem setter and judge for ICPC Regionals (Qingdao 2018; Nanjing 2020--2025; Macau 2021--2022; Jinan 2023; Hangzhou 2024), provincial contests, Moscow Pre-Finals Workshop, Petrozavodsk Training Camp, OpenCup, Codeforces Round \#573, and Universal Cup.
+\end{itemize}
+
+\section*{Service}
+\begin{itemize}
+  \item Reviewer for WWW 2026, KDD 2026, ISAAC 2025, FOCS 2025, TKDE 2025, KDD 2025, WWW 2025, SODA 2024, SoCG 2024, ICALP 2024, ESA 2024, ACDA 2023.
+  \item Member, SUA Programming Competitions Problems Setter Team.
+\end{itemize}
+
+\end{document}
