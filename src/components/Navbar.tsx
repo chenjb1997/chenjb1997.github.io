@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X } from "lucide-react";
+import { Menu, Moon, Sun, X } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import zhPng from "../assets/zh.png";
 import enPng from "../assets/en.png";
@@ -8,9 +8,16 @@ import enPng from "../assets/en.png";
 interface NavbarProps {
   currentLanguage: string;
   changeLanguage: (lang: string) => void;
+  isInverted: boolean;
+  toggleColorMode: () => void;
 }
 
-const Navbar: React.FC<NavbarProps> = ({ currentLanguage, changeLanguage }) => {
+const Navbar: React.FC<NavbarProps> = ({
+  currentLanguage,
+  changeLanguage,
+  isInverted,
+  toggleColorMode,
+}) => {
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
@@ -55,9 +62,18 @@ const Navbar: React.FC<NavbarProps> = ({ currentLanguage, changeLanguage }) => {
                     }
                     src={currentLanguage === "zh" ? zhPng : enPng}
                     alt="zh"
-                    className="w-7 h-7 cursor-pointer"
+                    className="theme-control-icon w-7 h-7 cursor-pointer"
                   />
                 </div>
+                <button
+                  type="button"
+                  onClick={toggleColorMode}
+                  aria-label={isInverted ? "Use normal colors" : "Use inverted colors"}
+                  title={isInverted ? "Normal colors" : "Inverted colors"}
+                  className="inline-flex h-8 w-8 items-center justify-center rounded-sm text-gray-600 transition-colors hover:bg-gray-100 hover:text-blue-600"
+                >
+                  {isInverted ? <Sun size={18} /> : <Moon size={18} />}
+                </button>
               </div>
 
               {/* Mobile Navigation Button */}
@@ -75,9 +91,18 @@ const Navbar: React.FC<NavbarProps> = ({ currentLanguage, changeLanguage }) => {
                     }
                     src={currentLanguage === "zh" ? zhPng : enPng}
                     alt="zh"
-                    className="w-7 h-7 cursor-pointer"
+                    className="theme-control-icon w-7 h-7 cursor-pointer"
                   />
                 </div>
+                <button
+                  type="button"
+                  onClick={toggleColorMode}
+                  aria-label={isInverted ? "Use normal colors" : "Use inverted colors"}
+                  title={isInverted ? "Normal colors" : "Inverted colors"}
+                  className="inline-flex h-8 w-8 items-center justify-center rounded-sm text-gray-600 transition-colors hover:bg-gray-100 hover:text-blue-600"
+                >
+                  {isInverted ? <Sun size={18} /> : <Moon size={18} />}
+                </button>
               </div>
             </div>
           </div>

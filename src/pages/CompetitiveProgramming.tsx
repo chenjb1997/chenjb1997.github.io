@@ -72,6 +72,26 @@ const CompetitiveProgramming = () => {
   };
 
   const coachingItems = [1, 2, 3, 4, 6].map((key) => t(`Coaching-${key}`));
+  const photos = [
+    {
+      src: "/competitive/qingdao_champion.jpg",
+      alt: "ICPC Qingdao Regional Champion, 2017",
+      caption: t("photo-qingdao-champion"),
+      position: "object-center",
+    },
+    {
+      src: "/competitive/wf2018.jpg",
+      alt: "ICPC World Finals 2018, Beijing",
+      caption: t("photo-wf2018"),
+      position: "object-center",
+    },
+    {
+      src: "/competitive/wf2022.jpg",
+      alt: "ICPC World Finals 2022, Luxor",
+      caption: t("photo-wf2022"),
+      position: "object-[50%_38%]",
+    },
+  ];
   const awardItems = Array.from({ length: 17 }, (_, index) =>
     parseAwardEntry(t(`Awards-${index + 1}`))
   );
@@ -300,6 +320,22 @@ const CompetitiveProgramming = () => {
               })}
             </p>
           </div>
+        </section>
+
+        <section className="grid gap-2 md:grid-cols-3">
+          {photos.map((photo) => (
+            <figure key={photo.src} className="overflow-hidden bg-white shadow-sm">
+              <img
+                src={photo.src}
+                alt={photo.alt}
+                className={`h-52 w-full object-cover md:h-48 ${photo.position}`}
+                loading="lazy"
+              />
+              <figcaption className="px-2 py-1.5 text-center text-[12px] leading-snug text-gray-600">
+                {photo.caption}
+              </figcaption>
+            </figure>
+          ))}
         </section>
 
         <Section title={t("Coaching")}>

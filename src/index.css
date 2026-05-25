@@ -1,3 +1,21 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  html.inverted-theme {
+    filter: invert(1) hue-rotate(180deg);
+    background: #0f172a;
+  }
+
+  html.inverted-theme img,
+  html.inverted-theme video,
+  html.inverted-theme iframe,
+  html.inverted-theme svg {
+    filter: invert(1) hue-rotate(180deg);
+  }
+
+  html.inverted-theme img.theme-control-icon {
+    filter: none;
+  }
+}
