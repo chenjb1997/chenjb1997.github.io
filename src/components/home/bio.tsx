@@ -88,12 +88,29 @@ const Bio = () => {
           zhName: "吴浩",
           period: "Fall 2025 - present",
           affiliation: "Zhejiang University",
+          affiliationLabel: "",
+          background: ["UG at Zhejiang University"],
+          highlight: ["ICPC Gold"],
         },
         {
           name: "Sichen Wang",
           zhName: "王司晨",
           period: "Fall 2025 - present",
           affiliation: "Shenzhen MSU-BIT University",
+          affiliationLabel: "",
+          background: ["UG at Shenzhen MSU-BIT University"],
+        },
+        {
+          name: "Weinuo Li",
+          zhName: "黎伟诺",
+          period: "Fall 2024 - Spring 2026",
+          affiliation: "Zhejiang University",
+          affiliationLabel: "Now at Yanfu Investments",
+          background: [
+            "B.S. at Zhejiang University",
+            "M.S. at Zhejiang University",
+          ],
+          highlight: ["VLDB 2026", "ICPC Gold", "ICPC Champion", "ICPC WF 10th"],
         },
       ],
     },
@@ -128,6 +145,18 @@ const Bio = () => {
       note: "Co-teaching with Prof. Konstantinos Courcoubetis",
     },
   ];
+  const highlightClassName = (item: string) => {
+    if (item === "NOI Silver") {
+      return "bg-slate-100 text-slate-700 ring-1 ring-inset ring-slate-300";
+    }
+    if (item === "ICPC WF 10th") {
+      return "bg-orange-100 text-orange-800 ring-1 ring-inset ring-orange-300";
+    }
+    if (item === "VLDB 2026") {
+      return "bg-indigo-50 text-indigo-700 ring-1 ring-inset ring-indigo-200";
+    }
+    return "bg-amber-100 text-amber-800";
+  };
   interface TextItem {
     text: string;
     href?: string;
@@ -258,14 +287,14 @@ const Bio = () => {
                       {person.period}
                     </div>
                     <div className="text-[14px] leading-snug text-gray-700 md:text-[13px]">
-                      @ {person.affiliation}
+                      {person.affiliationLabel ?? `@ ${person.affiliation}`}
                     </div>
                   </div>
                   <div className="mt-0.5 flex min-h-[20px] flex-wrap items-center gap-1 md:ml-[calc(120px+0.75rem)]">
                       {person.highlight?.map((item) => (
                         <span
                           key={item}
-                          className="inline-flex rounded-sm bg-amber-100 px-1.5 py-0.5 text-[12px] font-semibold leading-tight text-amber-800 md:text-[11px]"
+                          className={`inline-flex rounded-sm px-1.5 py-0.5 text-[12px] font-semibold leading-tight md:text-[11px] ${highlightClassName(item)}`}
                         >
                           {item}
                         </span>

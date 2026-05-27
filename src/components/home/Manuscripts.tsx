@@ -24,12 +24,12 @@ const Publications: React.FC<{ publications: SelectedPublicationsItem }> = ({
   publications,
 }) => {
   return (
-    <div className="mb-4 overflow-hidden border border-gray-200 bg-white shadow-sm">
-      <div className="px-3 py-2">
+    <div className="mb-4">
+      <div className="space-y-3">
         {publications.publications.map((pub, index) => (
           <div
             key={index}
-            className="border-b border-gray-100 py-2 first:pt-0 last:border-b-0 last:pb-0"
+            className="border-l-[3px] border-sky-500 bg-white px-3 py-2 shadow-sm"
           >
             <div className="text-[15px] font-semibold leading-snug text-gray-900">
               {pub.title}
@@ -81,6 +81,24 @@ const Manuscripts = () => {
     {
       year: "2026",
       publications: [
+        {
+          title: t("Manuscripts-2026-quasi-clique-title"),
+          authors: [
+            { name: "Jingbang Chen*", href: "" },
+            { name: "Weinuo Li", href: "#" },
+            { name: "Yingli Zhou", href: "https://jaylzhou.github.io/" },
+            { name: "Hao Wu", href: "" },
+            { name: "Can Wang", href: "https://person.zju.edu.cn/wangcan" },
+            { name: "Yixiang Fang", href: "https://fangyixiang.github.io/" },
+            { name: "Chenhao Ma", href: "https://chenhao-ma.github.io/" },
+          ],
+          arXiv: [
+            {
+              name: "arXiv",
+              href: "https://arxiv.org/abs/2605.26235",
+            },
+          ],
+        },
         {
           title: t("Manuscripts-2026-title"),
           authors: [

@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 type TimedEntry = {
   body: string;
   time: string;
+  href?: string;
 };
 
 type AwardEntry = {
@@ -11,8 +12,29 @@ type AwardEntry = {
   time: string;
 };
 
+type HallOfFameEntry = {
+  name: string;
+  zhName?: string;
+  affiliation?: string;
+  zhAffiliation?: string;
+  destination?: string;
+  zhDestination?: string;
+  period?: string;
+  honors?: TimedEntry[];
+};
+
+type HallOfFameTeam = {
+  name: string;
+  zhName?: string;
+  period: string;
+  affiliation: string;
+  zhAffiliation?: string;
+  members: HallOfFameEntry[];
+  honors: TimedEntry[];
+};
+
 const CompetitiveProgramming = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const linkedText = ({
     text,
@@ -92,6 +114,187 @@ const CompetitiveProgramming = () => {
       position: "object-[50%_38%]",
     },
   ];
+  const hallOfFameTeams: HallOfFameTeam[] = [
+    {
+      name: "Afterlife",
+      zhName: "来生",
+      period: "2024 - 2026",
+      affiliation: "Zhejiang University",
+      zhAffiliation: "浙江大学",
+      members: [
+        {
+          name: "Bo Peng",
+          zhName: "彭博",
+        },
+        {
+          name: "Zixuan Yan",
+          zhName: "严子轩",
+        },
+        {
+          name: "Qiuyang Zhang",
+          zhName: "张湫阳",
+        },
+      ],
+      honors: [
+        {
+          ...parseTimedEntry(t("hall-of-fame-afterlife-honor-1")),
+          href: "https://www.cphof.org/standings/icpc/2025",
+        },
+        {
+          ...parseTimedEntry(t("hall-of-fame-afterlife-honor-2")),
+          href: "https://www.cphof.org/standings/ucup/2026",
+        },
+        {
+          ...parseTimedEntry(t("hall-of-fame-afterlife-honor-3")),
+          href: "https://board.xcpcio.com/icpc/49th/nanjing",
+        },
+      ],
+    },
+    {
+      name: "Acceptable",
+      period: "2021 - 2022",
+      affiliation: "Georgia Institute of Technology",
+      zhAffiliation: "佐治亚理工学院",
+      members: [
+        {
+          name: "Jeffrey Chang",
+        },
+        {
+          name: "Arvind Ramaswami",
+        },
+        {
+          name: "Maxwell Zhang",
+        },
+      ],
+      honors: [
+        {
+          ...parseTimedEntry(t("hall-of-fame-acceptable-honor-1")),
+          href: "https://nac22.kattis.com/contests/nac22/standings",
+        },
+        {
+          ...parseTimedEntry(t("hall-of-fame-acceptable-honor-2")),
+          href: "https://www.cphof.org/standings/icpc/2021",
+        },
+      ],
+    },
+    {
+      name: "Phantom Ensemble",
+      zhName: "幽灵乐团",
+      period: "2020 - 2024",
+      affiliation: "Zhejiang University",
+      zhAffiliation: "浙江大学",
+      members: [
+        {
+          name: "Changdong Li",
+          zhName: "李昌栋",
+        },
+        {
+          name: "Weinuo Li",
+          zhName: "黎伟诺",
+        },
+        {
+          name: "Jiachen Tang",
+          zhName: "唐嘉辰",
+        },
+      ],
+      honors: [
+        {
+          ...parseTimedEntry(t("hall-of-fame-phantom-honor-2")),
+          href: "https://www.cphof.org/standings/icpc/2024",
+        },
+        {
+          ...parseTimedEntry(t("hall-of-fame-phantom-honor-1")),
+          href: "https://board.xcpcio.com/icpc/47th/shenyang",
+        },
+        {
+          ...parseTimedEntry(t("hall-of-fame-phantom-honor-3")),
+          href: "https://board.xcpcio.com/provincial-contest/2020/zjcpc",
+        },
+      ],
+    },
+    {
+      name: "Wheatfield with Crows",
+      period: "2019",
+      affiliation: "Zhejiang University",
+      zhAffiliation: "浙江大学",
+      members: [
+        {
+          name: "Yuwen Chen",
+          zhName: "陈昱文",
+        },
+        {
+          name: "Haoran Deng",
+          zhName: "邓浩然",
+        },
+        {
+          name: "Siyi Lin",
+          zhName: "林思仪",
+        },
+      ],
+      honors: [
+        {
+          ...parseTimedEntry(t("hall-of-fame-wheatfield-honor-1")),
+          href: "https://rl.algoux.org/collection/official?rankId=ccpc2019xiamen",
+        },
+      ],
+    },
+  ];
+  const hallOfFameIndividuals: HallOfFameEntry[] = [
+    {
+      name: "Bing-Dong Liu",
+      period: "2022 - 2025",
+      destination: "Massachusetts Institute of Technology",
+      zhDestination: "麻省理工学院",
+      honors: [
+        {
+          ...parseTimedEntry(t("hall-of-fame-dong-honor-1")),
+          href: "https://stats.ioinformatics.org/people/8805",
+        },
+      ],
+    },
+    {
+      name: "Brian Xue",
+      period: "2021 - 2025",
+      destination: "Massachusetts Institute of Technology",
+      zhDestination: "麻省理工学院",
+      honors: [
+        {
+          ...parseTimedEntry(t("hall-of-fame-brian-honor-1")),
+          href: "https://stats.ioinformatics.org/people/8462",
+        },
+        {
+          ...parseTimedEntry(t("hall-of-fame-brian-honor-2")),
+          href: "https://stats.ioinformatics.org/people/8462",
+        },
+      ],
+    },
+    {
+      name: "Alex Chen",
+      period: "2021 - 2025",
+      destination: "The University of Texas at Austin",
+      zhDestination: "德克萨斯大学奥斯汀分校",
+      honors: [
+        {
+          ...parseTimedEntry(t("hall-of-fame-alex-honor-1")),
+          href: "https://stats.ioinformatics.org/people/8806",
+        },
+      ],
+    },
+  ];
+
+  const periodEndYear = (period?: string) => {
+    if (!period) return Number.NEGATIVE_INFINITY;
+    const matches = period.match(/\d{4}/g);
+    if (!matches?.length) return Number.NEGATIVE_INFINITY;
+    return Number.parseInt(matches[matches.length - 1], 10);
+  };
+
+  const sortedHallOfFameTeams = [...hallOfFameTeams].sort(
+    (a, b) => periodEndYear(b.period) - periodEndYear(a.period)
+  );
+  const sortedHallOfFameIndividuals = [...hallOfFameIndividuals].sort(
+    (a, b) => periodEndYear(b.period) - periodEndYear(a.period)
+  );
   const awardItems = Array.from({ length: 17 }, (_, index) =>
     parseAwardEntry(t(`Awards-${index + 1}`))
   );
@@ -141,13 +344,24 @@ const CompetitiveProgramming = () => {
   const Section = ({
     title,
     children,
+    variant = "default",
   }: {
     title: string;
     children: JSX.Element;
+    variant?: "default" | "fame";
   }) => (
-    <section className="bg-white px-3 py-2 shadow-sm">
-      <h2 className="mb-2 border-b border-gray-200 pb-1 text-[24px] font-bold leading-snug text-gray-900">
-        {title}
+    <section
+      className={`px-3 py-2 shadow-sm ${
+        variant === "fame"
+          ? "hall-fame-section border border-amber-100 bg-gradient-to-br from-white via-amber-50/35 to-white"
+          : "bg-white"
+      }`}
+    >
+      <h2 className="mb-2 flex items-center gap-2 border-b border-gray-200 pb-1 text-[24px] font-bold leading-snug text-gray-900">
+        {variant === "fame" && (
+          <span className="inline-block h-2.5 w-2.5 rounded-full bg-amber-400 shadow-[0_0_0_3px_rgba(251,191,36,0.18)]" />
+        )}
+        <span>{title}</span>
       </h2>
       {children}
     </section>
@@ -272,6 +486,139 @@ const CompetitiveProgramming = () => {
     </ul>
   );
 
+  const displayHallName = (entry: HallOfFameEntry) =>
+    i18n.language.startsWith("zh") && entry.zhName ? entry.zhName : entry.name;
+
+  const displayTeamName = (team: HallOfFameTeam) =>
+    i18n.language.startsWith("zh") && team.zhName ? team.zhName : team.name;
+
+  const displayTeamAffiliation = (team: HallOfFameTeam) =>
+    i18n.language.startsWith("zh") && team.zhAffiliation
+      ? team.zhAffiliation
+      : team.affiliation;
+
+  const displayDestination = (entry: HallOfFameEntry) =>
+    i18n.language.startsWith("zh") && entry.zhDestination
+      ? entry.zhDestination
+      : entry.destination;
+
+  const sortHonorsByYearDesc = (honors: TimedEntry[]) =>
+    [...honors].sort(
+      (a, b) => Number.parseInt(b.time, 10) - Number.parseInt(a.time, 10)
+    );
+
+  const PersonList = ({
+    entries,
+    columns = false,
+  }: {
+    entries: HallOfFameEntry[];
+    columns?: boolean;
+  }) => (
+    <div className={`grid gap-1 ${columns ? "md:grid-cols-3" : ""}`}>
+      {entries.map((entry) => (
+        <div
+          key={entry.name}
+          className="hall-fame-person border-l-[2px] border-amber-300 bg-white/80 px-2 py-1.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.7)]"
+        >
+          <div className="flex flex-col gap-0.5 md:flex-row md:items-baseline md:justify-between md:gap-3">
+            <div className="text-[14px] font-semibold leading-snug text-gray-900">
+              {displayHallName(entry)}
+            </div>
+            {entry.period && (
+              <div className="text-[12px] font-medium leading-snug text-amber-700">
+                {entry.period}
+              </div>
+            )}
+          </div>
+          {entry.affiliation && (
+            <div className="mt-0.5 text-[12px] leading-snug text-gray-600">
+              {entry.affiliation}
+            </div>
+          )}
+          {entry.destination && (
+            <div className="mt-0.5 text-[12px] leading-snug text-gray-600">
+              {displayDestination(entry)}
+            </div>
+          )}
+          {entry.honors && entry.honors.length > 0 && (
+            <ul className="mt-2 space-y-1 text-[13px] leading-snug text-gray-800">
+              {entry.honors.map((honor) => (
+                <li
+                  key={`${entry.name}-${honor.body}-${honor.time}`}
+                  className="grid grid-cols-[1fr_auto] items-baseline gap-x-4 border-l-[2px] border-amber-200 bg-white/75 px-2 py-1"
+                >
+                  <span className="min-w-0">
+                    {honor.href ? (
+                      <a href={honor.href} className="hall-fame-link underline decoration-amber-300 underline-offset-2 hover:text-amber-700">
+                        {honor.body}
+                      </a>
+                    ) : (
+                      honor.body
+                    )}
+                  </span>
+                  <span className="shrink-0 text-[12px] font-medium text-gray-500">
+                    {honor.time}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      ))}
+    </div>
+  );
+
+  const HallOfFameTeamList = ({ teams }: { teams: HallOfFameTeam[] }) => (
+    <div className="space-y-2">
+      {teams.map((team) => (
+        <article
+          key={team.name}
+          className="hall-fame-team border-l-[3px] border-amber-500 bg-amber-50/45 px-3 py-2 shadow-[inset_0_1px_0_rgba(255,255,255,0.75)]"
+        >
+          <div className="flex flex-col gap-0.5 md:flex-row md:items-baseline md:justify-between md:gap-3">
+            <div>
+              <h3 className="text-[15px] font-semibold leading-snug text-gray-900">
+                {displayTeamName(team)}
+              </h3>
+              <div className="mt-0.5 text-[12px] leading-snug text-gray-600">
+                {displayTeamAffiliation(team)}
+              </div>
+            </div>
+            <div className="text-[12px] font-medium leading-snug text-amber-700">
+              {team.period}
+            </div>
+          </div>
+          {team.members.length > 0 && (
+            <div className="mt-2">
+              <PersonList entries={team.members} columns />
+            </div>
+          )}
+          <ul className="mt-2 space-y-1 text-[13px] leading-snug text-gray-800">
+            {sortHonorsByYearDesc(team.honors).map((honor) => (
+              <li
+                key={`${honor.body}-${honor.time}`}
+                  className="grid grid-cols-[1fr_auto] items-baseline gap-x-4 border-l-[2px] border-amber-300 bg-white/80 px-2 py-1"
+              >
+                <span className="min-w-0">
+                  {honor.href ? (
+                    <a href={honor.href} className="hall-fame-link underline decoration-amber-300 underline-offset-2 hover:text-amber-700">
+                      {honor.body}
+                    </a>
+                  ) : (
+                    honor.body
+                  )}
+                </span>
+                <span className="shrink-0 text-[12px] font-medium text-gray-500">
+                  {honor.time}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </article>
+      ))}
+    </div>
+  );
+
   return (
     <div className="mx-auto max-w-4xl">
       <div className="px-3">
@@ -337,6 +684,28 @@ const CompetitiveProgramming = () => {
             </figure>
           ))}
         </section>
+
+        <Section title={t("HallOfFame")} variant="fame">
+          <div className="space-y-3">
+            <p className="text-[14px] leading-relaxed text-gray-900">
+              {t("hall-of-fame-intro")}
+            </p>
+            <div className="space-y-3">
+              <div>
+                <div className="mb-1 text-[12px] font-semibold uppercase tracking-wide text-gray-500">
+                  {t("hall-of-fame-teams")}
+                </div>
+                <HallOfFameTeamList teams={sortedHallOfFameTeams} />
+              </div>
+              <div>
+                <div className="mb-1 text-[12px] font-semibold uppercase tracking-wide text-gray-500">
+                  {t("hall-of-fame-individuals")}
+                </div>
+                <PersonList entries={sortedHallOfFameIndividuals} />
+              </div>
+            </div>
+          </div>
+        </Section>
 
         <Section title={t("Coaching")}>
           <TimedList items={coachingItems} />
