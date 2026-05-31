@@ -78,6 +78,13 @@ const Bio = () => {
           affiliation: "CUHK-Shenzhen",
           background: ["B.S. at Sun Yat-sen University"],
         },
+        {
+          name: "Yichun Wang",
+          zhName: "王伊淳",
+          period: "Fall 2026 - present",
+          affiliation: "CUHK-Shenzhen",
+          background: ["B.S. at CUHK-Shenzhen"],
+        },
       ],
     },
     {
