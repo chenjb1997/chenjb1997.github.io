@@ -3,6 +3,76 @@
 @tailwind utilities;
 
 @layer base {
+  @keyframes page-enter {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .page-enter {
+    animation: page-enter 420ms ease-out both;
+  }
+
+  .student-group-card {
+    animation: page-enter 360ms ease-out both;
+  }
+
+  .student-group-card:nth-of-type(2) {
+    animation-delay: 80ms;
+  }
+
+  .student-group-card-algo {
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.72),
+      0 1px 2px rgba(15, 23, 42, 0.06);
+  }
+
+  .student-group-card-ai {
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.72),
+      0 1px 2px rgba(15, 23, 42, 0.06);
+  }
+
+  .site-section-motion {
+    animation: page-enter 420ms ease-out both;
+  }
+
+  .site-section-motion:nth-child(2) {
+    animation-delay: 60ms;
+  }
+
+  .site-section-motion:nth-child(3) {
+    animation-delay: 110ms;
+  }
+
+  .site-section-motion:nth-child(4) {
+    animation-delay: 160ms;
+  }
+
+  .site-section-motion:nth-child(5) {
+    animation-delay: 210ms;
+  }
+
+  .site-section-motion:nth-child(6) {
+    animation-delay: 260ms;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .page-enter,
+    .student-group-card,
+    .site-section-motion {
+      animation: none;
+      transition: none;
+    }
+
+    .student-group-card * {
+      transition: none;
+    }
+  }
+
   html.inverted-theme {
     filter: invert(1) hue-rotate(180deg);
     background: #0f172a;
@@ -69,5 +139,28 @@
   html.inverted-theme .hall-fame-link {
     color: inherit;
     text-decoration-color: #b68a32;
+  }
+
+  html.inverted-theme .student-group-header {
+    background: rgba(255, 255, 255, 0.12);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12);
+  }
+
+  html.inverted-theme .student-group-header-algo {
+    background: rgba(59, 130, 246, 0.16);
+    border-color: rgba(96, 165, 250, 0.28);
+  }
+
+  html.inverted-theme .student-group-header-ai {
+    background: rgba(244, 63, 94, 0.14);
+    border-color: rgba(251, 113, 133, 0.26);
+  }
+
+  html.inverted-theme .student-group-card-algo {
+    background: rgba(59, 130, 246, 0.08);
+  }
+
+  html.inverted-theme .student-group-card-ai {
+    background: rgba(244, 63, 94, 0.08);
   }
 }

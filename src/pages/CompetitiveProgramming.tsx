@@ -299,7 +299,7 @@ const CompetitiveProgramming = () => {
     parseAwardEntry(t(`Awards-${index + 1}`))
   );
   const problemSettingKeys = [
-    27, 1, 2, 3, 4, 5, 6, 28, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,
+    29, 27, 1, 2, 3, 4, 5, 6, 28, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,
     19, 20, 21, 22, 23, 24, 25, 26,
   ];
   const problemSettingItems = problemSettingKeys.map((key) =>
@@ -351,7 +351,7 @@ const CompetitiveProgramming = () => {
     variant?: "default" | "fame";
   }) => (
     <section
-      className={`px-3 py-2 shadow-sm ${
+      className={`site-section-motion px-3 py-2 shadow-sm ${
         variant === "fame"
           ? "hall-fame-section border border-amber-100 bg-gradient-to-br from-white via-amber-50/35 to-white"
           : "bg-white"
@@ -621,14 +621,14 @@ const CompetitiveProgramming = () => {
 
   return (
     <div className="mx-auto max-w-4xl">
-      <div className="px-3">
+      <div className="site-section-motion px-3">
         <h1 className="mb-5 text-3xl font-bold">
           {t("Competitive-Programming")}
         </h1>
       </div>
 
       <div className="space-y-4">
-        <section className="px-3">
+        <section className="site-section-motion px-3">
           <div className="space-y-3 text-[15px] leading-relaxed text-gray-900">
             <p>{t("programming-first-paragraph")}</p>
             <p>{t("programming-second-paragraph")}</p>
@@ -669,7 +669,7 @@ const CompetitiveProgramming = () => {
           </div>
         </section>
 
-        <section className="grid gap-2 md:grid-cols-3">
+        <section className="site-section-motion grid gap-2 md:grid-cols-3">
           {photos.map((photo) => (
             <figure key={photo.src} className="overflow-hidden bg-white shadow-sm">
               <img

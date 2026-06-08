@@ -48,7 +48,7 @@ function App() {
           isInverted={isInverted}
           toggleColorMode={toggleColorMode}
         />
-        <div className="container mx-auto px-2 py-8 md:px-6">
+        <div className="page-enter container mx-auto px-2 py-8 md:px-6">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/competitive-programming" element={<CompetitiveProgramming />} />
