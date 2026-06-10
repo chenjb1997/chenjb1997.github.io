@@ -395,7 +395,15 @@ const Bio = () => {
       </p>
 
       <p className="mt-4 text-[15px] leading-relaxed text-gray-900">
-        {t("bio-second-paragraph")}
+        <ContentWrapper
+          tkey="bio-second-paragraph"
+          texts={[
+            {
+              text: t("SDS-CS-Theory-Group"),
+              href: "https://sds-theory.github.io/",
+            },
+          ]}
+        />
       </p>
 
       <p className="mt-4 text-[15px] leading-relaxed text-gray-900">
