@@ -2,6 +2,8 @@
   "Home": "Home",
   "Competitive-Programming": "Competitive Programming",
   "Footprint": "Footprint",
+  "footprint-page-link": "Footprint",
+  "xiaohongshu-link": "Xiaohongshu",
   "Student":"Students",
   "Teaching":"Teaching",
   "programming-first-paragraph": "I started doing competitive programming since high school. I received a Bronze Medal in National Olympiad in Informatics (NOI) in 2015. Then I joined the Competitive Programming Team of Zhejiang University and competed as the team leader of Team Legilimens (2017-2019) and the student co-coach (2018-2021). During my undergraduate life, I won 12 gold medals in International Collegiate Programming Contest (ICPC), China Collegiate Programming Contest (CCPC) series competitions including the very first domestic ICPC Regional Champion of Zhejiang University in 2017. On behalf of Zhejiang University, I participated in ICPC World Finals 2018 (Beijing).",
@@ -120,7 +122,7 @@
   "SDS-CS-Theory-Group": "SDS CS Theory Group",
   "bio-third-paragraph":"I am highly involved with Competitive Programming activities. Previously, I competed representing Zhejiang University and Georgia Tech in 2017 - 2021, participating in ICPC World Finals 2018 (Beijing), 2022 (Egypt), winning 2 ICPC regional champion titles along with 12 gold medals. I started helping Egyptian Olympiad in Informatics (EOI) since 2023. And I also have served as the chief judge for ICPC Asia regionals, including the 2025 ICPC East-Continent Finals. I am the contest director of the ICPC National Invitational Contest (Shenzhen), the first ever ICPC event in CUHK-Shenzhen. I am also invited as lecturers in events like North American Programming Camp (NAPC). I am the founder and co-president of the Universal Cup.",
   "North-American-Programming-Camp": "North American Programming Camp (NAPC)",
-  "bio-fourth-paragraph":"When not thinking about problems, I enjoy playing table tennis. Currently, I am using Fan Zhendong Super ALC with Dignics 09C on both sides.",
+  "bio-fourth-paragraph":"When not thinking about problems, I enjoy playing table tennis. Currently, I am using Fan Zhendong Super ALC with Dignics 09C on both sides. I am also a travel and landscape photography enthusiast; you can check out my recently built Footprint. Since June 2025, my main camera has been the Sony A7M4; before that, I mainly used an iPhone Pro. More of my work is on Xiaohongshu.",
  
  
   "education": "Education",

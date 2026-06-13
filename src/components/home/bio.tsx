@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 import News from "./News";
 const Bio = () => {
   const { t, i18n } = useTranslation();
@@ -338,15 +339,26 @@ const Bio = () => {
           parts.forEach((seg, segIndex) => {
             newElements.push(seg);
             if (segIndex < parts.length - 1) {
+              const isInternalLink = href?.startsWith("/");
               newElements.push(
-                <a
-                  key={`${index}-${partIndex}-${segIndex}`}
-                  href={href}
-                  target="_blank"
-                  className="text-blue-600 hover:text-[#FFA500] "
-                >
-                  {text}
-                </a>
+                isInternalLink ? (
+                  <Link
+                    key={`${index}-${partIndex}-${segIndex}`}
+                    to={href}
+                    className="text-blue-600 hover:text-[#FFA500] "
+                  >
+                    {text}
+                  </Link>
+                ) : (
+                  <a
+                    key={`${index}-${partIndex}-${segIndex}`}
+                    href={href}
+                    target="_blank"
+                    className="text-blue-600 hover:text-[#FFA500] "
+                  >
+                    {text}
+                  </a>
+                )
               );
             }
           });
@@ -423,7 +435,19 @@ const Bio = () => {
       </p>
 
       <p className="mt-4 text-[15px] leading-relaxed text-gray-900">
-        {t("bio-fourth-paragraph")}
+        <ContentWrapper
+          tkey="bio-fourth-paragraph"
+          texts={[
+            {
+              text: t("footprint-page-link"),
+              href: "/footprint",
+            },
+            {
+              text: t("xiaohongshu-link"),
+              href: "https://www.xiaohongshu.com/user/profile/6136f2ad000000000201c8d7",
+            },
+          ]}
+        />
       </p>
 
       <News />

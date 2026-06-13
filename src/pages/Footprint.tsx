@@ -1,11 +1,11 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import L, { type LayerGroup, type Map as LeafletMap } from "leaflet";
 import "leaflet/dist/leaflet.css";
 import {
   Camera,
   ChevronLeft,
   ChevronRight,
-  Globe2,
   MapPin,
   Pause,
   Play,
@@ -772,8 +772,268 @@ const places: FootprintPlace[] = [
     zhCountry: "美国",
     lat: 33.749,
     lng: -84.388,
-    note: "Georgia Tech years.",
-    zhNote: "佐治亚理工时期。",
+    note: "Home bases, Coca-Cola, Georgia Tech, and Stone Mountain.",
+    zhNote: "住过的家、可口可乐世界、佐治亚理工和 Stone Mountain。",
+    photos: [
+      {
+        src: "/footprint/atlanta-01.jpg",
+        caption: "My first place in Atlanta.",
+        zhCaption: "我在亚特兰大住的第一个地方。",
+      },
+      {
+        src: "/footprint/atlanta-home-last-night-01.jpg",
+        caption: "Last night in my first Atlanta home.",
+        zhCaption: "我在亚特兰大住的第一个家最后一晚。",
+      },
+      {
+        src: "/footprint/atlanta-second-home-first-night-01.jpg",
+        caption: "First night in my second Atlanta home.",
+        zhCaption: "我在亚特兰大住的第二个家第一晚。",
+      },
+      {
+        src: "/footprint/world-of-coca-cola-01.jpg",
+        caption: "World of Coca-Cola in downtown Atlanta.",
+        zhCaption: "亚特兰大市中心的可口可乐世界。",
+      },
+      {
+        src: "/footprint/georgia-tech-03.jpg",
+        caption: "Clouds over the Georgia Tech campus.",
+        zhCaption: "佐治亚理工校园上空的云。",
+      },
+      {
+        src: "/footprint/georgia-tech-01.jpg",
+        caption: "Georgia Tech campus lawn and student event.",
+        zhCaption: "佐治亚理工校园草坪与学生活动。",
+      },
+      {
+        src: "/footprint/stone-mountain-atlanta-01.jpg",
+        caption: "Stone Mountain under a wide blue sky.",
+        zhCaption: "亚特兰大附近 Stone Mountain 上的蓝天。",
+      },
+      {
+        src: "/footprint/stone-mountain-atlanta-02.jpg",
+        caption: "Cable car view at Stone Mountain.",
+        zhCaption: "Stone Mountain 的缆车视野。",
+      },
+      {
+        src: "/footprint/stone-mountain-atlanta-03.jpg",
+        caption: "Looking out from Stone Mountain.",
+        zhCaption: "从 Stone Mountain 望向远方。",
+      },
+      {
+        src: "/footprint/georgia-tech-02.jpg",
+        caption: "Table tennis at Georgia Tech.",
+        zhCaption: "佐治亚理工里的乒乓球活动。",
+      },
+      {
+        src: "/footprint/georgia-tech-04.jpg",
+        caption: "Georgia Tech campus buildings beneath an open sky.",
+        zhCaption: "开阔天空下的佐治亚理工校园建筑。",
+      },
+      {
+        src: "/footprint/georgia-tech-05.jpg",
+        caption: "Georgia Tech campus framing the Atlanta skyline.",
+        zhCaption: "佐治亚理工校园里望向亚特兰大天际线。",
+      },
+      {
+        src: "/footprint/atlanta-hawks-arena-01.jpg",
+        caption: "Atlanta Hawks game at State Farm Arena.",
+        zhCaption: "亚特兰大老鹰队在 State Farm Arena 的比赛。",
+      },
+      {
+        src: "/footprint/atlanta-world-cup-final-2022-01.jpg",
+        caption: "Watching the 2022 World Cup final at an Atlanta bar.",
+        zhCaption: "在亚特兰大酒吧看 2022 年世界杯决赛。",
+      },
+      {
+        src: "/footprint/atlanta-sunset-01.jpg",
+        caption: "Sunset clouds over Atlanta.",
+        zhCaption: "亚特兰大的落日晚霞。",
+      },
+    ],
+  },
+  {
+    id: "macon",
+    name: "Macon",
+    zhName: "梅肯",
+    country: "USA",
+    zhCountry: "美国",
+    lat: 32.8407,
+    lng: -83.6324,
+    note: "Contest memories in central Georgia.",
+    zhNote: "佐治亚州中部的比赛记忆。",
+    photos: [
+      {
+        src: "/footprint/macon-01.jpg",
+        caption: "Georgia Tech Team 2022 regional contest group photo.",
+        zhCaption: "Georgia Tech Team 2022 区域赛合影。",
+      },
+      {
+        src: "/footprint/macon-02.jpg",
+        caption: "Downtown Macon street scene.",
+        zhCaption: "梅肯市中心街景。",
+      },
+    ],
+  },
+  {
+    id: "savannah",
+    name: "Savannah",
+    zhName: "萨凡纳",
+    country: "USA",
+    zhCountry: "美国",
+    lat: 32.0809,
+    lng: -81.0912,
+    note: "Georgia coast, river light, and marshland.",
+    zhNote: "佐治亚海岸、河面光影和湿地。",
+    photos: [
+      {
+        src: "/footprint/savannah-01.jpg",
+        caption: "Beach day near Savannah.",
+        zhCaption: "萨凡纳附近的海滩。",
+      },
+      {
+        src: "/footprint/savannah-02.jpg",
+        caption: "Sunset on the water near Savannah.",
+        zhCaption: "萨凡纳水边的日落。",
+      },
+    ],
+  },
+  {
+    id: "chattanooga",
+    name: "Chattanooga",
+    zhName: "查塔努加",
+    country: "USA",
+    zhCountry: "美国",
+    lat: 35.0456,
+    lng: -85.3097,
+    note: "Rock City on Lookout Mountain, treated as the Chattanooga stop.",
+    zhNote: "Lookout Mountain 上的 Rock City，按查塔努加这一站记录。",
+    photos: [
+      {
+        src: "/footprint/chattanooga-rock-city-01.jpg",
+        caption: "Clouds over the valley from Rock City.",
+        zhCaption: "从 Rock City 望向云海和山谷。",
+      },
+      {
+        src: "/footprint/chattanooga-rock-city-02.jpg",
+        caption: "Rock City cliffs and valley views.",
+        zhCaption: "Rock City 的峭壁与山谷视野。",
+      },
+      {
+        src: "/footprint/chattanooga-rock-city-03.jpg",
+        caption: "Lover's Leap waterfall at Rock City.",
+        zhCaption: "Rock City 的 Lover's Leap 瀑布。",
+      },
+    ],
+  },
+  {
+    id: "gatlinburg",
+    name: "Gatlinburg",
+    zhName: "盖特林堡",
+    country: "USA",
+    zhCountry: "美国",
+    lat: 35.7143,
+    lng: -83.5102,
+    note: "Gateway to the Great Smoky Mountains.",
+    zhNote: "通往大烟山的门户小城。",
+    photos: [
+      {
+        src: "/footprint/smoky-mountains-01.jpg",
+        caption: "Clouds rolling across the Smoky Mountains.",
+        zhCaption: "大烟山间翻涌的云。",
+      },
+      {
+        src: "/footprint/smoky-mountains-02.jpg",
+        caption: "Sunset above the Smoky Mountains.",
+        zhCaption: "大烟山上的日落。",
+      },
+      {
+        src: "/footprint/smoky-mountains-03.jpg",
+        caption: "Evening sky over the Smoky Mountains.",
+        zhCaption: "大烟山的傍晚天空。",
+      },
+    ],
+  },
+  {
+    id: "orlando",
+    name: "Orlando",
+    zhName: "奥兰多",
+    country: "USA",
+    zhCountry: "美国",
+    lat: 28.5383,
+    lng: -81.3792,
+    note: "University of Central Florida and lakeside skies.",
+    zhNote: "中佛罗里达大学与湖边天空。",
+    photos: [
+      {
+        src: "/footprint/orlando-ucf-01.jpg",
+        caption: "University of Central Florida campus buildings.",
+        zhCaption: "中佛罗里达大学校园建筑。",
+      },
+      {
+        src: "/footprint/orlando-ucf-02.jpg",
+        caption: "Lakeside sky near UCF.",
+        zhCaption: "UCF 附近湖边的阴云。",
+      },
+    ],
+  },
+  {
+    id: "pittsburgh",
+    name: "Pittsburgh",
+    zhName: "匹兹堡",
+    country: "USA",
+    zhCountry: "美国",
+    lat: 40.4406,
+    lng: -79.9959,
+    note: "CMU, the rivers, and skyline views.",
+    zhNote: "CMU、河流与城市天际线。",
+    photos: [
+      {
+        src: "/footprint/pittsburgh-cmu-01.jpg",
+        caption: "The Fence at Carnegie Mellon University.",
+        zhCaption: "卡内基梅隆大学的 The Fence。",
+      },
+      {
+        src: "/footprint/pittsburgh-01.jpg",
+        caption: "Pittsburgh skyline and river from an overlook.",
+        zhCaption: "从高处望向匹兹堡天际线与河流。",
+      },
+      {
+        src: "/footprint/pittsburgh-02.jpg",
+        caption: "Downtown Pittsburgh and its bridges.",
+        zhCaption: "匹兹堡市中心与桥梁。",
+      },
+      {
+        src: "/footprint/pittsburgh-03.jpg",
+        caption: "Pittsburgh skyline under summer clouds.",
+        zhCaption: "夏日云朵下的匹兹堡天际线。",
+      },
+      {
+        src: "/footprint/pittsburgh-04.jpg",
+        caption: "Pittsburgh bridges and river bends.",
+        zhCaption: "匹兹堡的桥梁与河湾。",
+      },
+      {
+        src: "/footprint/pittsburgh-05.jpg",
+        caption: "Pittsburgh skyline and layered clouds.",
+        zhCaption: "云层下的匹兹堡天际线。",
+      },
+      {
+        src: "/footprint/pittsburgh-06.jpg",
+        caption: "Dinosaur outside the Carnegie museums.",
+        zhCaption: "卡内基博物馆外的恐龙雕塑。",
+      },
+      {
+        src: "/footprint/pittsburgh-07.jpg",
+        caption: "Pittsburgh residential street.",
+        zhCaption: "匹兹堡住宅街道。",
+      },
+      {
+        src: "/footprint/pittsburgh-08.jpg",
+        caption: "Pittsburgh streetcar passing through the neighborhood.",
+        zhCaption: "穿过匹兹堡街区的有轨电车。",
+      },
+    ],
   },
   {
     id: "oahu",
@@ -832,6 +1092,93 @@ const places: FootprintPlace[] = [
     ],
   },
   {
+    id: "miami",
+    name: "Miami",
+    zhName: "迈阿密",
+    country: "USA",
+    zhCountry: "美国",
+    lat: 25.7617,
+    lng: -80.1918,
+    note: "Florida beaches and open wetland skies.",
+    zhNote: "佛罗里达海滩与开阔湿地天空。",
+    photos: [
+      {
+        src: "/footprint/miami-01.jpg",
+        caption: "Miami beach under a clear sky.",
+        zhCaption: "晴空下的迈阿密海滩。",
+      },
+      {
+        src: "/footprint/miami-02.jpg",
+        caption: "Wetland sky near Miami.",
+        zhCaption: "迈阿密附近湿地的天空。",
+      },
+    ],
+  },
+  {
+    id: "mountain-view",
+    name: "Mountain View",
+    zhName: "山景城",
+    country: "USA",
+    zhCountry: "美国",
+    lat: 37.3861,
+    lng: -122.0839,
+    note: "Google headquarters and Silicon Valley campus walks.",
+    zhNote: "Google 总部和硅谷园区漫步。",
+    photos: [
+      {
+        src: "/footprint/mountain-view-google-01.jpg",
+        caption: "Buildings at Google's Mountain View campus.",
+        zhCaption: "Google 山景城园区建筑。",
+      },
+      {
+        src: "/footprint/mountain-view-google-02.jpg",
+        caption: "Google sign at the Mountain View headquarters.",
+        zhCaption: "Google 山景城总部标识。",
+      },
+    ],
+  },
+  {
+    id: "san-jose",
+    name: "San Jose",
+    zhName: "圣何塞",
+    country: "USA",
+    zhCountry: "美国",
+    lat: 37.3639,
+    lng: -121.9289,
+    note: "Airport sky and California rainbows.",
+    zhNote: "机场天空与加州彩虹。",
+    photos: [
+      {
+        src: "/footprint/san-jose-airport-01.jpg",
+        caption: "Rainbow near San Jose airport.",
+        zhCaption: "圣何塞机场附近的彩虹。",
+      },
+    ],
+  },
+  {
+    id: "santa-cruz",
+    name: "Santa Cruz",
+    zhName: "圣克鲁斯",
+    country: "USA",
+    zhCountry: "美国",
+    lat: 36.9741,
+    lng: -122.0308,
+    note: "California coast, boardwalk, and ocean light.",
+    zhNote: "加州海岸、海滨游乐场和海光。",
+    photos: [
+      {
+        src: "/footprint/santa-cruz-01.jpg",
+        caption: "Santa Cruz beach and boardwalk.",
+        zhCaption: "圣克鲁斯海滩和海滨游乐场。",
+      },
+      {
+        src: "/footprint/santa-cruz-02.jpg",
+        caption: "Surfer statue by the water in Santa Cruz.",
+        zhCaption: "圣克鲁斯水边的冲浪者雕像。",
+      },
+    ],
+  },
+  {
     id: "san-francisco",
     name: "San Francisco",
     zhName: "旧金山",
@@ -846,6 +1193,36 @@ const places: FootprintPlace[] = [
         src: "/footprint/san-francisco-01.jpg",
         caption: "Golden Gate Bridge after dusk.",
         zhCaption: "暮色后的金门大桥。",
+      },
+      {
+        src: "/footprint/san-francisco-02.jpg",
+        caption: "San Francisco hills and bay views.",
+        zhCaption: "旧金山山坡与海湾视野。",
+      },
+      {
+        src: "/footprint/san-francisco-03.jpg",
+        caption: "Transamerica Pyramid from the city streets.",
+        zhCaption: "城市街道上的泛美金字塔。",
+      },
+      {
+        src: "/footprint/san-francisco-04.jpg",
+        caption: "Ferry Building by the waterfront.",
+        zhCaption: "海滨的旧金山渡轮大厦。",
+      },
+      {
+        src: "/footprint/san-francisco-05.jpg",
+        caption: "Pier 39 by the bay.",
+        zhCaption: "海湾边的 39 号码头。",
+      },
+      {
+        src: "/footprint/san-francisco-06.jpg",
+        caption: "Golden Gate Bridge in daylight.",
+        zhCaption: "日光下的金门大桥。",
+      },
+      {
+        src: "/footprint/san-francisco-07.jpg",
+        caption: "San Francisco City Hall under the sky.",
+        zhCaption: "天空下的旧金山市政厅。",
       },
     ],
   },
@@ -1194,7 +1571,7 @@ const Footprint = () => {
     isChinese ? place.zhNote : place.note;
 
   const focusPlace = useCallback((place: FootprintPlace) => {
-    mapRef.current?.setView([place.lat, place.lng], 8.5, { animate: false });
+    mapRef.current?.panTo([place.lat, place.lng], { animate: false });
     setPhotoIndex(0);
     setAutoPlay((place.photos?.length ?? 0) > 1);
     setSelectedPlace(place);
@@ -1355,38 +1732,52 @@ const Footprint = () => {
     return () => window.clearInterval(timer);
   }, [autoPlay, selectedPhotos.length, selectedPlace, showNextPhoto]);
 
+  useEffect(() => {
+    if (!selectedPlace) {
+      return;
+    }
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [selectedPlace]);
+
   return (
     <main className="mx-auto max-w-4xl px-3">
-      <section className="mb-5">
-        <div className="flex items-center gap-2 text-sm font-semibold text-blue-700 dark:text-blue-300">
-          <Globe2 size={18} />
-          <span>{isChinese ? "地图上的记忆" : "Memories on the Map"}</span>
-        </div>
-        <h1 className="mt-2 text-3xl font-bold leading-tight text-gray-900 dark:text-gray-50">
-          {isChinese ? "足迹" : "Footprint"}
-        </h1>
-        <p className="mt-2 max-w-2xl text-[15px] leading-relaxed text-gray-600 dark:text-gray-300">
-          {isChinese
-            ? "这里先放一些去过的城市作为示例。之后可以把每个点替换成真实照片和更具体的故事。"
-            : "A first map of places I have visited. Photos and more specific stories can be added city by city later."}
-        </p>
-        <div className="mt-4 grid max-w-lg grid-cols-2 gap-2">
-          <div className="border border-slate-200 bg-white px-3 py-2 shadow-sm dark:border-slate-700 dark:bg-slate-900">
-            <div className="text-[11px] font-semibold uppercase tracking-[0.08em] text-slate-500 dark:text-slate-400">
-              {isChinese ? "国家" : "Countries"}
-            </div>
-            <div className="mt-1 text-2xl font-bold leading-none text-slate-900 dark:text-slate-50">
-              {countryCount}
-            </div>
+      <section className="mb-6 border-b border-slate-200 pb-5 dark:border-slate-700">
+        <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+          <div className="min-w-0">
+            <h1 className="text-4xl font-bold leading-none text-slate-950 dark:text-slate-50">
+              {isChinese ? "足迹" : "Footprint"}
+            </h1>
+            <p className="mt-3 max-w-2xl text-[15px] leading-relaxed text-slate-600 dark:text-slate-300">
+              {isChinese
+                ? "读万卷书，行万里路，要用双脚丈量土地。"
+                : "Read widely, travel far, and measure the land with your own feet."}
+            </p>
           </div>
-          <div className="border border-slate-200 bg-white px-3 py-2 shadow-sm dark:border-slate-700 dark:bg-slate-900">
-            <div className="text-[11px] font-semibold uppercase tracking-[0.08em] text-slate-500 dark:text-slate-400">
-              {isChinese ? "城市 / 地点" : "Cities / Places"}
+
+          <dl className="grid w-full grid-cols-2 overflow-hidden rounded-md border border-slate-200 bg-white shadow-sm dark:border-slate-700 dark:bg-slate-900 sm:w-[320px]">
+            <div className="px-4 py-3">
+              <dt className="text-[12px] font-semibold text-slate-500 dark:text-slate-400">
+                {isChinese ? "国家" : "Countries"}
+              </dt>
+              <dd className="mt-1 text-3xl font-bold leading-none text-slate-950 dark:text-slate-50">
+                {countryCount}
+              </dd>
             </div>
-            <div className="mt-1 text-2xl font-bold leading-none text-slate-900 dark:text-slate-50">
-              {places.length}
+            <div className="border-l border-slate-200 px-4 py-3 dark:border-slate-700">
+              <dt className="text-[12px] font-semibold text-slate-500 dark:text-slate-400">
+                {isChinese ? "城市 / 地点" : "Cities / Places"}
+              </dt>
+              <dd className="mt-1 text-3xl font-bold leading-none text-slate-950 dark:text-slate-50">
+                {places.length}
+              </dd>
             </div>
-          </div>
+          </dl>
         </div>
       </section>
 
@@ -1519,40 +1910,45 @@ const Footprint = () => {
         })}
       </section>
 
-      {selectedPlace && (
-        <div
-          className="fixed inset-0 z-[1200] flex items-center justify-center overflow-y-auto bg-slate-950/55 px-3 py-5 backdrop-blur-sm sm:px-5"
-          onClick={closeModal}
-        >
-          <article
-            className="flex max-h-[92vh] w-fit max-w-[94vw] flex-col overflow-hidden bg-white shadow-2xl dark:bg-slate-900"
-            onClick={(event) => event.stopPropagation()}
+      {selectedPlace &&
+        createPortal(
+          <div
+            className="fixed inset-0 z-[1200] flex items-center justify-center overflow-hidden bg-slate-950/55 px-3 py-4 backdrop-blur-sm sm:px-5"
+            onClick={closeModal}
           >
-            <div className="relative flex min-h-[280px] max-h-[calc(92vh-112px)] items-center justify-center bg-slate-950">
-              {currentPhoto ? (
-                <img
-                  key={currentPhoto.src}
-                  src={currentPhoto.src}
-                  alt={isChinese ? currentPhoto.zhCaption : currentPhoto.caption}
-                  loading="eager"
-                  decoding="async"
-                  className="h-auto max-h-[calc(92vh-112px)] max-w-[94vw] object-contain"
-                />
-              ) : (
-                <div className="flex h-[360px] w-[min(92vw,640px)] flex-col items-center justify-center gap-3 text-slate-700 dark:text-slate-200">
-                  <Camera size={38} strokeWidth={1.8} />
-                  <div className="text-center">
-                    <div className="text-[15px] font-semibold">
-                      {isChinese ? "照片待补充" : "Photo to be added"}
-                    </div>
-                    <div className="mt-1 text-[12px] text-slate-500 dark:text-slate-400">
-                      {isChinese
-                        ? "之后可以替换成你拍的照片"
-                        : "This can be replaced with your own photo later"}
+            <article
+              className="flex w-[min(94vw,1120px)] flex-col overflow-hidden bg-white shadow-2xl dark:bg-slate-900"
+              style={{
+                height: "min(92dvh, 860px)",
+                maxHeight: "calc(100dvh - 2rem)",
+              }}
+              onClick={(event) => event.stopPropagation()}
+            >
+              <div className="relative flex min-h-0 flex-1 items-center justify-center bg-slate-950">
+                {currentPhoto ? (
+                  <img
+                    key={currentPhoto.src}
+                    src={currentPhoto.src}
+                    alt={isChinese ? currentPhoto.zhCaption : currentPhoto.caption}
+                    loading="eager"
+                    decoding="async"
+                    className="h-full w-full object-contain"
+                  />
+                ) : (
+                  <div className="flex h-full w-full flex-col items-center justify-center gap-3 text-slate-700 dark:text-slate-200">
+                    <Camera size={38} strokeWidth={1.8} />
+                    <div className="text-center">
+                      <div className="text-[15px] font-semibold">
+                        {isChinese ? "照片待补充" : "Photo to be added"}
+                      </div>
+                      <div className="mt-1 text-[12px] text-slate-500 dark:text-slate-400">
+                        {isChinese
+                          ? "之后可以替换成你拍的照片"
+                          : "This can be replaced with your own photo later"}
+                      </div>
                     </div>
                   </div>
-                </div>
-              )}
+                )}
               {hasMultiplePhotos && (
                 <>
                   <button
@@ -1599,7 +1995,7 @@ const Footprint = () => {
                 <X size={17} />
               </button>
             </div>
-            <div className="w-full min-w-0 px-4 py-3">
+            <div className="w-full min-w-0 shrink-0 px-4 py-3">
               <div className="flex items-baseline justify-between gap-3">
                 <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-50">
                   {displayName(selectedPlace)}
@@ -1625,9 +2021,10 @@ const Footprint = () => {
                 {displayNote(selectedPlace)}
               </p>
             </div>
-          </article>
-        </div>
-      )}
+            </article>
+          </div>,
+          document.body,
+        )}
     </main>
   );
 };

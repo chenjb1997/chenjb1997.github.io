@@ -2,6 +2,8 @@
   "Home": "首页",
   "Competitive-Programming":"算法竞赛",
   "Footprint": "足迹",
+  "footprint-page-link": "足迹",
+  "xiaohongshu-link": "小红书",
   "Student":"学生",
   "Teaching":"开设课程",
   "programming-first-paragraph": "我自中学起参与算法竞赛，曾于2015年获国家信息学决赛(NOI)铜牌。进入大学后，我加入了浙江大学程序设计竞赛队，作为Legilimens队队长参赛（2017-2019）并曾担任学生助理教练（2018-2021）。在本科四年中，我曾在国际大学生程序设计竞赛（ICPC）及中国大学生程序设计竞赛（CCPC）中获得十二枚金牌，其中包括2017年青岛区域赛冠军，这也是学校历史上第一座国内冠军。代表浙江大学，我参加了2018年在北京举行的ICPC世界总决赛。",
@@ -119,7 +121,7 @@
   "SDS-CS-Theory-Group": "SDS CS理论研究组",
   "bio-third-paragraph":"我高度参与算法竞赛相关活动。2017-2021年间，我代表浙江大学及佐治亚理工学院参加国际大学生程序设计竞赛(ICPC)世界总决赛（2018北京，2022埃及），曾获全球第十三名。除此之外，我两次获得区域赛冠军，十二次获得区域赛金牌。自2023年起，我担任埃及信息学竞赛国家队教练。我多次担任ICPC亚洲区域赛裁判长，其中包括2025年第50届东大陆总决赛（EC-Final)。我校于4月11日举办了ICPC全国邀请赛（深圳），这是香港中文大学（深圳）首次举办ICPC系列赛事，其中我为比赛负责人及裁判长。我多次受邀担任训练营教练，其中包括North American Programming Camp (NAPC)等。我是Universal Cup的创始人兼联合主席。",
   "North-American-Programming-Camp": "North American Programming Camp (NAPC)",
-  "bio-fourth-paragraph":"在工作之余，我是一位乒乓球爱好者。我目前使用的器材是樊振东超级ALC，两面均使用Dignics 09C。",
+  "bio-fourth-paragraph":"在工作之余，我是一位乒乓球爱好者。我目前使用的器材是樊振东超级ALC，两面均使用Dignics 09C。我也是一名旅游和风光摄影爱好者，可以参考我最近新做的足迹。我自2025年6月开始至今使用的主要器材为索尼A7M4，此前使用的是iPhone Pro，更多的作品见我的小红书。",
 
   "education": "教育经历",
   "edu-1-degree": "计算机科学博士",
