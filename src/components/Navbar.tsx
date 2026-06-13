@@ -25,6 +25,7 @@ const Navbar: React.FC<NavbarProps> = ({
   const navigation = [
     { name: t("Home"), href: "/" },
     { name: t("Competitive-Programming"), href: "/competitive-programming" },
+    { name: t("Footprint"), href: "/footprint" },
     // { name: t("Contact"), href: "/contact" },
   ];
 

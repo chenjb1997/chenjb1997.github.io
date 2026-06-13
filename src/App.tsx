@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import CompetitiveProgramming from './pages/CompetitiveProgramming';
+import Footprint from './pages/Footprint';
 import Contact from './pages/Contact.tsx';
 import { useTranslation } from 'react-i18next';
 
@@ -52,6 +53,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/competitive-programming" element={<CompetitiveProgramming />} />
+            <Route path="/footprint" element={<Footprint />} />
             <Route path="/contact" element={<Contact />} />
           </Routes>
         </div>
