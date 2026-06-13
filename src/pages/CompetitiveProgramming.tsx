@@ -295,7 +295,7 @@ const CompetitiveProgramming = () => {
   const sortedHallOfFameIndividuals = [...hallOfFameIndividuals].sort(
     (a, b) => periodEndYear(b.period) - periodEndYear(a.period)
   );
-  const awardItems = Array.from({ length: 17 }, (_, index) =>
+  const awardItems = Array.from({ length: 18 }, (_, index) =>
     parseAwardEntry(t(`Awards-${index + 1}`))
   );
   const problemSettingKeys = [

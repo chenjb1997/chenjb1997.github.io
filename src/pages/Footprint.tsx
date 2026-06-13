@@ -204,6 +204,29 @@ const places: FootprintPlace[] = [
     ],
   },
   {
+    id: "qingdao",
+    name: "Qingdao",
+    zhName: "青岛",
+    country: "China",
+    zhCountry: "中国",
+    lat: 36.0671,
+    lng: 120.3826,
+    note: "2017 ICPC Qingdao Regional champion memories.",
+    zhNote: "2017 年青岛区域赛冠军的回忆。",
+    photos: [
+      {
+        src: "/footprint/qingdao-icpc-2017-01.jpg",
+        caption: "2017 ICPC Qingdao Regional champion ceremony.",
+        zhCaption: "2017 年青岛区域赛冠军颁奖现场。",
+      },
+      {
+        src: "/footprint/qingdao-icpc-2017-02.jpg",
+        caption: "2017 ICPC Qingdao Regional champion trophy.",
+        zhCaption: "2017 年青岛区域赛冠军奖杯。",
+      },
+    ],
+  },
+  {
     id: "jiayuguan",
     name: "Jiayuguan",
     zhName: "嘉峪关",
