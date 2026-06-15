@@ -6551,7 +6551,7 @@ const Footprint = () => {
                     const countrySummary =
                       regionUnit && regionCount
                         ? isChinese
-                          ? `${regionCount}${regionUnit.zhLabel}，${placeCountLabel(
+                          ? `${regionCount} ${regionUnit.zhLabel}，${placeCountLabel(
                               countryPlaces.length,
                               isChinese,
                             )}`
