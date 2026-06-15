@@ -5985,6 +5985,7 @@ const Footprint = () => {
   const [isMapFullscreen, setIsMapFullscreen] = useState(false);
   const [expandedCountries, setExpandedCountries] = useState<Record<string, boolean>>({});
   const [mapRotation, setMapRotation] = useState(0);
+  const [mapReadyToken, setMapReadyToken] = useState(0);
   const mapShellRef = useRef<HTMLDivElement | null>(null);
   const mapContainerRef = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<MapLibreMap | null>(null);
@@ -6067,46 +6068,68 @@ const Footprint = () => {
       return;
     }
 
-    const initialView = getInitialMapView(mapContainer);
-    const map = new maplibregl.Map({
-      container: mapContainer,
-      style: footprintMapStyle,
-      center: initialView.center,
-      zoom: initialView.zoom,
-      minZoom: 0.7,
-      maxZoom: 18,
-      attributionControl: false,
-      bearing: 0,
-      dragRotate: false,
-      pitchWithRotate: false,
-      renderWorldCopies: true,
-    });
-    map.addControl(new maplibregl.AttributionControl({ compact: true }));
-    map.touchZoomRotate.disableRotation();
+    let map: MapLibreMap | null = null;
+    let initialResizeTimer: number | undefined;
+    const mapStartTimer = window.setTimeout(() => {
+      if (!mapContainer.isConnected || mapRef.current) {
+        return;
+      }
 
-    mapRef.current = map;
-    placeTooltipRef.current = new maplibregl.Popup({
-      anchor: "bottom",
-      closeButton: false,
-      closeOnClick: false,
-      className: "footprint-place-tooltip",
-      offset: 12,
-    });
-    window.setTimeout(() => {
-      map.resize();
-      const resizedInitialView = getInitialMapView(mapContainer);
-      map.jumpTo({
+      const initialView = getInitialMapView(mapContainer);
+      map = new maplibregl.Map({
+        container: mapContainer,
+        style: footprintMapStyle,
+        center: initialView.center,
+        zoom: initialView.zoom,
+        minZoom: 0.7,
+        maxZoom: 18,
+        attributionControl: false,
         bearing: 0,
-        center: resizedInitialView.center,
-        zoom: resizedInitialView.zoom,
+        dragRotate: false,
+        pitchWithRotate: false,
+        renderWorldCopies: true,
       });
-    }, 0);
+      map.addControl(new maplibregl.AttributionControl({ compact: true }));
+      map.touchZoomRotate.disableRotation();
+
+      mapRef.current = map;
+      placeTooltipRef.current = new maplibregl.Popup({
+        anchor: "bottom",
+        closeButton: false,
+        closeOnClick: false,
+        className: "footprint-place-tooltip",
+        offset: 12,
+      });
+      setMapReadyToken((value) => value + 1);
+
+      initialResizeTimer = window.setTimeout(() => {
+        if (mapRef.current !== map || !map) {
+          return;
+        }
+
+        map.resize();
+        const resizedInitialView = getInitialMapView(mapContainer);
+        map.jumpTo({
+          bearing: 0,
+          center: resizedInitialView.center,
+          zoom: resizedInitialView.zoom,
+        });
+      }, 0);
+    }, 120);
 
     return () => {
+      window.clearTimeout(mapStartTimer);
+      if (initialResizeTimer !== undefined) {
+        window.clearTimeout(initialResizeTimer);
+      }
       placeTooltipRef.current?.remove();
       placeTooltipRef.current = null;
-      map.remove();
-      mapRef.current = null;
+      if (map) {
+        map.remove();
+      }
+      if (mapRef.current === map) {
+        mapRef.current = null;
+      }
     };
   }, []);
 
@@ -6219,6 +6242,10 @@ const Footprint = () => {
         window.clearInterval(retryTimer);
       }
 
+      if (mapRef.current !== map) {
+        return;
+      }
+
       map.off("load", upsertPlaceLayer);
       map.off("styledata", upsertPlaceLayer);
 
@@ -6241,7 +6268,7 @@ const Footprint = () => {
 
       mapContainer.removeAttribute("data-marker-count");
     };
-  }, [focusPlace, isChinese]);
+  }, [focusPlace, isChinese, mapReadyToken]);
 
   const zoomMap = (delta: number) => {
     const map = mapRef.current;
