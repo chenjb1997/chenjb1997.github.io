@@ -35,7 +35,8 @@ type FootprintPlace = {
     | "Egypt"
     | "Russia"
     | "Turkey"
-    | "Germany";
+    | "Germany"
+    | "Mexico";
   zhCountry: string;
   lat: number;
   lng: number;
@@ -66,6 +67,7 @@ const countryStyles: Record<
   Russia: { color: "#b91c1c", soft: "#fee2e2", label: "Russia", zhLabel: "俄罗斯" },
   Turkey: { color: "#9333ea", soft: "#f3e8ff", label: "Turkey", zhLabel: "土耳其" },
   Germany: { color: "#0f766e", soft: "#ccfbf1", label: "Germany", zhLabel: "德国" },
+  Mexico: { color: "#ca8a04", soft: "#fef9c3", label: "Mexico", zhLabel: "墨西哥" },
 };
 
 const continentStyles: Record<
@@ -113,7 +115,7 @@ const getContinent = (place: FootprintPlace): ContinentKey => {
   if (place.country === "China" || place.country === "Japan") {
     return "Asia";
   }
-  if (place.country === "Canada" || place.country === "USA") {
+  if (place.country === "Canada" || place.country === "USA" || place.country === "Mexico") {
     return "NorthAmerica";
   }
   if (
@@ -164,6 +166,133 @@ const places: FootprintPlace[] = [
         src: "/footprint/guangzhou-03.jpg",
         caption: "Campus celebration setup in Guangzhou.",
         zhCaption: "广州校园活动布置。",
+      },
+      {
+        src: "/footprint/guangzhou-04.jpg",
+        caption: "Basketball courts at Guangzhou No. 2 High School.",
+        zhCaption: "广州市第二中学的篮球场。",
+      },
+    ],
+  },
+  {
+    id: "shantou",
+    name: "Shantou",
+    zhName: "汕头",
+    country: "China",
+    zhCountry: "中国",
+    lat: 23.3541,
+    lng: 116.6819,
+    note: "Qilou streets, Shantou Hostel, and old-town night lights.",
+    zhNote: "骑楼街、汕头旅社与老城夜色。",
+    photos: [
+      {
+        src: "/footprint/shantou-01.jpg",
+        caption: "Crowded old-town street in Shantou.",
+        zhCaption: "汕头老街上热闹的人流。",
+      },
+      {
+        src: "/footprint/shantou-02.jpg",
+        caption: "The historic Shantou Hostel facade.",
+        zhCaption: "汕头旅社的老建筑立面。",
+      },
+      {
+        src: "/footprint/shantou-03.jpg",
+        caption: "Lanterns and shop signs glowing in Shantou.",
+        zhCaption: "汕头街巷里亮起的灯笼与招牌。",
+      },
+    ],
+  },
+  {
+    id: "dongshan",
+    name: "Dongshan",
+    zhName: "东山",
+    country: "China",
+    zhCountry: "中国",
+    lat: 23.7023,
+    lng: 117.4295,
+    note: "Dongshan Island coastline, sunsets, and sea-view streets.",
+    zhNote: "东山岛的海岸线、日落与海景街巷。",
+    photos: [
+      {
+        src: "/footprint/dongshan-01.jpg",
+        caption: "Evening crowds along Dongshan Island beach.",
+        zhCaption: "东山岛海滩傍晚的人群。",
+      },
+      {
+        src: "/footprint/dongshan-02.jpg",
+        caption: "Coastal road above the water on Dongshan Island.",
+        zhCaption: "东山岛临海而行的海岸公路。",
+      },
+      {
+        src: "/footprint/dongshan-03.jpg",
+        caption: "Sunset clouds over Dongshan Island beach.",
+        zhCaption: "东山岛海滩上方的晚霞。",
+      },
+      {
+        src: "/footprint/dongshan-04.jpg",
+        caption: "Golden sunset reflected on the sea.",
+        zhCaption: "金色夕阳倒映在东山岛海面上。",
+      },
+      {
+        src: "/footprint/dongshan-05.jpg",
+        caption: "Dongshan Island shoreline after dusk.",
+        zhCaption: "入夜后的东山岛海岸线。",
+      },
+      {
+        src: "/footprint/dongshan-06.jpg",
+        caption: "Quiet bay lights along Dongshan Island.",
+        zhCaption: "东山岛海湾边安静亮起的灯火。",
+      },
+      {
+        src: "/footprint/dongshan-07.jpg",
+        caption: "Blue sea and rocky coast on Dongshan Island.",
+        zhCaption: "东山岛的蓝色海面与礁石海岸。",
+      },
+    ],
+  },
+  {
+    id: "meizhou",
+    name: "Meizhou",
+    zhName: "梅州",
+    country: "China",
+    zhCountry: "中国",
+    lat: 24.2884,
+    lng: 116.1225,
+    note: "Hakka flavors and street snacks.",
+    zhNote: "客家风味与街头小吃。",
+    photos: [
+      {
+        src: "/footprint/meizhou-01.jpg",
+        caption: "Warm Hakka dessert on a Meizhou street.",
+        zhCaption: "梅州街头热气腾腾的客家甜品。",
+      },
+    ],
+  },
+  {
+    id: "zhuhai",
+    name: "Zhuhai",
+    zhName: "珠海",
+    country: "China",
+    zhCountry: "中国",
+    lat: 22.2711,
+    lng: 113.5767,
+    note: "Seaside skyline, opera house, and views across the water.",
+    zhNote: "海边天际线、日月贝与隔水远眺。",
+    photos: [
+      {
+        src: "/footprint/zhuhai-01.jpg",
+        caption: "Zhuhai skyline across the water.",
+        zhCaption: "隔水望见的珠海天际线。",
+      },
+      {
+        src: "/footprint/zhuhai-02.jpg",
+        caption: "Zhuhai Grand Theatre on a grey day.",
+        zhCaption: "阴天里的珠海大剧院日月贝。",
+      },
+      {
+        src: "/footprint/zhuhai-03.jpg",
+        caption: "View toward Macau from Zhuhai.",
+        zhCaption: "从珠海远望澳门方向。",
       },
     ],
   },
@@ -1180,6 +1309,26 @@ const places: FootprintPlace[] = [
         caption: "Winter rainbow over a Waterloo neighborhood.",
         zhCaption: "滑铁卢社区上空的冬日彩虹。",
       },
+      {
+        src: "/footprint/waterloo-06.jpg",
+        caption: "Quiet water reflection in Waterloo.",
+        zhCaption: "滑铁卢水边安静的倒影。",
+      },
+      {
+        src: "/footprint/waterloo-07.jpg",
+        caption: "Neighborhood street dimmed during the solar eclipse.",
+        zhCaption: "日食期间暗下来的滑铁卢社区街道。",
+      },
+      {
+        src: "/footprint/waterloo-08.jpg",
+        caption: "Clear Waterloo sky on solar eclipse day.",
+        zhCaption: "日食当天滑铁卢清澈的天空。",
+      },
+      {
+        src: "/footprint/waterloo-09.jpg",
+        caption: "Dusk-like light during the solar eclipse in Waterloo.",
+        zhCaption: "日食期间滑铁卢近似暮色的光线。",
+      },
     ],
   },
   {
@@ -1329,6 +1478,57 @@ const places: FootprintPlace[] = [
     ],
   },
   {
+    id: "niagara-on-the-lake",
+    name: "Niagara-on-the-Lake",
+    zhName: "尼亚加拉湖滨小镇",
+    country: "Canada",
+    zhCountry: "加拿大",
+    lat: 43.254,
+    lng: -79.0773,
+    note: "Peller Estates and Pillitteri winery stops in Niagara wine country.",
+    zhNote: "尼亚加拉葡萄酒乡里的 Peller Estates 与 Pillitteri 酒庄。",
+    photos: [
+      {
+        src: "/footprint/niagara-on-the-lake-01.jpg",
+        caption: "Peller Estates winery grounds on a misty day.",
+        zhCaption: "雾天里的 Peller Estates 酒庄庭院。",
+      },
+      {
+        src: "/footprint/niagara-on-the-lake-02.jpg",
+        caption: "Peller Estates facade and lawn.",
+        zhCaption: "Peller Estates 酒庄外立面与草坪。",
+      },
+      {
+        src: "/footprint/niagara-on-the-lake-03.jpg",
+        caption: "Pillitteri winery tanks and barrels.",
+        zhCaption: "Pillitteri 酒庄里的酒罐与木桶。",
+      },
+    ],
+  },
+  {
+    id: "oro-medonte",
+    name: "Oro-Medonte",
+    zhName: "奥罗-梅东特",
+    country: "Canada",
+    zhCountry: "加拿大",
+    lat: 44.6086,
+    lng: -79.6666,
+    note: "Mount St. Louis Moonstone ski slopes.",
+    zhNote: "Mount St. Louis Moonstone 的滑雪场。",
+    photos: [
+      {
+        src: "/footprint/oro-medonte-01.jpg",
+        caption: "Open ski run at Mount St. Louis Moonstone.",
+        zhCaption: "Mount St. Louis Moonstone 开阔的雪道。",
+      },
+      {
+        src: "/footprint/oro-medonte-02.jpg",
+        caption: "Snowy slope looking back toward the base.",
+        zhCaption: "回望雪场底部的 Mount St. Louis 雪坡。",
+      },
+    ],
+  },
+  {
     id: "montreal",
     name: "Montreal",
     zhName: "蒙特利尔",
@@ -1459,6 +1659,175 @@ const places: FootprintPlace[] = [
         src: "/footprint/banff-01.jpg",
         caption: "Canoe on a mountain lake.",
         zhCaption: "山间湖上的小舟。",
+      },
+    ],
+  },
+  {
+    id: "guadalajara",
+    name: "Guadalajara",
+    zhName: "瓜达拉哈拉",
+    country: "Mexico",
+    zhCountry: "墨西哥",
+    lat: 20.6597,
+    lng: -103.3496,
+    note: "ITESO campus, cathedral interiors, plazas, and historic center walks.",
+    zhNote: "ITESO 校园、教堂内部、广场与历史中心漫步。",
+    photos: [
+      {
+        src: "/footprint/guadalajara-01.jpg",
+        caption: "Tree shade across the ITESO campus.",
+        zhCaption: "ITESO 校园里铺开的树荫。",
+      },
+      {
+        src: "/footprint/guadalajara-02.jpg",
+        caption: "Pink blossoms on the ITESO campus lawn.",
+        zhCaption: "ITESO 校园草坪上的粉色花枝。",
+      },
+      {
+        src: "/footprint/guadalajara-03.jpg",
+        caption: "Classroom buildings among the trees at ITESO.",
+        zhCaption: "ITESO 树林之间的教学楼。",
+      },
+      {
+        src: "/footprint/guadalajara-04.jpg",
+        caption: "Historic plaza and bronze statue in Guadalajara.",
+        zhCaption: "瓜达拉哈拉老城广场与铜像。",
+      },
+      {
+        src: "/footprint/guadalajara-05.jpg",
+        caption: "Guadalajara Cathedral rising into the blue sky.",
+        zhCaption: "蓝天下的瓜达拉哈拉主教座堂。",
+      },
+      {
+        src: "/footprint/guadalajara-06.jpg",
+        caption: "Horse carriages and jacaranda shade downtown.",
+        zhCaption: "市中心的马车与蓝花楹树影。",
+      },
+      {
+        src: "/footprint/guadalajara-07.jpg",
+        caption: "Ornate interior of Guadalajara Cathedral.",
+        zhCaption: "瓜达拉哈拉主教座堂华丽的内部。",
+      },
+      {
+        src: "/footprint/guadalajara-08.jpg",
+        caption: "Carriages waiting beside the cathedral.",
+        zhCaption: "主教座堂旁等待的马车。",
+      },
+      {
+        src: "/footprint/guadalajara-09.jpg",
+        caption: "Stained glass inside Guadalajara Cathedral.",
+        zhCaption: "瓜达拉哈拉主教座堂里的彩色玻璃。",
+      },
+      {
+        src: "/footprint/guadalajara-10.jpg",
+        caption: "Street mural and market stalls in Guadalajara.",
+        zhCaption: "瓜达拉哈拉街头的壁画与市集摊位。",
+      },
+      {
+        src: "/footprint/guadalajara-11.jpg",
+        caption: "Cathedral towers above the historic center.",
+        zhCaption: "历史中心上方的主教座堂双塔。",
+      },
+    ],
+  },
+  {
+    id: "tequila",
+    name: "Tequila",
+    zhName: "特基拉",
+    country: "Mexico",
+    zhCountry: "墨西哥",
+    lat: 20.882,
+    lng: -103.8357,
+    note: "Agave fields, distillery rooms, church squares, and festival streets.",
+    zhNote: "龙舌兰田、酒厂空间、教堂广场与节庆街头。",
+    photos: [
+      {
+        src: "/footprint/tequila-01.jpg",
+        caption: "Rows of agave outside Tequila.",
+        zhCaption: "特基拉城外成排的龙舌兰。",
+      },
+      {
+        src: "/footprint/tequila-02.jpg",
+        caption: "Stone courtyard and clear sky in Tequila.",
+        zhCaption: "特基拉的石砌院落与晴空。",
+      },
+      {
+        src: "/footprint/tequila-03.jpg",
+        caption: "Museum stairway with small sculpted faces.",
+        zhCaption: "博物馆楼梯旁陈列的小型面具雕塑。",
+      },
+      {
+        src: "/footprint/tequila-04.jpg",
+        caption: "Statue in a sunlit Tequila courtyard.",
+        zhCaption: "特基拉阳光庭院里的雕像。",
+      },
+      {
+        src: "/footprint/tequila-05.jpg",
+        caption: "Copper stills inside a tequila distillery.",
+        zhCaption: "特基拉酒厂里的铜制蒸馏设备。",
+      },
+      {
+        src: "/footprint/tequila-06.jpg",
+        caption: "Barrel room stacked high in a tequila distillery.",
+        zhCaption: "特基拉酒厂里层层堆叠的橡木桶。",
+      },
+      {
+        src: "/footprint/tequila-07.jpg",
+        caption: "Garden path and white chapel in Tequila.",
+        zhCaption: "特基拉花园小径旁的白色小堂。",
+      },
+      {
+        src: "/footprint/tequila-08.jpg",
+        caption: "Bronze figures near the parish church.",
+        zhCaption: "教堂旁的铜像人物。",
+      },
+      {
+        src: "/footprint/tequila-09.jpg",
+        caption: "Voladores performance above the plaza.",
+        zhCaption: "广场上方的飞人表演。",
+      },
+      {
+        src: "/footprint/tequila-10.jpg",
+        caption: "Parish tower and lively plaza in Tequila.",
+        zhCaption: "特基拉热闹广场旁的教堂钟楼。",
+      },
+    ],
+  },
+  {
+    id: "mexico-city",
+    name: "Mexico City",
+    zhName: "墨西哥城",
+    country: "Mexico",
+    zhCountry: "墨西哥",
+    lat: 19.4326,
+    lng: -99.1332,
+    note: "Teotihuacan pyramids on a day trip from Mexico City.",
+    zhNote: "从墨西哥城出发前往特奥蒂瓦坎金字塔。",
+    photos: [
+      {
+        src: "/footprint/mexico-city-01.jpg",
+        caption: "Stepped pyramid at Teotihuacan.",
+        zhCaption: "特奥蒂瓦坎的阶梯金字塔。",
+      },
+      {
+        src: "/footprint/mexico-city-02.jpg",
+        caption: "Stone platforms and distant mountains at Teotihuacan.",
+        zhCaption: "特奥蒂瓦坎的石台与远处群山。",
+      },
+      {
+        src: "/footprint/mexico-city-03.jpg",
+        caption: "The Pyramid of the Sun beneath moving clouds.",
+        zhCaption: "云层下的太阳金字塔。",
+      },
+      {
+        src: "/footprint/mexico-city-04.jpg",
+        caption: "Wide view across the Teotihuacan ruins.",
+        zhCaption: "远望特奥蒂瓦坎遗址群。",
+      },
+      {
+        src: "/footprint/mexico-city-05.jpg",
+        caption: "Teotihuacan steps under a bright clouded sky.",
+        zhCaption: "晴云下的特奥蒂瓦坎石阶。",
       },
     ],
   },
