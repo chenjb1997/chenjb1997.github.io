@@ -2,6 +2,42 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  .footprint-map-shell {
+    background: #ffffff;
+  }
+
+  .footprint-map-shell.footprint-map-shell-fullscreen {
+    position: fixed;
+    inset: 0;
+    z-index: 1100;
+    width: 100vw;
+    height: 100dvh;
+  }
+
+  .footprint-map-shell-fullscreen .footprint-map-canvas {
+    height: 100dvh;
+  }
+
+  .footprint-map-shell .leaflet-container {
+    background: #f8fafc;
+  }
+
+  html.inverted-theme .footprint-map-shell {
+    filter: invert(1) hue-rotate(180deg);
+  }
+
+  html.inverted-theme .footprint-map-shell img,
+  html.inverted-theme .footprint-map-shell svg {
+    filter: none;
+  }
+
+  body.footprint-map-is-fullscreen .page-enter {
+    animation: none !important;
+    transform: none !important;
+  }
+}
+
 @layer base {
   @keyframes page-enter {
     from {

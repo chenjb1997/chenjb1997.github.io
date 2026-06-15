@@ -7,6 +7,8 @@ import {
   ChevronLeft,
   ChevronRight,
   MapPin,
+  Maximize2,
+  Minimize2,
   Pause,
   Play,
   RotateCcw,
@@ -174,7 +176,9 @@ const placeRegionLabels: Record<string, PlaceRegion> = {
   shunde: { label: "Guangdong", zhLabel: "广东" },
   jiangmen: { label: "Guangdong", zhLabel: "广东" },
   yangjiang: { label: "Guangdong", zhLabel: "广东" },
+  zhanjiang: { label: "Guangdong", zhLabel: "广东" },
   huazhou: { label: "Guangdong", zhLabel: "广东" },
+  zhongshan: { label: "Guangdong", zhLabel: "广东" },
   dongguan: { label: "Guangdong", zhLabel: "广东" },
   dongshan: { label: "Fujian", zhLabel: "福建" },
   xian: { label: "Shaanxi", zhLabel: "陕西" },
@@ -188,6 +192,7 @@ const placeRegionLabels: Record<string, PlaceRegion> = {
   wuhan: { label: "Hubei", zhLabel: "湖北" },
   harbin: { label: "Heilongjiang", zhLabel: "黑龙江" },
   jilin: { label: "Jilin", zhLabel: "吉林" },
+  changchun: { label: "Jilin", zhLabel: "吉林" },
   shenyang: { label: "Liaoning", zhLabel: "辽宁" },
   taiyuan: { label: "Shanxi", zhLabel: "山西" },
   xinzhou: { label: "Shanxi", zhLabel: "山西" },
@@ -201,6 +206,7 @@ const placeRegionLabels: Record<string, PlaceRegion> = {
   changsha: { label: "Hunan", zhLabel: "湖南" },
   shaoshan: { label: "Hunan", zhLabel: "湖南" },
   "hong-kong": { label: "Hong Kong", zhLabel: "香港" },
+  macau: { label: "Macau", zhLabel: "澳门" },
 
   atlanta: { label: "Georgia", zhLabel: "佐治亚州" },
   macon: { label: "Georgia", zhLabel: "佐治亚州" },
@@ -260,6 +266,8 @@ const placeRegionLabels: Record<string, PlaceRegion> = {
   otaru: { label: "Hokkaido", zhLabel: "北海道" },
   furano: { label: "Hokkaido", zhLabel: "北海道" },
   yokohama: { label: "Kanagawa", zhLabel: "神奈川县" },
+  yokosuka: { label: "Kanagawa", zhLabel: "神奈川县" },
+  kamakura: { label: "Kanagawa", zhLabel: "神奈川县" },
   hida: { label: "Gifu", zhLabel: "岐阜县" },
   gifu: { label: "Gifu", zhLabel: "岐阜县" },
   kasamatsu: { label: "Gifu", zhLabel: "岐阜县" },
@@ -325,7 +333,7 @@ const regionUnitLabels: Partial<
 };
 
 const placeCountLabel = (count: number, isChinese: boolean) =>
-  isChinese ? `${count} 城市` : `${count} ${count === 1 ? "place" : "places"}`;
+  isChinese ? `${count} 城市 / 地点` : `${count} ${count === 1 ? "place" : "places"}`;
 
 const places: FootprintPlace[] = [
   {
@@ -338,6 +346,18 @@ const places: FootprintPlace[] = [
     lng: 114.0579,
     note: "Current academic home.",
     zhNote: "现在工作和生活的地方。",
+    photos: [
+      {
+        src: "/footprint/shenzhen-01.jpg",
+        caption: "Daya Bay Nuclear Power Plant by the mountains.",
+        zhCaption: "山海之间的大亚湾核电站。",
+      },
+      {
+        src: "/footprint/shenzhen-02.jpg",
+        caption: "Cloud light over the Shenzhen coast.",
+        zhCaption: "深圳海面远处的云光。",
+      },
+    ],
   },
   {
     id: "guangzhou",
@@ -350,6 +370,16 @@ const places: FootprintPlace[] = [
     note: "A familiar city in southern China.",
     zhNote: "熟悉的华南城市。",
     photos: [
+      {
+        src: "/footprint/guangzhou-07.jpg",
+        caption: "Guangzhou No. 2 High School anniversary venue seating.",
+        zhCaption: "广州二中校庆会场座席。",
+      },
+      {
+        src: "/footprint/guangzhou-08.jpg",
+        caption: "Guangzhou No. 2 High School ceremony stage.",
+        zhCaption: "广州二中校庆舞台。",
+      },
       {
         src: "/footprint/guangzhou-05.jpg",
         caption: "Sun Yat-sen statue at the Memorial Hall.",
@@ -515,6 +545,29 @@ const places: FootprintPlace[] = [
     ],
   },
   {
+    id: "zhongshan",
+    name: "Zhongshan",
+    zhName: "中山",
+    country: "China",
+    zhCountry: "中国",
+    lat: 22.5176,
+    lng: 113.3926,
+    note: "Xiangshan night lights and old city streets.",
+    zhNote: "香山夜色与老城街景。",
+    photos: [
+      {
+        src: "/footprint/zhongshan-01.jpg",
+        caption: "Neon signs at Zhongshan's Xiangshan Theatre street.",
+        zhCaption: "中山香山剧场街口的霓虹灯。",
+      },
+      {
+        src: "/footprint/zhongshan-02.jpg",
+        caption: "Lit historic tower in Zhongshan at night.",
+        zhCaption: "中山夜色中的老城塔楼。",
+      },
+    ],
+  },
+  {
     id: "shunde",
     name: "Shunde",
     zhName: "顺德",
@@ -599,6 +652,24 @@ const places: FootprintPlace[] = [
     ],
   },
   {
+    id: "zhanjiang",
+    name: "Zhanjiang",
+    zhName: "湛江",
+    country: "China",
+    zhCountry: "中国",
+    lat: 21.2707,
+    lng: 110.3594,
+    note: "Bay bridge and coastal city light.",
+    zhNote: "海湾大桥与滨海城市光线。",
+    photos: [
+      {
+        src: "/footprint/zhanjiang-01.jpg",
+        caption: "Zhanjiang Bay Bridge above the water.",
+        zhCaption: "湛江湾大桥横跨水面。",
+      },
+    ],
+  },
+  {
     id: "huazhou",
     name: "Huazhou",
     zhName: "化州",
@@ -608,7 +679,13 @@ const places: FootprintPlace[] = [
     lng: 110.6396,
     note: "Western Guangdong hometown streets and slow local light.",
     zhNote: "粤西家乡街巷与缓慢的本地光线。",
-    photos: [],
+    photos: [
+      {
+        src: "/footprint/huazhou-01.jpg",
+        caption: "Huazhou sliced chicken with cilantro.",
+        zhCaption: "化州白切鸡与香菜。",
+      },
+    ],
   },
   {
     id: "xian",
@@ -734,6 +811,16 @@ const places: FootprintPlace[] = [
     zhNote: "会议、比赛、城市漫步，以及华为松山湖基地一站。",
     photos: [
       {
+        src: "/footprint/shanghai-05.jpg",
+        caption: "Lujiazui skyline in golden light.",
+        zhCaption: "金色夕光里的陆家嘴天际线。",
+      },
+      {
+        src: "/footprint/shanghai-06.jpg",
+        caption: "Huangpu River and the Shanghai skyline.",
+        zhCaption: "黄浦江两岸的上海天际线。",
+      },
+      {
         src: "/footprint/shanghai-01.jpg",
         caption: "Huawei Songshan Lake campus across the water.",
         zhCaption: "水岸对面的华为松山湖基地。",
@@ -812,6 +899,31 @@ const places: FootprintPlace[] = [
     zhNote: "秋日树影与城市记忆。",
     photos: [
       {
+        src: "/footprint/wuhan-02.jpg",
+        caption: "Yellow Crane Tower lit above Wuhan at night.",
+        zhCaption: "夜色中亮起的武汉黄鹤楼。",
+      },
+      {
+        src: "/footprint/wuhan-03.jpg",
+        caption: "Yellow Crane Tower with Wuhan towers behind it.",
+        zhCaption: "黄鹤楼与身后的武汉高楼。",
+      },
+      {
+        src: "/footprint/wuhan-04.jpg",
+        caption: "Mao Zedong statue at Huazhong University of Science and Technology.",
+        zhCaption: "华中科技大学毛泽东像前。",
+      },
+      {
+        src: "/footprint/wuhan-05.jpg",
+        caption: "Wuhan University gate.",
+        zhCaption: "武汉大学校门。",
+      },
+      {
+        src: "/footprint/wuhan-06.jpg",
+        caption: "High-speed train passing below Yellow Crane Tower.",
+        zhCaption: "高铁从黄鹤楼下方驶过。",
+      },
+      {
         src: "/footprint/wuhan-01.jpg",
         caption: "Autumn trees in Wuhan.",
         zhCaption: "武汉的秋日树影。",
@@ -843,6 +955,29 @@ const places: FootprintPlace[] = [
         src: "/footprint/harbin-03.jpg",
         caption: "Ice architecture in Harbin.",
         zhCaption: "哈尔滨的冰雪建筑。",
+      },
+    ],
+  },
+  {
+    id: "changchun",
+    name: "Changchun",
+    zhName: "长春",
+    country: "China",
+    zhCountry: "中国",
+    lat: 43.8171,
+    lng: 125.3235,
+    note: "Airshow crowds and aircraft displays.",
+    zhNote: "航展人群与飞机展示。",
+    photos: [
+      {
+        src: "/footprint/changchun-01.jpg",
+        caption: "Fighter jet display at the Changchun Airshow.",
+        zhCaption: "长春航展上的战斗机静态展示。",
+      },
+      {
+        src: "/footprint/changchun-02.jpg",
+        caption: "Crowds in front of the air force hall at the Changchun Airshow.",
+        zhCaption: "长春航展中国空军展馆前的人群。",
       },
     ],
   },
@@ -1049,6 +1184,26 @@ const places: FootprintPlace[] = [
     note: "Sichuan mountain water and old engineering.",
     zhNote: "四川山水与古老水利。",
     photos: [
+      {
+        src: "/footprint/chengdu-05.jpg",
+        caption: "Mao Zedong statue at Chengdu Tianfu Square.",
+        zhCaption: "成都天府广场的毛泽东像。",
+      },
+      {
+        src: "/footprint/chengdu-02.jpg",
+        caption: "Anshun Bridge glowing over the Jinjiang River.",
+        zhCaption: "锦江上亮起的成都安顺廊桥。",
+      },
+      {
+        src: "/footprint/chengdu-03.jpg",
+        caption: "Wuhou Shrine entrance in Chengdu.",
+        zhCaption: "成都武侯祠入口。",
+      },
+      {
+        src: "/footprint/chengdu-04.jpg",
+        caption: "Stone guardian at Wuhou Shrine in Chengdu.",
+        zhCaption: "成都武侯祠门前的石狮。",
+      },
       {
         src: "/footprint/chengdu-01.jpg",
         caption: "Dujiangyan waterworks near Chengdu.",
@@ -1543,6 +1698,29 @@ const places: FootprintPlace[] = [
     ],
   },
   {
+    id: "yokosuka",
+    name: "Yokosuka",
+    zhName: "横须贺",
+    country: "Japan",
+    zhCountry: "日本",
+    lat: 35.2813,
+    lng: 139.6722,
+    note: "Harbor water and naval history.",
+    zhNote: "港湾水色与海军历史。",
+    photos: [
+      {
+        src: "/footprint/yokosuka-01.jpg",
+        caption: "Evening harbor at Yokosuka.",
+        zhCaption: "夕光里的横须贺港。",
+      },
+      {
+        src: "/footprint/yokosuka-02.jpg",
+        caption: "Battleship Mikasa memorial in Yokosuka.",
+        zhCaption: "横须贺三笠纪念舰。",
+      },
+    ],
+  },
+  {
     id: "yokohama",
     name: "Yokohama",
     zhName: "横滨",
@@ -1554,9 +1732,47 @@ const places: FootprintPlace[] = [
     zhNote: "海边的音乐。",
     photos: [
       {
+        src: "/footprint/yokohama-02.jpg",
+        caption: "Yokohama Bay Bridge from the waterfront.",
+        zhCaption: "横滨水边望见的横滨海湾大桥。",
+      },
+      {
+        src: "/footprint/yokohama-03.jpg",
+        caption: "Yokohama Chinatown gate and Peking restaurant.",
+        zhCaption: "横滨中华街牌楼与北京饭店。",
+      },
+      {
         src: "/footprint/yokohama-01.jpg",
         caption: "A saxophone performance by the bay.",
         zhCaption: "海湾边的萨克斯演奏。",
+      },
+    ],
+  },
+  {
+    id: "kamakura",
+    name: "Kamakura",
+    zhName: "镰仓",
+    country: "Japan",
+    zhCountry: "日本",
+    lat: 35.3192,
+    lng: 139.5467,
+    note: "Beach light, Enoshima views, and quiet sea edges.",
+    zhNote: "海滩天光、江之岛远景与安静海岸。",
+    photos: [
+      {
+        src: "/footprint/kamakura-01.jpg",
+        caption: "Kamakura beach under a soft evening sky.",
+        zhCaption: "柔和天光下的镰仓海滩。",
+      },
+      {
+        src: "/footprint/kamakura-02.jpg",
+        caption: "Enoshima and Sagami Bay from above.",
+        zhCaption: "从高处望向江之岛与相模湾。",
+      },
+      {
+        src: "/footprint/kamakura-03.jpg",
+        caption: "Quiet pier and sea at Kamakura.",
+        zhCaption: "镰仓海边安静的防波堤与海面。",
       },
     ],
   },
@@ -1861,6 +2077,26 @@ const places: FootprintPlace[] = [
     zhNote: "维港夜色与香港大学校园角落。",
     photos: [
       {
+        src: "/footprint/hong-kong-10.jpg",
+        caption: "Hong Kong skyline from across Victoria Harbour.",
+        zhCaption: "维港对岸的香港天际线夜景。",
+      },
+      {
+        src: "/footprint/hong-kong-11.jpg",
+        caption: "Hong Kong streets with tram tracks.",
+        zhCaption: "带着电车轨道的香港街景。",
+      },
+      {
+        src: "/footprint/hong-kong-12.jpg",
+        caption: "Hong Kong Convention and Exhibition Centre by the water.",
+        zhCaption: "维港边的香港会议展览中心。",
+      },
+      {
+        src: "/footprint/hong-kong-13.jpg",
+        caption: "Fishing by Victoria Harbour in Hong Kong.",
+        zhCaption: "维港边垂钓的人与香港天际线。",
+      },
+      {
         src: "/footprint/hong-kong-01.jpg",
         caption: "Harbor view through the city.",
         zhCaption: "城市缝隙中的维港。",
@@ -1908,6 +2144,49 @@ const places: FootprintPlace[] = [
     ],
   },
   {
+    id: "macau",
+    name: "Macau",
+    zhName: "澳门",
+    country: "China",
+    zhCountry: "中国",
+    lat: 22.1987,
+    lng: 113.5439,
+    note: "Historic facades, Taipa streets, and casino lights.",
+    zhNote: "历史立面、氹仔街道与娱乐场灯火。",
+    photos: [
+      {
+        src: "/footprint/macau-01.jpg",
+        caption: "The Parisian Macao and Eiffel Tower replica.",
+        zhCaption: "澳门巴黎人的铁塔景观。",
+      },
+      {
+        src: "/footprint/macau-02.jpg",
+        caption: "The Londoner Macao facade and red bus.",
+        zhCaption: "澳门伦敦人外立面与红色巴士。",
+      },
+      {
+        src: "/footprint/macau-03.jpg",
+        caption: "Rua do Cunha entrance in Taipa.",
+        zhCaption: "氹仔官也街入口。",
+      },
+      {
+        src: "/footprint/macau-04.jpg",
+        caption: "Fireworks above The Parisian Macao.",
+        zhCaption: "澳门巴黎人上空的烟火。",
+      },
+      {
+        src: "/footprint/macau-05.jpg",
+        caption: "Ruins of Saint Paul's at night.",
+        zhCaption: "夜色中的大三巴牌坊。",
+      },
+      {
+        src: "/footprint/macau-06.jpg",
+        caption: "Rua do Cunha crowds and neon signs.",
+        zhCaption: "官也街人潮与霓虹招牌。",
+      },
+    ],
+  },
+  {
     id: "kitchener",
     name: "Kitchener",
     zhName: "基奇纳",
@@ -1940,6 +2219,26 @@ const places: FootprintPlace[] = [
         src: "/footprint/waterloo-01.jpg",
         caption: "Autumn in Waterloo.",
         zhCaption: "滑铁卢的秋天。",
+      },
+      {
+        src: "/footprint/waterloo-12.jpg",
+        caption: "Autumn convocation entrance at Waterloo.",
+        zhCaption: "滑铁卢秋日里的毕业典礼入口。",
+      },
+      {
+        src: "/footprint/waterloo-13.jpg",
+        caption: "Sunlit atrium inside the Davis Centre.",
+        zhCaption: "Davis Centre 里洒满阳光的中庭。",
+      },
+      {
+        src: "/footprint/waterloo-14.jpg",
+        caption: "William G. Davis Computer Research Centre sign.",
+        zhCaption: "William G. Davis Computer Research Centre 的标识。",
+      },
+      {
+        src: "/footprint/waterloo-15.jpg",
+        caption: "Autumn road in Waterloo.",
+        zhCaption: "滑铁卢秋色里的道路。",
       },
       {
         src: "/footprint/waterloo-02.jpg",
@@ -2004,6 +2303,11 @@ const places: FootprintPlace[] = [
     note: "Casa Loma, CN Tower, University of Toronto, and downtown skyline views.",
     zhNote: "Casa Loma、CN Tower、多伦多大学与市中心天际线。",
     photos: [
+      {
+        src: "/footprint/toronto-27.jpg",
+        caption: "Toronto skyline glittering across the water.",
+        zhCaption: "隔水闪烁的多伦多夜景。",
+      },
       {
         src: "/footprint/toronto-01.jpg",
         caption: "Casa Loma's stone facade in winter.",
@@ -2452,6 +2756,26 @@ const places: FootprintPlace[] = [
     note: "Suspension bridge, cherry blossoms, Stanley Park, and waterfront paths.",
     zhNote: "吊桥、樱花、Stanley Park 与海边步道。",
     photos: [
+      {
+        src: "/footprint/vancouver-08.jpg",
+        caption: "Vancouver skyline across the water.",
+        zhCaption: "隔海望见的温哥华天际线。",
+      },
+      {
+        src: "/footprint/vancouver-09.jpg",
+        caption: "Mountain station below snow-dusted peaks near Vancouver.",
+        zhCaption: "温哥华近郊雪峰下的山间缆车站。",
+      },
+      {
+        src: "/footprint/vancouver-10.jpg",
+        caption: "Downtown Vancouver in evening light.",
+        zhCaption: "傍晚海面旁的温哥华市中心。",
+      },
+      {
+        src: "/footprint/vancouver-11.jpg",
+        caption: "Suspension bridge through the green mountains near Vancouver.",
+        zhCaption: "温哥华近郊山林间的吊桥。",
+      },
       {
         src: "/footprint/vancouver-01.jpg",
         caption: "Capilano Suspension Bridge entrance sign.",
@@ -3815,6 +4139,16 @@ const places: FootprintPlace[] = [
     zhNote: "岛上的天空、海与烟火。",
     photos: [
       {
+        src: "/footprint/oahu-04.jpg",
+        caption: "Honolulu from the Diamond Head hillside.",
+        zhCaption: "从钻石头山坡俯瞰檀香山。",
+      },
+      {
+        src: "/footprint/oahu-05.jpg",
+        caption: "Waikiki and Honolulu from above.",
+        zhCaption: "从高处望向威基基与檀香山。",
+      },
+      {
         src: "/footprint/oahu-01.jpg",
         caption: "Fireworks over the water.",
         zhCaption: "海面上的烟火。",
@@ -5171,8 +5505,17 @@ const places: FootprintPlace[] = [
   },
 ];
 
-const initialCenter: L.LatLngExpression = [31, 32];
+const initialCenter: L.LatLngExpression = [38, -6];
 const initialZoom = 2;
+const compactInitialCenter: L.LatLngExpression = [34, 55];
+const compactInitialZoom = 1.5;
+
+const getInitialMapView = (container?: HTMLElement | null) => {
+  const width = container?.clientWidth ?? window.innerWidth;
+  return width < 640
+    ? { center: compactInitialCenter, zoom: compactInitialZoom }
+    : { center: initialCenter, zoom: initialZoom };
+};
 
 const Footprint = () => {
   const { i18n } = useTranslation();
@@ -5180,6 +5523,9 @@ const Footprint = () => {
   const [selectedPlace, setSelectedPlace] = useState<FootprintPlace | null>(null);
   const [photoIndex, setPhotoIndex] = useState(0);
   const [autoPlay, setAutoPlay] = useState(false);
+  const [isMapFullscreen, setIsMapFullscreen] = useState(false);
+  const [expandedCountries, setExpandedCountries] = useState<Record<string, boolean>>({});
+  const mapShellRef = useRef<HTMLDivElement | null>(null);
   const mapContainerRef = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<LeafletMap | null>(null);
   const markerLayerRef = useRef<LayerGroup | null>(null);
@@ -5260,10 +5606,11 @@ const Footprint = () => {
       return;
     }
 
+    const initialView = getInitialMapView(mapContainerRef.current);
     const map = L.map(mapContainerRef.current, {
-      center: initialCenter,
-      zoom: initialZoom,
-      minZoom: 2,
+      center: initialView.center,
+      zoom: initialView.zoom,
+      minZoom: 1.25,
       maxZoom: 18,
       zoomControl: false,
       attributionControl: false,
@@ -5277,9 +5624,8 @@ const Footprint = () => {
       ],
       maxBoundsViscosity: 0.72,
     });
-
     // Use no-label tiles so provider-side political labels do not imply country status.
-    L.tileLayer("https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png", {
+    L.tileLayer("https://{s}.basemaps.cartocdn.com/rastertiles/voyager_nolabels/{z}/{x}/{y}.png", {
       attribution:
         '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
       maxZoom: 20,
@@ -5350,8 +5696,39 @@ const Footprint = () => {
   };
 
   const resetMap = () => {
-    mapRef.current?.setView(initialCenter, initialZoom, { animate: false });
+    const initialView = getInitialMapView(mapContainerRef.current);
+    mapRef.current?.setView(initialView.center, initialView.zoom, { animate: false });
   };
+
+  const toggleMapFullscreen = () => {
+    setIsMapFullscreen((current) => !current);
+    window.setTimeout(() => mapRef.current?.invalidateSize(), 100);
+  };
+
+  const toggleCountryGroup = (countryGroupKey: string) => {
+    setExpandedCountries((current) => ({
+      ...current,
+      [countryGroupKey]: !current[countryGroupKey],
+    }));
+  };
+
+  const mapShellClass = isMapFullscreen
+    ? "footprint-map-shell footprint-map-shell-fullscreen bg-white"
+    : "footprint-map-shell relative bg-white";
+  const mapShellStyle = isMapFullscreen
+    ? {
+        position: "fixed" as const,
+        inset: 0,
+        zIndex: 1100,
+        width: "100vw",
+        height: "100dvh",
+      }
+    : undefined;
+  const mapCanvasStyle = isMapFullscreen ? { height: "100dvh" } : undefined;
+  const fullscreenButtonClass = [
+    "inline-flex h-9 items-center justify-center border-l border-slate-100 text-slate-700 transition-colors hover:bg-sky-50 hover:text-sky-700",
+    isMapFullscreen ? "w-auto gap-1.5 px-3" : "w-9",
+  ].join(" ");
 
   const selectedPhotos = selectedPlace?.photos ?? [];
   const currentPhoto = selectedPhotos[photoIndex];
@@ -5381,7 +5758,7 @@ const Footprint = () => {
   }, [autoPlay, selectedPhotos.length, selectedPlace, showNextPhoto]);
 
   useEffect(() => {
-    if (!selectedPlace) {
+    if (!selectedPlace && !isMapFullscreen) {
       return;
     }
 
@@ -5391,7 +5768,33 @@ const Footprint = () => {
     return () => {
       document.body.style.overflow = previousOverflow;
     };
-  }, [selectedPlace]);
+  }, [isMapFullscreen, selectedPlace]);
+
+  useEffect(() => {
+    if (!isMapFullscreen) {
+      return;
+    }
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape" && !selectedPlace) {
+        setIsMapFullscreen(false);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isMapFullscreen, selectedPlace]);
+
+  useEffect(() => {
+    document.body.classList.toggle("footprint-map-is-fullscreen", isMapFullscreen);
+    window.setTimeout(() => mapRef.current?.invalidateSize(), 100);
+
+    return () => {
+      document.body.classList.remove("footprint-map-is-fullscreen");
+    };
+  }, [isMapFullscreen]);
 
   return (
     <main className="mx-auto max-w-4xl px-3">
@@ -5430,20 +5833,25 @@ const Footprint = () => {
       </section>
 
       <section className="overflow-hidden border border-slate-200 bg-white shadow-sm dark:border-slate-700 dark:bg-slate-900">
-        <div className="relative">
+        <div
+          ref={mapShellRef}
+          className={mapShellClass}
+          style={mapShellStyle}
+        >
           <div
             ref={mapContainerRef}
-            className="h-[390px] w-full bg-slate-100 sm:h-[470px] md:h-[560px] dark:bg-slate-800"
+            className="footprint-map-canvas h-[390px] w-full bg-slate-100 sm:h-[470px] md:h-[560px]"
+            style={mapCanvasStyle}
             aria-label={isChinese ? "足迹地图" : "Footprint map"}
           />
 
-          <div className="absolute right-4 top-4 z-[500] flex overflow-hidden rounded-sm border border-white/75 bg-white/90 shadow-sm backdrop-blur dark:border-slate-700 dark:bg-slate-900/90">
+          <div className="absolute right-4 top-4 z-[500] flex overflow-hidden rounded-sm border border-white/75 bg-white/95 shadow-sm backdrop-blur">
             <button
               type="button"
               aria-label={isChinese ? "放大地图" : "Zoom in"}
               title={isChinese ? "放大" : "Zoom in"}
               onClick={() => zoomMap(1)}
-              className="inline-flex h-9 w-9 items-center justify-center text-slate-700 transition-colors hover:bg-sky-50 hover:text-sky-700 dark:text-slate-200 dark:hover:bg-slate-800 dark:hover:text-sky-300"
+              className="inline-flex h-9 w-9 items-center justify-center text-slate-700 transition-colors hover:bg-sky-50 hover:text-sky-700"
             >
               <ZoomIn size={17} />
             </button>
@@ -5452,7 +5860,7 @@ const Footprint = () => {
               aria-label={isChinese ? "缩小地图" : "Zoom out"}
               title={isChinese ? "缩小" : "Zoom out"}
               onClick={() => zoomMap(-1)}
-              className="inline-flex h-9 w-9 items-center justify-center border-l border-slate-100 text-slate-700 transition-colors hover:bg-sky-50 hover:text-sky-700 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800 dark:hover:text-sky-300"
+              className="inline-flex h-9 w-9 items-center justify-center border-l border-slate-100 text-slate-700 transition-colors hover:bg-sky-50 hover:text-sky-700"
             >
               <ZoomOut size={17} />
             </button>
@@ -5461,21 +5869,40 @@ const Footprint = () => {
               aria-label={isChinese ? "重置地图" : "Reset map"}
               title={isChinese ? "重置" : "Reset"}
               onClick={resetMap}
-              className="inline-flex h-9 w-9 items-center justify-center border-l border-slate-100 text-slate-700 transition-colors hover:bg-sky-50 hover:text-sky-700 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800 dark:hover:text-sky-300"
+              className="inline-flex h-9 w-9 items-center justify-center border-l border-slate-100 text-slate-700 transition-colors hover:bg-sky-50 hover:text-sky-700"
             >
               <RotateCcw size={16} />
             </button>
-          </div>
-
-          <div className="absolute bottom-4 left-4 z-[500] max-w-[calc(100%-2rem)] rounded-sm border border-white/70 bg-white/85 px-3 py-2 text-xs font-medium text-gray-600 shadow-sm backdrop-blur dark:border-slate-700 dark:bg-slate-900/85 dark:text-slate-200">
-            <div>
-              {isChinese
-                ? `已标记 ${places.length} 个地点`
-                : `${places.length} places marked`}
-            </div>
-            <div className="mt-0.5 text-[11px] font-normal text-gray-500 dark:text-slate-400">
-              {isChinese ? "可拖拽、滚轮缩放、点击标记" : "Drag, scroll to zoom, and click markers"}
-            </div>
+            <button
+              type="button"
+              aria-label={
+                isChinese
+                  ? isMapFullscreen
+                    ? "退出全屏地图"
+                    : "全屏查看地图"
+                  : isMapFullscreen
+                    ? "Exit fullscreen map"
+                    : "View map fullscreen"
+              }
+              title={
+                isChinese
+                  ? isMapFullscreen
+                    ? "退出全屏"
+                    : "全屏"
+                  : isMapFullscreen
+                    ? "Exit fullscreen"
+                    : "Fullscreen"
+              }
+              onClick={toggleMapFullscreen}
+              className={fullscreenButtonClass}
+            >
+              {isMapFullscreen ? <Minimize2 size={16} /> : <Maximize2 size={16} />}
+              {isMapFullscreen && (
+                <span className="text-[12px] font-semibold leading-none">
+                  {isChinese ? "退出全屏" : "Exit"}
+                </span>
+              )}
+            </button>
           </div>
         </div>
 
@@ -5499,84 +5926,108 @@ const Footprint = () => {
                   {countries.reduce((sum, group) => sum + group.places.length, 0)}
                 </span>
               </div>
-              <div className="grid gap-3 md:grid-cols-2">
+              <div className="grid items-start gap-3 md:grid-cols-2">
                 {countries.length ? (
                   countries.map(({ country, places: countryPlaces, regionGroups }) => {
                     const style = countryStyles[country];
                     const regionUnit = regionUnitLabels[country];
                     const regionCount = regionGroups.filter(({ region }) => region).length;
+                    const countryGroupKey = `${continent}:${country}`;
+                    const isCountryExpanded = Boolean(expandedCountries[countryGroupKey]);
+                    const countryName = isChinese ? style.zhLabel : style.label;
                     const countrySummary =
                       regionUnit && regionCount
                         ? isChinese
-                          ? `${regionCount} ${regionUnit.zhLabel} / ${placeCountLabel(
+                          ? `${regionCount}${regionUnit.zhLabel}，${placeCountLabel(
                               countryPlaces.length,
                               isChinese,
                             )}`
-                          : `${regionCount} ${regionUnit.label} / ${placeCountLabel(
+                          : `${regionCount} ${regionUnit.label}, ${placeCountLabel(
                               countryPlaces.length,
                               isChinese,
                             )}`
                         : placeCountLabel(countryPlaces.length, isChinese);
-                    const countryCardClass = [
-                      "border border-slate-200 bg-white p-3 shadow-sm dark:border-slate-700 dark:bg-slate-900",
-                      continent === "NorthAmerica" && country === "USA" ? "md:row-span-2" : "",
-                    ]
-                      .filter(Boolean)
-                      .join(" ");
+                    const countryCardClass =
+                      "self-start border border-slate-200 bg-white p-3 shadow-sm dark:border-slate-700 dark:bg-slate-900";
                     return (
                       <article
-                        key={`${continent}-${country}`}
+                        key={countryGroupKey}
                         className={countryCardClass}
                         style={{ borderTop: `3px solid ${continentStyle.accent}` }}
                       >
-                        <div className="mb-2 flex items-center justify-between gap-3">
-                          <div className="flex items-center gap-2">
+                        <button
+                          type="button"
+                          aria-expanded={isCountryExpanded}
+                          aria-label={
+                            isChinese
+                              ? `${isCountryExpanded ? "收起" : "展开"}${countryName}地点列表`
+                              : `${isCountryExpanded ? "Collapse" : "Expand"} ${countryName} place list`
+                          }
+                          title={
+                            isChinese
+                              ? isCountryExpanded
+                                ? "收起"
+                                : "展开"
+                              : isCountryExpanded
+                                ? "Collapse"
+                                : "Expand"
+                          }
+                          onClick={() => toggleCountryGroup(countryGroupKey)}
+                          className="flex w-full items-center justify-between gap-3 text-left"
+                        >
+                          <div className="flex min-w-0 items-center gap-2">
                             <span
-                              className="h-2.5 w-2.5 rounded-full"
+                              className="h-2.5 w-2.5 shrink-0 rounded-full"
                               style={{ backgroundColor: style.color }}
                             />
-                            <h3 className="text-[15px] font-semibold text-slate-900 dark:text-slate-50">
-                              {isChinese ? style.zhLabel : style.label}
+                            <h3 className="truncate text-[15px] font-semibold text-slate-900 dark:text-slate-50">
+                              {countryName}
                             </h3>
                           </div>
-                          <span className="shrink-0 text-right text-[12px] text-slate-500 dark:text-slate-400">
-                            {countrySummary}
+                          <span className="flex shrink-0 items-center gap-2 text-right text-[12px] text-slate-500 dark:text-slate-400">
+                            <span>{countrySummary}</span>
+                            <ChevronRight
+                              size={15}
+                              className={`transition-transform ${isCountryExpanded ? "rotate-90" : ""}`}
+                            />
                           </span>
-                        </div>
-                        <div className="space-y-2">
-                          {regionGroups.map(({ key, region, places: regionPlaces }) => (
-                            <div key={`${country}-${key}`} className="space-y-1.5">
-                              {region && (
-                                <div className="flex items-center justify-between gap-3 border-b border-slate-100 pb-1 dark:border-slate-800">
-                                  <span className="text-[12px] font-semibold text-slate-500 dark:text-slate-400">
-                                    {isChinese ? region.zhLabel : region.label}
-                                  </span>
-                                  <span className="text-[11px] text-slate-400 dark:text-slate-500">
-                                    {placeCountLabel(regionPlaces.length, isChinese)}
-                                  </span>
-                                </div>
-                              )}
-                              <div className="flex flex-wrap gap-1.5">
-                                {regionPlaces.map((place) => (
-                                  <button
-                                    type="button"
-                                    key={place.id}
-                                    onClick={() => focusPlace(place)}
-                                    className="group inline-flex items-center gap-1.5 rounded-sm border border-slate-200 bg-slate-50 px-2.5 py-1.5 text-left transition-colors hover:border-slate-300 hover:bg-white dark:border-slate-700 dark:bg-slate-950 dark:hover:border-slate-600 dark:hover:bg-slate-800"
-                                  >
-                                    <span className="text-[13px] font-semibold leading-none text-slate-800 group-hover:text-slate-950 dark:text-slate-100 dark:group-hover:text-white">
-                                      {displayName(place)}
+                        </button>
+                        {isCountryExpanded && (
+                          <div className="mt-3 space-y-2 border-t border-slate-100 pt-3 dark:border-slate-800">
+                            {regionGroups.map(({ key, region, places: regionPlaces }) => (
+                              <div key={`${country}-${key}`} className="space-y-1.5">
+                                {region && (
+                                  <div className="flex items-center justify-between gap-3 border-b border-slate-100 pb-1 dark:border-slate-800">
+                                    <span className="text-[12px] font-semibold text-slate-500 dark:text-slate-400">
+                                      {isChinese ? region.zhLabel : region.label}
                                     </span>
-                                    <MapPin
-                                      size={12}
-                                      className="shrink-0 text-slate-400 transition-colors group-hover:text-slate-700 dark:group-hover:text-slate-200"
-                                    />
-                                  </button>
-                                ))}
+                                    <span className="text-[11px] text-slate-400 dark:text-slate-500">
+                                      {placeCountLabel(regionPlaces.length, isChinese)}
+                                    </span>
+                                  </div>
+                                )}
+                                <div className="flex flex-wrap gap-1.5">
+                                  {regionPlaces.map((place) => (
+                                    <button
+                                      type="button"
+                                      key={place.id}
+                                      onClick={() => focusPlace(place)}
+                                      className="group inline-flex items-center gap-1.5 rounded-sm border border-slate-200 bg-slate-50 px-2.5 py-1.5 text-left transition-colors hover:border-slate-300 hover:bg-white dark:border-slate-700 dark:bg-slate-950 dark:hover:border-slate-600 dark:hover:bg-slate-800"
+                                    >
+                                      <span className="text-[13px] font-semibold leading-none text-slate-800 group-hover:text-slate-950 dark:text-slate-100 dark:group-hover:text-white">
+                                        {displayName(place)}
+                                      </span>
+                                      <MapPin
+                                        size={12}
+                                        className="shrink-0 text-slate-400 transition-colors group-hover:text-slate-700 dark:group-hover:text-slate-200"
+                                      />
+                                    </button>
+                                  ))}
+                                </div>
                               </div>
-                            </div>
-                          ))}
-                        </div>
+                            ))}
+                          </div>
+                        )}
                       </article>
                     );
                   })
