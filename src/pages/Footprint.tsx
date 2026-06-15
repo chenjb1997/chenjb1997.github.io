@@ -36,7 +36,11 @@ type FootprintPlace = {
     | "Russia"
     | "Turkey"
     | "Germany"
-    | "Mexico";
+    | "Mexico"
+    | "Italy"
+    | "Vatican City"
+    | "France"
+    | "Switzerland";
   zhCountry: string;
   lat: number;
   lng: number;
@@ -68,6 +72,20 @@ const countryStyles: Record<
   Turkey: { color: "#9333ea", soft: "#f3e8ff", label: "Turkey", zhLabel: "土耳其" },
   Germany: { color: "#0f766e", soft: "#ccfbf1", label: "Germany", zhLabel: "德国" },
   Mexico: { color: "#ca8a04", soft: "#fef9c3", label: "Mexico", zhLabel: "墨西哥" },
+  Italy: { color: "#059669", soft: "#d1fae5", label: "Italy", zhLabel: "意大利" },
+  "Vatican City": {
+    color: "#a16207",
+    soft: "#fef3c7",
+    label: "Vatican City",
+    zhLabel: "梵蒂冈",
+  },
+  France: { color: "#4f46e5", soft: "#e0e7ff", label: "France", zhLabel: "法国" },
+  Switzerland: {
+    color: "#e11d48",
+    soft: "#ffe4e6",
+    label: "Switzerland",
+    zhLabel: "瑞士",
+  },
 };
 
 const continentStyles: Record<
@@ -122,12 +140,171 @@ const getContinent = (place: FootprintPlace): ContinentKey => {
     place.country === "Spain" ||
     place.country === "Russia" ||
     place.country === "Turkey" ||
-    place.country === "Germany"
+    place.country === "Germany" ||
+    place.country === "Italy" ||
+    place.country === "Vatican City" ||
+    place.country === "France" ||
+    place.country === "Switzerland"
   ) {
     return "Europe";
   }
   return "Africa";
 };
+
+type PlaceRegion = {
+  label: string;
+  zhLabel: string;
+};
+
+const countriesWithRegions: FootprintPlace["country"][] = [
+  "China",
+  "USA",
+  "Japan",
+  "Canada",
+];
+
+const fallbackRegion: PlaceRegion = { label: "Other", zhLabel: "其他" };
+
+const placeRegionLabels: Record<string, PlaceRegion> = {
+  shenzhen: { label: "Guangdong", zhLabel: "广东" },
+  guangzhou: { label: "Guangdong", zhLabel: "广东" },
+  shantou: { label: "Guangdong", zhLabel: "广东" },
+  meizhou: { label: "Guangdong", zhLabel: "广东" },
+  zhuhai: { label: "Guangdong", zhLabel: "广东" },
+  shunde: { label: "Guangdong", zhLabel: "广东" },
+  yangjiang: { label: "Guangdong", zhLabel: "广东" },
+  huazhou: { label: "Guangdong", zhLabel: "广东" },
+  dongguan: { label: "Guangdong", zhLabel: "广东" },
+  dongshan: { label: "Fujian", zhLabel: "福建" },
+  xian: { label: "Shaanxi", zhLabel: "陕西" },
+  qingdao: { label: "Shandong", zhLabel: "山东" },
+  jiayuguan: { label: "Gansu", zhLabel: "甘肃" },
+  dunhuang: { label: "Gansu", zhLabel: "甘肃" },
+  shanghai: { label: "Shanghai", zhLabel: "上海" },
+  nanjing: { label: "Jiangsu", zhLabel: "江苏" },
+  xuzhou: { label: "Jiangsu", zhLabel: "江苏" },
+  jinggangshan: { label: "Jiangxi", zhLabel: "江西" },
+  wuhan: { label: "Hubei", zhLabel: "湖北" },
+  harbin: { label: "Heilongjiang", zhLabel: "黑龙江" },
+  jilin: { label: "Jilin", zhLabel: "吉林" },
+  shenyang: { label: "Liaoning", zhLabel: "辽宁" },
+  taiyuan: { label: "Shanxi", zhLabel: "山西" },
+  xinzhou: { label: "Shanxi", zhLabel: "山西" },
+  pingding: { label: "Shanxi", zhLabel: "山西" },
+  yinchuan: { label: "Ningxia", zhLabel: "宁夏" },
+  beijing: { label: "Beijing", zhLabel: "北京" },
+  qinhuangdao: { label: "Hebei", zhLabel: "河北" },
+  chongqing: { label: "Chongqing", zhLabel: "重庆" },
+  chengdu: { label: "Sichuan", zhLabel: "四川" },
+  hangzhou: { label: "Zhejiang", zhLabel: "浙江" },
+  changsha: { label: "Hunan", zhLabel: "湖南" },
+  shaoshan: { label: "Hunan", zhLabel: "湖南" },
+  "hong-kong": { label: "Hong Kong", zhLabel: "香港" },
+
+  atlanta: { label: "Georgia", zhLabel: "佐治亚州" },
+  macon: { label: "Georgia", zhLabel: "佐治亚州" },
+  savannah: { label: "Georgia", zhLabel: "佐治亚州" },
+  chattanooga: { label: "Tennessee", zhLabel: "田纳西州" },
+  gatlinburg: { label: "Tennessee", zhLabel: "田纳西州" },
+  orlando: { label: "Florida", zhLabel: "佛罗里达州" },
+  miami: { label: "Florida", zhLabel: "佛罗里达州" },
+  boston: { label: "Massachusetts", zhLabel: "马萨诸塞州" },
+  cambridge: { label: "Massachusetts", zhLabel: "马萨诸塞州" },
+  "salt-lake-city": { label: "Utah", zhLabel: "犹他州" },
+  "bryce-canyon-city": { label: "Utah", zhLabel: "犹他州" },
+  springdale: { label: "Utah", zhLabel: "犹他州" },
+  "rapid-city": { label: "South Dakota", zhLabel: "南达科他州" },
+  interior: { label: "South Dakota", zhLabel: "南达科他州" },
+  albuquerque: { label: "New Mexico", zhLabel: "新墨西哥州" },
+  "los-alamos": { label: "New Mexico", zhLabel: "新墨西哥州" },
+  "santa-fe": { label: "New Mexico", zhLabel: "新墨西哥州" },
+  mosca: { label: "Colorado", zhLabel: "科罗拉多州" },
+  jackson: { label: "Wyoming", zhLabel: "怀俄明州" },
+  "west-yellowstone": { label: "Wyoming", zhLabel: "怀俄明州" },
+  page: { label: "Arizona", zhLabel: "亚利桑那州" },
+  williams: { label: "Arizona", zhLabel: "亚利桑那州" },
+  "grand-canyon-village": { label: "Arizona", zhLabel: "亚利桑那州" },
+  "boulder-city": { label: "Nevada", zhLabel: "内华达州" },
+  "las-vegas": { label: "Nevada", zhLabel: "内华达州" },
+  pittsburgh: { label: "Pennsylvania", zhLabel: "宾夕法尼亚州" },
+  philadelphia: { label: "Pennsylvania", zhLabel: "宾夕法尼亚州" },
+  oahu: { label: "Hawaii", zhLabel: "夏威夷州" },
+  "big-island": { label: "Hawaii", zhLabel: "夏威夷州" },
+  davis: { label: "California", zhLabel: "加利福尼亚州" },
+  sacramento: { label: "California", zhLabel: "加利福尼亚州" },
+  "lake-tahoe": { label: "California", zhLabel: "加利福尼亚州" },
+  "half-moon-bay": { label: "California", zhLabel: "加利福尼亚州" },
+  davenport: { label: "California", zhLabel: "加利福尼亚州" },
+  monterey: { label: "California", zhLabel: "加利福尼亚州" },
+  "carmel-by-the-sea": { label: "California", zhLabel: "加利福尼亚州" },
+  "san-simeon": { label: "California", zhLabel: "加利福尼亚州" },
+  oceano: { label: "California", zhLabel: "加利福尼亚州" },
+  solvang: { label: "California", zhLabel: "加利福尼亚州" },
+  "los-angeles": { label: "California", zhLabel: "加利福尼亚州" },
+  "menlo-park": { label: "California", zhLabel: "加利福尼亚州" },
+  "palo-alto": { label: "California", zhLabel: "加利福尼亚州" },
+  saratoga: { label: "California", zhLabel: "加利福尼亚州" },
+  "mountain-view": { label: "California", zhLabel: "加利福尼亚州" },
+  "san-jose": { label: "California", zhLabel: "加利福尼亚州" },
+  "santa-cruz": { label: "California", zhLabel: "加利福尼亚州" },
+  "san-francisco": { label: "California", zhLabel: "加利福尼亚州" },
+  seattle: { label: "Washington", zhLabel: "华盛顿州" },
+  "washington-dc": { label: "District of Columbia", zhLabel: "华盛顿哥伦比亚特区" },
+  "new-york": { label: "New York", zhLabel: "纽约州" },
+  "east-rutherford": { label: "New Jersey", zhLabel: "新泽西州" },
+  princeton: { label: "New Jersey", zhLabel: "新泽西州" },
+
+  tokyo: { label: "Tokyo", zhLabel: "东京都" },
+  yokohama: { label: "Kanagawa", zhLabel: "神奈川县" },
+  hida: { label: "Gifu", zhLabel: "岐阜县" },
+  "lake-toya": { label: "Hokkaido", zhLabel: "北海道" },
+  hakodate: { label: "Hokkaido", zhLabel: "北海道" },
+  kyoto: { label: "Kyoto", zhLabel: "京都府" },
+  uji: { label: "Kyoto", zhLabel: "京都府" },
+  nara: { label: "Nara", zhLabel: "奈良县" },
+  "kinosaki-onsen": { label: "Hyogo", zhLabel: "兵库县" },
+  "arima-onsen": { label: "Hyogo", zhLabel: "兵库县" },
+  kobe: { label: "Hyogo", zhLabel: "兵库县" },
+  nagoya: { label: "Aichi", zhLabel: "爱知县" },
+
+  waterloo: { label: "Ontario", zhLabel: "安大略省" },
+  toronto: { label: "Ontario", zhLabel: "安大略省" },
+  milton: { label: "Ontario", zhLabel: "安大略省" },
+  "niagara-falls": { label: "Ontario", zhLabel: "安大略省" },
+  "niagara-on-the-lake": { label: "Ontario", zhLabel: "安大略省" },
+  "oro-medonte": { label: "Ontario", zhLabel: "安大略省" },
+  "thousand-islands": { label: "Ontario", zhLabel: "安大略省" },
+  montreal: { label: "Quebec", zhLabel: "魁北克省" },
+  banff: { label: "Alberta", zhLabel: "阿尔伯塔省" },
+};
+
+const getPlaceRegion = (place: FootprintPlace): PlaceRegion | null => {
+  if (!countriesWithRegions.includes(place.country)) {
+    return null;
+  }
+  return placeRegionLabels[place.id] ?? fallbackRegion;
+};
+
+const northAmericaCountryOrder: Partial<Record<FootprintPlace["country"], number>> = {
+  USA: 0,
+  Canada: 1,
+  Mexico: 2,
+};
+
+const regionUnitLabels: Partial<
+  Record<
+    FootprintPlace["country"],
+    { label: string; zhLabel: string }
+  >
+> = {
+  China: { label: "provinces", zhLabel: "省份" },
+  USA: { label: "states", zhLabel: "州" },
+  Japan: { label: "prefectures", zhLabel: "都道府县" },
+  Canada: { label: "provinces", zhLabel: "省" },
+};
+
+const placeCountLabel = (count: number, isChinese: boolean) =>
+  isChinese ? `${count} 城市` : `${count} ${count === 1 ? "place" : "places"}`;
 
 const places: FootprintPlace[] = [
   {
@@ -294,6 +471,39 @@ const places: FootprintPlace[] = [
         caption: "View toward Macau from Zhuhai.",
         zhCaption: "从珠海远望澳门方向。",
       },
+      {
+        src: "/footprint/zhuhai-04.jpg",
+        caption: "Poster display at the China Airshow in Zhuhai.",
+        zhCaption: "珠海中国航展现场的展板。",
+      },
+      {
+        src: "/footprint/zhuhai-05.jpg",
+        caption: "Aircraft display at the China Airshow in Zhuhai.",
+        zhCaption: "珠海中国航展上的飞机展示。",
+      },
+    ],
+  },
+  {
+    id: "shunde",
+    name: "Shunde",
+    zhName: "顺德",
+    country: "China",
+    zhCountry: "中国",
+    lat: 22.805,
+    lng: 113.293,
+    note: "Lingnan gardens, food streets, and local culture.",
+    zhNote: "岭南园林、美食街巷与本地文化。",
+    photos: [
+      {
+        src: "/footprint/shunde-01.jpg",
+        caption: "Garden gate in Shunde.",
+        zhCaption: "顺德园林里的牌坊。",
+      },
+      {
+        src: "/footprint/shunde-02.jpg",
+        caption: "Wooden training posts in a Shunde cultural park.",
+        zhCaption: "顺德文化园里的木人桩。",
+      },
     ],
   },
   {
@@ -313,6 +523,18 @@ const places: FootprintPlace[] = [
         zhCaption: "阳江海滩风光。",
       },
     ],
+  },
+  {
+    id: "huazhou",
+    name: "Huazhou",
+    zhName: "化州",
+    country: "China",
+    zhCountry: "中国",
+    lat: 21.664,
+    lng: 110.6396,
+    note: "Western Guangdong hometown streets and slow local light.",
+    zhNote: "粤西家乡街巷与缓慢的本地光线。",
+    photos: [],
   },
   {
     id: "xian",
@@ -458,6 +680,51 @@ const places: FootprintPlace[] = [
         zhCaption: "华为松山湖基地的桥与湖面。",
       },
     ],
+  },
+  {
+    id: "nanjing",
+    name: "Nanjing",
+    zhName: "南京",
+    country: "China",
+    zhCountry: "中国",
+    lat: 32.0603,
+    lng: 118.7969,
+    note: "Railway station landmarks and old city streets.",
+    zhNote: "车站地标与老城街景。",
+    photos: [
+      {
+        src: "/footprint/nanjing-01.jpg",
+        caption: "Nanjing South Railway Station.",
+        zhCaption: "南京南站。",
+      },
+      {
+        src: "/footprint/nanjing-02.jpg",
+        caption: "Fuxing Restaurant in Nanjing.",
+        zhCaption: "南京的复兴饭店。",
+      },
+      {
+        src: "/footprint/nanjing-03.jpg",
+        caption: "Long stairway at Sun Yat-sen Mausoleum.",
+        zhCaption: "中山陵前长长的台阶。",
+      },
+      {
+        src: "/footprint/nanjing-04.jpg",
+        caption: "Memorial gate and trees in Nanjing.",
+        zhCaption: "南京景区里的牌坊与树影。",
+      },
+    ],
+  },
+  {
+    id: "jinggangshan",
+    name: "Jinggangshan",
+    zhName: "井冈山",
+    country: "China",
+    zhCountry: "中国",
+    lat: 26.7482,
+    lng: 114.2895,
+    note: "Mountain roads, red-history sites, and misty Jiangxi air.",
+    zhNote: "山路、红色历史旧址与江西山间雾气。",
+    photos: [],
   },
   {
     id: "wuhan",
@@ -1470,6 +1737,24 @@ const places: FootprintPlace[] = [
     ],
   },
   {
+    id: "milton",
+    name: "Milton",
+    zhName: "米尔顿",
+    country: "Canada",
+    zhCountry: "加拿大",
+    lat: 43.5183,
+    lng: -79.8774,
+    note: "Glen Eden snow and winter hill views.",
+    zhNote: "Glen Eden 的雪道与冬日山坡。",
+    photos: [
+      {
+        src: "/footprint/milton-01.jpg",
+        caption: "Snowy slope at Glen Eden.",
+        zhCaption: "Glen Eden 的雪道。",
+      },
+    ],
+  },
+  {
     id: "niagara-falls",
     name: "Niagara Falls",
     zhName: "尼亚加拉瀑布",
@@ -1847,6 +2132,74 @@ const places: FootprintPlace[] = [
     ],
   },
   {
+    id: "cancun",
+    name: "Cancun",
+    zhName: "坎昆",
+    country: "Mexico",
+    zhCountry: "墨西哥",
+    lat: 21.1619,
+    lng: -86.8515,
+    note: "Caribbean beaches, Chichen Itza, cenote light, and conference memories.",
+    zhNote: "加勒比海滩、奇琴伊察、天然井光影与会议记忆。",
+    photos: [
+      {
+        src: "/footprint/cancun-01.jpg",
+        caption: "Evening waves along Cancun's hotel-zone beach.",
+        zhCaption: "坎昆酒店区海滩上的傍晚海浪。",
+      },
+      {
+        src: "/footprint/cancun-02.jpg",
+        caption: "Beachfront view along the Cancun hotel zone.",
+        zhCaption: "坎昆酒店区的海滩视野。",
+      },
+      {
+        src: "/footprint/cancun-03.jpg",
+        caption: "Clouds and surf at dusk in Cancun.",
+        zhCaption: "坎昆黄昏时的云与浪。",
+      },
+      {
+        src: "/footprint/cancun-04.jpg",
+        caption: "El Castillo at Chichen Itza.",
+        zhCaption: "奇琴伊察的库库尔坎金字塔。",
+      },
+      {
+        src: "/footprint/cancun-05.jpg",
+        caption: "Cenote Ik Kil near Chichen Itza.",
+        zhCaption: "奇琴伊察附近的 Ik Kil 天然井。",
+      },
+      {
+        src: "/footprint/cancun-06.jpg",
+        caption: "Clear Caribbean water on a bright Cancun day.",
+        zhCaption: "晴天里清澈的坎昆加勒比海水。",
+      },
+      {
+        src: "/footprint/cancun-07.jpg",
+        caption: "Pastel sunset over Cancun beach.",
+        zhCaption: "坎昆海滩上方的粉色晚霞。",
+      },
+      {
+        src: "/footprint/cancun-08.jpg",
+        caption: "Group photo in front of El Castillo at Chichen Itza.",
+        zhCaption: "奇琴伊察库库尔坎金字塔前的合影。",
+      },
+      {
+        src: "/footprint/cancun-09.jpg",
+        caption: "Colorful Cancun 2024 sign by the beach.",
+        zhCaption: "海滩边彩色的 Cancun 2024 标志。",
+      },
+      {
+        src: "/footprint/cancun-10.jpg",
+        caption: "Turquoise water and white sand in Cancun.",
+        zhCaption: "坎昆的蓝绿色海水与白沙。",
+      },
+      {
+        src: "/footprint/cancun-11.jpg",
+        caption: "Cancun 2024 conference courtyard.",
+        zhCaption: "Cancun 2024 会议庭院。",
+      },
+    ],
+  },
+  {
     id: "atlanta",
     name: "Atlanta",
     zhName: "亚特兰大",
@@ -2199,6 +2552,184 @@ const places: FootprintPlace[] = [
     ],
   },
   {
+    id: "rapid-city",
+    name: "Rapid City",
+    zhName: "拉皮德城",
+    country: "USA",
+    zhCountry: "美国",
+    lat: 44.0805,
+    lng: -103.231,
+    note: "Mount Rushmore, Black Hills roads, and downtown lights.",
+    zhNote: "拉什莫尔山、黑山路途与市区夜灯。",
+    photos: [
+      {
+        src: "/footprint/rapid-city-01.jpg",
+        caption: "Mount Rushmore at dusk.",
+        zhCaption: "暮色中的 Mount Rushmore。",
+      },
+      {
+        src: "/footprint/rapid-city-02.jpg",
+        caption: "Mount Rushmore from the amphitheater.",
+        zhCaption: "从露天剧场望向 Mount Rushmore。",
+      },
+      {
+        src: "/footprint/rapid-city-03.jpg",
+        caption: "Rapid City downtown lights at night.",
+        zhCaption: "Rapid City 夜晚的市区灯光。",
+      },
+    ],
+  },
+  {
+    id: "interior",
+    name: "Interior",
+    zhName: "因蒂里厄",
+    country: "USA",
+    zhCountry: "美国",
+    lat: 43.725,
+    lng: -101.9849,
+    note: "Badlands National Park ridges, canyons, and wide plains.",
+    zhNote: "Badlands National Park 的山脊、峡谷与开阔荒原。",
+    photos: [
+      {
+        src: "/footprint/interior-01.jpg",
+        caption: "Badlands formations under blue sky.",
+        zhCaption: "蓝天下的 Badlands 地貌。",
+      },
+      {
+        src: "/footprint/interior-02.jpg",
+        caption: "Layered Badlands ridges and open sky.",
+        zhCaption: "Badlands 层叠山脊与开阔天空。",
+      },
+      {
+        src: "/footprint/interior-03.jpg",
+        caption: "Close view of Badlands eroded cliffs.",
+        zhCaption: "Badlands 被风蚀的崖壁近景。",
+      },
+      {
+        src: "/footprint/interior-04.jpg",
+        caption: "Sunlit Badlands slopes and white clouds.",
+        zhCaption: "阳光下的 Badlands 坡面与白云。",
+      },
+    ],
+  },
+  {
+    id: "albuquerque",
+    name: "Albuquerque",
+    zhName: "阿尔伯克基",
+    country: "USA",
+    zhCountry: "美国",
+    lat: 35.0844,
+    lng: -106.6504,
+    note: "Old Town plazas, Sandia Peak, and high-desert evenings.",
+    zhNote: "Old Town 广场、Sandia Peak 与高沙漠傍晚。",
+    photos: [
+      {
+        src: "/footprint/albuquerque-01.jpg",
+        caption: "Old Town Albuquerque at night.",
+        zhCaption: "夜晚的 Old Town Albuquerque。",
+      },
+      {
+        src: "/footprint/albuquerque-02.jpg",
+        caption: "San Felipe de Neri Church in Old Town.",
+        zhCaption: "Old Town 的 San Felipe de Neri Church。",
+      },
+      {
+        src: "/footprint/albuquerque-03.jpg",
+        caption: "Snowy overlook from Sandia Peak.",
+        zhCaption: "Sandia Peak 上的雪地远眺。",
+      },
+      {
+        src: "/footprint/albuquerque-04.jpg",
+        caption: "Sandia Peak Tramway at sunset.",
+        zhCaption: "日落时的 Sandia Peak Tramway。",
+      },
+    ],
+  },
+  {
+    id: "los-alamos",
+    name: "Los Alamos",
+    zhName: "洛斯阿拉莫斯",
+    country: "USA",
+    zhCountry: "美国",
+    lat: 35.88,
+    lng: -106.3031,
+    note: "Manhattan Project history and quiet mesa buildings.",
+    zhNote: "曼哈顿计划历史与高原小镇建筑。",
+    photos: [
+      {
+        src: "/footprint/los-alamos-01.jpg",
+        caption: "Los Alamos Project Main Gate sign.",
+        zhCaption: "Los Alamos Project Main Gate 标志。",
+      },
+      {
+        src: "/footprint/los-alamos-02.jpg",
+        caption: "Historic statues in Los Alamos.",
+        zhCaption: "Los Alamos 的历史人物雕像。",
+      },
+      {
+        src: "/footprint/los-alamos-03.jpg",
+        caption: "Historic lodge building in Los Alamos.",
+        zhCaption: "Los Alamos 的历史木屋建筑。",
+      },
+      {
+        src: "/footprint/los-alamos-04.jpg",
+        caption: "Shaded historic house in Los Alamos.",
+        zhCaption: "树影下的 Los Alamos 历史建筑。",
+      },
+      {
+        src: "/footprint/los-alamos-05.jpg",
+        caption: "Manhattan Project history building in Los Alamos.",
+        zhCaption: "Los Alamos 的曼哈顿计划历史建筑。",
+      },
+    ],
+  },
+  {
+    id: "santa-fe",
+    name: "Santa Fe",
+    zhName: "圣菲",
+    country: "USA",
+    zhCountry: "美国",
+    lat: 35.687,
+    lng: -105.9378,
+    note: "Adobe streets, cathedral lights, and winter evenings.",
+    zhNote: "土坯街巷、教堂灯光与冬日夜色。",
+    photos: [
+      {
+        src: "/footprint/santa-fe-01.jpg",
+        caption: "Cathedral Basilica of St. Francis of Assisi at night.",
+        zhCaption: "夜色里的 Cathedral Basilica of St. Francis of Assisi。",
+      },
+      {
+        src: "/footprint/santa-fe-02.jpg",
+        caption: "New Year's Eve lights in downtown Santa Fe.",
+        zhCaption: "Santa Fe 市中心的跨年灯光。",
+      },
+    ],
+  },
+  {
+    id: "mosca",
+    name: "Mosca",
+    zhName: "莫斯卡",
+    country: "USA",
+    zhCountry: "美国",
+    lat: 37.6494,
+    lng: -105.8739,
+    note: "Great Sand Dunes and the Sangre de Cristo mountains.",
+    zhNote: "大沙丘国家公园与 Sangre de Cristo 山脉。",
+    photos: [
+      {
+        src: "/footprint/mosca-01.jpg",
+        caption: "Great Sand Dunes under clear sky.",
+        zhCaption: "晴空下的大沙丘。",
+      },
+      {
+        src: "/footprint/mosca-02.jpg",
+        caption: "Great Sand Dunes with snowy mountains behind.",
+        zhCaption: "雪山映衬下的大沙丘。",
+      },
+    ],
+  },
+  {
     id: "jackson",
     name: "Jackson",
     zhName: "杰克逊",
@@ -2243,8 +2774,8 @@ const places: FootprintPlace[] = [
   },
   {
     id: "west-yellowstone",
-    name: "West Yellowstone",
-    zhName: "西黄石",
+    name: "Yellowstone",
+    zhName: "黄石",
     country: "USA",
     zhCountry: "美国",
     lat: 44.6621,
@@ -2700,7 +3231,417 @@ const places: FootprintPlace[] = [
         caption: "Wetland sky near Miami.",
         zhCaption: "迈阿密附近湿地的天空。",
       },
+      {
+        src: "/footprint/miami-03.jpg",
+        caption: "Miami skyline beyond the golf course.",
+        zhCaption: "高尔夫球场远处的迈阿密天际线。",
+      },
+      {
+        src: "/footprint/miami-04.jpg",
+        caption: "Crowds outside Hard Rock Stadium before the Copa America final.",
+        zhCaption: "美洲杯决赛前 Hard Rock Stadium 外的人群。",
+      },
+      {
+        src: "/footprint/miami-05.jpg",
+        caption: "Pre-match view inside Hard Rock Stadium.",
+        zhCaption: "Hard Rock Stadium 内的赛前视野。",
+      },
+      {
+        src: "/footprint/miami-06.jpg",
+        caption: "Fans entering Hard Rock Stadium for the final.",
+        zhCaption: "球迷进入 Hard Rock Stadium 观看决赛。",
+      },
+      {
+        src: "/footprint/miami-07.jpg",
+        caption: "Full stands at the Copa America final.",
+        zhCaption: "美洲杯决赛满场的看台。",
+      },
+      {
+        src: "/footprint/miami-08.jpg",
+        caption: "Argentina and Colombia flags before kickoff at the final.",
+        zhCaption: "决赛开球前的阿根廷与哥伦比亚国旗。",
+      },
     ],
+  },
+  {
+    id: "davis",
+    name: "Davis",
+    zhName: "戴维斯",
+    country: "USA",
+    zhCountry: "美国",
+    lat: 38.5449,
+    lng: -121.7405,
+    note: "UC Davis campus paths, bike roads, public art, and quiet town corners.",
+    zhNote: "UC Davis 校园小路、自行车道、公共艺术与安静小城角落。",
+    photos: [
+      {
+        src: "/footprint/davis-01.jpg",
+        caption: "Memorial Union at UC Davis.",
+        zhCaption: "UC Davis 的 Memorial Union。",
+      },
+      {
+        src: "/footprint/davis-02.jpg",
+        caption: "Bike lane through the UC Davis campus.",
+        zhCaption: "UC Davis 校园里的自行车道。",
+      },
+      {
+        src: "/footprint/davis-03.jpg",
+        caption: "Campus building and winter trees at UC Davis.",
+        zhCaption: "UC Davis 的校园建筑与冬日树影。",
+      },
+      {
+        src: "/footprint/davis-04.jpg",
+        caption: "Bare tree and evening sky in Davis.",
+        zhCaption: "Davis 傍晚天空下的树影。",
+      },
+      {
+        src: "/footprint/davis-05.jpg",
+        caption: "Public art on a Davis street.",
+        zhCaption: "Davis 街边的公共艺术。",
+      },
+      {
+        src: "/footprint/davis-06.jpg",
+        caption: "Historic City Hall in Davis.",
+        zhCaption: "Davis 的历史市政厅。",
+      },
+    ],
+  },
+  {
+    id: "sacramento",
+    name: "Sacramento",
+    zhName: "萨克拉门托",
+    country: "USA",
+    zhCountry: "美国",
+    lat: 38.5816,
+    lng: -121.4944,
+    note: "Old Sacramento, the Capitol, civic streets, and Kings basketball nights.",
+    zhNote: "Old Sacramento、州议会大厦、市区街景与 Kings 篮球夜。",
+    photos: [
+      {
+        src: "/footprint/sacramento-01.jpg",
+        caption: "Old Sacramento storefronts and railroad signs.",
+        zhCaption: "Old Sacramento 的老街店面与铁路招牌。",
+      },
+      {
+        src: "/footprint/sacramento-02.jpg",
+        caption: "Vintage rail cars in Old Sacramento.",
+        zhCaption: "Old Sacramento 的复古火车车厢。",
+      },
+      {
+        src: "/footprint/sacramento-03.jpg",
+        caption: "California State Capitol in Sacramento.",
+        zhCaption: "Sacramento 的 California State Capitol。",
+      },
+      {
+        src: "/footprint/sacramento-04.jpg",
+        caption: "Capitol dome interior in Sacramento.",
+        zhCaption: "Sacramento 州议会大厦内的穹顶。",
+      },
+      {
+        src: "/footprint/sacramento-05.jpg",
+        caption: "Brick civic building in Sacramento.",
+        zhCaption: "Sacramento 的砖墙市政建筑。",
+      },
+      {
+        src: "/footprint/sacramento-06.jpg",
+        caption: "Warm-colored homes on a Sacramento street.",
+        zhCaption: "Sacramento 街边暖色的住宅。",
+      },
+      {
+        src: "/footprint/sacramento-07.jpg",
+        caption: "Sutter's Fort grounds in Sacramento.",
+        zhCaption: "Sacramento 的 Sutter's Fort 场地。",
+      },
+      {
+        src: "/footprint/sacramento-08.jpg",
+        caption: "Golden 1 Center before a Kings game.",
+        zhCaption: "Kings 比赛前的 Golden 1 Center。",
+      },
+      {
+        src: "/footprint/sacramento-09.jpg",
+        caption: "Sacramento Kings game at Golden 1 Center.",
+        zhCaption: "Golden 1 Center 里的 Sacramento Kings 比赛。",
+      },
+    ],
+  },
+  {
+    id: "lake-tahoe",
+    name: "Lake Tahoe",
+    zhName: "太浩湖",
+    country: "USA",
+    zhCountry: "美国",
+    lat: 39.0968,
+    lng: -120.0324,
+    note: "Snow, lake fog, clear water, and winter mountain light.",
+    zhNote: "积雪、湖雾、清澈湖水与冬日山光。",
+    photos: [
+      {
+        src: "/footprint/lake-tahoe-01.jpg",
+        caption: "Snow and morning fog over Lake Tahoe.",
+        zhCaption: "Lake Tahoe 上的积雪与晨雾。",
+      },
+      {
+        src: "/footprint/lake-tahoe-02.jpg",
+        caption: "Calm winter water beside a snowy pier.",
+        zhCaption: "雪中码头旁平静的冬日湖面。",
+      },
+      {
+        src: "/footprint/lake-tahoe-03.jpg",
+        caption: "Lake Tahoe pier and distant mountains.",
+        zhCaption: "Lake Tahoe 的码头与远山。",
+      },
+      {
+        src: "/footprint/lake-tahoe-04.jpg",
+        caption: "Blue morning water and low fog at Lake Tahoe.",
+        zhCaption: "Lake Tahoe 的蓝色晨湖与低雾。",
+      },
+      {
+        src: "/footprint/lake-tahoe-05.jpg",
+        caption: "Snow around a Lake Tahoe lodge.",
+        zhCaption: "Lake Tahoe 旅馆周围的积雪。",
+      },
+      {
+        src: "/footprint/lake-tahoe-06.jpg",
+        caption: "Long pier and winter mountains at Lake Tahoe.",
+        zhCaption: "Lake Tahoe 的长码头与冬日远山。",
+      },
+    ],
+  },
+  {
+    id: "half-moon-bay",
+    name: "Half Moon Bay",
+    zhName: "半月湾",
+    country: "USA",
+    zhCountry: "美国",
+    lat: 37.4636,
+    lng: -122.4286,
+    note: "Pacific beach and coastal light.",
+    zhNote: "太平洋海滩与海岸天光。",
+    photos: [
+      {
+        src: "/footprint/half-moon-bay-01.jpg",
+        caption: "Beach surf at Half Moon Bay.",
+        zhCaption: "Half Moon Bay 海滩上的浪。",
+      },
+    ],
+  },
+  {
+    id: "davenport",
+    name: "Davenport",
+    zhName: "达文波特",
+    country: "USA",
+    zhCountry: "美国",
+    lat: 37.0116,
+    lng: -122.1944,
+    note: "Shark Fin Cove cliffs and quiet ocean light.",
+    zhNote: "Shark Fin Cove 的海蚀崖与安静海光。",
+    photos: [
+      {
+        src: "/footprint/davenport-01.jpg",
+        caption: "Shark Fin Cove below the Davenport cliffs.",
+        zhCaption: "Davenport 附近的 Shark Fin Cove。",
+      },
+    ],
+  },
+  {
+    id: "monterey",
+    name: "Monterey",
+    zhName: "蒙特雷",
+    country: "USA",
+    zhCountry: "美国",
+    lat: 36.6002,
+    lng: -121.8947,
+    note: "Cannery Row, aquarium walls, and bay air.",
+    zhNote: "Cannery Row、水族馆墙面与海湾空气。",
+    photos: [
+      {
+        src: "/footprint/monterey-01.jpg",
+        caption: "Monterey Bay Aquarium on Cannery Row.",
+        zhCaption: "Cannery Row 上的 Monterey Bay Aquarium。",
+      },
+    ],
+  },
+  {
+    id: "carmel-by-the-sea",
+    name: "Carmel-by-the-Sea",
+    zhName: "卡梅尔海",
+    country: "USA",
+    zhCountry: "美国",
+    lat: 36.5552,
+    lng: -121.9233,
+    note: "Storybook cottages and Big Sur coastal drives.",
+    zhNote: "童话小屋与 Big Sur 海岸公路。",
+    photos: [
+      {
+        src: "/footprint/carmel-by-the-sea-01.jpg",
+        caption: "Bixby Creek Bridge along the Big Sur coast.",
+        zhCaption: "Big Sur 海岸线上的 Bixby Creek Bridge。",
+      },
+      {
+        src: "/footprint/carmel-by-the-sea-02.jpg",
+        caption: "Storybook cottage in Carmel-by-the-Sea.",
+        zhCaption: "Carmel-by-the-Sea 的童话小屋。",
+      },
+    ],
+  },
+  {
+    id: "san-simeon",
+    name: "San Simeon",
+    zhName: "圣西蒙",
+    country: "USA",
+    zhCountry: "美国",
+    lat: 35.643,
+    lng: -121.1908,
+    note: "Hearst Castle pools, towers, and hilltop views.",
+    zhNote: "赫斯特古堡的泳池、塔楼与山顶视野。",
+    photos: [
+      {
+        src: "/footprint/san-simeon-01.jpg",
+        caption: "Neptune Pool at Hearst Castle.",
+        zhCaption: "赫斯特古堡的 Neptune Pool。",
+      },
+      {
+        src: "/footprint/san-simeon-02.jpg",
+        caption: "Hearst Castle towers above the gardens.",
+        zhCaption: "花园上方的赫斯特古堡塔楼。",
+      },
+      {
+        src: "/footprint/san-simeon-03.jpg",
+        caption: "Elephant seals resting at the vista point near San Simeon.",
+        zhCaption: "San Simeon 附近观景点休息的象海豹。",
+      },
+    ],
+  },
+  {
+    id: "oceano",
+    name: "Oceano",
+    zhName: "欧申诺",
+    country: "USA",
+    zhCountry: "美国",
+    lat: 35.0989,
+    lng: -120.6124,
+    note: "Sand dunes and open coastal sky.",
+    zhNote: "沙丘与开阔海岸天空。",
+    photos: [
+      {
+        src: "/footprint/oceano-01.jpg",
+        caption: "Dunes under a clear Oceano sky.",
+        zhCaption: "晴空下的 Oceano 沙丘。",
+      },
+    ],
+  },
+  {
+    id: "solvang",
+    name: "Solvang",
+    zhName: "索尔万",
+    country: "USA",
+    zhCountry: "美国",
+    lat: 34.5958,
+    lng: -120.1376,
+    note: "Danish-style streets, storefronts, and windmills.",
+    zhNote: "丹麦风格街巷、店铺与风车。",
+    photos: [
+      {
+        src: "/footprint/solvang-01.jpg",
+        caption: "Danish-style storefronts in Solvang.",
+        zhCaption: "Solvang 的丹麦风格店铺。",
+      },
+      {
+        src: "/footprint/solvang-02.jpg",
+        caption: "Windmill above the Solvang street.",
+        zhCaption: "Solvang 街边的风车。",
+      },
+    ],
+  },
+  {
+    id: "los-angeles",
+    name: "Los Angeles",
+    zhName: "洛杉矶",
+    country: "USA",
+    zhCountry: "美国",
+    lat: 34.0522,
+    lng: -118.2437,
+    note: "Beverly Hills, downtown rails, Griffith night, and Lakers memories.",
+    zhNote: "Beverly Hills、市中心缆车、Griffith 夜色与湖人记忆。",
+    photos: [
+      {
+        src: "/footprint/los-angeles-01.jpg",
+        caption: "Beverly Hills sign by the lily pond.",
+        zhCaption: "睡莲池旁的 Beverly Hills 标志。",
+      },
+      {
+        src: "/footprint/los-angeles-02.jpg",
+        caption: "Rodeo Drive street scene in Beverly Hills.",
+        zhCaption: "Beverly Hills 的 Rodeo Drive 街景。",
+      },
+      {
+        src: "/footprint/los-angeles-03.jpg",
+        caption: "Kobe Bryant mural in Los Angeles.",
+        zhCaption: "洛杉矶的 Kobe Bryant 壁画。",
+      },
+      {
+        src: "/footprint/los-angeles-04.jpg",
+        caption: "Angels Flight Railway in downtown Los Angeles.",
+        zhCaption: "洛杉矶市中心的 Angels Flight Railway。",
+      },
+      {
+        src: "/footprint/los-angeles-05.jpg",
+        caption: "Griffith Observatory lit up at night.",
+        zhCaption: "夜色中亮起的 Griffith Observatory。",
+      },
+    ],
+  },
+  {
+    id: "menlo-park",
+    name: "Menlo Park",
+    zhName: "门洛帕克",
+    country: "USA",
+    zhCountry: "美国",
+    lat: 37.453,
+    lng: -122.1817,
+    note: "Peninsula campus roads and quiet Bay Area neighborhoods.",
+    zhNote: "半岛园区道路与安静的湾区社区。",
+    photos: [],
+  },
+  {
+    id: "palo-alto",
+    name: "Palo Alto",
+    zhName: "帕洛阿尔托",
+    country: "USA",
+    zhCountry: "美国",
+    lat: 37.4419,
+    lng: -122.143,
+    note: "Stanford campus arches, palms, and Silicon Valley afternoons.",
+    zhNote: "Stanford 校园拱廊、棕榈树与硅谷午后。",
+    photos: [
+      {
+        src: "/footprint/palo-alto-01.jpg",
+        caption: "Stanford Main Quad on a rainy day.",
+        zhCaption: "雨天里的 Stanford Main Quad。",
+      },
+      {
+        src: "/footprint/palo-alto-02.jpg",
+        caption: "Stanford arcade and palm trees.",
+        zhCaption: "Stanford 的拱廊与棕榈树。",
+      },
+      {
+        src: "/footprint/palo-alto-03.jpg",
+        caption: "Hoover Tower and the Stanford Main Quad.",
+        zhCaption: "Hoover Tower 与 Stanford Main Quad。",
+      },
+    ],
+  },
+  {
+    id: "saratoga",
+    name: "Saratoga",
+    zhName: "萨拉托加",
+    country: "USA",
+    zhCountry: "美国",
+    lat: 37.2638,
+    lng: -122.023,
+    note: "Foothill roads, gardens, and South Bay calm.",
+    zhNote: "山麓道路、花园与南湾的安静。",
+    photos: [],
   },
   {
     id: "mountain-view",
@@ -2723,6 +3664,11 @@ const places: FootprintPlace[] = [
         caption: "Google sign at the Mountain View headquarters.",
         zhCaption: "Google 山景城总部标识。",
       },
+      {
+        src: "/footprint/mountain-view-01.jpg",
+        caption: "Shoreline Amphitheatre in Mountain View.",
+        zhCaption: "山景城的 Shoreline Amphitheatre。",
+      },
     ],
   },
   {
@@ -2740,6 +3686,11 @@ const places: FootprintPlace[] = [
         src: "/footprint/san-jose-airport-01.jpg",
         caption: "Rainbow near San Jose airport.",
         zhCaption: "圣何塞机场附近的彩虹。",
+      },
+      {
+        src: "/footprint/san-jose-01.jpg",
+        caption: "Salt ponds at Alviso Marina County Park.",
+        zhCaption: "Alviso Marina County Park 的盐池。",
       },
     ],
   },
@@ -2811,6 +3762,41 @@ const places: FootprintPlace[] = [
         src: "/footprint/san-francisco-07.jpg",
         caption: "San Francisco City Hall under the sky.",
         zhCaption: "天空下的旧金山市政厅。",
+      },
+      {
+        src: "/footprint/san-francisco-08.jpg",
+        caption: "Painted Ladies at Alamo Square.",
+        zhCaption: "Alamo Square 旁的 Painted Ladies。",
+      },
+      {
+        src: "/footprint/san-francisco-09.jpg",
+        caption: "Palace of Fine Arts beside the lagoon.",
+        zhCaption: "泻湖边的 Palace of Fine Arts。",
+      },
+      {
+        src: "/footprint/san-francisco-10.jpg",
+        caption: "Bay Bridge under pink sunset clouds.",
+        zhCaption: "粉色晚霞下的 Bay Bridge。",
+      },
+      {
+        src: "/footprint/san-francisco-11.jpg",
+        caption: "Bay Bridge and waterfront after sunset.",
+        zhCaption: "日落后的 Bay Bridge 与海滨。",
+      },
+      {
+        src: "/footprint/san-francisco-12.jpg",
+        caption: "San Francisco hills under a warm sunset.",
+        zhCaption: "暖色日落下的旧金山山坡。",
+      },
+      {
+        src: "/footprint/san-francisco-13.jpg",
+        caption: "North Beach signs and Columbus Tower.",
+        zhCaption: "North Beach 招牌与 Columbus Tower。",
+      },
+      {
+        src: "/footprint/san-francisco-14.jpg",
+        caption: "Japanese Tea Garden in Golden Gate Park.",
+        zhCaption: "Golden Gate Park 里的 Japanese Tea Garden。",
       },
     ],
   },
@@ -3026,6 +4012,82 @@ const places: FootprintPlace[] = [
         caption: "New Year's Eve fireworks over Central Park.",
         zhCaption: "纽约中央公园跨年烟花。",
       },
+      {
+        src: "/footprint/new-york-02.jpg",
+        caption: "Space Shuttle Enterprise at the Intrepid Museum.",
+        zhCaption: "Intrepid Museum 的企业号航天飞机。",
+      },
+      {
+        src: "/footprint/new-york-03.jpg",
+        caption: "Grumman E-1B Tracer on the USS Intrepid flight deck.",
+        zhCaption: "USS Intrepid 飞行甲板上的 Grumman E-1B Tracer。",
+      },
+      {
+        src: "/footprint/new-york-04.jpg",
+        caption: "USS Intrepid (CV-11) at Pier 86.",
+        zhCaption: "86 号码头的 USS Intrepid (CV-11)。",
+      },
+      {
+        src: "/footprint/new-york-05.jpg",
+        caption: "USS Intrepid (CV-11) from the Hudson River side.",
+        zhCaption: "从哈德逊河一侧看到的 USS Intrepid (CV-11)。",
+      },
+      {
+        src: "/footprint/new-york-06.jpg",
+        caption: "Times Square billboards and yellow cabs.",
+        zhCaption: "时代广场的广告屏与黄色出租车。",
+      },
+      {
+        src: "/footprint/new-york-07.jpg",
+        caption: "Looking up through the towers of Times Square.",
+        zhCaption: "时代广场高楼之间的仰望视角。",
+      },
+    ],
+  },
+  {
+    id: "east-rutherford",
+    name: "East Rutherford",
+    zhName: "东卢瑟福",
+    country: "USA",
+    zhCountry: "美国",
+    lat: 40.8338,
+    lng: -74.0971,
+    note: "MetLife Stadium and Copa America semifinal memories.",
+    zhNote: "MetLife Stadium 与美洲杯半决赛记忆。",
+    photos: [
+      {
+        src: "/footprint/east-rutherford-01.jpg",
+        caption: "MetLife Stadium before the Copa America semifinal.",
+        zhCaption: "美洲杯半决赛前的 MetLife Stadium。",
+      },
+      {
+        src: "/footprint/east-rutherford-02.jpg",
+        caption: "Watching the Copa America semifinal inside MetLife Stadium.",
+        zhCaption: "在 MetLife Stadium 看美洲杯半决赛。",
+      },
+    ],
+  },
+  {
+    id: "princeton",
+    name: "Princeton",
+    zhName: "普林斯顿",
+    country: "USA",
+    zhCountry: "美国",
+    lat: 40.3573,
+    lng: -74.6672,
+    note: "Institute for Advanced Study and quiet campus walks.",
+    zhNote: "高等研究院与安静的校园漫步。",
+    photos: [
+      {
+        src: "/footprint/princeton-01.jpg",
+        caption: "Fuld Hall at the Institute for Advanced Study.",
+        zhCaption: "高等研究院的 Fuld Hall。",
+      },
+      {
+        src: "/footprint/princeton-02.jpg",
+        caption: "Fuld Hall facade at the Institute for Advanced Study.",
+        zhCaption: "高等研究院 Fuld Hall 的正面。",
+      },
     ],
   },
   {
@@ -3113,6 +4175,78 @@ const places: FootprintPlace[] = [
         zhCaption: "巴塞罗那的繁忙街道。",
       },
     ],
+  },
+  {
+    id: "milan",
+    name: "Milan",
+    zhName: "米兰",
+    country: "Italy",
+    zhCountry: "意大利",
+    lat: 45.4642,
+    lng: 9.19,
+    note: "Cathedral squares, galleries, and northern Italian city light.",
+    zhNote: "大教堂广场、拱廊与意大利北部城市光线。",
+    photos: [],
+  },
+  {
+    id: "rome",
+    name: "Rome",
+    zhName: "罗马",
+    country: "Italy",
+    zhCountry: "意大利",
+    lat: 41.9028,
+    lng: 12.4964,
+    note: "Ancient streets, piazzas, and layered Roman history.",
+    zhNote: "古老街巷、广场与层层叠叠的罗马历史。",
+    photos: [],
+  },
+  {
+    id: "vatican-city",
+    name: "Vatican City",
+    zhName: "梵蒂冈",
+    country: "Vatican City",
+    zhCountry: "梵蒂冈",
+    lat: 41.9029,
+    lng: 12.4534,
+    note: "St. Peter's Square and the compact city-state at Rome's heart.",
+    zhNote: "圣彼得广场与罗马城中的袖珍城国。",
+    photos: [],
+  },
+  {
+    id: "venice",
+    name: "Venice",
+    zhName: "威尼斯",
+    country: "Italy",
+    zhCountry: "意大利",
+    lat: 45.4408,
+    lng: 12.3155,
+    note: "Canals, bridges, and lagoon light.",
+    zhNote: "运河、桥与潟湖光线。",
+    photos: [],
+  },
+  {
+    id: "paris",
+    name: "Paris",
+    zhName: "巴黎",
+    country: "France",
+    zhCountry: "法国",
+    lat: 48.8566,
+    lng: 2.3522,
+    note: "Boulevards, museums, and Seine-side walks.",
+    zhNote: "林荫大道、博物馆与塞纳河畔漫步。",
+    photos: [],
+  },
+  {
+    id: "zurich",
+    name: "Zurich",
+    zhName: "苏黎世",
+    country: "Switzerland",
+    zhCountry: "瑞士",
+    lat: 47.3769,
+    lng: 8.5417,
+    note: "Lake air, old-town lanes, and Swiss city calm.",
+    zhNote: "湖风、老城小巷与瑞士城市的安静。",
+    photos: [],
   },
   {
     id: "frankfurt",
@@ -3435,10 +4569,37 @@ const Footprint = () => {
           );
           const countries = Array.from(
             new Set(continentPlaces.map((place) => place.country)),
-          ).map((country) => ({
-            country,
-            places: continentPlaces.filter((place) => place.country === country),
-          }));
+          ).map((country) => {
+            const countryPlaces = continentPlaces.filter(
+              (place) => place.country === country,
+            );
+            const regionGroups = countryPlaces.reduce<
+              Array<{
+                key: string;
+                region: PlaceRegion | null;
+                places: FootprintPlace[];
+              }>
+            >((groups, place) => {
+              const region = getPlaceRegion(place);
+              const key = region ? `${region.label}-${region.zhLabel}` : "all";
+              const existing = groups.find((group) => group.key === key);
+              if (existing) {
+                existing.places.push(place);
+              } else {
+                groups.push({ key, region, places: [place] });
+              }
+              return groups;
+            }, []);
+
+            return { country, places: countryPlaces, regionGroups };
+          });
+          if (continent === "NorthAmerica") {
+            countries.sort(
+              (a, b) =>
+                (northAmericaCountryOrder[a.country] ?? 99) -
+                (northAmericaCountryOrder[b.country] ?? 99),
+            );
+          }
 
           return { continent, countries };
         }),
@@ -3691,12 +4852,32 @@ const Footprint = () => {
               </div>
               <div className="grid gap-3 md:grid-cols-2">
                 {countries.length ? (
-                  countries.map(({ country, places: countryPlaces }) => {
+                  countries.map(({ country, places: countryPlaces, regionGroups }) => {
                     const style = countryStyles[country];
+                    const regionUnit = regionUnitLabels[country];
+                    const regionCount = regionGroups.filter(({ region }) => region).length;
+                    const countrySummary =
+                      regionUnit && regionCount
+                        ? isChinese
+                          ? `${regionCount} ${regionUnit.zhLabel} / ${placeCountLabel(
+                              countryPlaces.length,
+                              isChinese,
+                            )}`
+                          : `${regionCount} ${regionUnit.label} / ${placeCountLabel(
+                              countryPlaces.length,
+                              isChinese,
+                            )}`
+                        : placeCountLabel(countryPlaces.length, isChinese);
+                    const countryCardClass = [
+                      "border border-slate-200 bg-white p-3 shadow-sm dark:border-slate-700 dark:bg-slate-900",
+                      continent === "NorthAmerica" && country === "USA" ? "md:row-span-2" : "",
+                    ]
+                      .filter(Boolean)
+                      .join(" ");
                     return (
                       <article
                         key={`${continent}-${country}`}
-                        className="border border-slate-200 bg-white p-3 shadow-sm dark:border-slate-700 dark:bg-slate-900"
+                        className={countryCardClass}
                         style={{ borderTop: `3px solid ${continentStyle.accent}` }}
                       >
                         <div className="mb-2 flex items-center justify-between gap-3">
@@ -3709,26 +4890,42 @@ const Footprint = () => {
                               {isChinese ? style.zhLabel : style.label}
                             </h3>
                           </div>
-                          <span className="text-[12px] text-slate-500 dark:text-slate-400">
-                            {countryPlaces.length}
+                          <span className="shrink-0 text-right text-[12px] text-slate-500 dark:text-slate-400">
+                            {countrySummary}
                           </span>
                         </div>
-                        <div className="flex flex-wrap gap-1.5">
-                          {countryPlaces.map((place) => (
-                            <button
-                              type="button"
-                              key={place.id}
-                              onClick={() => focusPlace(place)}
-                              className="group inline-flex items-center gap-1.5 rounded-sm border border-slate-200 bg-slate-50 px-2.5 py-1.5 text-left transition-colors hover:border-slate-300 hover:bg-white dark:border-slate-700 dark:bg-slate-950 dark:hover:border-slate-600 dark:hover:bg-slate-800"
-                            >
-                              <span className="text-[13px] font-semibold leading-none text-slate-800 group-hover:text-slate-950 dark:text-slate-100 dark:group-hover:text-white">
-                                {displayName(place)}
-                              </span>
-                              <MapPin
-                                size={12}
-                                className="shrink-0 text-slate-400 transition-colors group-hover:text-slate-700 dark:group-hover:text-slate-200"
-                              />
-                            </button>
+                        <div className="space-y-2">
+                          {regionGroups.map(({ key, region, places: regionPlaces }) => (
+                            <div key={`${country}-${key}`} className="space-y-1.5">
+                              {region && (
+                                <div className="flex items-center justify-between gap-3 border-b border-slate-100 pb-1 dark:border-slate-800">
+                                  <span className="text-[12px] font-semibold text-slate-500 dark:text-slate-400">
+                                    {isChinese ? region.zhLabel : region.label}
+                                  </span>
+                                  <span className="text-[11px] text-slate-400 dark:text-slate-500">
+                                    {placeCountLabel(regionPlaces.length, isChinese)}
+                                  </span>
+                                </div>
+                              )}
+                              <div className="flex flex-wrap gap-1.5">
+                                {regionPlaces.map((place) => (
+                                  <button
+                                    type="button"
+                                    key={place.id}
+                                    onClick={() => focusPlace(place)}
+                                    className="group inline-flex items-center gap-1.5 rounded-sm border border-slate-200 bg-slate-50 px-2.5 py-1.5 text-left transition-colors hover:border-slate-300 hover:bg-white dark:border-slate-700 dark:bg-slate-950 dark:hover:border-slate-600 dark:hover:bg-slate-800"
+                                  >
+                                    <span className="text-[13px] font-semibold leading-none text-slate-800 group-hover:text-slate-950 dark:text-slate-100 dark:group-hover:text-white">
+                                      {displayName(place)}
+                                    </span>
+                                    <MapPin
+                                      size={12}
+                                      className="shrink-0 text-slate-400 transition-colors group-hover:text-slate-700 dark:group-hover:text-slate-200"
+                                    />
+                                  </button>
+                                ))}
+                              </div>
+                            </div>
                           ))}
                         </div>
                       </article>
