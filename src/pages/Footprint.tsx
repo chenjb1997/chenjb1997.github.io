@@ -1,17 +1,28 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
 import { createPortal } from "react-dom";
-import L, { type LayerGroup, type Map as LeafletMap } from "leaflet";
-import "leaflet/dist/leaflet.css";
+import maplibregl, {
+  type CircleLayerSpecification,
+  type GeoJSONSource,
+  type LngLatLike,
+  type Map as MapLibreMap,
+  type MapLayerMouseEvent,
+  type Popup,
+  type StyleSpecification,
+} from "maplibre-gl";
+import "maplibre-gl/dist/maplibre-gl.css";
+import type { FeatureCollection, Point } from "geojson";
 import {
   Camera,
   ChevronLeft,
   ChevronRight,
+  Home,
   MapPin,
   Maximize2,
   Minimize2,
   Pause,
   Play,
   RotateCcw,
+  RotateCw,
   X,
   ZoomIn,
   ZoomOut,
@@ -171,6 +182,7 @@ const placeRegionLabels: Record<string, PlaceRegion> = {
   shenzhen: { label: "Guangdong", zhLabel: "广东" },
   guangzhou: { label: "Guangdong", zhLabel: "广东" },
   shantou: { label: "Guangdong", zhLabel: "广东" },
+  chaozhou: { label: "Guangdong", zhLabel: "广东" },
   meizhou: { label: "Guangdong", zhLabel: "广东" },
   zhuhai: { label: "Guangdong", zhLabel: "广东" },
   shunde: { label: "Guangdong", zhLabel: "广东" },
@@ -178,9 +190,11 @@ const placeRegionLabels: Record<string, PlaceRegion> = {
   yangjiang: { label: "Guangdong", zhLabel: "广东" },
   zhanjiang: { label: "Guangdong", zhLabel: "广东" },
   huazhou: { label: "Guangdong", zhLabel: "广东" },
+  pingding: { label: "Guangdong", zhLabel: "广东" },
   zhongshan: { label: "Guangdong", zhLabel: "广东" },
   dongguan: { label: "Guangdong", zhLabel: "广东" },
   dongshan: { label: "Fujian", zhLabel: "福建" },
+  nanyang: { label: "Henan", zhLabel: "河南" },
   xian: { label: "Shaanxi", zhLabel: "陕西" },
   qingdao: { label: "Shandong", zhLabel: "山东" },
   jiayuguan: { label: "Gansu", zhLabel: "甘肃" },
@@ -196,7 +210,6 @@ const placeRegionLabels: Record<string, PlaceRegion> = {
   shenyang: { label: "Liaoning", zhLabel: "辽宁" },
   taiyuan: { label: "Shanxi", zhLabel: "山西" },
   xinzhou: { label: "Shanxi", zhLabel: "山西" },
-  pingding: { label: "Shanxi", zhLabel: "山西" },
   yinchuan: { label: "Ningxia", zhLabel: "宁夏" },
   beijing: { label: "Beijing", zhLabel: "北京" },
   qinhuangdao: { label: "Hebei", zhLabel: "河北" },
@@ -262,18 +275,24 @@ const placeRegionLabels: Record<string, PlaceRegion> = {
   princeton: { label: "New Jersey", zhLabel: "新泽西州" },
 
   tokyo: { label: "Tokyo", zhLabel: "东京都" },
+  funabashi: { label: "Chiba", zhLabel: "千叶县" },
   sapporo: { label: "Hokkaido", zhLabel: "北海道" },
   otaru: { label: "Hokkaido", zhLabel: "北海道" },
   furano: { label: "Hokkaido", zhLabel: "北海道" },
   yokohama: { label: "Kanagawa", zhLabel: "神奈川县" },
   yokosuka: { label: "Kanagawa", zhLabel: "神奈川县" },
   kamakura: { label: "Kanagawa", zhLabel: "神奈川县" },
+  hakone: { label: "Kanagawa", zhLabel: "神奈川县" },
+  numazu: { label: "Shizuoka", zhLabel: "静冈县" },
+  ito: { label: "Shizuoka", zhLabel: "静冈县" },
+  izu: { label: "Shizuoka", zhLabel: "静冈县" },
   hida: { label: "Gifu", zhLabel: "岐阜县" },
   gifu: { label: "Gifu", zhLabel: "岐阜县" },
   kasamatsu: { label: "Gifu", zhLabel: "岐阜县" },
   takaoka: { label: "Toyama", zhLabel: "富山县" },
   himi: { label: "Toyama", zhLabel: "富山县" },
   matsumoto: { label: "Nagano", zhLabel: "长野县" },
+  suwa: { label: "Nagano", zhLabel: "长野县" },
   kanazawa: { label: "Ishikawa", zhLabel: "石川县" },
   inuyama: { label: "Aichi", zhLabel: "爱知县" },
   fujikawaguchiko: { label: "Yamanashi", zhLabel: "山梨县" },
@@ -437,6 +456,34 @@ const places: FootprintPlace[] = [
         src: "/footprint/shantou-03.jpg",
         caption: "Lanterns and shop signs glowing in Shantou.",
         zhCaption: "汕头街巷里亮起的灯笼与招牌。",
+      },
+    ],
+  },
+  {
+    id: "chaozhou",
+    name: "Chaozhou",
+    zhName: "潮州",
+    country: "China",
+    zhCountry: "中国",
+    lat: 23.6567,
+    lng: 116.6226,
+    note: "Paifang Street, old city gates, and busy Lingnan streets.",
+    zhNote: "牌坊街、古城门与热闹的岭南街巷。",
+    photos: [
+      {
+        src: "/footprint/chaozhou-01.jpg",
+        caption: "Crowds along Paifang Street in Chaozhou.",
+        zhCaption: "潮州牌坊街上的热闹人群。",
+      },
+      {
+        src: "/footprint/chaozhou-02.jpg",
+        caption: "Memorial archways along Chaozhou's Paifang Street.",
+        zhCaption: "潮州牌坊街层层相望的牌坊。",
+      },
+      {
+        src: "/footprint/chaozhou-03.jpg",
+        caption: "Guangji Gate on the Chaozhou old city wall.",
+        zhCaption: "潮州古城墙上的广济门。",
       },
     ],
   },
@@ -1098,6 +1145,21 @@ const places: FootprintPlace[] = [
     zhNote: "世界总决赛的记忆。",
     photos: [
       {
+        src: "/footprint/beijing-02.jpg",
+        caption: "Mao Zedong statue at Beijing University of Posts and Telecommunications.",
+        zhCaption: "北京邮电大学的毛泽东像。",
+      },
+      {
+        src: "/footprint/beijing-03.jpg",
+        caption: "Boya Pagoda and Weiming Lake at Peking University.",
+        zhCaption: "北京大学未名湖与博雅塔。",
+      },
+      {
+        src: "/footprint/beijing-04.jpg",
+        caption: "Peking University campus view by Weiming Lake.",
+        zhCaption: "北京大学未名湖畔的校园景色。",
+      },
+      {
         src: "/footprint/beijing-01.jpg",
         caption: "Morning flag-raising ceremony at Tiananmen Square.",
         zhCaption: "清晨天安门广场的升旗仪式。",
@@ -1124,6 +1186,34 @@ const places: FootprintPlace[] = [
         src: "/footprint/qinhuangdao-02.jpg",
         caption: "Zhendongbian Pass at Shanhaiguan.",
         zhCaption: "山海关镇东边关。",
+      },
+    ],
+  },
+  {
+    id: "nanyang",
+    name: "Nanyang",
+    zhName: "南阳",
+    country: "China",
+    zhCountry: "中国",
+    lat: 33.001,
+    lng: 112.529,
+    note: "Wuhou Shrine, old prefecture gates, and historic city corners.",
+    zhNote: "武侯祠、府署牌楼与古城里的历史角落。",
+    photos: [
+      {
+        src: "/footprint/nanyang-01.jpg",
+        caption: "Ningyuan Tower at Nanyang Wuhou Shrine.",
+        zhCaption: "南阳武侯祠的宁远楼。",
+      },
+      {
+        src: "/footprint/nanyang-02.jpg",
+        caption: "Zhuge Liang statue among the trees in Nanyang.",
+        zhCaption: "南阳树影间的诸葛亮像。",
+      },
+      {
+        src: "/footprint/nanyang-03.jpg",
+        caption: "Nanyang Prefecture Yamen archway.",
+        zhCaption: "南阳府署的牌楼。",
       },
     ],
   },
@@ -1289,6 +1379,26 @@ const places: FootprintPlace[] = [
     zhNote: "化州平定的老家街巷、院落、菜地与集市。",
     photos: [
       {
+        src: "/footprint/pingding-06.jpg",
+        caption: "A lively gathering along a village lane in Pingding.",
+        zhCaption: "平定村巷里热闹的人群。",
+      },
+      {
+        src: "/footprint/pingding-07.jpg",
+        caption: "Old village houses and banquet tents in Pingding.",
+        zhCaption: "平定老屋旁支起的宴席棚。",
+      },
+      {
+        src: "/footprint/pingding-08.jpg",
+        caption: "Quiet town street between residential buildings in Pingding.",
+        zhCaption: "平定居民楼之间安静的街道。",
+      },
+      {
+        src: "/footprint/pingding-09.jpg",
+        caption: "Weathered residential buildings in Pingding.",
+        zhCaption: "平定街边斑驳的居民楼。",
+      },
+      {
         src: "/footprint/pingding-01.jpg",
         caption: "Village homes in Pingding.",
         zhCaption: "平定的乡村屋舍。",
@@ -1372,6 +1482,224 @@ const places: FootprintPlace[] = [
     ],
   },
   {
+    id: "numazu",
+    name: "Numazu",
+    zhName: "沼津",
+    country: "Japan",
+    zhCountry: "日本",
+    lat: 35.0956,
+    lng: 138.8634,
+    note: "Suruga Bay, harbor views, Mount Fuji, and Love Live! Sunshine!! Aqours landmarks.",
+    zhNote: "骏河湾、港口视野、远处的富士山与 Love Live! Sunshine!! Aqours 巡礼点。",
+    photos: [
+      {
+        src: "/footprint/numazu-05.jpg",
+        caption: "Numazu Nakamise Shopping Street with Love Live! Sunshine!! Aqours banners.",
+        zhCaption: "挂着 Love Live! Sunshine!! Aqours 横幅的沼津仲见世商店街。",
+      },
+      {
+        src: "/footprint/numazu-06.jpg",
+        caption: "Love Live! Sunshine!! Aqours character banners inside Numazu Nakamise Shopping Street.",
+        zhCaption: "沼津仲见世商店街里的 Love Live! Sunshine!! Aqours 角色旗帜。",
+      },
+      {
+        src: "/footprint/numazu-07.jpg",
+        caption: "Aqours displays glowing in a Numazu storefront.",
+        zhCaption: "沼津店铺橱窗里亮着的 Aqours 展示。",
+      },
+      {
+        src: "/footprint/numazu-01.jpg",
+        caption: "Mount Fuji seen from Numazu.",
+        zhCaption: "从沼津望见的富士山。",
+      },
+      {
+        src: "/footprint/numazu-02.jpg",
+        caption: "Numazu harbor and Mount Fuji across Suruga Bay.",
+        zhCaption: "沼津港与骏河湾远处的富士山。",
+      },
+      {
+        src: "/footprint/numazu-03.jpg",
+        caption: "Mount Fuji above Numazu harbor at dusk.",
+        zhCaption: "暮色中沼津港上方的富士山。",
+      },
+      {
+        src: "/footprint/numazu-04.jpg",
+        caption: "Suruga Bay and Mount Fuji from Numazu.",
+        zhCaption: "从沼津望向骏河湾与富士山。",
+      },
+    ],
+  },
+  {
+    id: "ito",
+    name: "Ito",
+    zhName: "伊东",
+    country: "Japan",
+    zhCountry: "日本",
+    lat: 34.965,
+    lng: 139.1019,
+    note: "Jogasaki Coast cliffs and Izu seaside views.",
+    zhNote: "城崎海岸的礁岩峭壁与伊豆海景。",
+    photos: [
+      {
+        src: "/footprint/ito-04.jpg",
+        caption: "Open sea and volcanic rocks at Jogasaki Coast.",
+        zhCaption: "城崎海岸的开阔海面与火山岩。",
+      },
+      {
+        src: "/footprint/ito-01.jpg",
+        caption: "Blue sea from Jogasaki Coast in Ito.",
+        zhCaption: "伊东城崎海岸望见的蓝色海面。",
+      },
+      {
+        src: "/footprint/ito-02.jpg",
+        caption: "Hillside homes above the Izu coast near Jogasaki.",
+        zhCaption: "城崎海岸附近山坡上的伊豆民居。",
+      },
+      {
+        src: "/footprint/ito-03.jpg",
+        caption: "Basalt cliffs at Jogasaki Coast.",
+        zhCaption: "城崎海岸的玄武岩峭壁。",
+      },
+    ],
+  },
+  {
+    id: "izu",
+    name: "Izu",
+    zhName: "伊豆",
+    country: "Japan",
+    zhCountry: "日本",
+    lat: 34.9766,
+    lng: 138.9467,
+    note: "Shuzenji Onsen, temple roofs, and a quiet stream town.",
+    zhNote: "修善寺温泉、古寺屋檐与安静溪流。",
+    photos: [
+      {
+        src: "/footprint/izu-01.jpg",
+        caption: "Shuzenji temple eaves in Izu.",
+        zhCaption: "伊豆修善寺的寺院屋檐。",
+      },
+      {
+        src: "/footprint/izu-02.jpg",
+        caption: "Shuzenji temple grounds in warm light.",
+        zhCaption: "暖光里的修善寺寺院。",
+      },
+      {
+        src: "/footprint/izu-03.jpg",
+        caption: "Red bridge over the stream at Shuzenji Onsen.",
+        zhCaption: "修善寺温泉溪流上的红桥。",
+      },
+      {
+        src: "/footprint/izu-04.jpg",
+        caption: "Rooftops and hills around Shuzenji Onsen.",
+        zhCaption: "修善寺温泉周围的屋顶与山坡。",
+      },
+    ],
+  },
+  {
+    id: "hakone",
+    name: "Hakone",
+    zhName: "箱根",
+    country: "Japan",
+    zhCountry: "日本",
+    lat: 35.2324,
+    lng: 139.1069,
+    note: "Lake Ashi, shrine gates, and mountain air.",
+    zhNote: "芦之湖、神社鸟居与山间空气。",
+    photos: [
+      {
+        src: "/footprint/hakone-02.jpg",
+        caption: "Hakone Shrine torii across the misty water of Lake Ashi.",
+        zhCaption: "雾气里的芦之湖与箱根神社鸟居。",
+      },
+      {
+        src: "/footprint/hakone-01.jpg",
+        caption: "Hakone Shrine torii on Lake Ashi.",
+        zhCaption: "芦之湖畔的箱根神社鸟居。",
+      },
+    ],
+  },
+  {
+    id: "suwa",
+    name: "Suwa",
+    zhName: "诹访",
+    country: "Japan",
+    zhCountry: "日本",
+    lat: 36.0391,
+    lng: 138.1141,
+    note: "Lake Suwa, Suwa Taisha, and Tateishi Park, a Your Name location.",
+    zhNote: "诹访湖、诹访大社与《你的名字。》取景地立石公园。",
+    photos: [
+      {
+        src: "/footprint/suwa-01.jpg",
+        caption: "Lake Suwa from Tateishi Park, a Your Name location.",
+        zhCaption: "从立石公园俯瞰诹访湖，《你的名字。》取景地之一。",
+      },
+      {
+        src: "/footprint/suwa-02.jpg",
+        caption: "Night view of Lake Suwa from Tateishi Park, a Your Name location.",
+        zhCaption: "立石公园望向诹访湖夜景，《你的名字。》取景地之一。",
+      },
+      {
+        src: "/footprint/suwa-03.jpg",
+        caption: "Lake Suwa city lights at dusk from Tateishi Park.",
+        zhCaption: "立石公园暮色里的诹访湖与城市灯火。",
+      },
+      {
+        src: "/footprint/suwa-04.jpg",
+        caption: "Suwa city and Lake Suwa from above.",
+        zhCaption: "从高处望向诹访市区与诹访湖。",
+      },
+      {
+        src: "/footprint/suwa-05.jpg",
+        caption: "Suwa streets from the Shimosha Harumiya approach.",
+        zhCaption: "从诹访大社下社春宫一带望向街道。",
+      },
+      {
+        src: "/footprint/suwa-06.jpg",
+        caption: "Suwa Taisha shrine hall under a clear sky.",
+        zhCaption: "晴空下的诹访大社社殿。",
+      },
+      {
+        src: "/footprint/suwa-07.jpg",
+        caption: "Wooded temple gate in Suwa.",
+        zhCaption: "诹访林木间的寺院山门。",
+      },
+      {
+        src: "/footprint/suwa-08.jpg",
+        caption: "Clear Lake Suwa shoreline.",
+        zhCaption: "清澈平静的诹访湖岸。",
+      },
+      {
+        src: "/footprint/suwa-09.jpg",
+        caption: "Lake Suwa and the lakeside town.",
+        zhCaption: "诹访湖与湖畔城镇。",
+      },
+    ],
+  },
+  {
+    id: "funabashi",
+    name: "Funabashi",
+    zhName: "船桥",
+    country: "Japan",
+    zhCountry: "日本",
+    lat: 35.6947,
+    lng: 139.9826,
+    note: "Nakayama Racecourse and evening track light.",
+    zhNote: "中山赛马场与傍晚的赛道光线。",
+    photos: [
+      {
+        src: "/footprint/funabashi-01.jpg",
+        caption: "Racing pack rounding the bend at Nakayama Racecourse.",
+        zhCaption: "中山赛马场弯道上的赛马群。",
+      },
+      {
+        src: "/footprint/funabashi-02.jpg",
+        caption: "Evening light over Nakayama Racecourse stands.",
+        zhCaption: "傍晚光线里的中山赛马场看台。",
+      },
+    ],
+  },
+  {
     id: "tokyo",
     name: "Tokyo",
     zhName: "东京",
@@ -1382,6 +1710,16 @@ const places: FootprintPlace[] = [
     note: "Dense, bright, and full of small details.",
     zhNote: "密集、明亮，处处有细节。",
     photos: [
+      {
+        src: "/footprint/tokyo-10.jpg",
+        caption: "Pink cherry blossoms in Tokyo.",
+        zhCaption: "东京盛开的粉色樱花。",
+      },
+      {
+        src: "/footprint/tokyo-11.jpg",
+        caption: "Cherry blossoms and a visiting bee in Tokyo.",
+        zhCaption: "东京樱花与停留其间的蜜蜂。",
+      },
       {
         src: "/footprint/tokyo-05.jpg",
         caption: "Akihabara billboards under a clear sky.",
@@ -3368,6 +3706,26 @@ const places: FootprintPlace[] = [
     note: "University of Central Florida, Kennedy Space Center, Walt Disney World, and Universal Epic Universe.",
     zhNote: "中佛罗里达大学、肯尼迪航天中心、迪士尼世界与 Universal Epic Universe。",
     photos: [
+      {
+        src: "/footprint/orlando-04.jpg",
+        caption: "Fire-breathing dragon at The Wizarding World of Harry Potter.",
+        zhCaption: "哈利波特魔法世界里喷火的龙。",
+      },
+      {
+        src: "/footprint/orlando-05.jpg",
+        caption: "Transformers: The Ride 3D at Universal Orlando.",
+        zhCaption: "奥兰多环球影城的 Transformers: The Ride 3D。",
+      },
+      {
+        src: "/footprint/orlando-06.jpg",
+        caption: "Hogwarts Castle at Universal Orlando.",
+        zhCaption: "奥兰多环球影城的霍格沃茨城堡。",
+      },
+      {
+        src: "/footprint/orlando-07.jpg",
+        caption: "Universal Studios Florida gate at golden hour.",
+        zhCaption: "金色时刻的 Universal Studios Florida 入口。",
+      },
       {
         src: "/footprint/orlando-ucf-01.jpg",
         caption: "University of Central Florida campus buildings.",
@@ -5505,10 +5863,111 @@ const places: FootprintPlace[] = [
   },
 ];
 
-const initialCenter: L.LatLngExpression = [38, -6];
-const initialZoom = 2;
-const compactInitialCenter: L.LatLngExpression = [34, 55];
-const compactInitialZoom = 1.5;
+type MapCenter = [number, number];
+type FootprintPlaceFeatureProperties = {
+  id: string;
+  color: string;
+  label: string;
+  zhLabel: string;
+};
+
+type FootprintPlacesGeoJson = FeatureCollection<
+  Point,
+  FootprintPlaceFeatureProperties
+>;
+
+const initialCenter: MapCenter = [-8, 34];
+const initialZoom = 1;
+const compactInitialCenter: MapCenter = [6, 28];
+const compactInitialZoom = 0.65;
+const footprintPlacesSourceId = "footprint-places";
+const footprintPlacesLayerId = "footprint-place-dots";
+
+const normalizeMapRotation = (angle: number) => {
+  const normalized = ((angle % 360) + 360) % 360;
+  return normalized > 180 ? normalized - 360 : normalized;
+};
+
+const footprintMapStyle: StyleSpecification = {
+  version: 8,
+  sources: {
+    cartoVoyagerNoLabels: {
+      type: "raster",
+      tiles: [
+        "https://a.basemaps.cartocdn.com/rastertiles/voyager_nolabels/{z}/{x}/{y}.png",
+        "https://b.basemaps.cartocdn.com/rastertiles/voyager_nolabels/{z}/{x}/{y}.png",
+        "https://c.basemaps.cartocdn.com/rastertiles/voyager_nolabels/{z}/{x}/{y}.png",
+        "https://d.basemaps.cartocdn.com/rastertiles/voyager_nolabels/{z}/{x}/{y}.png",
+      ],
+      tileSize: 256,
+      attribution:
+        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+    },
+  },
+  layers: [
+    {
+      id: "carto-voyager-no-labels",
+      type: "raster",
+      source: "cartoVoyagerNoLabels",
+      minzoom: 0,
+      maxzoom: 20,
+    },
+  ],
+};
+
+const placeToLngLat = (place: FootprintPlace): LngLatLike => [place.lng, place.lat];
+
+const footprintPlacesLayer: CircleLayerSpecification = {
+  id: footprintPlacesLayerId,
+  type: "circle",
+  source: footprintPlacesSourceId,
+  paint: {
+    "circle-radius": [
+      "interpolate",
+      ["linear"],
+      ["zoom"],
+      1,
+      4.8,
+      4,
+      6.8,
+      8,
+      8.5,
+    ],
+    "circle-color": ["get", "color"],
+    "circle-opacity": 0.96,
+    "circle-stroke-color": "#ffffff",
+    "circle-stroke-opacity": 1,
+    "circle-stroke-width": [
+      "interpolate",
+      ["linear"],
+      ["zoom"],
+      1,
+      1.7,
+      4,
+      2.3,
+      8,
+      2.8,
+    ],
+  },
+};
+
+const createFootprintPlacesGeoJson = (): FootprintPlacesGeoJson => ({
+  type: "FeatureCollection",
+  features: places.map((place) => ({
+    type: "Feature",
+    id: place.id,
+    properties: {
+      id: place.id,
+      color: countryStyles[place.country].color,
+      label: place.name,
+      zhLabel: place.zhName,
+    },
+    geometry: {
+      type: "Point",
+      coordinates: [place.lng, place.lat],
+    },
+  })),
+});
 
 const getInitialMapView = (container?: HTMLElement | null) => {
   const width = container?.clientWidth ?? window.innerWidth;
@@ -5525,10 +5984,11 @@ const Footprint = () => {
   const [autoPlay, setAutoPlay] = useState(false);
   const [isMapFullscreen, setIsMapFullscreen] = useState(false);
   const [expandedCountries, setExpandedCountries] = useState<Record<string, boolean>>({});
+  const [mapRotation, setMapRotation] = useState(0);
   const mapShellRef = useRef<HTMLDivElement | null>(null);
   const mapContainerRef = useRef<HTMLDivElement | null>(null);
-  const mapRef = useRef<LeafletMap | null>(null);
-  const markerLayerRef = useRef<LayerGroup | null>(null);
+  const mapRef = useRef<MapLibreMap | null>(null);
+  const placeTooltipRef = useRef<Popup | null>(null);
 
   const displayName = (place: FootprintPlace) =>
     isChinese ? place.zhName : place.name;
@@ -5538,9 +5998,9 @@ const Footprint = () => {
     isChinese ? place.zhNote : place.note;
 
   const focusPlace = useCallback((place: FootprintPlace) => {
-    mapRef.current?.panTo([place.lat, place.lng], { animate: false });
+    mapRef.current?.panTo(placeToLngLat(place), { duration: 0 });
     setPhotoIndex(0);
-    setAutoPlay((place.photos?.length ?? 0) > 1);
+    setAutoPlay(false);
     setSelectedPlace(place);
   }, []);
 
@@ -5602,87 +6062,184 @@ const Footprint = () => {
   );
 
   useEffect(() => {
-    if (!mapContainerRef.current || mapRef.current) {
+    const mapContainer = mapContainerRef.current;
+    if (!mapContainer || mapRef.current) {
       return;
     }
 
-    const initialView = getInitialMapView(mapContainerRef.current);
-    const map = L.map(mapContainerRef.current, {
+    const initialView = getInitialMapView(mapContainer);
+    const map = new maplibregl.Map({
+      container: mapContainer,
+      style: footprintMapStyle,
       center: initialView.center,
       zoom: initialView.zoom,
-      minZoom: 1.25,
+      minZoom: 0.7,
       maxZoom: 18,
-      zoomControl: false,
       attributionControl: false,
-      zoomSnap: 0.25,
-      zoomDelta: 0.5,
-      wheelPxPerZoomLevel: 80,
-      inertia: true,
-      maxBounds: [
-        [-85, -180],
-        [85, 180],
-      ],
-      maxBoundsViscosity: 0.72,
+      bearing: 0,
+      dragRotate: false,
+      pitchWithRotate: false,
+      renderWorldCopies: true,
     });
-    // Use no-label tiles so provider-side political labels do not imply country status.
-    L.tileLayer("https://{s}.basemaps.cartocdn.com/rastertiles/voyager_nolabels/{z}/{x}/{y}.png", {
-      attribution:
-        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-      maxZoom: 20,
-      noWrap: true,
-      subdomains: "abcd",
-    }).addTo(map);
-    L.control.attribution({ prefix: false }).addTo(map);
+    map.addControl(new maplibregl.AttributionControl({ compact: true }));
+    map.touchZoomRotate.disableRotation();
 
     mapRef.current = map;
-    window.setTimeout(() => map.invalidateSize(), 0);
+    placeTooltipRef.current = new maplibregl.Popup({
+      anchor: "bottom",
+      closeButton: false,
+      closeOnClick: false,
+      className: "footprint-place-tooltip",
+      offset: 12,
+    });
+    window.setTimeout(() => {
+      map.resize();
+      const resizedInitialView = getInitialMapView(mapContainer);
+      map.jumpTo({
+        bearing: 0,
+        center: resizedInitialView.center,
+        zoom: resizedInitialView.zoom,
+      });
+    }, 0);
 
     return () => {
+      placeTooltipRef.current?.remove();
+      placeTooltipRef.current = null;
       map.remove();
       mapRef.current = null;
-      markerLayerRef.current = null;
     };
   }, []);
 
   useEffect(() => {
     const map = mapRef.current;
-    if (!map) {
+    const mapContainer = mapContainerRef.current;
+    if (!map || !mapContainer) {
       return;
     }
 
-    markerLayerRef.current?.remove();
-    const markerLayer = L.layerGroup().addTo(map);
+    const placesGeoJson = createFootprintPlacesGeoJson();
+    let areLayerEventsAttached = false;
+    let retryTimer: number | undefined;
 
-    places.forEach((place) => {
-      const style = countryStyles[place.country];
-      const tooltipName = isChinese ? place.zhName : place.name;
-      const marker = L.circleMarker([place.lat, place.lng], {
-        radius: 7,
-        color: "#ffffff",
-        weight: 2.5,
-        fillColor: style.color,
-        fillOpacity: 0.96,
-        opacity: 1,
-        className: "footprint-leaflet-marker",
-      });
+    const handlePlaceClick = (event: MapLayerMouseEvent) => {
+      const placeId = event.features?.[0]?.properties?.id;
+      if (typeof placeId !== "string") {
+        return;
+      }
 
-      marker
-        .bindTooltip(tooltipName, {
-          direction: "top",
-          offset: [0, -9],
-          opacity: 0.95,
-          className: "footprint-leaflet-tooltip",
-        })
-        .on("click", () => focusPlace(place))
-        .on("mouseover", () => marker.setRadius(9))
-        .on("mouseout", () => marker.setRadius(7))
-        .addTo(markerLayer);
-    });
+      const place = places.find((candidate) => candidate.id === placeId);
+      if (place) {
+        focusPlace(place);
+      }
+    };
 
-    markerLayerRef.current = markerLayer;
+    const showPlaceTooltip = (event: MapLayerMouseEvent) => {
+      const properties = event.features?.[0]?.properties as
+        | Partial<FootprintPlaceFeatureProperties>
+        | undefined;
+      const label = isChinese ? properties?.zhLabel : properties?.label;
+      if (!label) {
+        return;
+      }
+
+      placeTooltipRef.current
+        ?.setLngLat(event.lngLat)
+        .setText(label)
+        .addTo(map);
+    };
+
+    const handlePlaceMouseEnter = (event: MapLayerMouseEvent) => {
+      map.getCanvas().style.cursor = "pointer";
+      showPlaceTooltip(event);
+    };
+
+    const handlePlaceMouseMove = (event: MapLayerMouseEvent) => {
+      showPlaceTooltip(event);
+    };
+
+    const handlePlaceMouseLeave = () => {
+      map.getCanvas().style.cursor = "";
+      placeTooltipRef.current?.remove();
+    };
+
+    const attachLayerEvents = () => {
+      if (areLayerEventsAttached || !map.getLayer(footprintPlacesLayerId)) {
+        return;
+      }
+
+      map.on("click", footprintPlacesLayerId, handlePlaceClick);
+      map.on("mouseenter", footprintPlacesLayerId, handlePlaceMouseEnter);
+      map.on("mousemove", footprintPlacesLayerId, handlePlaceMouseMove);
+      map.on("mouseleave", footprintPlacesLayerId, handlePlaceMouseLeave);
+      areLayerEventsAttached = true;
+    };
+
+    const upsertPlaceLayer = () => {
+      if (!mapRef.current || map.isStyleLoaded() === false) {
+        return;
+      }
+
+      const existingSource = map.getSource(footprintPlacesSourceId) as
+        | GeoJSONSource
+        | undefined;
+
+      if (existingSource) {
+        existingSource.setData(placesGeoJson);
+      } else {
+        map.addSource(footprintPlacesSourceId, {
+          type: "geojson",
+          data: placesGeoJson,
+          promoteId: "id",
+        });
+      }
+
+      if (!map.getLayer(footprintPlacesLayerId)) {
+        map.addLayer(footprintPlacesLayer);
+      }
+
+      mapContainer.setAttribute(
+        "data-marker-count",
+        String(placesGeoJson.features.length),
+      );
+      attachLayerEvents();
+
+      if (retryTimer !== undefined) {
+        window.clearInterval(retryTimer);
+        retryTimer = undefined;
+      }
+    };
+
+    map.on("load", upsertPlaceLayer);
+    map.on("styledata", upsertPlaceLayer);
+    retryTimer = window.setInterval(upsertPlaceLayer, 120);
+    window.setTimeout(upsertPlaceLayer, 0);
 
     return () => {
-      markerLayer.remove();
+      if (retryTimer !== undefined) {
+        window.clearInterval(retryTimer);
+      }
+
+      map.off("load", upsertPlaceLayer);
+      map.off("styledata", upsertPlaceLayer);
+
+      if (areLayerEventsAttached) {
+        map.off("click", footprintPlacesLayerId, handlePlaceClick);
+        map.off("mouseenter", footprintPlacesLayerId, handlePlaceMouseEnter);
+        map.off("mousemove", footprintPlacesLayerId, handlePlaceMouseMove);
+        map.off("mouseleave", footprintPlacesLayerId, handlePlaceMouseLeave);
+      }
+
+      placeTooltipRef.current?.remove();
+
+      if (map.getLayer(footprintPlacesLayerId)) {
+        map.removeLayer(footprintPlacesLayerId);
+      }
+
+      if (map.getSource(footprintPlacesSourceId)) {
+        map.removeSource(footprintPlacesSourceId);
+      }
+
+      mapContainer.removeAttribute("data-marker-count");
     };
   }, [focusPlace, isChinese]);
 
@@ -5692,17 +6249,28 @@ const Footprint = () => {
       return;
     }
     const nextZoom = Math.min(map.getMaxZoom(), Math.max(map.getMinZoom(), map.getZoom() + delta));
-    map.flyTo(map.getCenter(), nextZoom, { duration: 0.35 });
+    map.easeTo({ center: map.getCenter(), duration: 350, zoom: nextZoom });
   };
 
   const resetMap = () => {
     const initialView = getInitialMapView(mapContainerRef.current);
-    mapRef.current?.setView(initialView.center, initialView.zoom, { animate: false });
+    setMapRotation(0);
+    mapRef.current?.jumpTo({
+      bearing: 0,
+      center: initialView.center,
+      zoom: initialView.zoom,
+    });
+  };
+
+  const rotateMap = (delta: number) => {
+    const nextRotation = normalizeMapRotation(mapRotation + delta);
+    setMapRotation(nextRotation);
+    mapRef.current?.easeTo({ bearing: nextRotation, duration: 180 });
   };
 
   const toggleMapFullscreen = () => {
     setIsMapFullscreen((current) => !current);
-    window.setTimeout(() => mapRef.current?.invalidateSize(), 100);
+    window.setTimeout(() => mapRef.current?.resize(), 100);
   };
 
   const toggleCountryGroup = (countryGroupKey: string) => {
@@ -5715,7 +6283,7 @@ const Footprint = () => {
   const mapShellClass = isMapFullscreen
     ? "footprint-map-shell footprint-map-shell-fullscreen bg-white"
     : "footprint-map-shell relative bg-white";
-  const mapShellStyle = isMapFullscreen
+  const mapShellStyle: CSSProperties = isMapFullscreen
     ? {
         position: "fixed" as const,
         inset: 0,
@@ -5723,7 +6291,7 @@ const Footprint = () => {
         width: "100vw",
         height: "100dvh",
       }
-    : undefined;
+    : {};
   const mapCanvasStyle = isMapFullscreen ? { height: "100dvh" } : undefined;
   const fullscreenButtonClass = [
     "inline-flex h-9 items-center justify-center border-l border-slate-100 text-slate-700 transition-colors hover:bg-sky-50 hover:text-sky-700",
@@ -5789,7 +6357,7 @@ const Footprint = () => {
 
   useEffect(() => {
     document.body.classList.toggle("footprint-map-is-fullscreen", isMapFullscreen);
-    window.setTimeout(() => mapRef.current?.invalidateSize(), 100);
+    window.setTimeout(() => mapRef.current?.resize(), 100);
 
     return () => {
       document.body.classList.remove("footprint-map-is-fullscreen");
@@ -5871,7 +6439,25 @@ const Footprint = () => {
               onClick={resetMap}
               className="inline-flex h-9 w-9 items-center justify-center border-l border-slate-100 text-slate-700 transition-colors hover:bg-sky-50 hover:text-sky-700"
             >
+              <Home size={16} />
+            </button>
+            <button
+              type="button"
+              aria-label={isChinese ? "向左旋转地图" : "Rotate map left"}
+              title={isChinese ? "左旋" : "Rotate left"}
+              onClick={() => rotateMap(-15)}
+              className="inline-flex h-9 w-9 items-center justify-center border-l border-slate-100 text-slate-700 transition-colors hover:bg-sky-50 hover:text-sky-700"
+            >
               <RotateCcw size={16} />
+            </button>
+            <button
+              type="button"
+              aria-label={isChinese ? "向右旋转地图" : "Rotate map right"}
+              title={isChinese ? "右旋" : "Rotate right"}
+              onClick={() => rotateMap(15)}
+              className="inline-flex h-9 w-9 items-center justify-center border-l border-slate-100 text-slate-700 transition-colors hover:bg-sky-50 hover:text-sky-700"
+            >
+              <RotateCw size={16} />
             </button>
             <button
               type="button"

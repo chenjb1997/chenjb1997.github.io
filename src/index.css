@@ -19,8 +19,28 @@
     height: 100dvh;
   }
 
-  .footprint-map-shell .leaflet-container {
+  .footprint-map-shell .maplibregl-map {
     background: #f8fafc;
+  }
+
+  .footprint-place-tooltip {
+    pointer-events: none;
+  }
+
+  .footprint-place-tooltip .maplibregl-popup-content {
+    border: 1px solid rgb(226 232 240 / 0.95);
+    border-radius: 4px;
+    background: rgb(255 255 255 / 0.96);
+    box-shadow: 0 8px 22px rgb(15 23 42 / 0.16);
+    color: #0f172a;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1;
+    padding: 7px 9px;
+  }
+
+  .footprint-place-tooltip .maplibregl-popup-tip {
+    border-top-color: rgb(255 255 255 / 0.96);
   }
 
   html.inverted-theme .footprint-map-shell {
@@ -28,7 +48,8 @@
   }
 
   html.inverted-theme .footprint-map-shell img,
-  html.inverted-theme .footprint-map-shell svg {
+  html.inverted-theme .footprint-map-shell svg,
+  html.inverted-theme .footprint-map-shell canvas {
     filter: none;
   }
 
