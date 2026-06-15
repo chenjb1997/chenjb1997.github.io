@@ -52,9 +52,9 @@ function App() {
         <div className="page-enter container mx-auto px-2 py-8 md:px-6">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/competitive-programming" element={<CompetitiveProgramming />} />
-            <Route path="/footprint" element={<Footprint />} />
-            <Route path="/contact" element={<Contact />} />
+            <Route path="/competitive-programming/*" element={<CompetitiveProgramming />} />
+            <Route path="/footprint/*" element={<Footprint />} />
+            <Route path="/contact/*" element={<Contact />} />
           </Routes>
         </div>
       </div>
