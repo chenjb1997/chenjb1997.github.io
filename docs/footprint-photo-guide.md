@@ -12,9 +12,10 @@ Use this file as the standing contract when adding user-supplied footprint photo
 
 - Preserve the user-provided order and map files to locations exactly as described in the latest message.
 - Do not rotate, auto-orient, crop, compress, rename by EXIF, or otherwise transform images. Copy files as-is.
-- Top-level entries in `Footprint.tsx` should be cities or the closest reasonable city-level locality.
-- Before adding a new top-level entry, check whether the user-provided label is actually a city/locality. If it is a landmark, temple, shrine, neighborhood, campus, park, scenic area, venue, or filming location, do not create a top-level entry for that label.
-- Put non-city specifics in captions or notes instead. Examples: Kiyomizu-dera and Rurikoin belong under Kyoto; Shimokitazawa and Suga Shrine belong under Tokyo; Songshan Lake European Town belongs under Dongguan.
+- Top-level entries in `Footprint.tsx` should follow a travel-perception unit (`旅行感知单元`) rule: prefer cities/localities, but do not merge places mechanically by administrative city if they feel like distinct travel destinations.
+- A travel-perception unit can be a city, district, island, mountain, lake, pass, scenic area, or other place that a traveler would naturally treat as its own stop. Examples: Shunde, Conghua, Zengcheng, Qinghai Lake, Yumen Pass, and Dunhuang Yardang can be independent entries even though they may belong administratively to a larger city or region.
+- Before adding a new top-level entry, check whether the user-provided label is a meaningful travel-perception unit. If it is only a landmark, temple, shrine, neighborhood, campus, venue, or filming location inside an existing unit, do not create a top-level entry for that label.
+- Put smaller specifics in captions or notes instead. Examples: Kiyomizu-dera and Rurikoin belong under Kyoto; Shimokitazawa and Suga Shrine belong under Tokyo; Songshan Lake European Town belongs under Dongguan.
 - If a city is not already present in `Footprint.tsx`, add a new city entry.
 - Add landmark/building names in captions when identifiable.
 - For repeated photos in an existing city, append new `city-slug-XX.jpg` files using the next available number.
@@ -29,8 +30,8 @@ Use this file as the standing contract when adding user-supplied footprint photo
 2. Copy source images into `public/footprint/` with the naming convention above.
 3. Update `src/pages/Footprint.tsx`:
    - Append to existing city `photos` when the city exists.
-   - Add a city object when missing.
-   - Do not add a top-level object for non-city landmarks, neighborhoods, parks, venues, or filming locations.
+   - Add a new place object when the target is a missing travel-perception unit.
+   - Do not add a top-level object for smaller landmarks, neighborhoods, venues, or filming locations inside an existing unit.
 4. Verify:
    - Count the newly added image files/references and confirm the count matches the user's request.
    - If a new city/place was added, confirm the new place name/id appears in `Footprint.tsx`.
