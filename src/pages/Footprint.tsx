@@ -6303,8 +6303,8 @@ const places: FootprintPlace[] = [
     zhCountry: "埃及",
     lat: 30.0444,
     lng: 31.2357,
-    note: "A gateway to Egyptian memories.",
-    zhNote: "埃及记忆的入口。",
+    note: "Pyramid stone, desert clouds, and golden Giza light.",
+    zhNote: "金字塔石影、沙漠云层与吉萨金色光线。",
     photos: [
       {
         src: "/footprint/cairo-01.jpg",
@@ -6336,8 +6336,8 @@ const places: FootprintPlace[] = [
     zhCountry: "埃及",
     lat: 31.2001,
     lng: 29.9187,
-    note: "Mediterranean air.",
-    zhNote: "地中海的空气。",
+    note: "Citadel walls, sea wind, and bright Mediterranean clouds.",
+    zhNote: "城堡墙面、海风与明亮的地中海云层。",
     photos: [
       {
         src: "/footprint/alexandria-01.jpg",
@@ -6362,6 +6362,44 @@ const places: FootprintPlace[] = [
     ],
   },
   {
+    id: "qena",
+    name: "Qena",
+    zhName: "基纳",
+    country: "Egypt",
+    zhCountry: "埃及",
+    lat: 26.1551,
+    lng: 32.716,
+    note: "Painted ceilings and carved stone north of Luxor.",
+    zhNote: "卢克索以北的彩绘天顶与石上纹路。",
+    photos: [
+      {
+        src: "/footprint/qena-01.jpg",
+        caption: "Painted reliefs inside Dendera Temple.",
+        zhCaption: "丹德拉神殿内的彩绘浮雕。",
+      },
+      {
+        src: "/footprint/qena-02.jpg",
+        caption: "Blue ceiling details at Dendera Temple.",
+        zhCaption: "丹德拉神殿里的蓝色天顶细节。",
+      },
+      {
+        src: "/footprint/qena-03.jpg",
+        caption: "Stone ruins at Dendera Temple.",
+        zhCaption: "丹德拉神殿遗址里的石柱与残墙。",
+      },
+      {
+        src: "/footprint/qena-04.jpg",
+        caption: "Sunlit wall carvings at Dendera Temple.",
+        zhCaption: "丹德拉神殿阳光下的墙面浮雕。",
+      },
+      {
+        src: "/footprint/qena-05.jpg",
+        caption: "Open court at Dendera Temple.",
+        zhCaption: "丹德拉神殿开阔庭院。",
+      },
+    ],
+  },
+  {
     id: "luxor",
     name: "Luxor",
     zhName: "卢克索",
@@ -6369,8 +6407,8 @@ const places: FootprintPlace[] = [
     zhCountry: "埃及",
     lat: 25.6872,
     lng: 32.6396,
-    note: "World Finals and ancient light.",
-    zhNote: "世界总决赛与古老光线。",
+    note: "World Finals days among temple columns and ancient light.",
+    zhNote: "世界总决赛日子里的神庙石柱与古老光线。",
     photos: [
       {
         src: "/footprint/luxor-01.jpg",
@@ -6396,6 +6434,107 @@ const places: FootprintPlace[] = [
         src: "/footprint/luxor-05.jpg",
         caption: "Valley of the Kings.",
         zhCaption: "帝王谷。",
+      },
+    ],
+  },
+  {
+    id: "edfu",
+    name: "Edfu",
+    zhName: "埃德富",
+    country: "Egypt",
+    zhCountry: "埃及",
+    lat: 24.9781,
+    lng: 32.8789,
+    note: "Horus stonework and sunlit courtyards along the Nile.",
+    zhNote: "尼罗河畔的荷鲁斯石刻与日照庭院。",
+    photos: [
+      {
+        src: "/footprint/edfu-01.jpg",
+        caption: "Horus statue at the Temple of Horus.",
+        zhCaption: "荷鲁斯神殿前的荷鲁斯神像。",
+      },
+      {
+        src: "/footprint/edfu-02.jpg",
+        caption: "Facade of the Temple of Horus in Edfu.",
+        zhCaption: "埃德富荷鲁斯神殿正立面。",
+      },
+      {
+        src: "/footprint/edfu-03.jpg",
+        caption: "Column courtyard at the Temple of Horus.",
+        zhCaption: "荷鲁斯神殿里的柱廊庭院。",
+      },
+    ],
+  },
+  {
+    id: "aswan",
+    name: "Aswan",
+    zhName: "阿斯旺",
+    country: "Egypt",
+    zhCountry: "埃及",
+    lat: 24.0889,
+    lng: 32.8998,
+    note: "Granite traces, dam water, and temple light along the Nile.",
+    zhNote: "尼罗河畔的石痕、水坝与神殿光影。",
+    photos: [
+      {
+        src: "/footprint/aswan-01.jpg",
+        caption: "Rock-cut traces at the Aswan obelisk quarry.",
+        zhCaption: "阿斯旺方尖碑古采石场的石刻开凿痕迹。",
+      },
+      {
+        src: "/footprint/aswan-02.jpg",
+        caption: "City edge beside the Aswan obelisk quarry.",
+        zhCaption: "阿斯旺方尖碑古采石场旁的城市边缘。",
+      },
+      {
+        src: "/footprint/aswan-03.jpg",
+        caption: "Open rock paths at the Aswan obelisk quarry.",
+        zhCaption: "阿斯旺方尖碑古采石场的岩石步道。",
+      },
+      {
+        src: "/footprint/aswan-04.jpg",
+        caption: "Waterline at the Aswan High Dam.",
+        zhCaption: "阿斯旺高坝一带的水岸。",
+      },
+      {
+        src: "/footprint/aswan-05.jpg",
+        caption: "Dam-side channel at the Aswan High Dam.",
+        zhCaption: "阿斯旺高坝旁的水道。",
+      },
+      {
+        src: "/footprint/aswan-06.jpg",
+        caption: "Boats near the Aswan High Dam.",
+        zhCaption: "阿斯旺高坝附近的船只。",
+      },
+      {
+        src: "/footprint/aswan-07.jpg",
+        caption: "Carved gateway at Philae Temple.",
+        zhCaption: "菲莱神殿的浮雕门廊。",
+      },
+      {
+        src: "/footprint/aswan-08.jpg",
+        caption: "Temple walls at Philae.",
+        zhCaption: "菲莱神殿的墙面浮雕。",
+      },
+      {
+        src: "/footprint/aswan-09.jpg",
+        caption: "Kiosk of Trajan on Agilkia Island.",
+        zhCaption: "阿吉勒基亚岛上的图拉真亭。",
+      },
+      {
+        src: "/footprint/aswan-10.jpg",
+        caption: "Philae columns and lake light on Agilkia Island.",
+        zhCaption: "阿吉勒基亚岛上的菲莱石柱与湖光。",
+      },
+      {
+        src: "/footprint/aswan-11.jpg",
+        caption: "Temple shoreline on Agilkia Island.",
+        zhCaption: "阿吉勒基亚岛的神殿岸线。",
+      },
+      {
+        src: "/footprint/aswan-12.jpg",
+        caption: "Boat approach to Agilkia Island.",
+        zhCaption: "驶向阿吉勒基亚岛的水路。",
       },
     ],
   },
