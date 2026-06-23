@@ -171,7 +171,7 @@
   "news-5-time": "Jan. 2026",
   "news-5": "Our paper \"TopKGAT: A Top-K Objective-Driven Architecture for Recommendation\" is accepted by the Web Conference 2026 (WWW 2026).",
   "SelectedPublications": "Selected Publications",
-  "SelectedPublications-1": " * indicates the first author (may share equal contributions, also labeled for TCS venues) and † indicates the corresponding author.",
+  "SelectedPublications-1": "† indicates the corresponding author.",
   "year-2026":"In the Year of 2026",
   "SelectedPublications-2026-publications-1-title":"Scalable Approximate Biclique Counting over Large Bipartite Graphs",
   "SelectedPublications-2026-publications-1-venue":"International Conference on Very Large Data Bases (VLDB 2026)",

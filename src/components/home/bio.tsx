@@ -142,6 +142,7 @@ const Bio = () => {
         { term: "Spring 2026", place: "CUHK-Shenzhen" },
         { term: "Spring 2027", place: "CUHK-Shenzhen" },
       ],
+      note: "Initiated Instructor",
     },
     {
       code: "CSC 3200",
@@ -154,7 +155,7 @@ const Bio = () => {
       title: "Analysis of Algorithms",
       zhTitle: "算法分析",
       offerings: [{ term: "Spring 2026", place: "SLAI" }],
-      note: "Co-teaching with Prof. Konstantinos Courcoubetis",
+      note: "Initiated Instructor; Co-teaching with Prof. Konstantinos Courcoubetis",
     },
   ];
   const highlightClassName = (item: string) => {

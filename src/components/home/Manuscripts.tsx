@@ -84,7 +84,7 @@ const Manuscripts = () => {
         {
           title: t("Manuscripts-2026-quasi-clique-title"),
           authors: [
-            { name: "Jingbang Chen*", href: "" },
+            { name: "Jingbang Chen", href: "" },
             { name: "Weinuo Li", href: "#" },
             { name: "Yingli Zhou", href: "https://jaylzhou.github.io/" },
             { name: "Hao Wu", href: "" },
@@ -125,7 +125,7 @@ const Manuscripts = () => {
         {
           title: t("Manuscripts-2024-title"),
           authors: [
-            { name: "Jingbang Chen*", href: "" },
+            { name: "Jingbang Chen", href: "" },
             { name: "Jiangqi Dai", href: "https://dblp.org/pid/365/4525.html" },
             { name: "Qiuyang Mang", href: "https://joyemang33.github.io/" },
             { name: "Qingyu Shi", href: "https://qoj.ac/" },
@@ -150,7 +150,7 @@ const Manuscripts = () => {
           title: t("Manuscripts-2023-title"),
           authors: [
             { name: "Ruinian Chang", href: "#" },
-            { name: "Jingbang Chen*", href: "" },
+            { name: "Jingbang Chen (Lexicographical Order)", href: "" },
             { name: "J. Ian Munro", href: "https://cs.uwaterloo.ca/~imunro/" },
             { name: "Richard Peng", href: "https://www.cs.cmu.edu/~yangp/" },
             { name: "Qingyu Shi", href: "https://qoj.ac/" },

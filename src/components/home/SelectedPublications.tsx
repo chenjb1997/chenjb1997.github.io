@@ -93,7 +93,7 @@ const SelectedPublications = () => {
         {
           title: t("SelectedPublications-2026-publications-1-title"),
           authors: [
-            { name: "Jingbang Chen*", href: "" },
+            { name: "Jingbang Chen", href: "" },
             { name: "Weinuo Li", href: "#" },
             { name: "Yingli Zhou", href: "https://jaylzhou.github.io/" },
             { name: "Hangrui Zhou", href: "https://hehezhou.github.io/" },
@@ -214,7 +214,7 @@ const SelectedPublications = () => {
         {
           title: t("SelectedPublications-2025-publications-1-title"),
           authors: [
-            { name: "Jingbang Chen*", href: "" },
+            { name: "Jingbang Chen", href: "" },
             { name: "Xinyuan Cao", href: "https://youki-cao.github.io/" },
             {
               name: "Alicia Stepin",
@@ -238,7 +238,7 @@ const SelectedPublications = () => {
           title: t("SelectedPublications-2025-publications-2-title"),
           authors: [
             { name: "Qiuyang Mang", href: "https://joyemang33.github.io/" },
-            { name: "Jingbang Chen*", href: "" },
+            { name: "Jingbang Chen (Co-first Author)", href: "" },
             { name: "Hangrui Zhou", href: "https://hehezhou.github.io/" },
             {
               name: "Yu Gao",
@@ -270,7 +270,7 @@ const SelectedPublications = () => {
         {
           title: t("SelectedPublications-2024-publications-1-title"),
           authors: [
-            { name: "Jingbang Chen*", href: "" },
+            { name: "Jingbang Chen", href: "" },
             { name: "Qiuyang Mang", href: "https://joyemang33.github.io/" },
             { name: "Hangrui Zhou", href: "https://hehezhou.github.io/" },
             { name: "Richard Peng", href: "https://www.cs.cmu.edu/~yangp/" },
@@ -300,7 +300,7 @@ const SelectedPublications = () => {
         {
           title: t("SelectedPublications-2023-publications-1-title"),
           authors: [
-            { name: "Jingbang Chen*", href: "" },
+            { name: "Jingbang Chen", href: "" },
             { name: "Meng He", href: "https://web.cs.dal.ca/~mhe/" },
             { name: "J. Ian Munro", href: "https://cs.uwaterloo.ca/~imunro/" },
             { name: "Richard Peng", href: "https://www.cs.cmu.edu/~yangp/" },
@@ -326,7 +326,7 @@ const SelectedPublications = () => {
         {
           title: t("SelectedPublications-2023-publications-2-title"),
           authors: [
-            { name: "Jingbang Chen*", href: "" },
+            { name: "Jingbang Chen", href: "" },
             { name: "Li Chen", href: "https://lic225.github.io/" },
             { name: "Yang P. Liu", href: "https://yangpliu.github.io/index.html" },
             { name: "Richard Peng", href: "https://www.cs.cmu.edu/~yangp/" },
@@ -347,7 +347,7 @@ const SelectedPublications = () => {
         {
           title: t("SelectedPublications-2023-publications-3-title"),
           authors: [
-            { name: "Jingbang Chen*", href: "" },
+            { name: "Jingbang Chen", href: "" },
             {
               name: "Yu Gao",
               href: "https://sites.google.com/view/ygao2606/home",
@@ -411,10 +411,9 @@ const SelectedPublications = () => {
       <h2 className="border-b-[1px] border-gray-300 pb-2 text-[24px] font-bold mb-3">
         {t("SelectedPublications")}
       </h2>
-      <span className="text-[13px] text-gray-600  block mb-3 ">
+      <span className="text-[13px] text-gray-600 block mb-3">
         {t("SelectedPublications-1")}
       </span>
-
       <div>
         {SelectedPublicationsList.map((item, index) => (
           <Publications key={index} publications={item} />
