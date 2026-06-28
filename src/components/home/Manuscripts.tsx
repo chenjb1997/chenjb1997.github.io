@@ -120,30 +120,6 @@ const Manuscripts = () => {
       ],
     },
     {
-      year: "2024",
-      publications: [
-        {
-          title: t("Manuscripts-2024-title"),
-          authors: [
-            { name: "Jingbang Chen", href: "" },
-            { name: "Jiangqi Dai", href: "https://dblp.org/pid/365/4525.html" },
-            { name: "Qiuyang Mang", href: "https://joyemang33.github.io/" },
-            { name: "Qingyu Shi", href: "https://qoj.ac/" },
-            {
-              name: "Tingqiang Xu",
-              href: "https://scholar.google.com/citations?user=HGTHVUgAAAAJ&hl",
-            },
-          ],
-          arXiv: [
-            {
-              name: "arXiv",
-              href: "https://arxiv.org/abs/2312.11873",
-            },
-          ],
-        },
-      ],
-    },
-    {
       year: "2023",
       publications: [
         {

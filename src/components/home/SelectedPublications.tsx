@@ -115,6 +115,48 @@ const SelectedPublications = () => {
           ],
         },
         {
+          title: t("Manuscripts-2024-title"),
+          authors: [
+            { name: "Jingbang Chen", href: "" },
+            { name: "Jiangqi Dai", href: "https://dblp.org/pid/365/4525.html" },
+            { name: "Qiuyang Mang", href: "https://joyemang33.github.io/" },
+            { name: "Qingyu Shi", href: "https://qoj.ac/" },
+            {
+              name: "Tingqiang Xu",
+              href: "https://scholar.google.com/citations?user=HGTHVUgAAAAJ&hl",
+            },
+          ],
+          venue: t("European Symposium on Algorithms (ESA 2026)"),
+          arXiv: [
+            {
+              name: "arXiv",
+              href: "https://arxiv.org/abs/2312.11873",
+            },
+          ],
+        },
+        {
+          title: t("Curing ''Miracle Steps'' in LLM Math Reasoning with Rubric Rewards"),
+          authors: [
+            { name: "Youliang Yuan", href: "https://youliangyuan.github.io/" },
+            { name: "Qiuyang Mang", href: "https://joyemang33.github.io/" },
+            { name: "Jingbang Chen", href: "" },
+            { name: "Hong Wan", href: "" },
+            { name: "Xiaoyuan Liu", href: "https://xyliu-cs.github.io/" },
+            { name: "Junjielong Xu", href: "https://siyuexi.github.io/" },
+            { name: "Jen-tse Huang", href: "" },
+            { name: "Wenxuan Wang", href: "" },
+            { name: "Wenxiang Jiao", href: "" },
+            { name: "Pinjia He", href: "https://pinjiahe.github.io/" },
+          ],
+          venue: t("Annual Meeting of the Association for Computational Linguistics - Main Conference (ACL 2026)"),
+          arXiv: [
+            {
+              name: "arXiv",
+              href: "https://arxiv.org/abs/2510.07774",
+            },
+          ],
+        },
+        {
           title: t("TopKGAT: A Top-K Objective-Driven Architecture for Recommendation"),
           authors: [
             { name: "Sirui Chen", href: "" }, // :contentReference[oaicite:0]{index=0}
@@ -154,28 +196,6 @@ const SelectedPublications = () => {
             {
               name: "arXiv",
               href: "https://arxiv.org/abs/2601.22925",
-            },
-          ],
-        },
-        {
-          title: t("Curing ''Miracle Steps'' in LLM Math Reasoning with Rubric Rewards"),
-          authors: [
-            { name: "Youliang Yuan", href: "https://youliangyuan.github.io/" },
-            { name: "Qiuyang Mang", href: "https://joyemang33.github.io/" },
-            { name: "Jingbang Chen", href: "" },
-            { name: "Hong Wan", href: "" },
-            { name: "Xiaoyuan Liu", href: "https://xyliu-cs.github.io/" },
-            { name: "Junjielong Xu", href: "https://siyuexi.github.io/" },
-            { name: "Jen-tse Huang", href: "" },
-            { name: "Wenxuan Wang", href: "" },
-            { name: "Wenxiang Jiao", href: "" },
-            { name: "Pinjia He", href: "https://pinjiahe.github.io/" },
-          ],
-          venue: t("Annual Meeting of the Association for Computational Linguistics - Main Conference (ACL 2026)"),
-          arXiv: [
-            {
-              name: "arXiv",
-              href: "https://arxiv.org/abs/2510.07774",
             },
           ],
         },

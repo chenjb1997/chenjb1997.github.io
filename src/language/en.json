@@ -175,6 +175,8 @@
   "year-2026":"In the Year of 2026",
   "SelectedPublications-2026-publications-1-title":"Scalable Approximate Biclique Counting over Large Bipartite Graphs",
   "SelectedPublications-2026-publications-1-venue":"International Conference on Very Large Data Bases (VLDB 2026)",
+  "Manuscripts-2024-title":"Nearly Optimal Internal Dictionary Matching",
+  "European Symposium on Algorithms (ESA 2026)": "European Symposium on Algorithms (ESA 2026)",
   "year-2025":"In the Year of 2025",
   "SelectedPublications-2025-publications-1-title":"On the Power of Learning‑Augmented Search Trees",
   "SelectedPublications-2025-publications-2-title":"Efficient Historical Butterfly Counting in Large Temporal Bipartite Networks via Graph Structure‑aware Index",
@@ -197,7 +199,6 @@
   "Manuscripts": "Manuscripts",
   "Manuscripts-2026-quasi-clique-title":"Scalable Algorithm for Dynamic Quasi-clique Detection",
   "Manuscripts-2026-title":"Finding the Balance Rate of Uncertain Signed Graphs",
-  "Manuscripts-2024-title":"Nearly Optimal Internal Dictionary Matching",
   "Manuscripts-2023-title":"Sandpile Prediction on Undirected Graphs",
 
   "SUA": "SUA Programming Competitions Problems Setter Team"
