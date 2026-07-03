@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Navigate, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import CompetitiveProgramming from './pages/CompetitiveProgramming';
 import Footprint from './pages/Footprint';
 import Contact from './pages/Contact.tsx';
+import ResearchVault from './pages/ResearchVault';
 import { useTranslation } from 'react-i18next';
 
 function App() {
@@ -55,6 +56,8 @@ function App() {
             <Route path="/competitive-programming/*" element={<CompetitiveProgramming />} />
             <Route path="/footprint/*" element={<Footprint />} />
             <Route path="/contact/*" element={<Contact />} />
+            <Route path="/research/*" element={<ResearchVault />} />
+            <Route path="/research-vault/*" element={<Navigate to="/research" replace />} />
           </Routes>
         </div>
       </div>
