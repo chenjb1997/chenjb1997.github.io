@@ -51,12 +51,6 @@ const Bio = () => {
           affiliation: "Zhejiang University",
           coadvisor: "Prof. Can Wang",
         },
-        {
-          name: "Daniel Skachkov",
-          period: "Spring 2026 - present",
-          affiliation: "Moscow State University",
-          coadvisor: "Prof. Yuriy Dorn",
-        },
       ],
     },
     {
@@ -218,7 +212,6 @@ const Bio = () => {
           people: getPeople("Ph.D. Students", [
             "Tianran Zhu",
             "Zeyu Wang",
-            "Daniel Skachkov",
           ]),
         },
         {
