@@ -341,6 +341,12 @@ const placeRegionLabels: Record<string, PlaceRegion> = {
   "arima-onsen": { label: "Hyogo", zhLabel: "兵库县" },
   kobe: { label: "Hyogo", zhLabel: "兵库县" },
   nagoya: { label: "Aichi", zhLabel: "爱知县" },
+  fukuoka: { label: "Fukuoka", zhLabel: "福冈县" },
+  saga: { label: "Saga", zhLabel: "佐贺县" },
+  nagasaki: { label: "Nagasaki", zhLabel: "长崎县" },
+  kumamoto: { label: "Kumamoto", zhLabel: "熊本县" },
+  kagoshima: { label: "Kagoshima", zhLabel: "鹿儿岛县" },
+  beppu: { label: "Oita", zhLabel: "大分县" },
 
   kitchener: { label: "Ontario", zhLabel: "安大略省" },
   waterloo: { label: "Ontario", zhLabel: "安大略省" },
@@ -2664,51 +2670,76 @@ const places: FootprintPlace[] = [
     photos: [
       {
         src: "/footprint/kyoto-01.jpg",
+        caption: "Lanterns at Fushimi Inari Taisha.",
+        zhCaption: "伏见稻荷大社朱红社殿上的灯笼。",
+      },
+      {
+        src: "/footprint/kyoto-02.jpg",
+        caption: "Fushimi Inari Taisha framed by a torii gate.",
+        zhCaption: "鸟居之间望见伏见稻荷大社的朱红社殿。",
+      },
+      {
+        src: "/footprint/kyoto-03.jpg",
+        caption: "Yukata figures along Hanamikoji.",
+        zhCaption: "花见小路里的浴衣身影。",
+      },
+      {
+        src: "/footprint/kyoto-04.jpg",
+        caption: "Festival procession at Yasaka Shrine.",
+        zhCaption: "祇园祭时八坂神社门前的队伍。",
+      },
+      {
+        src: "/footprint/kyoto-05.jpg",
+        caption: "Yasaka Shrine entrance across Shijo-dori.",
+        zhCaption: "四条通旁的八坂神社西楼门。",
+      },
+      {
+        src: "/footprint/kyoto-06.jpg",
         caption: "Kinkaku-ji under a blue sky.",
         zhCaption: "蓝天下的金阁寺。",
       },
       {
-        src: "/footprint/kyoto-02.jpg",
+        src: "/footprint/kyoto-07.jpg",
         caption: "Torii gate at Fushimi Inari Taisha.",
         zhCaption: "伏见稻荷大社的鸟居。",
       },
       {
-        src: "/footprint/kyoto-03.jpg",
+        src: "/footprint/kyoto-08.jpg",
         caption: "Torii tunnel at Fushimi Inari Taisha.",
         zhCaption: "伏见稻荷大社的千本鸟居。",
       },
       {
-        src: "/footprint/kyoto-04.jpg",
+        src: "/footprint/kyoto-09.jpg",
         caption: "Kiyomizu-dera in afternoon light.",
         zhCaption: "午后光线里的清水寺。",
       },
       {
-        src: "/footprint/kyoto-05.jpg",
+        src: "/footprint/kyoto-10.jpg",
         caption: "Autumn maples under a clear Kyoto sky.",
         zhCaption: "京都晴空下的红叶。",
       },
       {
-        src: "/footprint/kyoto-06.jpg",
+        src: "/footprint/kyoto-11.jpg",
         caption: "Maple canopy along a quiet Kyoto path.",
         zhCaption: "京都小径旁的红叶树冠。",
       },
       {
-        src: "/footprint/kyoto-07.jpg",
+        src: "/footprint/kyoto-12.jpg",
         caption: "Kiyomizu-dera stage among autumn maples.",
         zhCaption: "红叶中的清水寺舞台。",
       },
       {
-        src: "/footprint/kyoto-08.jpg",
+        src: "/footprint/kyoto-13.jpg",
         caption: "Autumn maples below Kiyomizu-dera.",
         zhCaption: "清水寺下方的秋日红叶。",
       },
       {
-        src: "/footprint/kyoto-09.jpg",
+        src: "/footprint/kyoto-14.jpg",
         caption: "Red maples around Rurikoin.",
         zhCaption: "琉璃光院周围的红叶。",
       },
       {
-        src: "/footprint/kyoto-10.jpg",
+        src: "/footprint/kyoto-15.jpg",
         caption: "Rurikoin's autumn garden reflected indoors.",
         zhCaption: "琉璃光院室内映出的秋庭。",
       },
@@ -2755,33 +2786,58 @@ const places: FootprintPlace[] = [
     zhCountry: "日本",
     lat: 34.8844,
     lng: 135.7997,
-    note: "Byodoin, Uji River, and old shrine paths.",
-    zhNote: "平等院、宇治川与古社参道。",
+    note: "Daikichiyama overlook, Uji River bridges, and Byodoin around the tea town.",
+    zhNote: "大吉山展望台、宇治川桥畔与茶乡里的平等院。",
     photos: [
       {
         src: "/footprint/uji-01.jpg",
-        caption: "Autumn path near Byodoin in Uji.",
-        zhCaption: "宇治平等院附近的秋日小径。",
+        caption: "Byodoin and Uji from Daikichiyama overlook.",
+        zhCaption: "从大吉山展望台俯瞰平等院与宇治。",
       },
       {
         src: "/footprint/uji-02.jpg",
-        caption: "Uji Bridge over the Uji River.",
-        zhCaption: "跨过宇治川的宇治桥。",
+        caption: "Uji River and the town from Daikichiyama.",
+        zhCaption: "从大吉山望向宇治川与街区。",
       },
       {
         src: "/footprint/uji-03.jpg",
-        caption: "Ujigami Shrine torii in autumn.",
-        zhCaption: "秋日里的宇治上神社鸟居。",
+        caption: "Shelter at Daikichiyama observation deck.",
+        zhCaption: "大吉山展望台上的休憩亭。",
       },
       {
         src: "/footprint/uji-04.jpg",
-        caption: "Uji River from the bridge.",
-        zhCaption: "从桥上望向宇治川。",
+        caption: "Red bridge and boats along the Uji River.",
+        zhCaption: "宇治川畔的红桥与游船。",
       },
       {
         src: "/footprint/uji-05.jpg",
-        caption: "Overlook above Uji.",
-        zhCaption: "俯瞰宇治的山坡观景处。",
+        caption: "Uji Jikkoku statue beside the vermilion bridge.",
+        zhCaption: "朱红桥旁的宇治十帖像。",
+      },
+      {
+        src: "/footprint/uji-06.jpg",
+        caption: "Uji River flowing past the bridge.",
+        zhCaption: "从桥上望向流过山间的宇治川。",
+      },
+      {
+        src: "/footprint/uji-07.jpg",
+        caption: "Byodoin Phoenix Hall across the pond.",
+        zhCaption: "池畔望向平等院凤凰堂。",
+      },
+      {
+        src: "/footprint/uji-08.jpg",
+        caption: "Garden entrance near Byodoin.",
+        zhCaption: "平等院附近的庭院入口。",
+      },
+      {
+        src: "/footprint/uji-09.jpg",
+        caption: "Small shrine torii in Uji.",
+        zhCaption: "宇治一处小神社的鸟居。",
+      },
+      {
+        src: "/footprint/uji-10.jpg",
+        caption: "Green approach path in Uji.",
+        zhCaption: "宇治绿意深处的参道。",
       },
     ],
   },
@@ -2798,13 +2854,33 @@ const places: FootprintPlace[] = [
     photos: [
       {
         src: "/footprint/osaka-01.jpg",
-        caption: "Osaka Castle lit up at night.",
-        zhCaption: "夜色中亮起灯光的大阪城。",
+        caption: "Osaka skyline from above.",
+        zhCaption: "高处俯瞰大阪市区。",
       },
       {
         src: "/footprint/osaka-02.jpg",
+        caption: "Abeno Harukas and Tennoji Park from above.",
+        zhCaption: "高处望向阿倍野 Harukas 与天王寺公园。",
+      },
+      {
+        src: "/footprint/osaka-03.jpg",
+        caption: "Abeno Harukas rising above the Tennoji skyline.",
+        zhCaption: "阿倍野 Harukas 与天王寺一带的城市景色。",
+      },
+      {
+        src: "/footprint/osaka-04.jpg",
+        caption: "Tsutenkaku above Shinsekai.",
+        zhCaption: "新世界街区上方的通天阁。",
+      },
+      {
+        src: "/footprint/osaka-05.jpg",
         caption: "Dotonbori street signs at night.",
         zhCaption: "夜晚道顿堀街头的招牌。",
+      },
+      {
+        src: "/footprint/osaka-06.jpg",
+        caption: "Osaka Castle lit up at night.",
+        zhCaption: "夜色中亮起灯光的大阪城。",
       },
     ],
   },
@@ -2887,8 +2963,8 @@ const places: FootprintPlace[] = [
     zhCountry: "日本",
     lat: 34.6901,
     lng: 135.1955,
-    note: "Harbor light, bridge views, and Chinatown streets.",
-    zhNote: "港湾灯光、海峡大桥与南京町街景。",
+    note: "Harbor signs, Kitano slopes, and Akashi Kaikyo Bridge light.",
+    zhNote: "港湾标识、北野坡道与明石海峡大桥的光影。",
     photos: [
       {
         src: "/footprint/kobe-01.jpg",
@@ -2897,23 +2973,375 @@ const places: FootprintPlace[] = [
       },
       {
         src: "/footprint/kobe-02.jpg",
+        caption: "Western-style house on Kobe's Kitano slope.",
+        zhCaption: "神户北野坡上的洋馆。",
+      },
+      {
+        src: "/footprint/kobe-03.jpg",
+        caption: "City view from the Kitano hillside.",
+        zhCaption: "从北野坡上望向神户市区。",
+      },
+      {
+        src: "/footprint/kobe-04.jpg",
+        caption: "Sunset clouds over Kobe's waterfront.",
+        zhCaption: "神户海边的暮色云层。",
+      },
+      {
+        src: "/footprint/kobe-05.jpg",
+        caption: "Sunset across the Kobe waterfront.",
+        zhCaption: "海面望向神户的夕阳。",
+      },
+      {
+        src: "/footprint/kobe-06.jpg",
+        caption: "Waterfront performance before Akashi Kaikyo Bridge.",
+        zhCaption: "明石海峡大桥前的海边演出。",
+      },
+      {
+        src: "/footprint/kobe-07.jpg",
+        caption: "Akashi Kaikyo Bridge tower in soft dusk light.",
+        zhCaption: "柔和暮色中的明石海峡大桥桥塔。",
+      },
+      {
+        src: "/footprint/kobe-08.jpg",
         caption: "Akashi Kaikyo Bridge at sunset.",
         zhCaption: "日落时的明石海峡大桥。",
       },
       {
-        src: "/footprint/kobe-03.jpg",
-        caption: "Akashi Kaikyo Bridge tower at dusk.",
-        zhCaption: "暮色中的明石海峡大桥桥塔。",
+        src: "/footprint/kobe-09.jpg",
+        caption: "Orange sunset beneath Akashi Kaikyo Bridge.",
+        zhCaption: "明石海峡大桥下的橙色夕阳。",
       },
       {
-        src: "/footprint/kobe-04.jpg",
-        caption: "Under the Akashi Kaikyo Bridge.",
-        zhCaption: "明石海峡大桥桥下结构。",
+        src: "/footprint/kobe-10.jpg",
+        caption: "Blue hour under Akashi Kaikyo Bridge.",
+        zhCaption: "蓝调时刻的明石海峡大桥桥下。",
       },
       {
-        src: "/footprint/kobe-05.jpg",
-        caption: "Nankinmachi gate in Kobe Chinatown.",
-        zhCaption: "神户南京町的牌楼。",
+        src: "/footprint/kobe-11.jpg",
+        caption: "Akashi Kaikyo Bridge lit after dusk.",
+        zhCaption: "入夜后亮灯的明石海峡大桥。",
+      },
+    ],
+  },
+  {
+    id: "fukuoka",
+    name: "Fukuoka",
+    zhName: "福冈",
+    country: "Japan",
+    zhCountry: "日本",
+    lat: 33.5902,
+    lng: 130.4017,
+    note: "Hakata Station nights, waterfront light, and city landmarks around the bay.",
+    zhNote: "博多站夜色、港湾光影与城市地标。",
+    photos: [
+      {
+        src: "/footprint/fukuoka-01.jpg",
+        caption: "Hakata Station clock glowing at night.",
+        zhCaption: "夜色中亮起大钟的博多站。",
+      },
+      {
+        src: "/footprint/fukuoka-02.jpg",
+        caption: "Sunset over Hakata Bay.",
+        zhCaption: "博多湾上的落日。",
+      },
+      {
+        src: "/footprint/fukuoka-03.jpg",
+        caption: "Hakata Port and a ferry from above.",
+        zhCaption: "从高处俯瞰博多港与渡轮。",
+      },
+      {
+        src: "/footprint/fukuoka-05.jpg",
+        caption: "Evening light over the Hakata waterfront.",
+        zhCaption: "夕光下的博多港水岸。",
+      },
+      {
+        src: "/footprint/fukuoka-06.jpg",
+        caption: "Boat Race Fukuoka and the city skyline from above.",
+        zhCaption: "从高处俯瞰福冈竞艇场与城市天际线。",
+      },
+      {
+        src: "/footprint/fukuoka-04.jpg",
+        caption: "Hakata Gion Yamakasa display at JR Hakata City.",
+        zhCaption: "JR 博多城前的博多祇园山笠饰山。",
+      },
+      {
+        src: "/footprint/fukuoka-07.jpg",
+        caption: "RX-93ff ν Gundam at LaLaport Fukuoka at night.",
+        zhCaption: "夜色中的福冈 LaLaport RX-93ff ν 高达立像。",
+      },
+      {
+        src: "/footprint/fukuoka-08.jpg",
+        caption: "A rainy night by Ichiran's main shop in Nakasu.",
+        zhCaption: "一兰总店旁的中洲雨夜。",
+      },
+    ],
+  },
+  {
+    id: "saga",
+    name: "Saga",
+    zhName: "佐贺",
+    country: "Japan",
+    zhCountry: "日本",
+    lat: 33.2635,
+    lng: 130.3009,
+    note: "Saga Shrine, local history, sports grounds, and anime pilgrimage manholes.",
+    zhNote: "佐嘉神社、乡土历史、城市运动场与动漫巡礼井盖。",
+    photos: [
+      {
+        src: "/footprint/saga-01.jpg",
+        caption: "Statue of Nabeshima Naomasa at Saga Castle Park.",
+        zhCaption: "佐贺城公园的锅岛直正公像。",
+      },
+      {
+        src: "/footprint/saga-02.jpg",
+        caption: "Saga Shrine beneath a canopy of green.",
+        zhCaption: "绿荫下的佐嘉神社。",
+      },
+      {
+        src: "/footprint/saga-03.jpg",
+        caption: "The worship hall at Saga Shrine.",
+        zhCaption: "佐嘉神社的拜殿。",
+      },
+      {
+        src: "/footprint/saga-04.jpg",
+        caption: "ZOMBIE LAND SAGA manhole featuring Saki Nikaido by the Nabeshima Naomasa statue.",
+        zhCaption: "锅岛直正公像前的《佐贺偶像是传奇》二阶堂咲巡礼井盖。",
+      },
+      {
+        src: "/footprint/saga-07.jpg",
+        caption: "ZOMBIE LAND SAGA manhole featuring Lily Hoshikawa at Plaza 656.",
+        zhCaption: "656 广场前的《佐贺偶像是传奇》星川莉莉巡礼井盖。",
+      },
+      {
+        src: "/footprint/saga-05.jpg",
+        caption: "SAGA Arena and its colorful light tower.",
+        zhCaption: "SAGA Arena 与彩绘照明塔。",
+      },
+      {
+        src: "/footprint/saga-06.jpg",
+        caption: "The track at SAGA Stadium.",
+        zhCaption: "SAGA Stadium 的田径场。",
+      },
+    ],
+  },
+  {
+    id: "nagasaki",
+    name: "Nagasaki",
+    zhName: "长崎",
+    country: "Japan",
+    zhCountry: "日本",
+    lat: 32.7503,
+    lng: 129.8777,
+    note: "Harbor night panoramas, hillside shrines and temples, and the white spire of Ōura Cathedral.",
+    zhNote: "港湾夜景、山坡寺社与大浦天主堂的白色尖塔。",
+    photos: [
+      {
+        src: "/footprint/nagasaki-01.jpg",
+        caption: "Nagasaki's illuminated city center from a hillside viewpoint.",
+        zhCaption: "从山间观景处俯瞰灯火通明的长崎市区。",
+      },
+      {
+        src: "/footprint/nagasaki-02.jpg",
+        caption: "Night lights tracing Nagasaki's harborfront and hillsides.",
+        zhCaption: "夜色中的长崎港湾与山坡灯火。",
+      },
+      {
+        src: "/footprint/nagasaki-03.jpg",
+        caption: "A wide night panorama between the mountains and harbor.",
+        zhCaption: "山海之间铺展开来的长崎夜景全景。",
+      },
+      {
+        src: "/footprint/nagasaki-04.jpg",
+        caption: "Nagasaki Harbor at blue hour, with shipyards and a distant bridge.",
+        zhCaption: "蓝调时刻的长崎港、造船厂与远处的跨海大桥。",
+      },
+      {
+        src: "/footprint/nagasaki-05.jpg",
+        caption: "The white façade and bell tower of Ōura Cathedral.",
+        zhCaption: "大浦天主堂洁白的立面与钟塔。",
+      },
+      {
+        src: "/footprint/nagasaki-06.jpg",
+        caption: "A Chinese-style temple gate with painted wooden details.",
+        zhCaption: "中式寺院山门上的彩绘木构细节。",
+      },
+      {
+        src: "/footprint/nagasaki-07.jpg",
+        caption: "A shrine's main hall framed by its monumental wooden gate.",
+        zhCaption: "由宏大木门框出的神社本殿。",
+      },
+      {
+        src: "/footprint/nagasaki-08.jpg",
+        caption: "A hillside city view framed by a shrine gate and sacred straw rope.",
+        zhCaption: "透过神社大门与注连绳望向长崎山城。",
+      },
+      {
+        src: "/footprint/nagasaki-09.jpg",
+        caption: "Vermilion shrine buildings and fox guardians on a Nagasaki hillside.",
+        zhCaption: "长崎山坡上的朱红神社建筑与狐狸石像。",
+      },
+      {
+        src: "/footprint/nagasaki-10.jpg",
+        caption: "A daytime view across Nagasaki Harbor and its waterfront.",
+        zhCaption: "白日里的长崎港与滨水城区。",
+      },
+    ],
+  },
+  {
+    id: "kumamoto",
+    name: "Kumamoto",
+    zhName: "熊本",
+    country: "Japan",
+    zhCountry: "日本",
+    lat: 32.8031,
+    lng: 130.7079,
+    note: "Kumamoto Castle, Kato Shrine, and the ponds and garden hills of Suizenji Jojuen.",
+    zhNote: "熊本城、加藤神社，以及水前寺成趣园的池水与庭园山景。",
+    photos: [
+      {
+        src: "/footprint/kumamoto-01.jpg",
+        caption: "A samurai-clad Kumamon figure outside the Kato Shrine office.",
+        zhCaption: "加藤神社社务所外，身着武士甲胄的熊本熊塑像。",
+      },
+      {
+        src: "/footprint/kumamoto-02.jpg",
+        caption: "Kumamoto Castle's main and smaller keeps above the stone ramparts.",
+        zhCaption: "石垣之上的熊本城大小天守。",
+      },
+      {
+        src: "/footprint/kumamoto-03.jpg",
+        caption: "A close view of Kumamoto Castle's black-and-white keep.",
+        zhCaption: "近看黑白相间的熊本城天守。",
+      },
+      {
+        src: "/footprint/kumamoto-04.jpg",
+        caption: "Kumamoto Castle behind a pair of shachi roof ornaments.",
+        zhCaption: "一对鯱形屋脊饰物后的熊本城。",
+      },
+      {
+        src: "/footprint/kumamoto-05.jpg",
+        caption: "Central Kumamoto and distant mountains seen from the castle.",
+        zhCaption: "从熊本城眺望熊本市中心与远山。",
+      },
+      {
+        src: "/footprint/kumamoto-06.jpg",
+        caption: "The grass-covered miniature Mount Fuji at Suizenji Jojuen.",
+        zhCaption: "水前寺成趣园中覆满绿草的“富士山”。",
+      },
+      {
+        src: "/footprint/kumamoto-07.jpg",
+        caption: "The pond and landscaped hills of Suizenji Jojuen.",
+        zhCaption: "水前寺成趣园的池水与庭园山丘。",
+      },
+    ],
+  },
+  {
+    id: "kagoshima",
+    name: "Kagoshima",
+    zhName: "鹿儿岛",
+    country: "Japan",
+    zhCountry: "日本",
+    lat: 31.5966,
+    lng: 130.5571,
+    note:
+      "Sakurajima across Kinko Bay, Sengan-en's borrowed scenery, and city views from Shiroyama.",
+    zhNote: "锦江湾彼岸的樱岛、仙巌园的借景，以及城山俯瞰下的鹿儿岛市区。",
+    photos: [
+      {
+        src: "/footprint/kagoshima-05.jpg",
+        caption:
+          "Sakurajima rising beyond Kagoshima and Kinko Bay, seen from Shiroyama Observatory.",
+        zhCaption: "从城山展望台眺望鹿儿岛市区、锦江湾与樱岛。",
+      },
+      {
+        src: "/footprint/kagoshima-02.jpg",
+        caption: "Sakurajima framed by the eaves and garden at Sengan-en.",
+        zhCaption: "仙巌园屋檐与庭园框景中的樱岛。",
+      },
+      {
+        src: "/footprint/kagoshima-01.jpg",
+        caption: "Sakurajima across Kinko Bay from Iso Beach.",
+        zhCaption: "从矶海水浴场隔锦江湾望向樱岛。",
+      },
+      {
+        src: "/footprint/kagoshima-04.jpg",
+        caption:
+          "A summer afternoon at Iso Beach, with Sakurajima across the bay.",
+        zhCaption: "夏日的矶海水浴场，樱岛横卧海湾彼岸。",
+      },
+      {
+        src: "/footprint/kagoshima-03.jpg",
+        caption:
+          "Sakurajima across Kinko Bay from the platform at JR Sengan-en Station.",
+        zhCaption: "从 JR 仙巌园站站台隔锦江湾望向樱岛。",
+      },
+      {
+        src: "/footprint/kagoshima-06.jpg",
+        caption:
+          "The rugged summit of Sakurajima seen from Yunohira Observation Point.",
+        zhCaption: "从汤之平展望所近看樱岛崎岖的山体。",
+      },
+      {
+        src: "/footprint/kagoshima-07.jpg",
+        caption:
+          "Kagoshima's waterfront and city center spread below Shiroyama.",
+        zhCaption: "从城山俯瞰鹿儿岛市中心与海滨。",
+      },
+      {
+        src: "/footprint/kagoshima-08.jpg",
+        caption:
+          "The Young Satsuma Students monument outside Kagoshima-Chuo Station.",
+        zhCaption: "鹿儿岛中央站前的“年轻萨摩群像”纪念碑。",
+      },
+    ],
+  },
+  {
+    id: "beppu",
+    name: "Beppu",
+    zhName: "别府",
+    country: "Japan",
+    zhCountry: "日本",
+    lat: 33.2846,
+    lng: 131.4913,
+    note:
+      "Coastal views, city landmarks, and the steam and vivid colors of Beppu's hot-spring hells.",
+    zhNote: "海岸风景、城市地标，以及别府地狱温泉的蒸汽与鲜明泉色。",
+    photos: [
+      {
+        src: "/footprint/beppu-01.jpg",
+        caption: "Beppu Tower rising above the street.",
+        zhCaption: "街角仰望别府塔。",
+      },
+      {
+        src: "/footprint/beppu-02.jpg",
+        caption: "Beppu's coastline and city seen from the tower.",
+        zhCaption: "从别府塔俯瞰海岸与市区。",
+      },
+      {
+        src: "/footprint/beppu-03.jpg",
+        caption: "Beppu and its surrounding mountains in the evening light.",
+        zhCaption: "夕光中的别府市区与群山。",
+      },
+      {
+        src: "/footprint/beppu-04.jpg",
+        caption: "A hazy view across Beppu toward the mountains.",
+        zhCaption: "薄雾中眺望别府市区与群山。",
+      },
+      {
+        src: "/footprint/beppu-05.jpg",
+        caption:
+          "Aburaya Kumahachi's “Shiny Uncle” statue at Beppu Station.",
+        zhCaption: "别府站前油屋熊八的“闪亮叔叔”雕像。",
+      },
+      {
+        src: "/footprint/beppu-06.jpg",
+        caption: "Steam surging from Tatsumaki Jigoku.",
+        zhCaption: "龙卷地狱喷涌而出的蒸汽。",
+      },
+      {
+        src: "/footprint/beppu-07.jpg",
+        caption: "Turquoise water and billowing steam at Umi Jigoku.",
+        zhCaption: "海地狱湛蓝的泉水与蒸汽。",
       },
     ],
   },

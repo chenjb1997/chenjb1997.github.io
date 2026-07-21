@@ -3,6 +3,8 @@
 
 node_modules/
 build/
+.codex-*.log
+*.tsbuildinfo
 .private/
 public/research-vault/*.local.json
 public/research-vault/*.plain.json
