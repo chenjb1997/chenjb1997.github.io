@@ -4,8 +4,11 @@
 node_modules/
 build/
 .codex-*.log
+.codex-build-check/
 *.tsbuildinfo
 .private/
+.env.local
+.env.*.local
 public/research-vault/*.local.json
 public/research-vault/*.plain.json
 public/research/*.local.json

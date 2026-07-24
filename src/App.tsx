@@ -6,6 +6,7 @@ import CompetitiveProgramming from './pages/CompetitiveProgramming';
 import Footprint from './pages/Footprint';
 import Contact from './pages/Contact.tsx';
 import ResearchVault from './pages/ResearchVault';
+import ResearchAdmin from './pages/ResearchAdmin';
 import { useTranslation } from 'react-i18next';
 
 function App() {
@@ -56,6 +57,7 @@ function App() {
             <Route path="/competitive-programming/*" element={<CompetitiveProgramming />} />
             <Route path="/footprint/*" element={<Footprint />} />
             <Route path="/contact/*" element={<Contact />} />
+            <Route path="/research/admin" element={<ResearchAdmin />} />
             <Route path="/research/*" element={<ResearchVault />} />
             <Route path="/research-vault/*" element={<Navigate to="/research" replace />} />
           </Routes>

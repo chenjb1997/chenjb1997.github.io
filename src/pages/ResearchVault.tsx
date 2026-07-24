@@ -1,55 +1,26 @@
 import { type FormEvent, useEffect, useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 import {
   AlertCircle,
   CalendarDays,
   LockKeyhole,
   Search,
+  Settings2,
   Target,
   UsersRound,
 } from "lucide-react";
+import { loadPublicVaultPayload } from "../features/research/repository";
+import type {
+  AuthorRole,
+  EncryptedVaultPayload,
+  VaultGroup,
+  VaultPerson,
+  VaultProject,
+  VaultData,
+} from "../features/research/types";
+import { decryptVaultData } from "../features/research/vaultCrypto";
 
-type VaultPerson = {
-  id: string;
-  name: string;
-  role?: string;
-};
-
-type VaultProject = {
-  id: string;
-  title: string;
-  members: string[];
-  authorRole?: AuthorRole;
-  venue?: string | null;
-  status: string;
-  route: string;
-};
-
-type VaultGroup = {
-  id: string;
-  title: string;
-  description: string;
-  projects: VaultProject[];
-};
-
-type VaultData = {
-  updatedAt: string;
-  groups: VaultGroup[];
-  people: VaultPerson[];
-};
-
-type EncryptedVaultPayload = {
-  version: number;
-  cipher: "AES-GCM-256";
-  kdf: "PBKDF2-SHA-256";
-  iterations: number;
-  salt: string;
-  iv: string;
-  data: string;
-};
-
-type LoadState = "loading" | "locked" | "ready" | "missing" | "error";
-
-type AuthorRole = "first" | "corresponding" | "other";
+type LoadState = "loading" | "locked" | "ready" | "error";
 
 type BoardProject = VaultProject & {
   groupId: string;
@@ -61,8 +32,6 @@ type BoardProject = VaultProject & {
   authorRoleTagId: AuthorRole;
   authorRoleTagLabel: string;
 };
-
-const ENCRYPTED_DATA_URL = "/research/progress.enc.json";
 
 const statusTagStyles: Record<string, string> = {
   submitted: "border-blue-200 bg-blue-100/80 text-blue-800",
@@ -181,47 +150,6 @@ const getPersonName = ({
   memberId: string;
 }) => people.get(memberId)?.name ?? "参与人待补充";
 
-const decodeBase64 = (value: string) =>
-  Uint8Array.from(atob(value), (character) => character.charCodeAt(0));
-
-const decryptVaultData = async (
-  payload: EncryptedVaultPayload,
-  password: string
-) => {
-  if (!window.crypto?.subtle) {
-    throw new Error("Web Crypto is unavailable.");
-  }
-
-  const salt = decodeBase64(payload.salt);
-  const iv = decodeBase64(payload.iv);
-  const ciphertext = decodeBase64(payload.data);
-  const keyMaterial = await window.crypto.subtle.importKey(
-    "raw",
-    new TextEncoder().encode(password),
-    "PBKDF2",
-    false,
-    ["deriveKey"]
-  );
-  const key = await window.crypto.subtle.deriveKey(
-    {
-      name: "PBKDF2",
-      hash: "SHA-256",
-      salt,
-      iterations: payload.iterations,
-    },
-    keyMaterial,
-    { name: "AES-GCM", length: 256 },
-    false,
-    ["decrypt"]
-  );
-  const plaintext = await window.crypto.subtle.decrypt(
-    { name: "AES-GCM", iv },
-    key,
-    ciphertext
-  );
-  return JSON.parse(new TextDecoder().decode(plaintext)) as VaultData;
-};
-
 const ResearchVault = () => {
   const [data, setData] = useState<VaultData | null>(null);
   const [encryptedPayload, setEncryptedPayload] =
@@ -238,24 +166,12 @@ const ResearchVault = () => {
   useEffect(() => {
     let isMounted = true;
 
-    fetch(ENCRYPTED_DATA_URL, { cache: "no-store" })
-      .then(async (response) => {
-        if (response.status === 404) {
-          if (isMounted) {
-            setLoadState("missing");
-          }
-          return null;
-        }
-        if (!response.ok) {
-          throw new Error(`Failed to load vault data: ${response.status}`);
-        }
-        return (await response.json()) as EncryptedVaultPayload;
-      })
-      .then((payload) => {
-        if (!isMounted || !payload) {
+    loadPublicVaultPayload()
+      .then((snapshot) => {
+        if (!isMounted) {
           return;
         }
-        setEncryptedPayload(payload);
+        setEncryptedPayload(snapshot.payload);
         setLoadState("locked");
       })
       .catch(() => {
@@ -440,7 +356,7 @@ const ResearchVault = () => {
               <p className="mt-2 text-sm leading-6">
                 当前页面需要读取公开密文文件
                 <span className="mx-1 font-mono text-xs">
-                  public/research/progress.enc.json
+                Supabase 或本地加密备份
                 </span>
                 。请先从本地明文生成密文后再刷新页面。
               </p>
@@ -462,10 +378,19 @@ const ResearchVault = () => {
             课题进度备忘板
           </h1>
         </div>
-        <p className="inline-flex items-center gap-2 text-xs font-semibold text-slate-500">
-          <CalendarDays className="h-4 w-4" />
-          更新于 {formatDate(data.updatedAt)} · {boardProjects.length} 个项目
-        </p>
+        <div className="flex flex-wrap items-center gap-3">
+          <p className="inline-flex items-center gap-2 text-xs font-semibold text-slate-500">
+            <CalendarDays className="h-4 w-4" />
+            更新于 {formatDate(data.updatedAt)} · {boardProjects.length} 个项目
+          </p>
+          <Link
+            to="/research/admin"
+            className="inline-flex h-9 items-center gap-2 rounded border border-slate-200 bg-white px-3 text-xs font-bold text-slate-600 transition-colors hover:border-slate-300 hover:text-slate-950"
+          >
+            <Settings2 className="h-4 w-4" />
+            在线编辑
+          </Link>
+        </div>
       </header>
 
       <section className="flex flex-col gap-4 rounded border border-slate-200 bg-white/85 p-3 shadow-sm xl:flex-row xl:items-start xl:justify-between">
