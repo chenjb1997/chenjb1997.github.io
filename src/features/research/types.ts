@@ -1,5 +1,7 @@
 export type AuthorRole = "first" | "corresponding" | "other";
 
+export type VaultProjectStage = "submitted" | "pending" | "planned";
+
 export type VaultPerson = {
   id: string;
   name: string;
@@ -12,6 +14,7 @@ export type VaultProject = {
   members: string[];
   authorRole?: AuthorRole;
   venue?: string | null;
+  stage?: VaultProjectStage;
   status: string;
   route: string;
 };

@@ -51,6 +51,14 @@ import {
   decryptVaultData,
   encryptVaultData,
 } from "../features/research/vaultCrypto";
+import {
+  getProjectStage,
+  getProjectStageAfterMove,
+  getProjectStageLabel,
+  getProjectVenueLabel,
+  getNewProjectStage,
+  projectStageOptions,
+} from "../features/research/projectMetadata";
 
 type AuthState =
   | "checking"
@@ -189,6 +197,12 @@ const validateVaultData = (data: VaultData) => {
       }
       if (projectIds.has(project.id)) {
         throw new Error(`项目 ID 重复：${project.id}`);
+      }
+      if (
+        project.stage !== undefined &&
+        !projectStageOptions.some((option) => option.value === project.stage)
+      ) {
+        throw new Error(`项目“${project.title}”的公开状态无效。`);
       }
       projectIds.add(project.id);
       const missingMember = project.members.find((id) => !personIds.has(id));
@@ -577,7 +591,9 @@ const ResearchAdmin = () => {
       setDraft(next);
       setSnapshot(saved);
       setIsDirty(false);
-      setSaveNotice(`已在线保存 · 版本 ${saved.revision}`);
+      setSaveNotice(
+        `已在线保存 · 版本 ${saved.revision}。已打开的公开 Research 页面需要刷新并重新解锁。`,
+      );
     } catch (error) {
       if (error instanceof ResearchVaultConflictError) {
         setVaultError("检测到其他窗口刚刚保存了新版本。请先导出草稿，再重新载入合并。");
@@ -655,6 +671,12 @@ const ResearchAdmin = () => {
       const index = from?.projects.findIndex((project) => project.id === projectId) ?? -1;
       if (!from || !to || index < 0) return;
       const [project] = from.projects.splice(index, 1);
+      if (project.venue === undefined) {
+        project.venue = getProjectVenueLabel(project, from);
+      }
+      const stage = getProjectStageAfterMove(project, from, to);
+      project.stage = stage;
+      project.status = getProjectStageLabel(stage);
       to.projects.push(project);
     });
   };
@@ -965,7 +987,7 @@ const ResearchAdmin = () => {
                     </div>
                   ))}
                 </div>
-                <button type="button" onClick={() => { const id = makeId("project"); mutateDraft((next) => { next.groups.find((item) => item.id === group.id)?.projects.push({ id, title: "新项目", members: [], authorRole: "other", venue: null, status: "计划中", route: "待补充" }); }); setSelectedProjectId(id); }} className="mt-3 inline-flex h-8 w-full items-center justify-center gap-2 rounded border border-dashed border-slate-300 text-xs font-bold text-slate-500 hover:border-slate-400"><Plus className="h-3.5 w-3.5" /> 添加项目</button>
+                <button type="button" onClick={() => { const id = makeId("project"); mutateDraft((next) => { const targetGroup = next.groups.find((item) => item.id === group.id); if (!targetGroup) return; const stage = getNewProjectStage(targetGroup); targetGroup.projects.push({ id, title: "新项目", members: [], authorRole: "other", venue: null, stage, status: getProjectStageLabel(stage), route: "待补充" }); }); setSelectedProjectId(id); }} className="mt-3 inline-flex h-8 w-full items-center justify-center gap-2 rounded border border-dashed border-slate-300 text-xs font-bold text-slate-500 hover:border-slate-400"><Plus className="h-3.5 w-3.5" /> 添加项目</button>
               </section>
             ))}
             <button type="button" onClick={() => { const id = makeId("group"); mutateDraft((next) => { next.groups.push({ id, title: "新分组", description: "", projects: [] }); }); }} className="inline-flex h-10 w-full items-center justify-center gap-2 rounded border border-dashed border-slate-400 bg-white text-sm font-bold text-slate-600"><Plus className="h-4 w-4" /> 添加分组</button>
@@ -982,8 +1004,15 @@ const ResearchAdmin = () => {
                   <label className="sm:col-span-2 text-sm font-bold text-slate-700">标题<input value={selectedProject.project.title} onChange={(event) => updateProject(selectedProject.group.id, selectedProject.project.id, { title: event.target.value })} className="mt-2 h-10 w-full rounded border border-slate-200 px-3 font-normal outline-none focus:border-slate-400" /></label>
                   <label className="text-sm font-bold text-slate-700">所在分组<select value={selectedProject.group.id} onChange={(event) => moveProjectToGroup(selectedProject.project.id, selectedProject.group.id, event.target.value)} className="mt-2 h-10 w-full rounded border border-slate-200 bg-white px-3 font-normal">{draft.groups.map((group) => <option key={group.id} value={group.id}>{group.title}</option>)}</select></label>
                   <label className="text-sm font-bold text-slate-700">署名角色<select value={selectedProject.project.authorRole ?? "other"} onChange={(event) => updateProject(selectedProject.group.id, selectedProject.project.id, { authorRole: event.target.value as AuthorRole })} className="mt-2 h-10 w-full rounded border border-slate-200 bg-white px-3 font-normal">{authorRoles.map((role) => <option key={role.value} value={role.value}>{role.label}</option>)}</select></label>
-                  <label className="text-sm font-bold text-slate-700">Venue<input value={selectedProject.project.venue ?? ""} onChange={(event) => updateProject(selectedProject.group.id, selectedProject.project.id, { venue: event.target.value.trim() ? event.target.value : null })} placeholder="留空表示待定" className="mt-2 h-10 w-full rounded border border-slate-200 px-3 font-normal outline-none focus:border-slate-400" /></label>
-                  <label className="text-sm font-bold text-slate-700">状态<input value={selectedProject.project.status} onChange={(event) => updateProject(selectedProject.group.id, selectedProject.project.id, { status: event.target.value })} className="mt-2 h-10 w-full rounded border border-slate-200 px-3 font-normal outline-none focus:border-slate-400" /></label>
+                  <div className="text-sm font-bold text-slate-700">
+                    <div className="flex items-center justify-between gap-2">
+                      <label htmlFor={`venue-${selectedProject.project.id}`}>投稿 Venue</label>
+                      <button type="button" onClick={() => updateProject(selectedProject.group.id, selectedProject.project.id, { venue: null })} className="text-xs font-bold text-slate-500 underline decoration-slate-300 underline-offset-4 hover:text-slate-900">设为待定</button>
+                    </div>
+                    <input id={`venue-${selectedProject.project.id}`} value={getProjectVenueLabel(selectedProject.project, selectedProject.group) ?? ""} onChange={(event) => updateProject(selectedProject.group.id, selectedProject.project.id, { venue: event.target.value.trim() ? event.target.value : null })} placeholder="待定时不会出现在 Venue 筛选中" className="mt-2 h-10 w-full rounded border border-slate-200 px-3 font-normal outline-none focus:border-slate-400" />
+                    <p className="mt-1.5 text-xs font-normal leading-5 text-slate-500">{selectedProject.project.venue === undefined ? "这是旧数据自动识别出的值；可直接修改，或点“设为待定”取消 Venue 筛选。" : selectedProject.project.venue === null || getProjectVenueLabel(selectedProject.project, selectedProject.group) === null ? "当前为待定，不会出现在公开页的 Venue 筛选中。" : "这里的值会直接成为公开页的 Venue 筛选标签。"}</p>
+                  </div>
+                  <label className="text-sm font-bold text-slate-700">公开状态<select value={getProjectStage(selectedProject.project, selectedProject.group)} onChange={(event) => { const stage = event.target.value as VaultProject["stage"]; if (!stage) return; updateProject(selectedProject.group.id, selectedProject.project.id, { venue: selectedProject.project.venue === undefined ? getProjectVenueLabel(selectedProject.project, selectedProject.group) : selectedProject.project.venue, stage, status: getProjectStageLabel(stage) }); }} className="mt-2 h-10 w-full rounded border border-slate-200 bg-white px-3 font-normal">{projectStageOptions.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}</select><span className="mt-1.5 block text-xs font-normal leading-5 text-slate-500">直接控制公开页的“已提交 / 待提交 / 计划中”筛选；从“计划中”移到研究线时会自动变为“待提交”。</span></label>
                   <label className="sm:col-span-2 text-sm font-bold text-slate-700">备注 / 投稿路线<textarea value={selectedProject.project.route} onChange={(event) => updateProject(selectedProject.group.id, selectedProject.project.id, { route: event.target.value })} rows={4} className="mt-2 w-full resize-y rounded border border-slate-200 px-3 py-2 font-normal leading-6 outline-none focus:border-slate-400" /></label>
                 </div>
                 <div className="mt-5">

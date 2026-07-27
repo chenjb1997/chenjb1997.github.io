@@ -10,6 +10,10 @@ import {
   UsersRound,
 } from "lucide-react";
 import { loadPublicVaultPayload } from "../features/research/repository";
+import {
+  getProjectStatusTag,
+  getProjectVenueLabel,
+} from "../features/research/projectMetadata";
 import type {
   AuthorRole,
   EncryptedVaultPayload,
@@ -92,37 +96,12 @@ const authorRoleLabels: Record<AuthorRole, string> = {
   other: "其他",
 };
 
-const venuePattern =
-  /\b(SODA|ICLR|NeurIPS|ICML|ICALP|ESA|ITCS|PODS|ICDT|MFCS|STACS|TKDE|ICDE|WWW|ISAAC)\b/;
-
 const makeTagId = (label: string) =>
   `venue-${label.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}`;
 
-const getProjectStatusTag = (project: VaultProject, group: VaultGroup) => {
-  if (group.id === "submitted" || /已提交|已投稿/.test(project.status)) {
-    return { id: "submitted", label: "已提交" };
-  }
-
-  if (/计划中|标题未知|标题待定/.test(project.status)) {
-    return { id: "planned", label: "计划中" };
-  }
-
-  return { id: "pending", label: "待提交" };
-};
-
 const getProjectVenueTag = (project: VaultProject, group: VaultGroup) => {
-  if (project.venue === null) {
-    return null;
-  }
-
-  if (project.venue) {
-    return { id: makeTagId(project.venue), label: project.venue };
-  }
-
-  const venue =
-    `${project.route} ${project.status}`.match(venuePattern)?.[1] ??
-    group.title.replace(/\s*准备线/g, "");
-  return { id: makeTagId(venue), label: venue };
+  const venue = getProjectVenueLabel(project, group);
+  return venue ? { id: makeTagId(venue), label: venue } : null;
 };
 
 const getProjectAuthorRoleTag = (project: VaultProject) => {
