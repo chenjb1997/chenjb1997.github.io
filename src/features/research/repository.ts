@@ -11,6 +11,56 @@ const RESEARCH_VAULT_TABLE = "research_vault";
 const PRIMARY_VAULT_ID = "primary";
 const STATIC_VAULT_URL = "/research/progress.enc.json";
 
+export type ResearchAuthCallbackReason = "invite" | "recovery" | "callback";
+
+export type ResearchAuthCallbackDetails = {
+  reason: ResearchAuthCallbackReason | null;
+  error: string;
+};
+
+const readInitialAuthCallback = (): ResearchAuthCallbackDetails => {
+  if (typeof window === "undefined") {
+    return { reason: null, error: "" };
+  }
+
+  // Capture the callback before createClient() runs. Supabase Auth consumes
+  // invite/recovery tokens during client initialization and may clear them
+  // from the URL before the React page mounts.
+  const searchParams = new URLSearchParams(window.location.search);
+  const hashParams = new URLSearchParams(window.location.hash.replace(/^#/, ""));
+  const getParam = (name: string) =>
+    hashParams.get(name) ?? searchParams.get(name);
+  const callbackError = getParam("error_description") ?? getParam("error");
+
+  if (callbackError) {
+    return {
+      reason: null,
+      error: `邀请或重设密码链接无法使用：${callbackError}`,
+    };
+  }
+
+  const type = getParam("type");
+  const mode = searchParams.get("mode");
+  if (type === "invite") {
+    return { reason: "invite", error: "" };
+  }
+  if (type === "recovery" || mode === "reset") {
+    return { reason: "recovery", error: "" };
+  }
+
+  const hasAuthCode =
+    searchParams.has("code") ||
+    searchParams.has("token_hash") ||
+    hashParams.has("access_token");
+
+  return {
+    reason: hasAuthCode ? "callback" : null,
+    error: "",
+  };
+};
+
+export const initialResearchAuthCallback = readInitialAuthCallback();
+
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL?.trim();
 const supabasePublishableKey =
   import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY?.trim() ||
@@ -235,6 +285,20 @@ export async function signInResearchAdmin(
   return data.session;
 }
 
+export async function sendResearchAdminPasswordReset(
+  email: string,
+): Promise<void> {
+  const client = getConfiguredClient();
+  const redirectUrl = new URL("/research/admin", window.location.origin);
+  const { error } = await client.auth.resetPasswordForEmail(email.trim(), {
+    redirectTo: redirectUrl.toString(),
+  });
+
+  if (error) {
+    throw error;
+  }
+}
+
 export async function signOutResearchAdmin(): Promise<void> {
   const client = getConfiguredClient();
   const { error } = await client.auth.signOut();
@@ -305,6 +369,7 @@ export {
   loadResearchVaultForAdmin as loadAdminVault,
   onResearchAdminSessionChange as onAuthStateChange,
   saveResearchVault as saveAdminVault,
+  sendResearchAdminPasswordReset as sendAdminPasswordReset,
   signInResearchAdmin as signInAdmin,
   signOutResearchAdmin as signOutAdmin,
   updateResearchAdminPassword as updateAdminPassword,

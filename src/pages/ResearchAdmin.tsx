@@ -17,6 +17,7 @@ import {
   Loader2,
   LockKeyhole,
   LogOut,
+  Mail,
   Plus,
   RefreshCw,
   Save,
@@ -26,14 +27,17 @@ import {
 } from "lucide-react";
 import {
   getAdminSession,
+  initialResearchAuthCallback,
   isSupabaseConfigured,
   loadAdminVault,
   loadPublicVaultPayload,
   onAuthStateChange,
   ResearchVaultConflictError,
   saveAdminVault,
+  sendAdminPasswordReset,
   signInAdmin,
   signOutAdmin,
+  type ResearchAuthCallbackReason,
   type VaultSnapshot,
   updateAdminPassword,
 } from "../features/research/repository";
@@ -53,14 +57,9 @@ type AuthState =
   | "signed-out"
   | "password-setup"
   | "signed-in";
-type PasswordSetupReason = "invite" | "recovery" | "callback";
+type PasswordSetupReason = ResearchAuthCallbackReason;
 type VaultState = "idle" | "loading" | "locked" | "ready" | "error";
 type AdminView = "projects" | "people";
-
-type AuthCallbackDetails = {
-  reason: PasswordSetupReason | null;
-  error: string;
-};
 
 const authorRoles: Array<{ value: AuthorRole; label: string }> = [
   { value: "first", label: "一作" },
@@ -77,39 +76,30 @@ const today = () => {
 const makeId = (prefix: string) =>
   `${prefix}-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 6)}`;
 
-const readAuthCallbackDetails = (): AuthCallbackDetails => {
-  const searchParams = new URLSearchParams(window.location.search);
-  const hashParams = new URLSearchParams(
-    window.location.hash.replace(/^#/, ""),
-  );
-  const getParam = (name: string) =>
-    hashParams.get(name) ?? searchParams.get(name);
-  const callbackError = getParam("error_description") ?? getParam("error");
+const formatAuthError = (error: unknown, fallback: string) => {
+  if (!(error instanceof Error)) return fallback;
 
-  if (callbackError) {
-    return {
-      reason: null,
-      error: `邀请或重设密码链接无法使用：${callbackError}`,
-    };
+  const message = error.message.toLowerCase();
+  if (message.includes("invalid login credentials")) {
+    return "邮箱或管理员登录密码不正确。如果从未设置过管理员密码，请点击下方发送设置邮件。";
+  }
+  if (
+    message.includes("rate limit") ||
+    message.includes("over_email_send_rate_limit")
+  ) {
+    return "邮件发送过于频繁，请稍后再试。";
+  }
+  if (
+    message.includes("expired") ||
+    message.includes("otp_expired")
+  ) {
+    return "邮件链接已经过期。请重新发送，并只打开最新一封邮件。";
+  }
+  if (message.includes("email not confirmed")) {
+    return "邮箱尚未确认。请使用最新一封确认或重设邮件。";
   }
 
-  const type = getParam("type");
-  if (type === "invite") {
-    return { reason: "invite", error: "" };
-  }
-  if (type === "recovery") {
-    return { reason: "recovery", error: "" };
-  }
-
-  const hasAuthCode =
-    searchParams.has("code") ||
-    searchParams.has("token_hash") ||
-    hashParams.has("access_token");
-
-  return {
-    reason: hasAuthCode ? "callback" : null,
-    error: "",
-  };
+  return error.message;
 };
 
 const clearAuthCallbackFromUrl = () => {
@@ -121,6 +111,7 @@ const clearAuthCallbackFromUrl = () => {
     "error",
     "error_code",
     "error_description",
+    "mode",
   ];
   callbackParamNames.forEach((name) => url.searchParams.delete(name));
 
@@ -212,13 +203,15 @@ const ResearchAdmin = () => {
   const isLocalPreview =
     !isSupabaseConfigured &&
     new URLSearchParams(window.location.search).get("preview") === "1";
-  const [authCallbackDetails] = useState(readAuthCallbackDetails);
+  const [authCallbackDetails] = useState(initialResearchAuthCallback);
   const [authState, setAuthState] = useState<AuthState>("checking");
   const [adminEmail, setAdminEmail] = useState("");
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
   const [authError, setAuthError] = useState(authCallbackDetails.error);
   const [isSigningIn, setIsSigningIn] = useState(false);
+  const [isSendingPasswordReset, setIsSendingPasswordReset] = useState(false);
+  const [passwordResetNotice, setPasswordResetNotice] = useState("");
   const [passwordSetupReason, setPasswordSetupReason] =
     useState<PasswordSetupReason | null>(authCallbackDetails.reason);
   const passwordSetupRequiredRef = useRef(
@@ -398,15 +391,82 @@ const ResearchAdmin = () => {
     event.preventDefault();
     setIsSigningIn(true);
     setAuthError("");
+    setPasswordResetNotice("");
     try {
       const session = await signInAdmin(loginEmail, loginPassword);
       setAdminEmail(session.user.email ?? loginEmail.trim());
       setLoginPassword("");
-      setAuthState("signed-in");
+      setAuthState(
+        passwordSetupRequiredRef.current ? "password-setup" : "signed-in",
+      );
     } catch (error) {
-      setAuthError(error instanceof Error ? error.message : "登录失败，请重试。");
+      setAuthError(formatAuthError(error, "登录失败，请重试。"));
     } finally {
       setIsSigningIn(false);
+    }
+  };
+
+  const requestPasswordReset = async (email: string) => {
+    const normalizedEmail = email.trim();
+    if (!normalizedEmail) {
+      setAuthError("请先填写管理员邮箱。");
+      return false;
+    }
+
+    setIsSendingPasswordReset(true);
+    setAuthError("");
+    setPasswordResetNotice("");
+    try {
+      await sendAdminPasswordReset(normalizedEmail);
+      setPasswordResetNotice(
+        `重设邮件已发送至 ${normalizedEmail}。请只使用最新一封邮件，旧邀请可以忽略。`,
+      );
+      return true;
+    } catch (error) {
+      setAuthError(formatAuthError(error, "重设邮件发送失败，请稍后重试。"));
+      return false;
+    } finally {
+      setIsSendingPasswordReset(false);
+    }
+  };
+
+  const handlePasswordResetRequest = async () => {
+    await requestPasswordReset(loginEmail);
+  };
+
+  const handleResetFromLocked = async () => {
+    const email = adminEmail.trim();
+    if (!email) {
+      setVaultError("无法确认管理员邮箱。请退出后从登录页发送重设邮件。");
+      return;
+    }
+
+    setIsSendingPasswordReset(true);
+    setVaultError("");
+    setAuthError("");
+    setPasswordResetNotice("");
+    let resetEmailSent = false;
+    try {
+      await sendAdminPasswordReset(email);
+      resetEmailSent = true;
+      passwordSetupRequiredRef.current = false;
+      setPasswordSetupReason(null);
+      setPasswordSetupComplete(false);
+      await signOutAdmin();
+      setLoginEmail(email);
+      setLoginPassword("");
+      setAuthState("signed-out");
+      setPasswordResetNotice(
+        `重设邮件已发送至 ${email}。请只使用最新一封邮件，旧邀请可以忽略。`,
+      );
+    } catch (error) {
+      setVaultError(
+        resetEmailSent
+          ? "设置邮件已经发送，但当前登录状态未能退出。请直接打开最新邮件继续设置密码。"
+          : formatAuthError(error, "重设邮件发送失败，请稍后重试。"),
+      );
+    } finally {
+      setIsSendingPasswordReset(false);
     }
   };
 
@@ -432,7 +492,7 @@ const ResearchAdmin = () => {
       clearAuthCallbackFromUrl();
     } catch (error) {
       setAuthError(
-        error instanceof Error ? error.message : "密码设置失败，请重新打开邀请链接后重试。",
+        formatAuthError(error, "密码设置失败，请重新发送设置邮件后重试。"),
       );
     } finally {
       setIsUpdatingPassword(false);
@@ -637,9 +697,9 @@ const ResearchAdmin = () => {
           <section className="w-full rounded border border-emerald-200 bg-white p-6 shadow-sm">
             <CheckCircle2 className="h-9 w-9 text-emerald-600" />
             <p className="mt-4 text-xs font-semibold uppercase tracking-[0.24em] text-emerald-700">Research Admin</p>
-            <h1 className="mt-2 text-2xl font-bold text-slate-950">管理员密码已设置</h1>
+            <h1 className="mt-2 text-2xl font-bold text-slate-950">第 1 步完成</h1>
             <p className="mt-3 text-sm leading-6 text-slate-600">
-              {adminEmail ? `${adminEmail} 的` : "你的"}管理员账户已经可以使用。接下来还需要输入原有的 Research 访问密码，才能解密和编辑内容。
+              {adminEmail ? `${adminEmail} 的` : "你的"}管理员登录密码已经设置。下一步请输入原 Research 页面一直使用的内容访问密码，才能解密和编辑内容。
             </p>
             <button
               type="button"
@@ -651,7 +711,7 @@ const ResearchAdmin = () => {
               }}
               className="mt-6 inline-flex h-11 w-full items-center justify-center rounded bg-slate-900 px-4 text-sm font-bold text-white"
             >
-              继续进入 Research 管理
+              继续第 2 步
             </button>
           </section>
         </div>
@@ -664,12 +724,15 @@ const ResearchAdmin = () => {
           <LockKeyhole className="h-8 w-8 text-slate-700" />
           <p className="mt-4 text-xs font-semibold uppercase tracking-[0.24em] text-slate-400">Research Admin</p>
           <h1 className="mt-2 text-2xl font-bold text-slate-950">
-            {passwordSetupReason === "recovery" ? "重设管理员密码" : "设置管理员密码"}
+            {passwordSetupReason === "recovery" ? "重设 Research 管理员登录密码" : "设置 Research 管理员登录密码"}
           </h1>
           <p className="mt-2 text-sm leading-6 text-slate-500">
             {passwordSetupReason === "recovery"
               ? "重设链接已经验证。请为管理员账户设置一个新密码。"
               : "邀请链接已经验证。请先为管理员账户设置密码；以后将使用邮箱和这个密码登录。"}
+          </p>
+          <p className="mt-3 rounded border border-sky-100 bg-sky-50 px-3 py-2 text-sm font-semibold leading-6 text-sky-950">
+            第 1 步（共 2 步）：这个新密码以后用于登录管理后台，不是原 Research 内容访问密码。
           </p>
           {adminEmail ? (
             <p className="mt-3 rounded bg-slate-50 px-3 py-2 text-sm font-semibold text-slate-700">
@@ -678,7 +741,7 @@ const ResearchAdmin = () => {
           ) : null}
           <form onSubmit={handleSetPassword} className="mt-6 space-y-4">
             <label className="block text-sm font-bold text-slate-700">
-              新密码
+              新管理员登录密码
               <input
                 autoFocus
                 type="password"
@@ -691,7 +754,7 @@ const ResearchAdmin = () => {
               />
             </label>
             <label className="block text-sm font-bold text-slate-700">
-              再输入一次
+              再次输入新管理员登录密码
               <input
                 type="password"
                 autoComplete="new-password"
@@ -711,7 +774,7 @@ const ResearchAdmin = () => {
               {isUpdatingPassword ? (
                 <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> 保存密码中...</>
               ) : (
-                "保存管理员密码"
+                "保存并继续"
               )}
             </button>
           </form>
@@ -733,15 +796,18 @@ const ResearchAdmin = () => {
         <section className="w-full rounded border border-slate-200 bg-white p-6 shadow-sm">
           <LockKeyhole className="h-8 w-8 text-slate-700" />
           <p className="mt-4 text-xs font-semibold uppercase tracking-[0.24em] text-slate-400">Research Admin</p>
-          <h1 className="mt-2 text-2xl font-bold text-slate-950">在线管理</h1>
-          <p className="mt-2 text-sm leading-6 text-slate-500">先使用 Supabase 管理员账号登录。Research 密码会在下一步单独输入。</p>
+          <h1 className="mt-2 text-2xl font-bold text-slate-950">登录 Research 管理后台</h1>
+          <p className="mt-2 text-sm leading-6 text-slate-500">这里使用 Research 管理员邮箱和管理员登录密码。登录后，还需要输入原 Research 页面一直使用的内容访问密码。</p>
+          <p className="mt-3 rounded border border-sky-100 bg-sky-50 px-3 py-2 text-xs leading-5 text-sky-900">
+            你用 GitHub 登录 Supabase 后台的账号，不等于这里的网站管理员登录。首次使用或邀请已过期时，请在下方发送一封新的重设邮件。
+          </p>
           <form onSubmit={handleLogin} className="mt-6 space-y-4">
             <label className="block text-sm font-bold text-slate-700">
-              邮箱
+              管理员邮箱
               <input type="email" autoComplete="username" required value={loginEmail} onChange={(event) => setLoginEmail(event.target.value)} className="mt-2 h-11 w-full rounded border border-slate-200 bg-slate-50 px-3 font-normal outline-none focus:border-slate-400 focus:bg-white" />
             </label>
             <label className="block text-sm font-bold text-slate-700">
-              管理员密码
+              管理员登录密码
               <input type="password" autoComplete="current-password" required value={loginPassword} onChange={(event) => setLoginPassword(event.target.value)} className="mt-2 h-11 w-full rounded border border-slate-200 bg-slate-50 px-3 font-normal outline-none focus:border-slate-400 focus:bg-white" />
             </label>
             {authError ? <p className="text-sm font-semibold text-red-700">{authError}</p> : null}
@@ -749,6 +815,23 @@ const ResearchAdmin = () => {
               {isSigningIn ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> 登录中...</> : "登录"}
             </button>
           </form>
+          <button
+            type="button"
+            onClick={() => void handlePasswordResetRequest()}
+            disabled={isSendingPasswordReset}
+            className="mt-3 inline-flex h-11 w-full items-center justify-center rounded border border-slate-300 bg-white px-4 text-sm font-bold text-slate-700 hover:border-slate-400 disabled:text-slate-300"
+          >
+            {isSendingPasswordReset ? (
+              <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> 正在发送...</>
+            ) : (
+              <><Mail className="mr-2 h-4 w-4" /> 首次设置或忘记管理员密码</>
+            )}
+          </button>
+          {passwordResetNotice ? (
+            <p className="mt-3 rounded border border-emerald-200 bg-emerald-50 px-3 py-2 text-sm font-semibold leading-6 text-emerald-800">
+              {passwordResetNotice}
+            </p>
+          ) : null}
           <Link className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-slate-500 hover:text-slate-900" to="/research"><ArrowLeft className="h-4 w-4" /> 返回只读页面</Link>
         </section>
       </div>
@@ -768,15 +851,42 @@ const ResearchAdmin = () => {
       <div className="mx-auto flex min-h-[58vh] max-w-lg items-center justify-center">
         <section className="w-full rounded border border-slate-200 bg-white p-6 shadow-sm">
           <LockKeyhole className="h-8 w-8 text-slate-700" />
-          <h1 className="mt-4 text-2xl font-bold text-slate-950">解锁 Research 数据</h1>
+          <h1 className="mt-4 text-2xl font-bold text-slate-950">第 2 步：解锁 Research 内容</h1>
           <p className="mt-2 text-sm leading-6 text-slate-500">{isLocalPreview ? "现有加密文件已载入。请输入 Research 访问密码进入本地预览；所有修改只留在当前标签页。" : "密文已从 Supabase 载入。请输入现有 Research 访问密码；密码只在这个浏览器标签页中使用。"}</p>
+          {!isLocalPreview ? (
+            <p className="mt-3 rounded border border-amber-200 bg-amber-50 px-3 py-2 text-sm font-semibold leading-6 text-amber-950">
+              这里要填写的是原 Research 页面一直使用的“内容访问密码”，不是刚设置的网站管理员密码。
+            </p>
+          ) : null}
+          {authError ? (
+            <p className="mt-3 rounded border border-red-200 bg-red-50 px-3 py-2 text-sm font-semibold leading-6 text-red-800">
+              {authError}
+            </p>
+          ) : null}
           <form onSubmit={handleUnlock} className="mt-6 space-y-4">
-            <input autoFocus type="password" value={vaultPasswordInput} onChange={(event) => setVaultPasswordInput(event.target.value)} placeholder="Research 访问密码" className="h-11 w-full rounded border border-slate-200 bg-slate-50 px-3 text-sm outline-none focus:border-slate-400 focus:bg-white" />
+            <label className="block text-sm font-bold text-slate-700">
+              原 Research 内容访问密码
+              <input autoFocus type="password" value={vaultPasswordInput} onChange={(event) => setVaultPasswordInput(event.target.value)} autoComplete="current-password" className="mt-2 h-11 w-full rounded border border-slate-200 bg-slate-50 px-3 text-sm font-normal outline-none focus:border-slate-400 focus:bg-white" />
+            </label>
             {vaultError ? <p className="text-sm font-semibold text-red-700">{vaultError}</p> : null}
             <button disabled={!vaultPasswordInput.trim() || isUnlocking} className="inline-flex h-11 w-full items-center justify-center rounded bg-slate-900 px-4 text-sm font-bold text-white disabled:bg-slate-300">
-              {isUnlocking ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> 解锁中...</> : "解锁并编辑"}
+              {isUnlocking ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> 解锁中...</> : "解锁内容并开始编辑"}
             </button>
           </form>
+          {!isLocalPreview ? (
+            <button
+              type="button"
+              onClick={() => void handleResetFromLocked()}
+              disabled={isSendingPasswordReset}
+              className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-slate-500 hover:text-slate-900 disabled:text-slate-300"
+            >
+              {isSendingPasswordReset ? (
+                <><Loader2 className="h-4 w-4 animate-spin" /> 正在发送...</>
+              ) : (
+                <><Mail className="h-4 w-4" /> 管理员登录密码还没设置？重新发送设置邮件</>
+              )}
+            </button>
+          ) : null}
         </section>
       </div>
     );
