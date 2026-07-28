@@ -4,30 +4,38 @@ import Bio from "../components/home/bio";
 import Education from "../components/home/Education";
 import SelectedPublications from "../components/home/SelectedPublications";
 import Manuscripts from "../components/home/Manuscripts";
+import {
+  HeroAmbientGlow,
+  Reveal,
+} from "../components/home/HomeMotion";
+
 const Home = () => {
   return (
     <div className="max-w-4xl mx-auto px-4">
       <div className="prose max-w-none text-lg">
         {/* 个人简介 */}
-        <div className="site-section-motion">
-          <PersonalProfile />
+        <div className="home-hero-shell">
+          <HeroAmbientGlow />
+          <div className="home-hero-content">
+            <PersonalProfile />
+          </div>
         </div>
         {/* 个人介绍 */}
-        <div className="site-section-motion">
+        <Reveal delay={30}>
           <Bio />
-        </div>
+        </Reveal>
         {/* Education */}
-        <div className="site-section-motion">
+        <Reveal delay={45}>
           <Education />
-        </div>
+        </Reveal>
         {/* Selected Publications */}
-        <div className="site-section-motion">
+        <Reveal delay={45}>
           <SelectedPublications />
-        </div>
+        </Reveal>
         {/* Manuscripts */}
-        <div className="site-section-motion">
+        <Reveal delay={45}>
           <Manuscripts />
-        </div>
+        </Reveal>
       </div>
     </div>
   );

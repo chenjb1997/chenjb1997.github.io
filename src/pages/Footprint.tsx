@@ -7023,6 +7023,31 @@ const compactInitialCenter: MapCenter = [6, 28];
 const compactInitialZoom = 0.65;
 const footprintPlacesSourceId = "footprint-places";
 const footprintPlacesLayerId = "footprint-place-dots";
+const footprintFallbackBackgroundLayerId = "footprint-map-fallback";
+const cartoVoyagerSourceId = "cartoVoyagerNoLabels";
+const cartoVoyagerLayerId = "carto-voyager-no-labels";
+const firstFootprintOverlayLayerId = "southern-tibet-disputed-boundary-mask";
+
+const createCartoVoyagerSource = () => ({
+  type: "raster" as const,
+  tiles: [
+    "https://a.basemaps.cartocdn.com/rastertiles/voyager_nolabels/{z}/{x}/{y}.png",
+    "https://b.basemaps.cartocdn.com/rastertiles/voyager_nolabels/{z}/{x}/{y}.png",
+    "https://c.basemaps.cartocdn.com/rastertiles/voyager_nolabels/{z}/{x}/{y}.png",
+    "https://d.basemaps.cartocdn.com/rastertiles/voyager_nolabels/{z}/{x}/{y}.png",
+  ],
+  tileSize: 256,
+  attribution:
+    '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+});
+
+const cartoVoyagerLayer = {
+  id: cartoVoyagerLayerId,
+  type: "raster" as const,
+  source: cartoVoyagerSourceId,
+  minzoom: 0,
+  maxzoom: 20,
+};
 
 const normalizeMapRotation = (angle: number) => {
   const normalized = ((angle % 360) + 360) % 360;
@@ -7032,18 +7057,6 @@ const normalizeMapRotation = (angle: number) => {
 const footprintMapStyle: StyleSpecification = {
   version: 8,
   sources: {
-    cartoVoyagerNoLabels: {
-      type: "raster",
-      tiles: [
-        "https://a.basemaps.cartocdn.com/rastertiles/voyager_nolabels/{z}/{x}/{y}.png",
-        "https://b.basemaps.cartocdn.com/rastertiles/voyager_nolabels/{z}/{x}/{y}.png",
-        "https://c.basemaps.cartocdn.com/rastertiles/voyager_nolabels/{z}/{x}/{y}.png",
-        "https://d.basemaps.cartocdn.com/rastertiles/voyager_nolabels/{z}/{x}/{y}.png",
-      ],
-      tileSize: 256,
-      attribution:
-        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-    },
     southernTibetBoundaryLine: {
       type: "geojson",
       data: {
@@ -7316,14 +7329,14 @@ const footprintMapStyle: StyleSpecification = {
   },
   layers: [
     {
-      id: "carto-voyager-no-labels",
-      type: "raster",
-      source: "cartoVoyagerNoLabels",
-      minzoom: 0,
-      maxzoom: 20,
+      id: footprintFallbackBackgroundLayerId,
+      type: "background",
+      paint: {
+        "background-color": "#e7eef1",
+      },
     },
     {
-      id: "southern-tibet-disputed-boundary-mask",
+      id: firstFootprintOverlayLayerId,
       type: "line",
       source: "southernTibetDisputedBoundaryMask",
       layout: {
@@ -7474,6 +7487,7 @@ const Footprint = () => {
   const mapShellRef = useRef<HTMLDivElement | null>(null);
   const mapContainerRef = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<MapLibreMap | null>(null);
+  const initialMapStyleReadyRef = useRef(false);
   const placeTooltipRef = useRef<Popup | null>(null);
 
   const displayName = (place: FootprintPlace) =>
@@ -7555,6 +7569,10 @@ const Footprint = () => {
 
     let map: MapLibreMap | null = null;
     let initialResizeTimer: number | undefined;
+    let optionalBaseMapTimer: number | undefined;
+    let optionalBaseMapSlowTimer: number | undefined;
+    let handleInitialStyleLoad: (() => void) | undefined;
+    let handleCartoSourceData: (() => void) | undefined;
     const mapStartTimer = window.setTimeout(() => {
       if (!mapContainer.isConnected || mapRef.current) {
         return;
@@ -7577,7 +7595,10 @@ const Footprint = () => {
       map.addControl(new maplibregl.AttributionControl({ compact: true }));
       map.touchZoomRotate.disableRotation();
 
+      const activeMap = map;
       mapRef.current = map;
+      initialMapStyleReadyRef.current = false;
+      mapContainer.setAttribute("data-base-map-status", "fallback");
       placeTooltipRef.current = new maplibregl.Popup({
         anchor: "bottom",
         closeButton: false,
@@ -7585,6 +7606,75 @@ const Footprint = () => {
         className: "footprint-place-tooltip",
         offset: 12,
       });
+
+      const markCartoBaseMapReady = () => {
+        if (
+          mapRef.current !== activeMap ||
+          !activeMap.getSource(cartoVoyagerSourceId) ||
+          !activeMap.isSourceLoaded(cartoVoyagerSourceId)
+        ) {
+          return;
+        }
+
+        mapContainer.setAttribute("data-base-map-status", "ready");
+        if (optionalBaseMapSlowTimer !== undefined) {
+          window.clearTimeout(optionalBaseMapSlowTimer);
+          optionalBaseMapSlowTimer = undefined;
+        }
+      };
+
+      const addOptionalCartoBaseMap = () => {
+        if (
+          mapRef.current !== activeMap ||
+          activeMap.getSource(cartoVoyagerSourceId)
+        ) {
+          return;
+        }
+
+        try {
+          mapContainer.setAttribute("data-base-map-status", "loading");
+          activeMap.addSource(
+            cartoVoyagerSourceId,
+            createCartoVoyagerSource(),
+          );
+          const firstOverlayLayerId = activeMap.getLayer(
+            firstFootprintOverlayLayerId,
+          )
+            ? firstFootprintOverlayLayerId
+            : activeMap.getLayer(footprintPlacesLayerId)
+              ? footprintPlacesLayerId
+              : undefined;
+          activeMap.addLayer(
+            cartoVoyagerLayer,
+            firstOverlayLayerId,
+          );
+
+          optionalBaseMapSlowTimer = window.setTimeout(() => {
+            if (
+              mapRef.current === activeMap &&
+              activeMap.getSource(cartoVoyagerSourceId) &&
+              !activeMap.isSourceLoaded(cartoVoyagerSourceId)
+            ) {
+              mapContainer.setAttribute("data-base-map-status", "fallback");
+            }
+          }, 8000);
+          markCartoBaseMapReady();
+        } catch {
+          mapContainer.setAttribute("data-base-map-status", "fallback");
+        }
+      };
+
+      handleCartoSourceData = markCartoBaseMapReady;
+      handleInitialStyleLoad = () => {
+        if (mapRef.current !== activeMap) {
+          return;
+        }
+
+        initialMapStyleReadyRef.current = true;
+        optionalBaseMapTimer = window.setTimeout(addOptionalCartoBaseMap, 0);
+      };
+      activeMap.on("load", handleInitialStyleLoad);
+      activeMap.on("sourcedata", handleCartoSourceData);
       setMapReadyToken((value) => value + 1);
 
       initialResizeTimer = window.setTimeout(() => {
@@ -7607,14 +7697,28 @@ const Footprint = () => {
       if (initialResizeTimer !== undefined) {
         window.clearTimeout(initialResizeTimer);
       }
+      if (optionalBaseMapTimer !== undefined) {
+        window.clearTimeout(optionalBaseMapTimer);
+      }
+      if (optionalBaseMapSlowTimer !== undefined) {
+        window.clearTimeout(optionalBaseMapSlowTimer);
+      }
       placeTooltipRef.current?.remove();
       placeTooltipRef.current = null;
       if (map) {
+        if (handleInitialStyleLoad) {
+          map.off("load", handleInitialStyleLoad);
+        }
+        if (handleCartoSourceData) {
+          map.off("sourcedata", handleCartoSourceData);
+        }
         map.remove();
       }
       if (mapRef.current === map) {
         mapRef.current = null;
+        initialMapStyleReadyRef.current = false;
       }
+      mapContainer.removeAttribute("data-base-map-status");
     };
   }, []);
 
@@ -7627,7 +7731,7 @@ const Footprint = () => {
 
     const placesGeoJson = createFootprintPlacesGeoJson();
     let areLayerEventsAttached = false;
-    let retryTimer: number | undefined;
+    let initialLayerTimer: number | undefined;
 
     const handlePlaceClick = (event: MapLayerMouseEvent) => {
       const placeId = event.features?.[0]?.properties?.id;
@@ -7683,7 +7787,7 @@ const Footprint = () => {
     };
 
     const upsertPlaceLayer = () => {
-      if (!mapRef.current || map.isStyleLoaded() === false) {
+      if (mapRef.current !== map || !initialMapStyleReadyRef.current) {
         return;
       }
 
@@ -7710,21 +7814,16 @@ const Footprint = () => {
         String(placesGeoJson.features.length),
       );
       attachLayerEvents();
-
-      if (retryTimer !== undefined) {
-        window.clearInterval(retryTimer);
-        retryTimer = undefined;
-      }
     };
 
     map.on("load", upsertPlaceLayer);
-    map.on("styledata", upsertPlaceLayer);
-    retryTimer = window.setInterval(upsertPlaceLayer, 120);
-    window.setTimeout(upsertPlaceLayer, 0);
+    if (initialMapStyleReadyRef.current) {
+      initialLayerTimer = window.setTimeout(upsertPlaceLayer, 0);
+    }
 
     return () => {
-      if (retryTimer !== undefined) {
-        window.clearInterval(retryTimer);
+      if (initialLayerTimer !== undefined) {
+        window.clearTimeout(initialLayerTimer);
       }
 
       if (mapRef.current !== map) {
@@ -7732,7 +7831,6 @@ const Footprint = () => {
       }
 
       map.off("load", upsertPlaceLayer);
-      map.off("styledata", upsertPlaceLayer);
 
       if (areLayerEventsAttached) {
         map.off("click", footprintPlacesLayerId, handlePlaceClick);

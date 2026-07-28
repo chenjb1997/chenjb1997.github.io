@@ -44,7 +44,7 @@ const Education = () => {
           list.map((item) => (
             <div
               key={item.degree}
-              className="border-l-[3px] border-sky-500 bg-white px-3 py-2 shadow-sm"
+              className="home-academic-card border-l-[3px] border-sky-500 bg-white px-3 py-2 shadow-sm"
             >
               <div className="flex flex-col gap-0.5 md:flex-row md:items-baseline md:justify-between md:gap-3">
                 <div className="text-[14px] font-semibold leading-snug text-gray-900">

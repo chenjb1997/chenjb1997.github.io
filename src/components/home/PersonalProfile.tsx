@@ -62,13 +62,19 @@ const PersonalProfile = () => {
             <a target="_blank" href="https://sds.cuhk.edu.cn/" className="inline text-[14px] text-blue-600 hover:text-yellow-500 cursor-pointer">
               {t("personal-profile-2")}
             </a>
-              <span className="mx-1 text-[14px]">,</span>
+              <span className="text-[14px]">{t("personal-profile-separator")}</span>
               <a target="_blank" href="https://www.cuhk.edu.cn/" className="inline text-[14px] text-blue-600 hover:text-yellow-500 cursor-pointer">
               {t("personal-profile-3")}
             </a>
-            <a target="_blank" href="https://www.slai.edu.cn/" className="block text-[14px] text-blue-600 hover:text-yellow-500 cursor-pointer">
-              {t("personal-profile-5")}
-            </a>
+            <div className="text-[14px]">
+              <a target="_blank" href="https://www.slai.edu.cn/en/node/377" className="inline text-blue-600 hover:text-yellow-500 cursor-pointer">
+                {t("personal-profile-6")}
+              </a>
+              <span>{t("personal-profile-separator")}</span>
+              <a target="_blank" href="https://www.slai.edu.cn/" className="inline text-blue-600 hover:text-yellow-500 cursor-pointer">
+                {t("personal-profile-5")}
+              </a>
+            </div>
             <div className="text-gray-800 text-[14px]">
               {t("personal-profile-4")}
             </div>

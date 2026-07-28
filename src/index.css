@@ -76,11 +76,7 @@
   }
 
   .student-group-card {
-    animation: page-enter 360ms ease-out both;
-  }
-
-  .student-group-card:nth-of-type(2) {
-    animation-delay: 80ms;
+    transition: transform 180ms ease, box-shadow 180ms ease;
   }
 
   .student-group-card-algo {
@@ -93,40 +89,222 @@
       0 1px 2px rgba(15, 23, 42, 0.06);
   }
 
-  .site-section-motion {
-    animation: page-enter 420ms ease-out both;
+  @keyframes home-ambient-glow-arrive {
+    from {
+      opacity: 0;
+      transform: scale(0.84);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
   }
 
-  .site-section-motion:nth-child(2) {
-    animation-delay: 60ms;
+  @keyframes home-hero-float-in {
+    from {
+      opacity: 0;
+      filter: blur(3px);
+      transform: translate3d(0, 10px, 0) scale(0.985);
+    }
+    to {
+      opacity: 1;
+      filter: blur(0);
+      transform: translate3d(0, 0, 0) scale(1);
+    }
   }
 
-  .site-section-motion:nth-child(3) {
-    animation-delay: 110ms;
+  .home-hero-shell {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+    border: 1px solid rgba(100, 116, 139, 0.13);
+    border-radius: 1rem;
+    background: #ffffff;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.92),
+      0 12px 30px rgba(15, 23, 42, 0.05);
+    animation: home-hero-float-in 720ms 120ms cubic-bezier(0.22, 1, 0.36, 1) both;
   }
 
-  .site-section-motion:nth-child(4) {
-    animation-delay: 160ms;
+  .home-hero-content {
+    position: relative;
+    z-index: 2;
+    padding: 1.25rem 1.25rem 0.1rem;
   }
 
-  .site-section-motion:nth-child(5) {
-    animation-delay: 210ms;
+  .home-ambient-glow {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    overflow: hidden;
+    pointer-events: none;
   }
 
-  .site-section-motion:nth-child(6) {
-    animation-delay: 260ms;
+  .home-ambient-glow-orb {
+    position: absolute;
+    display: block;
+    border-radius: 999px;
+    animation: home-ambient-glow-arrive 920ms 120ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .home-ambient-glow-blue {
+    top: -70%;
+    right: -12%;
+    width: min(55%, 28rem);
+    aspect-ratio: 1;
+    background: radial-gradient(
+      circle,
+      rgba(59, 130, 246, 0.18),
+      rgba(99, 102, 241, 0.055) 44%,
+      transparent 72%
+    );
+  }
+
+  .home-ambient-glow-gold {
+    right: 2%;
+    bottom: -76%;
+    width: min(46%, 23rem);
+    aspect-ratio: 1.2;
+    background: radial-gradient(
+      circle,
+      rgba(245, 158, 11, 0.14),
+      rgba(250, 204, 21, 0.035) 45%,
+      transparent 72%
+    );
+    animation-delay: 220ms;
+  }
+
+  .home-section-reveal {
+    opacity: 0;
+    transform: translate3d(0, 12px, 0);
+    transition:
+      opacity 460ms cubic-bezier(0.22, 1, 0.36, 1),
+      transform 460ms cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: var(--home-reveal-delay, 0ms);
+  }
+
+  .home-section-reveal[data-reveal-state="visible"] {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+
+  .home-section-reveal h2 {
+    position: relative;
+  }
+
+  .home-section-reveal h2::after {
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: min(5.25rem, 30%);
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      rgba(37, 99, 235, 0.72),
+      rgba(125, 211, 252, 0.5),
+      transparent
+    );
+    content: "";
+    opacity: 0;
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition:
+      opacity 420ms ease,
+      transform 560ms cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: calc(var(--home-reveal-delay, 0ms) + 140ms);
+  }
+
+  .home-section-reveal[data-reveal-state="visible"] h2::after {
+    opacity: 0.9;
+    transform: scaleX(1);
+  }
+
+  .home-academic-card {
+    transition:
+      transform 180ms ease,
+      box-shadow 180ms ease,
+      border-color 180ms ease;
+  }
+
+  .home-student-row {
+    position: relative;
+    transition:
+      transform 180ms ease,
+      background-color 180ms ease,
+      box-shadow 180ms ease;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .home-academic-card:hover {
+      transform: translateY(-2px);
+      box-shadow:
+        0 8px 22px rgba(15, 23, 42, 0.075),
+        0 1px 2px rgba(15, 23, 42, 0.06);
+    }
+
+    .home-student-row:hover {
+      z-index: 1;
+      transform: translateY(-2px);
+      background: rgba(255, 255, 255, 0.72);
+      box-shadow: 0 5px 14px rgba(15, 23, 42, 0.07);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .home-hero-content {
+      padding: 1rem 1rem 0.1rem;
+    }
+
+    .home-ambient-glow-blue {
+      top: -28%;
+      right: -42%;
+      width: 25rem;
+    }
+
+    .home-ambient-glow-gold {
+      right: -30%;
+      bottom: -34%;
+      width: 19rem;
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {
     .page-enter,
-    .student-group-card,
-    .site-section-motion {
+    .student-group-card {
       animation: none;
       transition: none;
     }
 
-    .student-group-card * {
+    .student-group-card *,
+    .home-academic-card,
+    .home-student-row,
+    .home-section-reveal,
+    .home-section-reveal h2::after {
       transition: none;
+    }
+
+    .home-section-reveal {
+      opacity: 1;
+      transform: none;
+    }
+
+    .home-section-reveal h2::after {
+      opacity: 0.9;
+      transform: scaleX(1);
+    }
+
+    .home-ambient-glow-orb {
+      animation: none;
+      opacity: 1;
+      transform: none;
+    }
+
+    .home-hero-shell {
+      animation: none;
+      opacity: 1;
+      filter: none;
+      transform: none;
     }
   }
 
@@ -219,5 +397,10 @@
 
   html.inverted-theme .student-group-card-ai {
     background: rgba(244, 63, 94, 0.08);
+  }
+
+  html.inverted-theme .home-student-row:hover {
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 5px 14px rgba(0, 0, 0, 0.18);
   }
 }

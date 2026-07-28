@@ -25,7 +25,7 @@ const Publications: React.FC<{ publications: SelectedPublicationsItem }> = ({
   publications,
 }) => {
   return (
-    <div className="mb-4 overflow-hidden border border-gray-200 bg-white shadow-sm">
+    <div className="home-academic-card mb-4 overflow-hidden border border-gray-200 bg-white shadow-sm">
       <h3 className="border-l-[3px] border-indigo-500 bg-gray-50 px-3 py-1.5 text-[15px] font-semibold text-gray-900">
         {publications.year}
       </h3>

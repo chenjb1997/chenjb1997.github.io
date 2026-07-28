@@ -289,8 +289,8 @@ const Bio = () => {
   ];
   const researchGroupClassName = (accent: string) =>
     accent === "algo"
-      ? "student-group-card student-group-card-algo border-l-[3px] border-blue-500 bg-blue-50/25 px-3 py-2 shadow-sm transition-transform duration-200 hover:-translate-y-0.5"
-      : "student-group-card student-group-card-ai border-l-[3px] border-rose-500 bg-rose-50/25 px-3 py-2 shadow-sm transition-transform duration-200 hover:-translate-y-0.5";
+      ? "student-group-card student-group-card-algo border-l-[3px] border-blue-500 bg-blue-50/25 px-3 py-2 shadow-sm"
+      : "student-group-card student-group-card-ai border-l-[3px] border-rose-500 bg-rose-50/25 px-3 py-2 shadow-sm";
   const researchGroupLabelClassName = () =>
     "text-[15px] font-semibold leading-snug text-gray-900";
   const researchGroupHeaderClassName = (accent: string) =>
@@ -537,7 +537,7 @@ const Bio = () => {
                       {section.people.map((person) => (
                         <li
                           key={person.name}
-                          className="py-1 first:pt-0 last:pb-0"
+                          className="home-student-row -mx-1 rounded-sm px-1 py-1 first:pt-0 last:pb-0"
                         >
                           <div className="grid gap-0.5 md:grid-cols-[120px_minmax(115px,0.75fr)_minmax(170px,1.3fr)] md:items-baseline md:gap-x-3">
                             <div className="font-semibold leading-snug text-gray-900">
@@ -591,7 +591,7 @@ const Bio = () => {
         {courses.map((course) => (
           <div
             key={course.code}
-            className="flex flex-col gap-0.5 border-l-[3px] border-emerald-500 bg-white px-3 py-2 shadow-sm md:flex-row md:items-baseline md:justify-between md:gap-3"
+            className="home-academic-card flex flex-col gap-0.5 border-l-[3px] border-emerald-500 bg-white px-3 py-2 shadow-sm md:flex-row md:items-baseline md:justify-between md:gap-3"
           >
             <div>
               <div className="text-[14px] font-semibold leading-snug text-gray-900">

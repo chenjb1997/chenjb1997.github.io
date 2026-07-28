@@ -29,7 +29,7 @@ const Publications: React.FC<{ publications: SelectedPublicationsItem }> = ({
         {publications.publications.map((pub, index) => (
           <div
             key={index}
-            className="border-l-[3px] border-sky-500 bg-white px-3 py-2 shadow-sm"
+            className="home-academic-card border-l-[3px] border-sky-500 bg-white px-3 py-2 shadow-sm"
           >
             <div className="text-[15px] font-semibold leading-snug text-gray-900">
               {pub.title}

@@ -109,7 +109,9 @@
   "personal-profile-2": "School of Data Science",
   "personal-profile-3": "The Chinese University of Hong Kong, Shenzhen",
   "personal-profile-4": "Ph.D., University of Waterloo",
-  "personal-profile-5": "Shenzhen Loop Area Institute (SLAI)",
+  "personal-profile-5": "Shenzhen Loop Area Institute",
+  "personal-profile-6": "Center for AI Theoretical Foundation and Systems",
+  "personal-profile-separator": ", ",
   
   
   "bio": "Bio",
