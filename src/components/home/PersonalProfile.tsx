@@ -5,28 +5,28 @@ const PersonalProfile = () => {
   const { t } = useTranslation();
   return (
     <div className="mb-8">
-      <div className="flex flex-col md:flex-row items-center gap-8">
-        <div className="w-[180px] rounded-lg overflow-hidden">
+      <div className="home-profile-layout flex flex-col items-center md:flex-row">
+        <div className="home-profile-photo shrink-0 rounded-lg overflow-hidden">
           <img
             src={profileImage}
             alt="Jingbang Chen at The 2025 Universal Cup Finals"
           />
         </div>
-        <div className="h-[14rem] flex-[1] w-full flex flex-col justify-between">
+        <div className="min-h-[15rem] flex-[1] w-full flex flex-col justify-between">
           <div>
             <h1 className="text-2xl font-bold">陈靖邦 Jingbang Chen</h1>
-            <div className="flex flex-col items-start gap-2 text-base my-1 md:gap-6 md:flex-row md:items-start">
+            <div className="home-profile-contact-row my-1">
               <a
                 href="/chenjb_cv.pdf"
                 download
-                className="inline-flex items-center gap-2 text-blue-600 hover:text-yellow-500"
+                className="inline-flex shrink-0 items-center gap-2 whitespace-nowrap text-blue-600 hover:text-yellow-500"
               >
                 <FileText className="w-4 h-4" />
                 <span>CV</span>
               </a>
               <a
                 href="mailto:chenjb@cuhk.edu.cn"
-                className="flex items-center gap-2 text-blue-600 hover:text-yellow-500"
+                className="flex shrink-0 items-center gap-2 whitespace-nowrap text-blue-600 hover:text-yellow-500"
               >
                 <Mail className="w-5 h-5" />
                 chenjb@cuhk.edu.cn
@@ -34,7 +34,7 @@ const PersonalProfile = () => {
               <a
                 href="https://scholar.google.com/citations?user=UQfmkJUAAAAJ"
                 target="_blank"
-                className="flex items-center gap-2 text-blue-600 hover:text-yellow-500"
+                className="flex shrink-0 items-center gap-2 whitespace-nowrap text-blue-600 hover:text-yellow-500"
               >
                 <svg
                   className="w-5 h-5 "
@@ -48,7 +48,7 @@ const PersonalProfile = () => {
               <a
                 href="https://github.com/chenjb1997"
                 target="_blank"
-                className="flex items-center gap-2 text-blue-600 hover:text-yellow-500"
+                className="flex shrink-0 items-center gap-2 whitespace-nowrap text-blue-600 hover:text-yellow-500"
               >
                 <Github className="w-5 h-5" />
                 <span>GitHub</span>
