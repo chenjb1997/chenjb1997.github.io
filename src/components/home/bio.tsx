@@ -84,6 +84,15 @@ const Bio = () => {
           affiliation: "CUHK-Shenzhen",
           background: ["B.S. at CUHK-Shenzhen"],
         },
+        {
+          name: "Xinle Yang",
+          zhName: "杨心乐",
+          period: "Fall 2026 - present",
+          affiliation: "CUHK-Shenzhen",
+          background: [
+            "B.S. at University of Electronic Science and Technology of China",
+          ],
+        },
       ],
     },
     {
@@ -282,6 +291,7 @@ const Bio = () => {
             "Jiajun Hou",
             "Zixuan Yu",
             "Yichun Wang",
+            "Xinle Yang",
           ]),
         },
       ],
