@@ -18,7 +18,6 @@ const PersonalProfile = () => {
             <div className="home-profile-contact-row my-1">
               <a
                 href="/chenjb_cv.pdf"
-                download
                 className="inline-flex shrink-0 items-center gap-2 whitespace-nowrap text-blue-600 hover:text-yellow-500"
               >
                 <FileText className="w-4 h-4" />

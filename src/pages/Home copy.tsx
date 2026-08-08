@@ -9,7 +9,7 @@ const Home = () => {
       <h1 className="text-4xl font-bold mb-2">陈靖邦 Jingbang Chen</h1>
       
       <div className="flex items-center gap-4 text-base mb-8">
-        <a href="/chenjb_cv.pdf" download className="inline-flex items-center gap-2 text-blue-600 hover:text-yellow-500">
+        <a href="/chenjb_cv.pdf" className="inline-flex items-center gap-2 text-blue-600 hover:text-yellow-500">
           <FileText className="w-4 h-4" />
           <span>[CV]</span>
         </a>

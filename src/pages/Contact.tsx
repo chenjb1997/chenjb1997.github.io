@@ -34,12 +34,11 @@ const Contact = () => {
         </a>
 
         <a
-          href="/chenjb_cv.pdf" // path is relative to the site root
-          download // adds a “download” header so most browsers save the file
+          href="/chenjb_cv.pdf"
           className="flex items-center justify-center gap-3 p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow"
         >
           <FileText className="w-5 h-5 text-gray-600" />
-          <span className="text-gray-800">Download CV</span>
+          <span className="text-gray-800">CV</span>
         </a>
 
         <a
