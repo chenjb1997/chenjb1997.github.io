@@ -42,6 +42,7 @@ type FootprintPlace = {
   country:
     | "China"
     | "Japan"
+    | "South Korea"
     | "Canada"
     | "USA"
     | "Spain"
@@ -77,6 +78,12 @@ const countryStyles: Record<
 > = {
   China: { color: "#2563eb", soft: "#dbeafe", label: "China", zhLabel: "中国" },
   Japan: { color: "#dc2626", soft: "#fee2e2", label: "Japan", zhLabel: "日本" },
+  "South Korea": {
+    color: "#0284c7",
+    soft: "#e0f2fe",
+    label: "South Korea",
+    zhLabel: "韩国",
+  },
   Canada: { color: "#16a34a", soft: "#dcfce7", label: "Canada", zhLabel: "加拿大" },
   USA: { color: "#7c3aed", soft: "#ede9fe", label: "United States", zhLabel: "美国" },
   Spain: { color: "#ea580c", soft: "#ffedd5", label: "Spain", zhLabel: "西班牙" },
@@ -140,7 +147,11 @@ const continentOrder: ContinentKey[] = [
 ];
 
 const getContinent = (place: FootprintPlace): ContinentKey => {
-  if (place.country === "China" || place.country === "Japan") {
+  if (
+    place.country === "China" ||
+    place.country === "Japan" ||
+    place.country === "South Korea"
+  ) {
     return "Asia";
   }
   if (place.country === "Canada" || place.country === "USA" || place.country === "Mexico") {
@@ -7023,6 +7034,45 @@ const places: FootprintPlace[] = [
         src: "/footprint/nagoya-01.jpg",
         caption: "Nagoya Castle at night.",
         zhCaption: "夜色中的名古屋城。",
+      },
+    ],
+  },
+  {
+    id: "jeju",
+    name: "Jeju",
+    zhName: "济州岛",
+    country: "South Korea",
+    zhCountry: "韩国",
+    lat: 33.3617,
+    lng: 126.5292,
+    note:
+      "Basalt coasts, Jeongbang Waterfall, and a day trip to Udo.",
+    zhNote: "玄武岩海岸、正房瀑布，以及牛岛风光。",
+    photos: [
+      {
+        src: "/footprint/jeju-01.jpg",
+        caption: "Waves over basalt columnar joints along Jeju's coast.",
+        zhCaption: "海浪拍打济州岛海岸的玄武岩柱状节理。",
+      },
+      {
+        src: "/footprint/jeju-02.jpg",
+        caption: "A red lighthouse along the Jeju coast.",
+        zhCaption: "济州海岸的红色灯塔。",
+      },
+      {
+        src: "/footprint/jeju-03.jpg",
+        caption: "Jeongbang Waterfall, Seogwipo.",
+        zhCaption: "西归浦的正房瀑布。",
+      },
+      {
+        src: "/footprint/jeju-04.jpg",
+        caption: "The Seogwipo coast and its offshore islet.",
+        zhCaption: "西归浦海岸与近海离岛。",
+      },
+      {
+        src: "/footprint/jeju-05.jpg",
+        caption: "Udobong coast and lighthouse on Udo.",
+        zhCaption: "牛岛的牛岛峰海岸与灯塔。",
       },
     ],
   },
