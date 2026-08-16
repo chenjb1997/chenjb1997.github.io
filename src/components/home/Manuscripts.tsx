@@ -102,6 +102,20 @@ const Manuscripts = () => {
         {
           title: t("Manuscripts-2026-title"),
           authors: [
+            { name: "Sichen Wang", href: "" },
+            { name: "Zhipeng Lu", href: "" },
+            { name: "Jingbang Chen\u2020", href: "" },
+          ],
+          arXiv: [
+            {
+              name: "arXiv",
+              href: "https://arxiv.org/abs/2608.06388",
+            },
+          ],
+        },
+        {
+          title: t("Manuscripts-2026-balance-title"),
+          authors: [
             { name: "Zeyu Wang", href: "" },
             { name: "Kudria Sergei", href: "https://sds.cuhk.edu.cn/en/node/686" },
             { name: "Jingbang Chen\u2020", href: "" },
