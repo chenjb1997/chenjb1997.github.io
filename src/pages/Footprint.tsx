@@ -1,4 +1,12 @@
-import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
+import {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  type CSSProperties,
+  type PointerEvent as ReactPointerEvent,
+} from "react";
 import { createPortal } from "react-dom";
 import maplibregl, {
   type CircleLayerSpecification,
@@ -33,6 +41,19 @@ type FootprintPhoto = {
   src: string;
   caption: string;
   zhCaption: string;
+};
+
+const getFootprintPreviewSrc = (src: string) =>
+  src
+    .replace(/^\/footprint\//, "/footprint-preview/")
+    .replace(/\.(?:jpe?g|png)$/i, ".webp");
+
+const minPhotoZoom = 1;
+const maxPhotoZoom = 6;
+
+type PhotoOffset = {
+  x: number;
+  y: number;
 };
 
 type FootprintPlace = {
@@ -7554,6 +7575,16 @@ const Footprint = () => {
   const [selectedPlace, setSelectedPlace] = useState<FootprintPlace | null>(null);
   const [photoIndex, setPhotoIndex] = useState(0);
   const [autoPlay, setAutoPlay] = useState(false);
+  const [showOriginalPhoto, setShowOriginalPhoto] = useState(false);
+  const [previewLoadFailed, setPreviewLoadFailed] = useState(false);
+  const [photoLoading, setPhotoLoading] = useState(false);
+  const [photoLoadError, setPhotoLoadError] = useState(false);
+  const [photoZoom, setPhotoZoom] = useState(minPhotoZoom);
+  const [isPhotoDragging, setIsPhotoDragging] = useState(false);
+  const [photoNaturalSize, setPhotoNaturalSize] = useState<{
+    width: number;
+    height: number;
+  } | null>(null);
   const [isMapFullscreen, setIsMapFullscreen] = useState(false);
   const [expandedCountries, setExpandedCountries] = useState<Record<string, boolean>>({});
   const [mapRotation, setMapRotation] = useState(0);
@@ -7563,6 +7594,154 @@ const Footprint = () => {
   const mapRef = useRef<MapLibreMap | null>(null);
   const initialMapStyleReadyRef = useRef(false);
   const placeTooltipRef = useRef<Popup | null>(null);
+  const photoViewportRef = useRef<HTMLDivElement | null>(null);
+  const photoImageRef = useRef<HTMLImageElement | null>(null);
+  const photoZoomRef = useRef(minPhotoZoom);
+  const photoOffsetRef = useRef<PhotoOffset>({ x: 0, y: 0 });
+  const photoDragRef = useRef({
+    active: false,
+    pointerId: -1,
+    startClientX: 0,
+    startClientY: 0,
+    startX: 0,
+    startY: 0,
+  });
+
+  const clampPhotoOffset = useCallback(
+    (zoom: number, offset: PhotoOffset): PhotoOffset => {
+      const viewport = photoViewportRef.current;
+      const image = photoImageRef.current;
+      if (!viewport || !image || zoom <= minPhotoZoom) {
+        return { x: 0, y: 0 };
+      }
+
+      const maxX = Math.max(
+        0,
+        (image.clientWidth * zoom - viewport.clientWidth) / 2,
+      );
+      const maxY = Math.max(
+        0,
+        (image.clientHeight * zoom - viewport.clientHeight) / 2,
+      );
+      return {
+        x: Math.min(maxX, Math.max(-maxX, offset.x)),
+        y: Math.min(maxY, Math.max(-maxY, offset.y)),
+      };
+    },
+    [],
+  );
+
+  const updatePhotoTransform = useCallback(
+    (zoom: number, offset: PhotoOffset, syncZoomState = true) => {
+      const boundedZoom = Math.min(
+        maxPhotoZoom,
+        Math.max(minPhotoZoom, zoom),
+      );
+      const boundedOffset = clampPhotoOffset(boundedZoom, offset);
+
+      photoZoomRef.current = boundedZoom;
+      photoOffsetRef.current = boundedOffset;
+      if (photoImageRef.current) {
+        photoImageRef.current.style.transform = `translate3d(${boundedOffset.x}px, ${boundedOffset.y}px, 0) scale(${boundedZoom})`;
+      }
+      if (syncZoomState) {
+        setPhotoZoom(boundedZoom);
+      }
+    },
+    [clampPhotoOffset],
+  );
+
+  const resetPhotoView = useCallback(() => {
+    photoDragRef.current.active = false;
+    setIsPhotoDragging(false);
+    updatePhotoTransform(minPhotoZoom, { x: 0, y: 0 });
+  }, [updatePhotoTransform]);
+
+  const reclampPhotoView = useCallback(() => {
+    updatePhotoTransform(
+      photoZoomRef.current,
+      photoOffsetRef.current,
+      false,
+    );
+  }, [updatePhotoTransform]);
+
+  const zoomPhotoFromCenter = useCallback(
+    (factor: number) => {
+      const oldZoom = photoZoomRef.current;
+      const nextZoom = Math.min(
+        maxPhotoZoom,
+        Math.max(minPhotoZoom, oldZoom * factor),
+      );
+      const ratio = nextZoom / oldZoom;
+      setAutoPlay(false);
+      updatePhotoTransform(nextZoom, {
+        x: photoOffsetRef.current.x * ratio,
+        y: photoOffsetRef.current.y * ratio,
+      });
+    },
+    [updatePhotoTransform],
+  );
+
+  const handlePhotoPointerDown = (
+    event: ReactPointerEvent<HTMLDivElement>,
+  ) => {
+    if (
+      photoZoomRef.current <= minPhotoZoom ||
+      photoLoading ||
+      photoLoadError ||
+      (event.target as HTMLElement).closest("button") ||
+      (event.pointerType === "mouse" && event.button !== 0)
+    ) {
+      return;
+    }
+
+    event.preventDefault();
+    event.currentTarget.setPointerCapture(event.pointerId);
+    photoDragRef.current = {
+      active: true,
+      pointerId: event.pointerId,
+      startClientX: event.clientX,
+      startClientY: event.clientY,
+      startX: photoOffsetRef.current.x,
+      startY: photoOffsetRef.current.y,
+    };
+    setAutoPlay(false);
+    setIsPhotoDragging(true);
+  };
+
+  const handlePhotoPointerMove = (
+    event: ReactPointerEvent<HTMLDivElement>,
+  ) => {
+    const drag = photoDragRef.current;
+    if (!drag.active || drag.pointerId !== event.pointerId) {
+      return;
+    }
+
+    event.preventDefault();
+    updatePhotoTransform(
+      photoZoomRef.current,
+      {
+        x: drag.startX + event.clientX - drag.startClientX,
+        y: drag.startY + event.clientY - drag.startClientY,
+      },
+      false,
+    );
+  };
+
+  const finishPhotoDrag = (event: ReactPointerEvent<HTMLDivElement>) => {
+    if (
+      !photoDragRef.current.active ||
+      photoDragRef.current.pointerId !== event.pointerId
+    ) {
+      return;
+    }
+
+    photoDragRef.current.active = false;
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+      event.currentTarget.releasePointerCapture(event.pointerId);
+    }
+    setIsPhotoDragging(false);
+  };
 
   const displayName = (place: FootprintPlace) =>
     isChinese ? place.zhName : place.name;
@@ -7575,6 +7754,10 @@ const Footprint = () => {
     mapRef.current?.panTo(placeToLngLat(place), { duration: 0 });
     setPhotoIndex(0);
     setAutoPlay(false);
+    setShowOriginalPhoto(false);
+    setPreviewLoadFailed(false);
+    setPhotoLoading(Boolean(place.photos?.length));
+    setPhotoLoadError(false);
     setSelectedPlace(place);
   }, []);
 
@@ -7582,6 +7765,10 @@ const Footprint = () => {
     setSelectedPlace(null);
     setPhotoIndex(0);
     setAutoPlay(false);
+    setShowOriginalPhoto(false);
+    setPreviewLoadFailed(false);
+    setPhotoLoading(false);
+    setPhotoLoadError(false);
   };
 
   const countryCount = useMemo(
@@ -7985,14 +8172,96 @@ const Footprint = () => {
   const selectedPhotos = selectedPlace?.photos ?? [];
   const currentPhoto = selectedPhotos[photoIndex];
   const hasMultiplePhotos = selectedPhotos.length > 1;
+  const currentPreviewSrc = currentPhoto
+    ? getFootprintPreviewSrc(currentPhoto.src)
+    : "";
+  const isShowingOriginal = showOriginalPhoto || previewLoadFailed;
+  const currentPhotoSrc = currentPhoto
+    ? isShowingOriginal
+      ? currentPhoto.src
+      : currentPreviewSrc
+    : "";
+
+  useEffect(() => {
+    resetPhotoView();
+    setPhotoNaturalSize(null);
+  }, [photoIndex, resetPhotoView, selectedPlace?.id]);
+
+  useEffect(() => {
+    const viewport = photoViewportRef.current;
+    if (!viewport || !currentPhoto) {
+      return;
+    }
+
+    const handleWheel = (event: WheelEvent) => {
+      if (
+        photoLoading ||
+        photoLoadError ||
+        (event.target as HTMLElement).closest("button")
+      ) {
+        return;
+      }
+
+      event.preventDefault();
+      let delta = event.deltaY;
+      if (event.deltaMode === WheelEvent.DOM_DELTA_LINE) {
+        delta *= 16;
+      } else if (event.deltaMode === WheelEvent.DOM_DELTA_PAGE) {
+        delta *= viewport.clientHeight;
+      }
+
+      const oldZoom = photoZoomRef.current;
+      const nextZoom = Math.min(
+        maxPhotoZoom,
+        Math.max(minPhotoZoom, oldZoom * Math.exp(-delta * 0.0015)),
+      );
+      if (Math.abs(nextZoom - oldZoom) < 0.001) {
+        return;
+      }
+
+      const bounds = viewport.getBoundingClientRect();
+      const anchorX = event.clientX - bounds.left - bounds.width / 2;
+      const anchorY = event.clientY - bounds.top - bounds.height / 2;
+      const ratio = nextZoom / oldZoom;
+      setAutoPlay(false);
+      updatePhotoTransform(nextZoom, {
+        x: anchorX - (anchorX - photoOffsetRef.current.x) * ratio,
+        y: anchorY - (anchorY - photoOffsetRef.current.y) * ratio,
+      });
+    };
+
+    viewport.addEventListener("wheel", handleWheel, { passive: false });
+    return () => viewport.removeEventListener("wheel", handleWheel);
+  }, [currentPhoto, photoLoadError, photoLoading, updatePhotoTransform]);
+
+  useEffect(() => {
+    const viewport = photoViewportRef.current;
+    if (!viewport || !selectedPlace) {
+      return;
+    }
+
+    const observer = new ResizeObserver(() => {
+      window.requestAnimationFrame(reclampPhotoView);
+    });
+    observer.observe(viewport);
+    return () => observer.disconnect();
+  }, [reclampPhotoView, selectedPlace]);
 
   const showNextPhoto = useCallback(() => {
+    setShowOriginalPhoto(false);
+    setPreviewLoadFailed(false);
+    setPhotoLoading(true);
+    setPhotoLoadError(false);
     setPhotoIndex((current) =>
       selectedPhotos.length ? (current + 1) % selectedPhotos.length : 0,
     );
   }, [selectedPhotos.length]);
 
   const showPreviousPhoto = () => {
+    setShowOriginalPhoto(false);
+    setPreviewLoadFailed(false);
+    setPhotoLoading(true);
+    setPhotoLoadError(false);
     setPhotoIndex((current) =>
       selectedPhotos.length
         ? (current - 1 + selectedPhotos.length) % selectedPhotos.length
@@ -8008,6 +8277,32 @@ const Footprint = () => {
     const timer = window.setInterval(showNextPhoto, 4500);
     return () => window.clearInterval(timer);
   }, [autoPlay, selectedPhotos.length, selectedPlace, showNextPhoto]);
+
+  useEffect(() => {
+    const photos = selectedPlace?.photos;
+    if (!photos || photos.length <= 1) {
+      return;
+    }
+
+    const adjacentIndexes = [
+      (photoIndex - 1 + photos.length) % photos.length,
+      (photoIndex + 1) % photos.length,
+    ];
+    const prefetchedImages = [...new Set(adjacentIndexes)]
+      .filter((index) => index !== photoIndex)
+      .map((index) => {
+        const image = new Image();
+        image.decoding = "async";
+        image.src = getFootprintPreviewSrc(photos[index].src);
+        return image;
+      });
+
+    return () => {
+      prefetchedImages.forEach((image) => {
+        image.src = "";
+      });
+    };
+  }, [photoIndex, selectedPlace]);
 
   useEffect(() => {
     if (!selectedPlace && !isMapFullscreen) {
@@ -8329,16 +8624,175 @@ const Footprint = () => {
               }}
               onClick={(event) => event.stopPropagation()}
             >
-              <div className="relative flex min-h-0 flex-1 items-center justify-center bg-slate-950">
+              <div
+                ref={photoViewportRef}
+                className="relative flex min-h-0 flex-1 items-center justify-center overflow-hidden bg-slate-950"
+                style={{
+                  touchAction: "none",
+                  overscrollBehavior: "contain",
+                }}
+                onPointerDown={handlePhotoPointerDown}
+                onPointerMove={handlePhotoPointerMove}
+                onPointerUp={finishPhotoDrag}
+                onPointerCancel={finishPhotoDrag}
+                onDoubleClick={(event) => {
+                  if (!(event.target as HTMLElement).closest("button")) {
+                    resetPhotoView();
+                  }
+                }}
+              >
                 {currentPhoto ? (
-                  <img
-                    key={currentPhoto.src}
-                    src={currentPhoto.src}
-                    alt={isChinese ? currentPhoto.zhCaption : currentPhoto.caption}
-                    loading="eager"
-                    decoding="async"
-                    className="h-full w-full object-contain"
-                  />
+                  <>
+                    <img
+                      key={currentPhotoSrc}
+                      ref={(image) => {
+                        photoImageRef.current = image;
+                        if (image) {
+                          const { x, y } = photoOffsetRef.current;
+                          image.style.transform = `translate3d(${x}px, ${y}px, 0) scale(${photoZoomRef.current})`;
+                        }
+                      }}
+                      src={currentPhotoSrc}
+                      alt={isChinese ? currentPhoto.zhCaption : currentPhoto.caption}
+                      loading="eager"
+                      decoding="async"
+                      draggable={false}
+                      onContextMenu={(event) => event.preventDefault()}
+                      onLoad={(event) => {
+                        setPhotoNaturalSize({
+                          width: event.currentTarget.naturalWidth,
+                          height: event.currentTarget.naturalHeight,
+                        });
+                        setPhotoLoading(false);
+                        setPhotoLoadError(false);
+                        window.requestAnimationFrame(reclampPhotoView);
+                      }}
+                      onError={() => {
+                        if (!showOriginalPhoto && !previewLoadFailed) {
+                          setPhotoNaturalSize(null);
+                          setPreviewLoadFailed(true);
+                          setPhotoLoading(true);
+                          setPhotoLoadError(false);
+                          return;
+                        }
+                        setPhotoLoading(false);
+                        setPhotoLoadError(true);
+                      }}
+                      className={`h-auto max-h-full w-auto max-w-full select-none object-contain will-change-transform ${
+                        photoZoom > minPhotoZoom
+                          ? isPhotoDragging
+                            ? "cursor-grabbing"
+                            : "cursor-grab"
+                          : "cursor-default"
+                      }`}
+                      style={{ transformOrigin: "center center" }}
+                    />
+                    {!photoLoading && !photoLoadError && (
+                      <div className="pointer-events-none absolute left-3 top-3 select-none rounded-md border border-white/15 bg-slate-950/55 px-3 py-2 text-left text-[11px] font-medium leading-tight text-white/90 shadow-sm backdrop-blur-sm">
+                        <div>
+                          {isShowingOriginal
+                            ? isChinese
+                              ? "原图"
+                              : "Original"
+                            : isChinese
+                              ? "快速预览"
+                              : "Quick preview"}
+                          {photoNaturalSize && (
+                            <span className="ml-1.5 text-white/65">
+                              {photoNaturalSize.width} × {photoNaturalSize.height}
+                            </span>
+                          )}
+                        </div>
+                        <div className="mt-1 text-[10px] font-normal text-white/60">
+                          {isChinese
+                            ? "滚轮缩放 · 拖动查看 · 双击复位"
+                            : "Scroll to zoom · drag to move · double-click to reset"}
+                        </div>
+                      </div>
+                    )}
+                    {photoLoading && (
+                      <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-slate-950/45 text-white">
+                        <span className="h-8 w-8 animate-spin rounded-full border-2 border-white/35 border-t-white" />
+                      </div>
+                    )}
+                    {photoLoadError && (
+                      <div className="absolute inset-0 flex items-center justify-center bg-slate-950 px-6 text-center text-sm text-slate-300">
+                        {isChinese ? "照片加载失败，请稍后重试。" : "The photo could not be loaded. Please try again."}
+                      </div>
+                    )}
+                    {!photoLoading && !photoLoadError && (
+                      <div
+                        aria-hidden="true"
+                        className="pointer-events-none absolute bottom-3 right-3 select-none rounded-md border border-white/20 bg-slate-950/45 px-3 py-1.5 text-[clamp(12px,1.35vw,18px)] font-semibold tracking-wide text-white/90 shadow-[0_2px_12px_rgba(0,0,0,0.5)]"
+                      >
+                        © Jingbang Chen
+                      </div>
+                    )}
+                    <button
+                      type="button"
+                      title={
+                        isShowingOriginal
+                          ? isChinese
+                            ? "返回轻量图片"
+                            : "Return to the lightweight preview"
+                          : isChinese
+                            ? "原图较大，将按需加载"
+                            : "The original is large and will load on demand"
+                      }
+                      onClick={() => {
+                        setAutoPlay(false);
+                        setPhotoLoading(true);
+                        setPhotoLoadError(false);
+                        setPhotoNaturalSize(null);
+                        setPreviewLoadFailed(false);
+                        setShowOriginalPhoto(!isShowingOriginal);
+                      }}
+                      className="absolute left-3 top-[4.75rem] inline-flex h-9 items-center justify-center rounded-full bg-white/90 px-3.5 text-[12px] font-semibold text-slate-900 shadow-sm backdrop-blur-sm transition-colors hover:bg-white dark:bg-slate-900/85 dark:text-white dark:hover:bg-slate-900"
+                    >
+                      {isShowingOriginal
+                        ? isChinese
+                          ? "返回快速预览"
+                          : "Quick preview"
+                        : isChinese
+                          ? "查看原图"
+                          : "View original"}
+                    </button>
+                    {!photoLoading && !photoLoadError && (
+                      <div
+                        className="absolute bottom-14 left-1/2 flex h-9 -translate-x-1/2 items-stretch overflow-hidden rounded-full border border-white/15 bg-slate-950/65 text-white shadow-sm backdrop-blur-sm sm:bottom-3"
+                        aria-label={isChinese ? "照片缩放控制" : "Photo zoom controls"}
+                      >
+                        <button
+                          type="button"
+                          aria-label={isChinese ? "缩小" : "Zoom out"}
+                          title={isChinese ? "缩小" : "Zoom out"}
+                          disabled={photoZoom <= minPhotoZoom + 0.001}
+                          onClick={() => zoomPhotoFromCenter(1 / 1.3)}
+                          className="inline-flex w-9 items-center justify-center transition-colors hover:bg-white/15 disabled:cursor-not-allowed disabled:opacity-35"
+                        >
+                          <ZoomOut size={15} />
+                        </button>
+                        <button
+                          type="button"
+                          title={isChinese ? "恢复 100%" : "Reset to 100%"}
+                          onClick={resetPhotoView}
+                          className="min-w-[3.4rem] border-x border-white/15 px-2 text-[11px] font-semibold tabular-nums transition-colors hover:bg-white/15"
+                        >
+                          {Math.round(photoZoom * 100)}%
+                        </button>
+                        <button
+                          type="button"
+                          aria-label={isChinese ? "放大" : "Zoom in"}
+                          title={isChinese ? "放大" : "Zoom in"}
+                          disabled={photoZoom >= maxPhotoZoom - 0.001}
+                          onClick={() => zoomPhotoFromCenter(1.3)}
+                          className="inline-flex w-9 items-center justify-center transition-colors hover:bg-white/15 disabled:cursor-not-allowed disabled:opacity-35"
+                        >
+                          <ZoomIn size={15} />
+                        </button>
+                      </div>
+                    )}
+                  </>
                 ) : (
                   <div className="flex h-full w-full flex-col items-center justify-center gap-3 text-slate-700 dark:text-slate-200">
                     <Camera size={38} strokeWidth={1.8} />
@@ -8385,7 +8839,7 @@ const Footprint = () => {
                     aria-label={autoPlay ? (isChinese ? "暂停轮播" : "Pause slideshow") : (isChinese ? "自动轮播" : "Play slideshow")}
                     title={autoPlay ? (isChinese ? "暂停" : "Pause") : (isChinese ? "自动播放" : "Play")}
                     onClick={() => setAutoPlay((current) => !current)}
-                    className="absolute bottom-3 right-3 inline-flex h-9 w-9 items-center justify-center rounded-full bg-white/85 text-slate-900 shadow-sm transition-colors hover:bg-white dark:bg-slate-900/80 dark:text-white dark:hover:bg-slate-900"
+                    className="absolute bottom-[6.5rem] right-3 inline-flex h-9 w-9 items-center justify-center rounded-full bg-white/85 text-slate-900 shadow-sm transition-all hover:bg-white dark:bg-slate-900/80 dark:text-white dark:hover:bg-slate-900 sm:bottom-14"
                   >
                     {autoPlay ? <Pause size={17} /> : <Play size={17} />}
                   </button>
