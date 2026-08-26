@@ -259,7 +259,12 @@ const placeRegionLabels: Record<string, PlaceRegion> = {
   harbin: { label: "Heilongjiang", zhLabel: "黑龙江" },
   jilin: { label: "Jilin", zhLabel: "吉林" },
   changchun: { label: "Jilin", zhLabel: "吉林" },
+  "changbai-mountain": { label: "Jilin", zhLabel: "吉林" },
+  songjianghe: { label: "Jilin", zhLabel: "吉林" },
+  erdaobaihe: { label: "Jilin", zhLabel: "吉林" },
   shenyang: { label: "Liaoning", zhLabel: "辽宁" },
+  panjin: { label: "Liaoning", zhLabel: "辽宁" },
+  anshan: { label: "Liaoning", zhLabel: "辽宁" },
   dalian: { label: "Liaoning", zhLabel: "辽宁" },
   lushun: { label: "Liaoning", zhLabel: "辽宁" },
   taiyuan: { label: "Shanxi", zhLabel: "山西" },
@@ -1412,6 +1417,151 @@ const places: FootprintPlace[] = [
         src: "/footprint/jilin-01.jpg",
         caption: "Programming contest trophy in Jilin.",
         zhCaption: "吉林的程序设计竞赛奖杯。",
+      },
+    ],
+  },
+  {
+    id: "changbai-mountain",
+    name: "Changbai Mountain",
+    zhName: "长白山",
+    country: "China",
+    zhCountry: "中国",
+    lat: 42.006,
+    lng: 128.055,
+    note: "Tianchi, volcanic ridgelines, and alpine landscapes on Changbai Mountain.",
+    zhNote: "长白山天池、火山山脊与高山景观。",
+    photos: [
+      {
+        src: "/footprint/changbai-mountain-01.jpg",
+        caption: "Changbai Mountain Tianchi beneath drifting clouds.",
+        zhCaption: "云影下的长白山天池。",
+      },
+      {
+        src: "/footprint/changbai-mountain-02.jpg",
+        caption: "Mountains reflected in Changbai Mountain Tianchi.",
+        zhCaption: "倒映群山的长白山天池。",
+      },
+      {
+        src: "/footprint/changbai-mountain-03.jpg",
+        caption: "Alpine slopes on the approach to Tianchi.",
+        zhCaption: "通往天池途中的高山草坡。",
+      },
+    ],
+  },
+  {
+    id: "songjianghe",
+    name: "Songjianghe",
+    zhName: "松江河",
+    country: "China",
+    zhCountry: "中国",
+    lat: 42.171944,
+    lng: 127.503056,
+    note: "A quiet forest boardwalk and white birches in Jilin Songjianghe National Forest Park.",
+    zhNote: "吉林松江河国家森林公园里的林间栈道与白桦。",
+    photos: [
+      {
+        src: "/footprint/songjianghe-01.jpg",
+        caption: "Forest boardwalk beneath mixed woodland.",
+        zhCaption: "穿行混交林间的木栈道。",
+      },
+      {
+        src: "/footprint/songjianghe-02.jpg",
+        caption: "White birches in the national forest park.",
+        zhCaption: "国家森林公园中的白桦林。",
+      },
+    ],
+  },
+  {
+    id: "erdaobaihe",
+    name: "Erdaobaihe",
+    zhName: "二道白河",
+    country: "China",
+    zhCountry: "中国",
+    lat: 42.409509,
+    lng: 128.118634,
+    note: "The summer flower sea at Changbaishan Wetland Flower Sea Park.",
+    zhNote: "长白山湿地花海公园的盛夏花海。",
+    photos: [
+      {
+        src: "/footprint/erdaobaihe-01.jpg",
+        caption: "Pink and white flowers in Changbaishan Wetland Flower Sea Park.",
+        zhCaption: "长白山湿地花海公园的粉白花田。",
+      },
+      {
+        src: "/footprint/erdaobaihe-02.jpg",
+        caption: "Golden coneflowers in Changbaishan Wetland Flower Sea Park.",
+        zhCaption: "长白山湿地花海公园的金色花田。",
+      },
+    ],
+  },
+  {
+    id: "panjin",
+    name: "Panjin",
+    zhName: "盘锦",
+    country: "China",
+    zhCountry: "中国",
+    lat: 41.124,
+    lng: 122.07,
+    note: "Red Beach wetlands stretching toward Panjin's industrial horizon.",
+    zhNote: "延伸至工业天际线的盘锦红海滩湿地。",
+    photos: [
+      {
+        src: "/footprint/panjin-01.jpg",
+        caption: "Red Beach wetland and industrial landscape, Panjin.",
+        zhCaption: "盘锦红海滩湿地与工业景观。",
+      },
+      {
+        src: "/footprint/panjin-02.jpg",
+        caption: "Red Beach wetland, Panjin.",
+        zhCaption: "盘锦红海滩湿地。",
+      },
+    ],
+  },
+  {
+    id: "anshan",
+    name: "Anshan",
+    zhName: "鞍山",
+    country: "China",
+    zhCountry: "中国",
+    lat: 41.108,
+    lng: 122.994,
+    note: "City views, Ansteel industrial heritage, and the Dagushan open-pit mine.",
+    zhNote: "鞍山市景、鞍钢工业遗产与大孤山露天采坑。",
+    photos: [
+      {
+        src: "/footprint/anshan-01.jpg",
+        caption: "Ansteel industrial landscape.",
+        zhCaption: "鞍钢工业景观。",
+      },
+      {
+        src: "/footprint/anshan-02.jpg",
+        caption: "Anshan cityscape.",
+        zhCaption: "鞍山市景。",
+      },
+      {
+        src: "/footprint/anshan-03.jpg",
+        caption: "Ansteel industrial landscape.",
+        zhCaption: "鞍钢工业景观。",
+      },
+      {
+        src: "/footprint/anshan-04.jpg",
+        caption: "Blast furnaces at Ansteel.",
+        zhCaption: "鞍钢高炉群。",
+      },
+      {
+        src: "/footprint/anshan-05.jpg",
+        caption: "Ansteel Museum.",
+        zhCaption: "鞍钢博物馆。",
+      },
+      {
+        src: "/footprint/anshan-06.jpg",
+        caption: "Industrial heritage at Ansteel Museum.",
+        zhCaption: "鞍钢博物馆工业遗址。",
+      },
+      {
+        src: "/footprint/anshan-07.jpg",
+        caption: "Dagushan Iron Mine open pit under ecological restoration.",
+        zhCaption: "大孤山铁矿露天采坑（生态修复中）。",
       },
     ],
   },
@@ -7119,30 +7269,9 @@ const compactInitialZoom = 0.65;
 const footprintPlacesSourceId = "footprint-places";
 const footprintPlacesLayerId = "footprint-place-dots";
 const footprintFallbackBackgroundLayerId = "footprint-map-fallback";
-const cartoVoyagerSourceId = "cartoVoyagerNoLabels";
-const cartoVoyagerLayerId = "carto-voyager-no-labels";
 const firstFootprintOverlayLayerId = "southern-tibet-disputed-boundary-mask";
-
-const createCartoVoyagerSource = () => ({
-  type: "raster" as const,
-  tiles: [
-    "https://a.basemaps.cartocdn.com/rastertiles/voyager_nolabels/{z}/{x}/{y}.png",
-    "https://b.basemaps.cartocdn.com/rastertiles/voyager_nolabels/{z}/{x}/{y}.png",
-    "https://c.basemaps.cartocdn.com/rastertiles/voyager_nolabels/{z}/{x}/{y}.png",
-    "https://d.basemaps.cartocdn.com/rastertiles/voyager_nolabels/{z}/{x}/{y}.png",
-  ],
-  tileSize: 256,
-  attribution:
-    '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-});
-
-const cartoVoyagerLayer = {
-  id: cartoVoyagerLayerId,
-  type: "raster" as const,
-  source: cartoVoyagerSourceId,
-  minzoom: 0,
-  maxzoom: 20,
-};
+const openFreeMapNoLabelsStyleUrl =
+  "/map-styles/openfreemap-positron-no-labels.json";
 
 const normalizeMapRotation = (angle: number) => {
   const normalized = ((angle % 360) + 360) % 360;
@@ -7427,7 +7556,7 @@ const footprintMapStyle: StyleSpecification = {
       id: footprintFallbackBackgroundLayerId,
       type: "background",
       paint: {
-        "background-color": "#e7eef1",
+        "background-color": "#f2f3f0",
       },
     },
     {
@@ -7439,19 +7568,23 @@ const footprintMapStyle: StyleSpecification = {
         "line-join": "round",
       },
       paint: {
-        "line-color": "#fbf8f3",
+        "line-color": "#f2f3f0",
         "line-opacity": 1,
-        "line-blur": 1.4,
+        "line-blur": 0.4,
         "line-width": [
           "interpolate",
           ["linear"],
           ["zoom"],
-          2,
-          5.4,
+          0,
+          2.8,
+          3,
+          3.2,
           5,
+          3.8,
           8,
-          8,
-          11.4,
+          4.8,
+          12,
+          6.2,
         ],
       },
     },
@@ -7464,19 +7597,21 @@ const footprintMapStyle: StyleSpecification = {
         "line-join": "round",
       },
       paint: {
-        "line-color": "#f3e9e6",
-        "line-opacity": 0.62,
-        "line-blur": 0.75,
+        "line-color": "#f2f3f0",
+        "line-opacity": 1,
+        "line-blur": 0.2,
         "line-width": [
           "interpolate",
           ["linear"],
           ["zoom"],
-          2,
-          2.5,
+          3,
+          2.2,
           5,
-          3.6,
+          2.4,
           8,
-          5.2,
+          3.1,
+          12,
+          4.4,
         ],
       },
     },
@@ -7489,19 +7624,35 @@ const footprintMapStyle: StyleSpecification = {
         "line-join": "round",
       },
       paint: {
-        "line-color": "#dfcac7",
-        "line-opacity": 0.86,
-        "line-blur": 0.15,
+        "line-color": "#bfc3c0",
+        "line-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0.24,
+          3,
+          0.4,
+          6,
+          0.62,
+          9,
+          0.76,
+          12,
+          0.82,
+        ],
+        "line-blur": 0,
         "line-width": [
           "interpolate",
           ["linear"],
           ["zoom"],
-          2,
-          0.78,
-          5,
-          1.22,
-          8,
-          1.78,
+          3,
+          0.6,
+          6,
+          0.8,
+          9,
+          1.05,
+          12,
+          1.55,
         ],
       },
     },
@@ -7832,8 +7983,11 @@ const Footprint = () => {
     let initialResizeTimer: number | undefined;
     let optionalBaseMapTimer: number | undefined;
     let optionalBaseMapSlowTimer: number | undefined;
+    let attributionCollapseTimer: number | undefined;
+    let hasScheduledAttributionCollapse = false;
     let handleInitialStyleLoad: (() => void) | undefined;
-    let handleCartoSourceData: (() => void) | undefined;
+    let handleOpenFreeMapSourceData: (() => void) | undefined;
+    const openFreeMapAbortController = new AbortController();
     const mapStartTimer = window.setTimeout(() => {
       if (!mapContainer.isConnected || mapRef.current) {
         return;
@@ -7853,7 +8007,7 @@ const Footprint = () => {
         pitchWithRotate: false,
         renderWorldCopies: true,
       });
-      map.addControl(new maplibregl.AttributionControl({ compact: true }));
+      map.addControl(new maplibregl.AttributionControl());
       map.touchZoomRotate.disableRotation();
 
       const activeMap = map;
@@ -7868,11 +8022,17 @@ const Footprint = () => {
         offset: 12,
       });
 
-      const markCartoBaseMapReady = () => {
+      let openFreeMapSourceIds: string[] = [];
+
+      const markOpenFreeMapReady = () => {
         if (
           mapRef.current !== activeMap ||
-          !activeMap.getSource(cartoVoyagerSourceId) ||
-          !activeMap.isSourceLoaded(cartoVoyagerSourceId)
+          openFreeMapSourceIds.length === 0 ||
+          !openFreeMapSourceIds.every(
+            (sourceId) =>
+              activeMap.getSource(sourceId) &&
+              activeMap.isSourceLoaded(sourceId),
+          )
         ) {
           return;
         }
@@ -7882,22 +8042,48 @@ const Footprint = () => {
           window.clearTimeout(optionalBaseMapSlowTimer);
           optionalBaseMapSlowTimer = undefined;
         }
+        if (!hasScheduledAttributionCollapse) {
+          hasScheduledAttributionCollapse = true;
+          attributionCollapseTimer = window.setTimeout(() => {
+            mapContainer
+              .querySelector<HTMLElement>(
+                ".maplibregl-ctrl-attrib.maplibregl-compact.maplibregl-compact-show .maplibregl-ctrl-attrib-button",
+              )
+              ?.click();
+          }, 5000);
+        }
       };
 
-      const addOptionalCartoBaseMap = () => {
-        if (
-          mapRef.current !== activeMap ||
-          activeMap.getSource(cartoVoyagerSourceId)
-        ) {
-          return;
-        }
+      const addOptionalOpenFreeMap = async () => {
+        const addedLayerIds: string[] = [];
+        const addedSourceIds: string[] = [];
 
         try {
+          const response = await fetch(openFreeMapNoLabelsStyleUrl, {
+            signal: openFreeMapAbortController.signal,
+          });
+          if (!response.ok) {
+            throw new Error(`OpenFreeMap style returned ${response.status}`);
+          }
+
+          const openFreeMapStyle = (await response.json()) as StyleSpecification;
+          if (
+            mapRef.current !== activeMap ||
+            openFreeMapAbortController.signal.aborted
+          ) {
+            return;
+          }
+
           mapContainer.setAttribute("data-base-map-status", "loading");
-          activeMap.addSource(
-            cartoVoyagerSourceId,
-            createCartoVoyagerSource(),
-          );
+          for (const [sourceId, source] of Object.entries(
+            openFreeMapStyle.sources,
+          )) {
+            if (!activeMap.getSource(sourceId)) {
+              activeMap.addSource(sourceId, source);
+              addedSourceIds.push(sourceId);
+            }
+          }
+
           const firstOverlayLayerId = activeMap.getLayer(
             firstFootprintOverlayLayerId,
           )
@@ -7905,38 +8091,62 @@ const Footprint = () => {
             : activeMap.getLayer(footprintPlacesLayerId)
               ? footprintPlacesLayerId
               : undefined;
-          activeMap.addLayer(
-            cartoVoyagerLayer,
-            firstOverlayLayerId,
-          );
+          for (const layer of openFreeMapStyle.layers) {
+            if (layer.type !== "symbol" && !activeMap.getLayer(layer.id)) {
+              activeMap.addLayer(layer, firstOverlayLayerId);
+              addedLayerIds.push(layer.id);
+            }
+          }
 
+          openFreeMapSourceIds = Object.keys(openFreeMapStyle.sources);
           optionalBaseMapSlowTimer = window.setTimeout(() => {
             if (
               mapRef.current === activeMap &&
-              activeMap.getSource(cartoVoyagerSourceId) &&
-              !activeMap.isSourceLoaded(cartoVoyagerSourceId)
+              !openFreeMapSourceIds.every(
+                (sourceId) =>
+                  activeMap.getSource(sourceId) &&
+                  activeMap.isSourceLoaded(sourceId),
+              )
             ) {
               mapContainer.setAttribute("data-base-map-status", "fallback");
             }
           }, 8000);
-          markCartoBaseMapReady();
-        } catch {
+          markOpenFreeMapReady();
+        } catch (error) {
+          if (openFreeMapAbortController.signal.aborted) {
+            return;
+          }
+
+          for (const layerId of addedLayerIds.reverse()) {
+            if (activeMap.getLayer(layerId)) {
+              activeMap.removeLayer(layerId);
+            }
+          }
+          for (const sourceId of addedSourceIds.reverse()) {
+            if (activeMap.getSource(sourceId)) {
+              activeMap.removeSource(sourceId);
+            }
+          }
+          openFreeMapSourceIds = [];
           mapContainer.setAttribute("data-base-map-status", "fallback");
+          console.warn("Unable to load the optional OpenFreeMap basemap", error);
         }
       };
 
-      handleCartoSourceData = markCartoBaseMapReady;
+      handleOpenFreeMapSourceData = markOpenFreeMapReady;
       handleInitialStyleLoad = () => {
         if (mapRef.current !== activeMap) {
           return;
         }
 
         initialMapStyleReadyRef.current = true;
-        optionalBaseMapTimer = window.setTimeout(addOptionalCartoBaseMap, 0);
+        setMapReadyToken((value) => value + 1);
+        optionalBaseMapTimer = window.setTimeout(() => {
+          void addOptionalOpenFreeMap();
+        }, 0);
       };
       activeMap.on("load", handleInitialStyleLoad);
-      activeMap.on("sourcedata", handleCartoSourceData);
-      setMapReadyToken((value) => value + 1);
+      activeMap.on("sourcedata", handleOpenFreeMapSourceData);
 
       initialResizeTimer = window.setTimeout(() => {
         if (mapRef.current !== map || !map) {
@@ -7955,6 +8165,7 @@ const Footprint = () => {
 
     return () => {
       window.clearTimeout(mapStartTimer);
+      openFreeMapAbortController.abort();
       if (initialResizeTimer !== undefined) {
         window.clearTimeout(initialResizeTimer);
       }
@@ -7964,14 +8175,17 @@ const Footprint = () => {
       if (optionalBaseMapSlowTimer !== undefined) {
         window.clearTimeout(optionalBaseMapSlowTimer);
       }
+      if (attributionCollapseTimer !== undefined) {
+        window.clearTimeout(attributionCollapseTimer);
+      }
       placeTooltipRef.current?.remove();
       placeTooltipRef.current = null;
       if (map) {
         if (handleInitialStyleLoad) {
           map.off("load", handleInitialStyleLoad);
         }
-        if (handleCartoSourceData) {
-          map.off("sourcedata", handleCartoSourceData);
+        if (handleOpenFreeMapSourceData) {
+          map.off("sourcedata", handleOpenFreeMapSourceData);
         }
         map.remove();
       }

@@ -116,6 +116,15 @@ const Bio = () => {
           background: ["UG at Shenzhen MSU-BIT University"],
         },
         {
+          name: "Jinrong Lai",
+          zhName: "赖锦镕",
+          period: "Fall 2026 - present",
+          affiliation: "Central South University",
+          affiliationLabel: "",
+          background: ["UG at Central South University"],
+          highlight: ["ICPC Gold", "NOI Silver"],
+        },
+        {
           name: "Weinuo Li",
           zhName: "黎伟诺",
           period: "Fall 2024 - Spring 2026",
@@ -292,6 +301,12 @@ const Bio = () => {
             "Zixuan Yu",
             "Yichun Wang",
             "Xinle Yang",
+          ]),
+        },
+        {
+          group: "Research Assistants",
+          people: getPeople("Research Assistants", [
+            "Jinrong Lai",
           ]),
         },
       ],

@@ -132,6 +132,10 @@ const SelectedPublications = () => {
               name: "arXiv",
               href: "https://arxiv.org/abs/2312.11873",
             },
+            {
+              name: "Proceeding",
+              href: "https://doi.org/10.4230/LIPIcs.ESA.2026.58",
+            },
           ],
         },
         {
