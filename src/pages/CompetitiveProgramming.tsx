@@ -241,6 +241,16 @@ const CompetitiveProgramming = () => {
   ];
   const hallOfFameIndividuals: HallOfFameEntry[] = [
     {
+      name: "Nelson Huang",
+      period: "2023 - 2027",
+      honors: [
+        {
+          ...parseTimedEntry(t("hall-of-fame-nelson-honor-1")),
+          href: "https://stats.ioinformatics.org/people/9091",
+        },
+      ],
+    },
+    {
       name: "Bing-Dong Liu",
       period: "2022 - 2025",
       destination: "Massachusetts Institute of Technology",
