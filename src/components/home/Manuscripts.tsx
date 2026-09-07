@@ -104,7 +104,7 @@ const Manuscripts = () => {
           authors: [
             { name: "Sichen Wang", href: "" },
             { name: "Zhipeng Lu", href: "" },
-            { name: "Jingbang Chen\u2020", href: "" },
+            { name: "Jingbang Chen*", href: "" },
           ],
           arXiv: [
             {
@@ -117,7 +117,7 @@ const Manuscripts = () => {
           title: t("Manuscripts-2026-skillbloat-title"),
           authors: [
             { name: "Yuanjin Zheng", href: "" },
-            { name: "Jingbang Chen\u2020", href: "" },
+            { name: "Jingbang Chen*", href: "" },
           ],
           arXiv: [
             {
@@ -131,7 +131,7 @@ const Manuscripts = () => {
           authors: [
             { name: "Zeyu Wang", href: "" },
             { name: "Kudria Sergei", href: "https://sds.cuhk.edu.cn/en/node/686" },
-            { name: "Jingbang Chen\u2020", href: "" },
+            { name: "Jingbang Chen*", href: "" },
             { name: "Jiawei Chen", href: "https://jiawei-chen.github.io/" },
             { name: "Xinyu Wang", href: "" },
             { name: "Xiaodong Luo", href: "" },
