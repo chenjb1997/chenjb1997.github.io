@@ -153,7 +153,7 @@ const Manuscripts = () => {
           title: t("Manuscripts-2023-title"),
           authors: [
             { name: "Ruinian Chang", href: "#" },
-            { name: "Jingbang Chen (Lexicographical Order)", href: "" },
+            { name: "Jingbang Chen (Alphabetical Order)", href: "" },
             { name: "J. Ian Munro", href: "https://cs.uwaterloo.ca/~imunro/" },
             { name: "Richard Peng", href: "https://www.cs.cmu.edu/~yangp/" },
             { name: "Qingyu Shi", href: "https://qoj.ac/" },

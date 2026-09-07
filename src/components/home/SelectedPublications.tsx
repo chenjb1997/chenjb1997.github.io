@@ -139,6 +139,18 @@ const SelectedPublications = () => {
           ],
         },
         {
+          title: t("SelectedPublications-2026-publications-isaac-title"),
+          authors: [
+            { name: "Ryan Bai", href: "" },
+            { name: "Jingbang Chen (Alphabetical Order)", href: "" },
+            { name: "Meng He", href: "https://web.cs.dal.ca/~mhe/" },
+            { name: "Richard Peng", href: "https://www.cs.cmu.edu/~yangp/" },
+            { name: "Kaiyu Wu", href: "#" },
+          ],
+          venue: t("SelectedPublications-2026-publications-isaac-venue"),
+          arXiv: [],
+        },
+        {
           title: t("Curing ''Miracle Steps'' in LLM Math Reasoning with Rubric Rewards"),
           authors: [
             { name: "Youliang Yuan", href: "https://youliangyuan.github.io/" },
