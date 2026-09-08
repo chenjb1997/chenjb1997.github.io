@@ -701,8 +701,8 @@
     {
       "id": "DG11",
       "track": "dynamic",
-      "title": "Report maximum flows as edge-disjoint paths on unit-capacity expanders",
-      "question": "Can an always-expander return an actual maximum s–t flow as edge-disjoint simple paths in time polylog n plus the output length?",
+      "title": "Report maximum flows using logarithmic total path length",
+      "question": "Can an always-expander report a maximum s–t flow as edge-disjoint paths of O(log n) total length, with polylogarithmic updates and queries?",
       "contribution": "Major",
       "evidence": "B",
       "tags": [
@@ -710,15 +710,17 @@
         "bounded degree",
         "flow witness",
         "edge-disjoint paths",
-        "output-sensitive"
+        "output-sensitive",
+        "total length O(log n)"
       ],
-      "formulation": "<p>Gₜ is a simple, undirected, unweighted graph on n fixed vertices. Every edge insertion or deletion preserves maximum degree Δ₀ and conductance Φ(Gₜ)≥φ₀, for fixed positive constants Δ₀,φ₀. The class has no planar restriction; expansion is promised, not certified by the data structure.</p><div class=\"equation\">Φ(G)=min<sub>∅≠S⊊V</sub> |∂S| / min{vol(S),vol(V∖S)}, &nbsp; vol(S)=Σ<sub>v∈S</sub>deg(v).</div><div class=\"equation\">λₜ(s,t)=min<sub>s∈S, t∉S</sub>cₜ(∂S)=max{F: Bf=F(eₛ−eₜ), |fₑ|≤cₜ(e)}.</div><p>Queries require s≠t. B is a vertex-by-edge incidence matrix for an arbitrary fixed orientation; f is signed and F≥0 is its s–t flow value.</p><p>Here c(e)=1. For arbitrary queried s,t, return λₜ(s,t) pairwise edge-disjoint simple s–t paths. Let L be their total number of reported edges. Seek deterministic P,S=n^(1+o(1)), amortized U=polylog n, and worst-case Q=polylog n+O(L) over polynomial-length adaptive legal sequences. No full n-bit cut partition is requested. There is no imposed O(log n) length bound on the flow paths; that would be an additional demand requiring a feasibility proof.</p>",
+      "formulation": "<p>Gₜ is a simple, undirected, unweighted graph on n fixed vertices. Every edge insertion or deletion preserves maximum degree Δ₀ and conductance Φ(Gₜ)≥φ₀, for fixed positive constants Δ₀,φ₀. The class has no planar restriction; expansion is promised, not certified by the data structure.</p><div class=\"equation\">Φ(G)=min<sub>∅≠S⊊V</sub> |∂S| / min{vol(S),vol(V∖S)}, &nbsp; vol(S)=Σ<sub>v∈S</sub>deg(v).</div><div class=\"equation\">λₜ(s,t)=min<sub>s∈S, t∉S</sub>cₜ(∂S)=max{F: Bf=F(eₛ−eₜ), |fₑ|≤cₜ(e)}.</div><p>Queries require s≠t. B is a vertex-by-edge incidence matrix for an arbitrary fixed orientation; f is signed and F≥0 is its s–t flow value.</p><p>Here c(e)=1. For arbitrary queried s,t, return λₜ(s,t) pairwise edge-disjoint simple s–t paths. Let L be their total number of reported edges. Seek deterministic P,S=n^(1+o(1)), amortized U=polylog n, and worst-case Q=polylog n+O(L) over polynomial-length adaptive legal sequences. Require L≤K₀ log n for a constant K₀ depending only on Δ₀ and φ₀. No full n-bit cut partition is requested. The feasibility argument below is part of the baseline audit, so the length condition is not an unsupported assumption.</p>",
       "significance": "<p>Even when an exact min-cut value can be found locally, constructing the global routes that realize it is a different task. This question explicitly asks for a feasible maximum flow, rather than reusing a scalar min-cut theorem as a path-reporting claim.</p>",
-      "known": "<p>There are at most Δ₀ paths. A fresh integral augmenting-path computation uses at most Δ₀ augmentations, each O(m), giving O(n) work. A value-only dynamic c-edge-connectivity theorem does not establish the requested path-reporting cost.</p>",
+      "known": "<p>At most Δ₀ integral augmentations suffice. In a unit-capacity residual graph carrying value F≤Δ₀, every directed cut has residual capacity at least |∂S|−F. For |S|≤n/2 this is at least φ₀|S|−F. If an augmenting path exists, a forward or backward BFS ball gains at least one vertex per layer until size 2F/φ₀, then grows geometrically (degree is bounded and each residual capacity is at most two). The two balls meet after O(log n) layers. Consequently shortest augmentations produce a maximum flow whose total support length is O(Δ₀ log n)=O(log n); removing circulations and decomposing it preserves this bound. Fresh computation still scans O(n) edges in the worst case. This is an elementary feasibility/baseline argument, not the requested fast data structure.</p>",
       "comments": [
         "The scalar value and a small minimum-cut side are already computable in constant time for fixed Δ₀,φ₀ by the local enumeration in the audit note. That solved variant is not the open question.",
-        "Q must hold for every query; permitting L=Θ(n) on some instances does not justify scanning Θ(n) edges when the returned witness is small.",
-        "For a fixed s,t maintained permanently, the problem changes: the index may be specialized to that pair. This record requires arbitrary query pairs."
+        "The total-length requirement L≤K₀ log n prevents a long, otherwise valid witness from absorbing a linear query cost. K₀ is independent of n.",
+        "For a fixed s,t maintained permanently, the problem changes: the index may be specialized to that pair. This record requires arbitrary query pairs.",
+        "This is stronger than DG02: returning one constituent path gives a short s–t path. The extra requirement is maximum flow value and simultaneous edge-disjointness, not merely several independently found paths."
       ],
       "literature": [
         [
@@ -744,18 +746,18 @@
       ],
       "lastVerified": "2026-09-08",
       "origin": "A newly specified query interface synthesized from the primary results in the literature table. The target is proposed here, not quoted as an author conjecture.",
-      "verification": "<p>Checked against exact versus approximate flow, fixed versus arbitrary query pairs, static versus fully dynamic algorithms, weighted versus unweighted graphs, and value versus witness output. The candidate is not claimed to be formally hard.</p>",
+      "verification": "<p>The scalar min-cut variant is elementary in this class and is excluded. The witness question includes an n-independent logarithmic total-length guarantee, justified above. The audit separates this existence bound from the unresolved update/query interface, and does not identify directed residual graphs with undirected expanders.</p>",
       "audit": {
         "status": "candidate",
         "decision": "Added as a witness problem; the scalar variant is excluded.",
-        "gap": "Improve O(n) fresh maximum-flow computation to polylog n plus actual output size, with fast updates.",
-        "caution": "No formal lower bound is claimed. A future result must be compared against flow-witness algorithms, not only edge-connectivity or cut-value data structures."
+        "gap": "Reduce O(n) fresh computation to polylogarithmic query time while keeping total reported length O(log n), with polylogarithmic updates.",
+        "caution": "The logarithmic witness length has an elementary residual-cut justification, but a fast maintained reporting interface was not verified. A directed residual graph is not automatically covered by an undirected expander path oracle."
       },
       "bounds": [
         {
           "label": "Exact maximum-flow witness from scratch",
-          "runtime": "P,S=O(n); U=O(1); Q=O(Δ₀m+L)=O(n).",
-          "scope": "Integral unit capacities: each augmentation increases the value by one, and λ≤Δ₀. Decompose the resulting integral flow into simple paths.",
+          "runtime": "P,S=O(n); U=O(1); Q=O(Δ₀m)=O(n); total reported length L=O(log n).",
+          "scope": "Use shortest residual augmenting paths, at most Δ₀ times. The residual-cut growth argument in Known results bounds each path length; cancel circulations and decompose the final integral flow.",
           "source": "Elementary baseline",
           "locator": "Derivation in this entry"
         },
