@@ -28,11 +28,11 @@
         "distance value",
         "deterministic"
       ],
-      "question": "Can an always-expanding graph admit a fully dynamic, fixed-constant-factor distance oracle with near-linear space and polylogarithmic operation time?",
+      "question": "Can constant-stretch distance values on always-expanders be maintained with polylogarithmic update and query time, improving the known O(n^α)-update frontier for every fixed α>0?",
       "origin": "Sharpened here from the distance-oracle frontier <a href=\"https://arxiv.org/abs/2402.18541\" target=\"_blank\" rel=\"noopener\">[HLS24]</a> and expander-specific limitations <a href=\"https://arxiv.org/html/2208.07572v2\" target=\"_blank\" rel=\"noopener\">[HPS22]</a>. The exact target is not a quoted conjecture.",
       "significance": "<p>This asks whether expansion removes a substantial part of the cost of dynamic distances. Connectivity and logarithmic diameter are already guaranteed; estimating a short distance still requires information that a diameter bound does not provide. A fixed stretch is essential for a meaningful separation from generic subpolynomial tradeoffs.</p>",
-      "formulation": "<p>Let Gₜ=(V,Eₜ) be a simple, undirected, unweighted graph on n fixed vertices. Each operation inserts or deletes one edge. Every resulting graph satisfies max degree ≤ Δ₀ and conductance Φ(Gₜ) ≥ φ₀, for fixed positive constants Δ₀, φ₀. The input is not restricted to planar graphs. Vertices need not remain regular.</p><div class=\"equation\">Φ(G) = min<sub>∅≠S⊊V</sub> |E(S,V∖S)| / min{vol(S), vol(V∖S)}, &nbsp; vol(S)=Σ<sub>v∈S</sub> deg(v).</div><div class=\"equation\">dist<sub>Gₜ</sub>(a,b) ≤ query(a,b) ≤ C · dist<sub>Gₜ</sub>(a,b), for a fixed C&gt;1.</div><p>Target: preprocessing P=Õ(n), space S=Õ(n), deterministic amortized update U=polylog n and worst-case query Q=polylog n, over arbitrary polynomial-length legal sequences. Constants may depend on C, Δ₀, φ₀, but not on n. Output only a distance value. Õ suppresses logarithmic factors.</p>",
-      "known": "<p>The general-graph bound in <a href=\"https://arxiv.org/abs/2402.18541\" target=\"_blank\" rel=\"noopener\">[HLS24]</a> has U=nᵅ and stretch 2<sup>poly(1/α)</sup>. Shrinking α with n does not retain a fixed stretch. <a href=\"https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.ESA.2025.113\" target=\"_blank\" rel=\"noopener\">[KMS25]</a> gives another subpolynomial tradeoff.</p><p>A direct elementary baseline is local BFS to radius Θ(log log n), followed by a diameter upper bound for unresolved pairs: polylogarithmic query time, but only O(log n/log log n) stretch. This observation is an analyst derivation.</p>",
+      "formulation": "<p>Gₜ is a simple, undirected, unweighted graph on n fixed vertices. Every edge insertion or deletion preserves maximum degree Δ₀ and conductance Φ(Gₜ)≥φ₀, for fixed positive constants Δ₀,φ₀. The class has no planar restriction; expansion is promised, not certified by the data structure.</p><div class=\"equation\">Φ(G)=min<sub>∅≠S⊊V</sub> |∂S| / min{vol(S),vol(V∖S)}, &nbsp; vol(S)=Σ<sub>v∈S</sub>deg(v).</div><div class=\"equation\">distₜ(a,b) ≤ d̂ₜ(a,b) ≤ C·distₜ(a,b), &nbsp; C>1 independent of n.</div><p>Seek a deterministic data structure with P=n^(1+o(1)), S=n^(1+o(1)) words, amortized U=polylog n and worst-case Q=polylog n. The quantifier is “there exists a fixed C”; C is not an input approximation parameter. Queries return one distance estimate, not a path. Guarantees must hold over every polynomial-length legal sequence, including adaptive updates. A sharper near-linear P,S bound is a separate strengthening.</p>",
+      "known": "<p>For every fixed α>0, <a href=\"https://arxiv.org/pdf/2402.18541\" target=\"_blank\" rel=\"noopener\">[HLS24]</a> supplies the numerical frontier below. Setting α to shrink with n changes the stretch; it does not give a fixed-C polylogarithmic-update theorem. Exact-distance hardness in <a href=\"https://arxiv.org/html/2208.07572v2\" target=\"_blank\" rel=\"noopener\">[HPS22]</a> cannot be transferred to this approximation target without a gap argument.</p>",
       "verification": "<p><b>B · Sharpened candidate.</b> The checked upper bounds do not supply this combination of stretch, space and operation times. The expander lower bound <a href=\"https://arxiv.org/html/2208.07572v2\" target=\"_blank\" rel=\"noopener\">[HPS22]</a> is for exact distance. A proof that the proposed approximation target is open is not claimed.</p>",
       "comments": [
         "All vertices must remain queryable; maintaining only an expander core changes the question.",
@@ -43,36 +43,65 @@
         [
           "HPS22",
           "§4.4, Theorem 36",
-          "Exact-distance OMv lower bound even on constant-degree expanders."
+          "For exact expander distances, Theorem 36 excludes simultaneous U=O(n^(1/2−δ)), Q=O(n^(1−δ)) under OMv. Matching statements have different promises; this is not an approximate-distance lower bound."
         ],
         [
           "HLS24",
           "Main theorem",
-          "General dynamic constant-approximation benchmark."
+          "Theorem 1.3: P=O(m₀^(1+α)), U=O(n^α) worst-case, Q=O(α⁻⁴ log log n), stretch 2^poly(1/α); deterministic. Fixed α gives constant stretch."
         ],
         [
           "KMS25",
           "Abstract and main result",
-          "Later APSP tradeoff; approximation is not a fixed constant in its almost-linear regime."
+          "The almost-linear regime has total update time m^(1+o(1)) and approximation n^o(1); these are not polylogarithmic update time and fixed constant stretch."
         ],
         [
           "CPR25",
           "Main theorem",
-          "Router and spanner maintenance does not itself provide the requested pair-query interface."
+          "For 512≤k≤(log n)^(1/49), 1/k≤δ≤1/400: size n^(1+O(1/k)), update n^O(δ), recourse n^O(1/k), stretch poly(k)·2^O(1/δ⁶). A maintained spanner does not automatically answer path queries."
         ]
       ],
       "related": [
         "DG02",
         "DG03"
       ],
-      "lastVerified": "2026-09-08"
+      "lastVerified": "2026-09-08",
+      "audit": {
+        "status": "candidate",
+        "decision": "Retained with a quantified frontier and explicit quantifiers.",
+        "gap": "Replace polynomial n^α update dependence by polylog n while keeping C independent of n; retain fast arbitrary-pair queries.",
+        "caution": "This is the strongest directly applicable tradeoff verified in the audit, not a claim of a uniquely optimal running time. P, S, stretch and U cannot be minimized independently."
+      },
+      "bounds": [
+        {
+          "label": "Closest quantified fully dynamic frontier",
+          "runtime": "P=O(n^(1+α)); U=O(n^α) worst-case; Q=O(α⁻⁴ log log n); stretch Cα=2^poly(1/α).",
+          "scope": "Deterministic, any fixed α>0; applies to this graph class. The theorem does not separately state a space bound, so no near-linear-space claim is inferred.",
+          "source": "HLS24",
+          "locator": "Theorem 1.3 (PDF p. 4); parameter ε renamed α"
+        },
+        {
+          "label": "Exact, low preprocessing alternative",
+          "runtime": "P=O(n); S=O(n); U=O(1); Q=O(n).",
+          "scope": "Maintain bounded-degree adjacency and run BFS per query. This meets the class/output requirements but not the target Q.",
+          "source": "Elementary baseline",
+          "locator": "Derivation in this entry"
+        },
+        {
+          "label": "Polylog update/query with weaker stretch",
+          "runtime": "P,S=O(n); U=O(1); Q=polylog n; stretch O(log n / log log n).",
+          "scope": "Search to radius Θ(log log n); if the target is not reached, return the known O(log n) diameter upper bound. Degree and expansion constants enter the factors.",
+          "source": "Elementary baseline",
+          "locator": "Derivation in this entry"
+        }
+      ]
     },
     {
       "id": "DG02",
       "track": "dynamic",
-      "title": "Report logarithmic-length paths between every pair",
+      "title": "Polylogarithmic updates for logarithmic-length path reporting",
       "evidence": "B",
-      "contribution": "Focused",
+      "contribution": "Major",
       "tags": [
         "edge insert/delete",
         "bounded degree",
@@ -80,45 +109,72 @@
         "path reporting",
         "absolute length"
       ],
-      "question": "Can a fully dynamic always-expander report an actual O(log n)-edge path between any queried pair using polylogarithmic update time?",
-      "origin": "A fully dynamic, all-vertex refinement of the expander short-path interface in <a href=\"https://arxiv.org/html/2211.10556v2\" target=\"_blank\" rel=\"noopener\">[CH23]</a>.",
+      "question": "Can every pair in an always-expander be joined by an explicitly reported O(log n)-edge path using polylogarithmic update time?",
+      "origin": "A fully dynamic all-vertex path interface, compared directly with <a href=\"https://arxiv.org/pdf/2402.18541\" target=\"_blank\" rel=\"noopener\">[HLS24]</a> and the decremental expander interface in <a href=\"https://arxiv.org/html/2211.10556v2\" target=\"_blank\" rel=\"noopener\">[CH23]</a>.",
       "significance": "<p>A short-path data structure supports routing even when multiplicative distance approximation is unnecessary. The required output is a usable path in the current graph. This is a distinct target from a distance estimate: the guarantee is absolute length, including for nearby endpoints.</p>",
-      "formulation": "<p>Let Gₜ=(V,Eₜ) be a simple, undirected, unweighted graph on n fixed vertices. Each operation inserts or deletes one edge. Every resulting graph satisfies max degree ≤ Δ₀ and conductance Φ(Gₜ) ≥ φ₀, for fixed positive constants Δ₀, φ₀. The input is not restricted to planar graphs. Vertices need not remain regular.</p><div class=\"equation\">Φ(G) = min<sub>∅≠S⊊V</sub> |E(S,V∖S)| / min{vol(S), vol(V∖S)}, &nbsp; vol(S)=Σ<sub>v∈S</sub> deg(v).</div><div class=\"equation\">path(a,b) returns P⊆Gₜ with endpoints a,b and |E(P)|≤c log n.</div><p>Seek deterministic P,S=Õ(n), amortized U=polylog n, and query time O(polylog n+|E(P)|). The constant c depends only on φ₀,Δ₀. Queries may name any vertices and updates may be adaptive. The promise holds after every individual insertion or deletion.</p>",
-      "known": "<p><a href=\"https://arxiv.org/html/2211.10556v2\" target=\"_blank\" rel=\"noopener\">[CH23]</a> supplies a decremental short-path structure with a deletion budget and a growing unsupported vertex set. <a href=\"https://arxiv.org/abs/2601.20718\" target=\"_blank\" rel=\"noopener\">[CPR25]</a> addresses fully dynamic router decompositions, with non-polylogarithmic parameter tradeoffs. Rebuilding a BFS tree after every update is an O(n)-update baseline here.</p>",
-      "verification": "<p><b>B · Sharpened candidate; moderate novelty confidence.</b> The cited interfaces leave a gap between maintaining restricted routing structure and supporting all pairs at the stated cost. The catalog does not assert that no combination of later routing results can meet the target; this is a specifically formulated gap to check against those results.</p>",
+      "formulation": "<p>Gₜ is a simple, undirected, unweighted graph on n fixed vertices. Every edge insertion or deletion preserves maximum degree Δ₀ and conductance Φ(Gₜ)≥φ₀, for fixed positive constants Δ₀,φ₀. The class has no planar restriction; expansion is promised, not certified by the data structure.</p><div class=\"equation\">Φ(G)=min<sub>∅≠S⊊V</sub> |∂S| / min{vol(S),vol(V∖S)}, &nbsp; vol(S)=Σ<sub>v∈S</sub>deg(v).</div><p>After each update, query(a,b) must return a simple a–b path P contained in the current graph, with |P|≤K log n for a constant K depending only on Δ₀,φ₀ and the algorithm. All vertices are supported; there is no pruned or unsupported set.</p><div class=\"equation\">P<sub>init</sub>, S = n^(1+o(1)); &nbsp; U=polylog n amortized; &nbsp; Q=polylog n+O(|P|).</div><p>Require determinism and arbitrary polynomial-length legal sequences. The path is charged edge by edge. This asks for absolute length, not constant stretch relative to dist(a,b).</p>",
+      "known": "<p><a href=\"https://arxiv.org/pdf/2402.18541\" target=\"_blank\" rel=\"noopener\">[HLS24]</a> already gives U=O(n^α) for each fixed α>0, with reported walk length O(Cα log n) and O(log n) query time on this unweighted class. Erasing loops takes O(log n), so a simple path follows. The remaining issue is the polylogarithmic update bound with an n-independent length factor. A source supplying only a spanner is not yet a pair-path oracle.</p>",
+      "verification": "<p>The audit replaces the previous weak baseline with the directly applicable HLS24 theorem. The short-cycle connection is recorded as an unproved implication, not as a conditional lower bound. The contribution label is changed to Major because the target improves a general n^α frontier while maintaining a strict path-length bound.</p>",
       "comments": [
-        "This is not a constant-stretch question: a logarithmic-length path may be very long relative to a distance of one.",
-        "The deletion-only, absolute-length analogue is not listed as open: a truncated Even–Shiloach BFS tree has total O(m log n) work under the diameter promise. Insertions are substantive here.",
-        "Returning a virtual path or a path through deleted edges does not satisfy the output contract."
+        "No formal “short-cycle hard” classification is asserted. Turning a pair-path oracle into a cycle decomposition needs a reduction that charges all work, bounds uncovered edges, and preserves the oracle’s expansion promise after deletions.",
+        "The published short-cycle algorithms concern arbitrary static graphs and multiple edge-disjoint cycles. Finding one short path is a different interface.",
+        "A decremental truncated BFS tree has O(m log n) total work under a permanent diameter bound. Mixed insertions/deletions invalidate that monotone-distance argument."
       ],
       "literature": [
         [
+          "HLS24",
+          "Theorem 1.3 and §12.4, path interface",
+          "Deterministic P=O(n^(1+α)), U=O(n^α), distance Q=O(α⁻⁴ log log n); a reported walk costs Q+O(|P|). For fixed α, expansion makes |P|=O(log n)."
+        ],
+        [
           "CH23",
-          "Introduction; short-path theorem",
-          "Decremental expander routing with excluded vertices and a limited deletion budget."
+          "Theorem 2.4",
+          "Decremental total time m^(1+O(ε))Δ⁵/φ²; path length 2^O(1/ε⁶)Δ² log n/φ, reporting linear in length. Deletion budget nφ²/(2¹³Δ⁴), with excluded vertices."
         ],
         [
-          "AGJL23",
-          "Abstract and main results",
-          "Static sublinear path algorithms and local-access lower bounds; not a maintained index."
+          "PY19",
+          "Abstract; main decomposition results",
+          "Deterministic m^(1+o(1)) time for O(log² n)-length cycles with O(n log n) uncovered edges; another tradeoff gives Õ(m) time, O(log n) cycles, n^(1+o(1)) uncovered edges."
         ],
         [
-          "CPR25",
-          "Router decomposition; main theorem",
-          "Fully dynamic related structure with explicit parameter-dependent costs."
+          "CGPSSW18",
+          "Introduction; short-cycle decomposition",
+          "Historical m^(1+o(1)) algorithm with cycle length n^o(1) and n^(1+o(1)) uncovered edges. These three parameters are distinct from single-path reporting."
         ]
       ],
       "related": [
         "DG01"
       ],
-      "lastVerified": "2026-09-08"
+      "lastVerified": "2026-09-08",
+      "audit": {
+        "status": "candidate",
+        "decision": "Reframed; no unsupported hardness label.",
+        "gap": "Improve U=O(n^α), available for any fixed α>0, to polylog n without letting the path-length factor grow with n.",
+        "caution": "A formal reduction to a named conjecture was not verified. The current frontier is an upper-bound comparison, not a proof of hardness."
+      },
+      "bounds": [
+        {
+          "label": "Fully dynamic, all queried pairs",
+          "runtime": "P=O(n^(1+α)); U=O(n^α) worst-case; Q=O(log n); |P|=O(Cα log n).",
+          "scope": "Deterministic; fixed α>0. Loop erasure is linear because the input is unweighted and the entire reported walk is short.",
+          "source": "HLS24",
+          "locator": "Theorem 1.3; §12.4, first two interface bullets"
+        },
+        {
+          "label": "Simple near-linear-space alternative",
+          "runtime": "P,S=O(n); U=O(n); Q=O(log n); |P|=O(log n).",
+          "scope": "Rebuild a BFS tree after each update; join the queried vertices in the tree.",
+          "source": "Elementary baseline",
+          "locator": "Derivation in this entry"
+        }
+      ]
     },
     {
       "id": "DG03",
       "track": "dynamic",
       "title": "A constant approximation gap in expander distance lower bounds",
-      "evidence": "B",
-      "contribution": "Focused",
+      "evidence": "C",
+      "contribution": "Major",
       "tags": [
         "conditional lower bound",
         "constant degree",
@@ -128,9 +184,9 @@
       "question": "Does a fixed approximation factor greater than one retain an OMv-based dynamic distance barrier on always-expanders?",
       "origin": "A hardness question extracted from the exact-versus-approximate distinction in <a href=\"https://arxiv.org/html/2208.07572v2\" target=\"_blank\" rel=\"noopener\">[HPS22]</a>.",
       "significance": "<p>An exact lower bound may rely on an additive difference that becomes negligible after expanding the graph. A constant-gap lower bound would say which approximation guarantees are genuinely blocked by expansion-preserving hardness, rather than merely importing hardness from general graphs.</p>",
-      "formulation": "<p>Let Gₜ=(V,Eₜ) be a simple, undirected, unweighted graph on n fixed vertices. Each operation inserts or deletes one edge. Every resulting graph satisfies max degree ≤ Δ₀ and conductance Φ(Gₜ) ≥ φ₀, for fixed positive constants Δ₀, φ₀. The input is not restricted to planar graphs. Vertices need not remain regular.</p><div class=\"equation\">Φ(G) = min<sub>∅≠S⊊V</sub> |E(S,V∖S)| / min{vol(S), vol(V∖S)}, &nbsp; vol(S)=Σ<sub>v∈S</sub> deg(v).</div><div class=\"equation\">dist(a,b) ≤ d̂(a,b) ≤ (1+η)dist(a,b), with a fixed η&gt;0 independent of n.</div><p>Concrete target: find a fixed η for which, under OMv, no data structure with polynomial preprocessing has both U=O(n<sup>1/2−δ</sup>) and Q=O(n<sup>1−δ</sup>) for any fixed δ&gt;0. State the error probability and amortization model in the resulting theorem. The reduction must keep every intermediate graph inside the promise class.</p>",
+      "formulation": "<p>Let Gₜ=(V,Eₜ) be a simple, undirected, unweighted graph on n fixed vertices. Each operation inserts or deletes one edge. Every resulting graph satisfies max degree ≤ Δ₀ and conductance Φ(Gₜ) ≥ φ₀, for fixed positive constants Δ₀, φ₀. The input is not restricted to planar graphs. Vertices need not remain regular.</p><div class=\"equation\">Φ(G) = min<sub>∅≠S⊊V</sub> |E(S,V∖S)| / min{vol(S), vol(V∖S)}, &nbsp; vol(S)=Σ<sub>v∈S</sub> deg(v).</div><div class=\"equation\">dist(a,b) ≤ d̂(a,b) ≤ (1+η)dist(a,b), with a fixed η&gt;0 independent of n.</div><p>Concrete target: find a fixed η for which, under OMv, no data structure with polynomial preprocessing has both U=O(n<sup>1/2−δ</sup>) and Q=O(n<sup>1−δ</sup>) for any fixed δ&gt;0. For definiteness, target deterministic data structures, amortized update and worst-case query time, and polynomial preprocessing. The reduction must keep every intermediate graph inside the promise class.</p>",
       "known": "<p><a href=\"https://arxiv.org/html/2208.07572v2\" target=\"_blank\" rel=\"noopener\">[HPS22]</a> establishes the indicated exponent barrier for exact distances on constant-degree bipartite expanders. Its approximation lower bounds elsewhere in the paper must not be conflated with that expander theorem.</p>",
-      "verification": "<p><b>B · Sharpened candidate.</b> This catalog found an exact theorem, not the stated constant-gap theorem. The desired exponent region is an explicit proposed claim, not an established conjecture. An algorithm contradicting that claim would also resolve the question.</p>",
+      "verification": "<p><b>On hold as a paper-selection claim.</b> Downgraded: the required approximation gap has not been established.</p><p>Not a source-explicit conjecture. Before treating it as a paper topic, the approximation gap of the reduction needs an independent audit.</p>",
       "comments": [
         "An inverse-polynomial relative gap is insufficient: η must be a positive constant.",
         "A reduction that first removes an expander backbone and later restores it violates the dynamic promise.",
@@ -140,78 +196,118 @@
         [
           "HPS22",
           "§4.4, Theorem 36; compare approximation sections",
-          "Exact expander lower bound and the model distinction that motivates this question."
+          "For exact expander distances, Theorem 36 excludes simultaneous U=O(n^(1/2−δ)), Q=O(n^(1−δ)) under OMv. Matching statements have different promises; this is not an approximate-distance lower bound."
         ],
         [
           "HLS24",
           "Main theorem",
-          "General upper bounds provide context for the forbidden update/query region."
+          "Theorem 1.3: P=O(m₀^(1+α)), U=O(n^α) worst-case, Q=O(α⁻⁴ log log n), stretch 2^poly(1/α); deterministic. Fixed α gives constant stretch."
         ]
       ],
       "related": [
         "DG01"
       ],
-      "lastVerified": "2026-09-08"
+      "lastVerified": "2026-09-08",
+      "audit": {
+        "status": "hold",
+        "decision": "Downgraded: the required approximation gap has not been established.",
+        "gap": "Prove or refute the stated fixed-η OMv barrier; the exact theorem alone is insufficient.",
+        "caution": "Not a source-explicit conjecture. Before treating it as a paper topic, the approximation gap of the reduction needs an independent audit."
+      },
+      "bounds": [
+        {
+          "label": "Verified conditional barrier",
+          "runtime": "Exact distances: no simultaneous U=O(n^(1/2−δ)), Q=O(n^(1−δ)) under OMv.",
+          "scope": "Constant-degree bipartite expanders. This is an exact-distance statement.",
+          "source": "HPS22",
+          "locator": "Theorem 36"
+        },
+        {
+          "label": "Closest quantified fully dynamic frontier",
+          "runtime": "P=O(n^(1+α)); U=O(n^α) worst-case; Q=O(α⁻⁴ log log n); stretch Cα=2^poly(1/α).",
+          "scope": "Deterministic, any fixed α>0; applies to this graph class. The theorem does not separately state a space bound, so no near-linear-space claim is inferred.",
+          "source": "HLS24",
+          "locator": "Theorem 1.3 (PDF p. 4); parameter ε renamed α"
+        }
+      ]
     },
     {
       "id": "DG04",
       "track": "dynamic",
-      "title": "A precision-sensitive dynamic effective-resistance index",
+      "title": "Maintain a Schur complement on √n fixed terminals with small recourse",
       "evidence": "B",
       "contribution": "Focused",
       "tags": [
         "edge insert/delete",
-        "ε=n⁻ᶿ",
-        "relative error",
-        "preprocessed queries",
-        "oblivious updates"
+        "fixed terminals",
+        "|T|=√n",
+        "spectral approximation",
+        "recourse"
       ],
-      "question": "Can effective-resistance indexing on an always-expander separate update cost from query cost when the requested error shrinks polynomially with n?",
-      "origin": "Dynamic refinement of the static expander indices <a href=\"https://arxiv.org/abs/2211.01468\" target=\"_blank\" rel=\"noopener\">[LS23]</a>, <a href=\"https://proceedings.neurips.cc/paper_files/paper/2023/hash/b8e2046160a568145af6d42eeef199f4-Abstract-Conference.html\" target=\"_blank\" rel=\"noopener\">[DKS23]</a>, <a href=\"https://arxiv.org/html/2507.04674v1\" target=\"_blank\" rel=\"noopener\">[YL25]</a>.",
-      "significance": "<p>At fixed error, local resistance estimation already gives inexpensive queries on expanders. The nontrivial regime is growing precision together with many queries. Here the question is whether preprocessing and local changes can support fast queries without repeatedly paying the precision cost.</p>",
-      "formulation": "<p>Let Gₜ=(V,Eₜ) be a simple, undirected, unweighted graph on n fixed vertices. Each operation inserts or deletes one edge. Every resulting graph satisfies max degree ≤ Δ₀ and conductance Φ(Gₜ) ≥ φ₀, for fixed positive constants Δ₀, φ₀. The input is not restricted to planar graphs. Vertices need not remain regular.</p><div class=\"equation\">Φ(G) = min<sub>∅≠S⊊V</sub> |E(S,V∖S)| / min{vol(S), vol(V∖S)}, &nbsp; vol(S)=Σ<sub>v∈S</sub> deg(v).</div><div class=\"equation\">Rₜ(a,b)=(eₐ−eᵦ)ᵀLₜ†(eₐ−eᵦ); &nbsp; |R̂ₜ(a,b)−Rₜ(a,b)|≤ε Rₜ(a,b).</div><p>Fix θ∈(0,1/2) and ε=n<sup>−θ</sup>. Target P,S=Õ(n/ε), expected amortized U=Õ(1/ε), and worst-case Q=polylog n. Require simultaneous correctness with probability ≥1−n<sup>−c</sup> for any fixed polynomial-length oblivious update/query sequence. Space is in O(log n)-bit words.</p>",
-      "known": "<p>Static indices achieve Õ(n/ε) space with Õ(1) queries. For bounded degree, <a href=\"https://arxiv.org/html/2507.04674v1\" target=\"_blank\" rel=\"noopener\">[YL25]</a> gives a local Õ(1/ε)-time estimator, which yields a simple dynamic baseline by maintaining adjacency lists and answering from scratch. The requested Q is smaller.</p>",
-      "verification": "<p><b>B · Sharpened candidate.</b> <a href=\"https://ronghuali.github.io/PaperFiles/Efficient%20Index%20Maintenance%20for%20Effective%20Resistance%20Computation%20on%20Evolving%20Graphs.pdf\" target=\"_blank\" rel=\"noopener\">[L25]</a> directly studies evolving-graph resistance indices, so this is not presented as the first dynamic index problem. Its walk-maintenance conditions and <a href=\"https://arxiv.org/html/2601.11159v1\" target=\"_blank\" rel=\"noopener\">[YLL26]</a>’s different error interface do not establish the stated uniform tradeoff in the checked results.</p>",
+      "question": "Can a fully dynamic always-expander maintain an explicit spectral Schur complement sparsifier on √n prescribed terminals in Õ(√n) update time and polylogarithmic recourse?",
+      "origin": "A terminal sparsification question motivated by <a href=\"https://arxiv.org/html/1906.10530v1\" target=\"_blank\" rel=\"noopener\">[DGGP19]</a>, <a href=\"https://arxiv.org/html/2005.02368v1\" target=\"_blank\" rel=\"noopener\">[CGHPS20]</a> and the improved dynamic primitive <a href=\"https://arxiv.org/html/2112.00722v1\" target=\"_blank\" rel=\"noopener\">[BGJLLPS22]</a>.",
+      "significance": "<p>A small terminal graph preserves all terminal electrical energies and resistances. Low recourse matters when another dynamic algorithm consumes its edge changes: a cheap internal update that rewrites the whole terminal graph can still be expensive to use.</p>",
+      "formulation": "<p>Gₜ is a simple, undirected, unweighted graph on n fixed vertices. Every edge insertion or deletion preserves maximum degree Δ₀ and conductance Φ(Gₜ)≥φ₀, for fixed positive constants Δ₀,φ₀. The class has no planar restriction; expansion is promised, not certified by the data structure.</p><div class=\"equation\">Φ(G)=min<sub>∅≠S⊊V</sub> |∂S| / min{vol(S),vol(V∖S)}, &nbsp; vol(S)=Σ<sub>v∈S</sub>deg(v).</div><p>A prescribed set T⊂V of k=⌈√n⌉ vertices is fixed before preprocessing; F=V∖T. Fix ε∈(0,1/10). Maintain a nonnegatively weighted graph Hₜ on exactly T, with Õ(kε⁻²) edges, such that</p><div class=\"equation\">Sₜ=Lₜ[T,T]−Lₜ[T,F]Lₜ[F,F]⁻¹Lₜ[F,T]; &nbsp; (1−ε)Sₜ ≼ L(Hₜ) ≼ (1+ε)Sₜ.</div><p>Target: P,S=Õ(n·poly(1/ε)), expected amortized U=Õ(√n·poly(1/ε)), and expected amortized recourse R=polylog n·poly(1/ε). Recourse counts each inserted/deleted edge and each weight change in the explicit Hₜ, including all changes during rebuilding. The update returns this edit list; enumerating Hₜ costs Õ(kε⁻²). Require high-probability spectral validity throughout any polynomial-length oblivious update sequence. No extra terminals may be introduced in the output.</p>",
+      "known": "<p>Static construction already takes Õ(m+nε⁻²) time with Õ(kε⁻²) output edges <a href=\"https://arxiv.org/pdf/1611.07451\" target=\"_blank\" rel=\"noopener\">[DKPPRS17]</a>. The dynamic primitives below permit terminal growth; their cheap terminal-to-terminal updates must be charged together with promotions and rebuilding. Neither pairwise resistance sketches nor separator-based algorithms establish this fixed-terminal, explicit-recourse interface.</p>",
+      "verification": "<p>Reframed after checking the 2019, 2020 and 2022 dynamic sparsifier primitives. For β=n⁻¹ᐟ² and m=Θ(n), the 2022 initialization is Õ(n²ε⁻²), AddTerminal is Õ(nε⁻²), and materializing SC is Õ(√nε⁻²). Charging initialization over a √n-operation epoch alone costs Õ(n³ᐟ²ε⁻²) per operation. These are substitutions into that theorem, not asserted lower bounds; the static rebuild baseline is better for our fixed-T comparison.</p>",
       "comments": [
-        "Relative and absolute error must be distinguished before comparing bounds.",
-        "A local-access Ω(1/ε) lower bound does not automatically apply after arbitrary preprocessing.",
-        "The oblivious sequence assumption is part of this question; adaptive robustness would be a stronger theorem."
+        "A weight modification counts as recourse even if the endpoints of an output edge stay unchanged. An implicit dense rank-one update is not one edit in this interface.",
+        "The requirement “exactly T” is deliberate. Allowing a maintained superset T⊆C with |C|=O(√n) is a distinct relaxation and should have its own theorem statement.",
+        "At constant ε, rebuilding the static sparsifier gives U=Õ(n) and R=Õ(√n). The question requires improvements in both quantities, with every rebuild charged.",
+        "The former high-precision resistance-index question has been replaced here. Fast scalar resistance estimates and dynamic terminal sparsification have different output guarantees."
       ],
       "literature": [
         [
-          "LS23",
-          "Static index theorem",
-          "Expander resistance sketch with fast queries."
+          "DKPPRS17",
+          "Theorem 2.2",
+          "Static prescribed-terminal approximate Schur complement: Õ(m+nε⁻²) construction, O(kε⁻² log(n/δ)) output entries, success ≥1−δ."
         ],
         [
-          "DKS23",
-          "Official NeurIPS abstract",
-          "Improved static construction; conference year is 2023."
+          "DGGP19",
+          "Lemma 1.1; terminal augmentation and operation budget",
+          "Unweighted initialization Õ(mβ⁻²ε⁻⁴), O(βm)-operation epoch, augmented terminal set of size O(βm). An epoch primitive is not an indefinite fixed-terminal data structure."
         ],
         [
-          "YL25",
-          "Theorems 2–5; Tables 1–2",
-          "Precision-sensitive local and indexed baselines."
+          "CGHPS20",
+          "Lemma 8.15; Theorem 8.1",
+          "Weighted SC primitive: initialization Õ(mβ⁻⁴ε⁻⁴), update Õ(β⁻²ε⁻²), O(βm) operations; total edge changes Õ(mβ⁻¹ε⁻²). Recourse and rebuilds enter the hierarchy explicitly."
         ],
         [
-          "L25",
-          "§§3–4",
-          "Direct prior work on dynamic resistance-index maintenance."
-        ],
-        [
-          "YLL26",
-          "Definition 2.2; Table 1; §4",
-          "2026 follow-up checked; its absolute-error and parameter assumptions matter."
+          "BGJLLPS22",
+          "Theorem 4.7",
+          "Improved initialization Õ(mβ⁻²ε⁻²); AddTerminal Õ(β⁻²ε⁻²); updates with both endpoints terminal Õ(1); SC output Õ(βmε⁻²). Terminals grow, with oblivious updates. Requires β<ε²."
         ]
       ],
       "related": [],
-      "lastVerified": "2026-09-08"
+      "lastVerified": "2026-09-08",
+      "audit": {
+        "status": "candidate",
+        "decision": "Replaced the resistance-value target with a precise fixed-terminal recourse target.",
+        "gap": "At constant ε, improve static rebuilding from (U,R)=(Õ(n),Õ(√n)) to (Õ(√n),polylog n).",
+        "caution": "Small-terminal dynamic SC work is substantial prior art. Fixed versus augmented terminals, output edits and initialization amortization are essential novelty checks."
+      },
+      "bounds": [
+        {
+          "label": "Matching output; static rebuild after every update",
+          "runtime": "P=Õ(nε⁻²); U=Õ(nε⁻²); output size and R=Õ(√nε⁻²).",
+          "scope": "Prescribed fixed T; randomized with failure probability reduced for the entire horizon. Storage of the input and construction workspace is counted separately from output size.",
+          "source": "DKPPRS17",
+          "locator": "Theorem 2.2; rebuild specialization"
+        },
+        {
+          "label": "Related dynamic primitive at β=n⁻¹ᐟ²",
+          "runtime": "P=Õ(n²ε⁻²); promotion=Õ(nε⁻²); terminal-edge update=Õ(1); output=Õ(√nε⁻²).",
+          "scope": "Terminals are selected/augmented by the algorithm; arbitrary updated endpoints must first be promoted. Thus this row does not meet the fixed-T contract. The theorem requires β<ε², hence n⁻¹ᐟ²<ε² in this substitution (in particular, fixed ε and sufficiently large n).",
+          "source": "BGJLLPS22",
+          "locator": "Theorem 4.7; substitution m=Θ(n)"
+        }
+      ]
     },
     {
       "id": "DG05",
       "track": "dynamic",
       "title": "Find energy-heavy edges of an implicitly changing electrical flow",
-      "evidence": "B",
+      "evidence": "C",
       "contribution": "Major",
       "tags": [
         "edge and demand updates",
@@ -224,7 +320,7 @@
       "significance": "<p>An algorithm often needs the identities of the few edges carrying substantial energy, not just the total energy or a value at a named coordinate. Requiring the data structure to discover those edges makes the output task different from pointwise resistance or voltage estimation.</p>",
       "formulation": "<p>Let Gₜ=(V,Eₜ) be a simple, undirected, unweighted graph on n fixed vertices. Each operation inserts or deletes one edge. Every resulting graph satisfies max degree ≤ Δ₀ and conductance Φ(Gₜ) ≥ φ₀, for fixed positive constants Δ₀, φ₀. The input is not restricted to planar graphs. Vertices need not remain regular.</p><div class=\"equation\">Φ(G) = min<sub>∅≠S⊊V</sub> |E(S,V∖S)| / min{vol(S), vol(V∖S)}, &nbsp; vol(S)=Σ<sub>v∈S</sub> deg(v).</div><p>Orient edges arbitrarily; Bₜ is the vertex-by-edge incidence matrix and Lₜ=BₜBₜᵀ. Maintain b∈ℤⁿ with Σb=0 and polynomially bounded entries. In addition to edge updates, allow b←b+δ(eₐ−eᵦ), with word-sized δ. Let x=Lₜ†b, f=Bₜᵀx and E=‖f‖₂².</p><div class=\"equation\">{e: |fₑ|≥ε√E} ⊆ H ⊆ {e: |fₑ|≥(ε/2)√E}; &nbsp; |H|≤4ε⁻².</div><p>For E=0 return ∅. Target P,S=Õ(n·poly(1/ε)), expected amortized U=polylog n·poly(1/ε), and Q=Õ(ε<sup>−2</sup>) to report H. Require high-probability correctness over a polynomial-length oblivious sequence. x is not supplied as a query input.</p>",
       "known": "<p>Expander flow sampling and specialized electrical-flow locators already exist <a href=\"https://arxiv.org/abs/2009.01802\" target=\"_blank\" rel=\"noopener\">[B20]</a> <a href=\"https://arxiv.org/html/2101.07233v2\" target=\"_blank\" rel=\"noopener\">[GLP21]</a>. Dynamic energy/coordinate queries <a href=\"https://arxiv.org/html/1906.10530v1\" target=\"_blank\" rel=\"noopener\">[DGGP19]</a> do not alone locate unknown heavy coordinates. <a href=\"https://arxiv.org/html/2510.17740v1\" target=\"_blank\" rel=\"noopener\">[JKLS25]</a> treats a related product-query interface.</p>",
-      "verification": "<p><b>B · Sharpened candidate.</b> The unresolved combination is arbitrary topology updates, demand updates, an implicit Laplacian solution, and energy-relative reporting. This is not a claim that flow heavy hitters or dynamic matrix heavy hitters are new.</p>",
+      "verification": "<p><b>On hold as a paper-selection claim.</b> Held for a sharper comparison with existing electrical-flow locators.</p><p>The old “related locators exist” paragraph was insufficient. The item remains a research lead, not an audited claim that the requested heavy-hitter interface is new.</p>",
       "comments": [
         "The gray band is necessary: edges between ε/2 and ε may be included or omitted.",
         "The queried vector x changes globally after a local graph update. Charging only for Bₜᵀx when x is explicitly supplied would omit the central maintenance cost.",
@@ -232,28 +328,45 @@
       ],
       "literature": [
         [
-          "B20",
-          "Electrical-flow sampling subroutine",
-          "Sublinear identification/sampling of high-energy edges on expanders in a matching algorithm."
-        ],
-        [
-          "GLP21",
-          "§5, Locator",
-          "Important-edge data structures in a specialized electrical-flow setting."
-        ],
-        [
           "DGGP19",
-          "§5, dynamic Laplacian solver",
-          "Graph/demand updates with energy and coordinate information."
+          "Theorem 1.2",
+          "Bounded-degree dynamic Laplacian system: Õ(n^(11/12)ε⁻⁵) expected amortized operation cost for its approximate potential/energy interface. Not an automatic support-reporting bound."
+        ],
+        [
+          "BGJLLPS22",
+          "Theorem 4.7; §5.4, Dynamic Locator",
+          "The SC component has initialization Õ(mβ⁻²ε⁻²), terminal promotion Õ(β⁻²ε⁻²), and terminal-edge update Õ(1). The locator uses additional vector and terminal-state machinery."
         ],
         [
           "JKLS25",
           "Theorems 2.1 and 7.1",
-          "Two-sparse matrix updates and product heavy hitters; the input-vector interface differs."
+          "Reports heavy entries of Ah with a term Õ(n+ε⁻²‖Ah‖²₂) in its product-query interface; h is supplied. This does not give the cost of obtaining h=L†b."
         ]
       ],
       "related": [],
-      "lastVerified": "2026-09-08"
+      "lastVerified": "2026-09-08",
+      "audit": {
+        "status": "hold",
+        "decision": "Held for a sharper comparison with existing electrical-flow locators.",
+        "gap": "The proposed target is polylogarithmic topology/demand update and Õ(ε⁻²) implicit-flow reporting; no matching frontier is certified.",
+        "caution": "The old “related locators exist” paragraph was insufficient. The item remains a research lead, not an audited claim that the requested heavy-hitter interface is new."
+      },
+      "bounds": [
+        {
+          "label": "Compute and scan the implicit flow afresh",
+          "runtime": "U=O(1); Q=Õ(n log(1/ε)); P,S=Õ(n).",
+          "scope": "On the bounded-degree expander, solve on the zero-sum subspace to sufficiently small relative energy error, then scan all edges. A grey band permits stable classification; constant-factor slack must be reserved.",
+          "source": "Elementary baseline",
+          "locator": "Derivation in this entry"
+        },
+        {
+          "label": "Related dynamic Laplacian interface",
+          "runtime": "U,Q=Õ(n^(11/12) ε⁻⁵).",
+          "scope": "Bounded-degree graph, approximate potentials/energy with demand updates; does not itself report the unknown heavy-edge support.",
+          "source": "DGGP19",
+          "locator": "Theorem 1.2"
+        }
+      ]
     },
     {
       "id": "DG06",
@@ -281,22 +394,44 @@
       "literature": [
         [
           "LS23",
-          "Spanning-tree counting result",
-          "Static expander counting baseline."
+          "Spanning-tree counting theorem",
+          "Static (1±ε) tree count on an expander in Õ(m+n^(3/2)/ε) time. Rebuilding gives this update cost."
         ],
         [
           "LPY25",
-          "Abstract and main result",
-          "2025 general-graph multiplicative counting improvement."
+          "Abstract and main theorem",
+          "Static general-graph multiplicative tree count in Õ(m^(3/2)/ε) time. No fully dynamic guarantee is claimed."
         ],
         [
           "L25",
-          "§§3–4",
-          "Resistance-index maintenance is related, but does not by itself control accumulated determinant error."
+          "Lemmas 3.3, 3.6; §4",
+          "Landmark-removal expected cost contains a hitting-time factor h(v,T) times the sum of probabilities that sampled walks use v. This is a graph/landmark-dependent bound, not long-horizon relative determinant-error control."
         ]
       ],
       "related": [],
-      "lastVerified": "2026-09-08"
+      "lastVerified": "2026-09-08",
+      "audit": {
+        "status": "candidate",
+        "decision": "Retained with the actual rebuild cost and an explicit accumulated-error gap.",
+        "gap": "Improve U=Õ(n^(3/2)/ε) rebuilding to Õ(√n·poly(1/ε)), with relative count error ε over the full horizon.",
+        "caution": "The determinant identity is exact, but multiplying individually approximate resistance factors can accumulate error. The required simultaneous ε guarantee must be proved, not inferred from a fixed-error index."
+      },
+      "bounds": [
+        {
+          "label": "Recompute the count after every update",
+          "runtime": "P,U=Õ(n^(3/2)/ε); S=polynomial; Q=O(1) words in logarithmic representation.",
+          "scope": "The expander static algorithm, with failure budget divided across a known polynomial horizon. No claimed dynamic improvement.",
+          "source": "LS23",
+          "locator": "Spanning-tree counting theorem"
+        },
+        {
+          "label": "General-graph static comparator",
+          "runtime": "Time=Õ(m^(3/2)/ε).",
+          "scope": "For m=Θ(n), the same exponent as the expander rebuild benchmark; does not exploit temporal reuse.",
+          "source": "LPY25",
+          "locator": "Main result"
+        }
+      ]
     },
     {
       "id": "DG07",
@@ -315,8 +450,8 @@
       "origin": "Exploratory dynamic sampling interface motivated by static spanning-tree/forest sampling <a href=\"https://arxiv.org/abs/2004.07220\" target=\"_blank\" rel=\"noopener\">[ALOVV20]</a> and expander resistance methods <a href=\"https://arxiv.org/abs/2211.01468\" target=\"_blank\" rel=\"noopener\">[LS23]</a>.",
       "significance": "<p>Sampling a tree is a different task from estimating its total count or maintaining one arbitrary spanning tree. A useful dynamic sampling theorem must specify the distribution at each time and account for the cost of representing a changing tree.</p>",
       "formulation": "<p>Let Gₜ=(V,Eₜ) be a simple, undirected, unweighted graph on n fixed vertices. Each operation inserts or deletes one edge. Every resulting graph satisfies max degree ≤ Δ₀ and conductance Φ(Gₜ) ≥ φ₀, for fixed positive constants Δ₀, φ₀. The input is not restricted to planar graphs. Vertices need not remain regular.</p><div class=\"equation\">Φ(G) = min<sub>∅≠S⊊V</sub> |E(S,V∖S)| / min{vol(S), vol(V∖S)}, &nbsp; vol(S)=Σ<sub>v∈S</sub> deg(v).</div><p>Fix an oblivious sequence of at most nᴷ edge updates. At each time t maintain an implicit spanning tree Tₜ of the current graph. Set η=n<sup>−c</sup> for a fixed c&gt;0.</p><div class=\"equation\">d<sub>TV</sub>(Law(Tₜ), UST(Gₜ)) ≤ η for every t.</div><p>Seek expected preprocessing Õ(n), space Õ(n), and amortized update Õ(√n), with O(log n) membership queries “is e in Tₜ?”. Enumerating all tree edges may cost O(n). If changed tree edges are reported after an update, charge their number separately. Samples across times may be correlated; independence is not required.</p>",
-      "known": "<p><a href=\"https://arxiv.org/abs/2004.07220\" target=\"_blank\" rel=\"noopener\">[ALOVV20]</a> gives fast static sampling via exchange walks. Recomputing a sample after every graph change is a valid baseline, but does not achieve the desired sublinear maintenance time. A fixed graph mixing theorem is not yet a changing-graph guarantee.</p>",
-      "verification": "<p><b>C · Exploratory candidate.</b> The output contract is precise, but the direct dynamic-sampling literature has been less conclusively matched than the resistance and distance frontiers. No original paper explicitly posing this exact theorem was located. Treat novelty as provisional.</p>",
+      "known": "<p><a href=\"https://arxiv.org/abs/2004.07220\" target=\"_blank\" rel=\"noopener\">[ALOVV20]</a> Theorem 2 samples within total variation η in O(m log m log(m/η)) time; the paper uses n for the number of edges. Thus m=Θ(n), η=n⁻ᶜ gives O(n log²n) rebuilding per update. A dynamic result must reuse the sample while maintaining its law; merely repairing a spanning tree is insufficient.</p>",
+      "verification": "<p><b>On hold as a paper-selection claim.</b> Numerical sampling baseline added; novelty remains provisional.</p><p>A rapid mixing bound for a fixed chain is not a bound for a chain whose stationary distribution changes after every graph update. No dynamic coupling theorem with the target costs was verified.</p>",
       "comments": [
         "The guarantee is a marginal law at each t for a fixed update sequence, not a fresh independent sample on every query.",
         "A random walk tree or an arbitrary maintained spanning tree is not automatically uniform.",
@@ -325,19 +460,34 @@
       "literature": [
         [
           "ALOVV20",
-          "Abstract; sampling applications",
-          "Rapid exchange-walk mixing and static forest/spanning-tree sampling."
+          "Theorem 2 (q=0, connected graph); §5",
+          "A sample within total variation η of the uniform spanning-tree law takes O(m log m log(m/η)) time. For m=Θ(n), η=n⁻ᶜ this is O(n log²n). Static, not dynamic."
         ],
         [
           "LS23",
-          "Resistance and counting results",
-          "Expander-specific probabilistic quantities related to tree distributions."
+          "Static resistance and counting theorems",
+          "Resistance index P=Õ(m+nε⁻²), size Õ(n/ε), Q=Õ(1); multiplicative tree count Õ(m+n^(3/2)/ε). Neither is a sample-maintenance theorem."
         ]
       ],
       "related": [
         "DG06"
       ],
-      "lastVerified": "2026-09-08"
+      "lastVerified": "2026-09-08",
+      "audit": {
+        "status": "hold",
+        "decision": "Numerical sampling baseline added; novelty remains provisional.",
+        "gap": "Improve O(n log² n) fresh sampling per update to Õ(√n), preserving the marginal total-variation guarantee and fast membership queries.",
+        "caution": "A rapid mixing bound for a fixed chain is not a bound for a chain whose stationary distribution changes after every graph update. No dynamic coupling theorem with the target costs was verified."
+      },
+      "bounds": [
+        {
+          "label": "Full independent resampling",
+          "runtime": "P,U=O(m log m log(m/η)); Q=O(1) membership; S=O(m+n).",
+          "scope": "For this class and η=n⁻ᶜ: O(n log²n). Building a membership table is linear and covered. Samples at different times may be independent.",
+          "source": "ALOVV20",
+          "locator": "Theorem 2; q=0"
+        }
+      ]
     },
     {
       "id": "DG08",
@@ -366,16 +516,38 @@
         [
           "BBKS25",
           "Main theorem",
-          "2025 deterministic sublinear-update breakthrough."
+          "Deterministic fully dynamic maximal matching U=Õ(n^(8/9)); adaptive randomized variant U=Õ(n^(3/4)). The later 2026 deterministic exponent is smaller."
         ],
         [
           "CKS26",
           "Main theorem; arXiv May 2026",
-          "Current checked deterministic general-graph benchmark: n^(1/2+o(1))."
+          "Deterministic fully dynamic maximal matching in n^(1/2+o(1)) amortized update time; a stored mate array answers queries in O(1)."
         ]
       ],
       "related": [],
-      "lastVerified": "2026-09-08"
+      "lastVerified": "2026-09-08",
+      "audit": {
+        "status": "candidate",
+        "decision": "Retained with the May 2026 benchmark.",
+        "gap": "Improve the deterministic n^(1/2+o(1)) amortized-update benchmark by a fixed polynomial factor under the dense-expander promise.",
+        "caution": "Bounded-degree maximal matching is easy by local repair; this record intentionally uses dense graphs and must not inherit the degree bound of DG01."
+      },
+      "bounds": [
+        {
+          "label": "Current verified general-graph benchmark",
+          "runtime": "U=n^(1/2+o(1)) amortized; mate query O(1).",
+          "scope": "Deterministic fully dynamic maximal matching; dense graphs are allowed.",
+          "source": "CKS26",
+          "locator": "Main theorem; May 2026 preprint"
+        },
+        {
+          "label": "Previous deterministic bound",
+          "runtime": "U=Õ(n^(8/9)); randomized adaptive variant Õ(n^(3/4)).",
+          "scope": "General graphs; superseded for the deterministic exponent by the 2026 result.",
+          "source": "BBKS25",
+          "locator": "Main results"
+        }
+      ]
     },
     {
       "id": "DG09",
@@ -403,17 +575,274 @@
       "literature": [
         [
           "HPS22",
-          "Matching lower bounds on expanders",
-          "Explains why the precise strengthening of the graph promise matters."
+          "§3.3, Theorem 15",
+          "For exact maximum matching / perfect-matching existence on constant-degree constant-expansion general graphs, OMv excludes U=O(n^(1/2−δ)) and Q=O(n^(1−δ)). The construction is nonbipartite and does not satisfy this robust-Hall promise."
         ],
         [
           "BZ22",
-          "Online matching model and expander guarantees",
-          "Related positive results with static edges and changing requests; different update primitive."
+          "Theorem 1.2; word-RAM footnote",
+          "Theorem 1.2: lossless expansion (2D/3+2) up to K allows O(log N) load and O(D log N) bit operations per request/retraction, or O(D) on a log N-bit word RAM. Static edges; not load-one dynamic perfect matching."
         ]
       ],
       "related": [],
-      "lastVerified": "2026-09-08"
+      "lastVerified": "2026-09-08",
+      "audit": {
+        "status": "candidate",
+        "decision": "Retained; the robust Hall promise is part of the problem, not an inferred property of expanders.",
+        "gap": "Improve a deterministic O(n)-time augmenting-path repair after a matched-edge deletion to polylog n.",
+        "caution": "Ordinary conductance does not imply the two-sided (1+α) Hall promise. A hardness transfer or positive theorem must verify it after every intermediate edge update."
+      },
+      "bounds": [
+        {
+          "label": "Exact dynamic repair",
+          "runtime": "P=polynomial; S=O(n); U=O(n) worst-case; mate query O(1).",
+          "scope": "Insertion leaves the current perfect matching valid. One matched-edge deletion requires one augmenting path; m=O(n).",
+          "source": "Elementary baseline",
+          "locator": "Derivation in this entry"
+        },
+        {
+          "label": "Related online matching result",
+          "runtime": "O(D) word operations per request/retraction; load O(log N).",
+          "scope": "Lossless expansion at least 2D/3+2 up to K, static underlying edges. Both the allowed load and update primitive differ.",
+          "source": "BZ22",
+          "locator": "Theorem 1.2; Θ(log N)-bit word-RAM footnote"
+        }
+      ]
+    },
+    {
+      "id": "DG10",
+      "track": "dynamic",
+      "title": "Near-exact s–t max-flow / min-cut values on capacitated expanders",
+      "question": "Can arbitrary s–t queries on a capacitated always-expander be answered within a (1+ε) factor in Õ(√n) time with polylogarithmic updates?",
+      "contribution": "Focused",
+      "evidence": "B",
+      "tags": [
+        "s–t queries",
+        "capacities 1…nᴷ",
+        "weighted expansion",
+        "(1+ε)",
+        "value only"
+      ],
+      "formulation": "<p>Gₜ=(V,Eₜ,cₜ) is a simple undirected capacitated graph on n fixed vertices, with mₜ≤M=O(n log²n). Every nonzero capacity is an integer in [1,nᴷ], for a fixed K. An update inserts or deletes one edge, or changes one capacity. All states satisfy capacity-weighted conductance Φc(Gₜ)≥φ₀ for a fixed 0<φ₀≤1/4. There is no degree bound and no planar restriction. M is known; the initial graph is explicit.</p><div class=\"equation\">Φc(G)=min<sub>∅≠S⊊V</sub> c(∂S)/min{volc(S),volc(V∖S)}, &nbsp; volc(S)=Σ<sub>v∈S</sub>Σ<sub>e∋v</sub>c(e).</div><div class=\"equation\">λₜ(s,t)=min<sub>s∈S, t∉S</sub>cₜ(∂S)=max{F: Bf=F(eₛ−eₜ), |fₑ|≤cₜ(e)}.</div><p>B is a vertex-by-edge incidence matrix for an arbitrary fixed orientation; f is signed and F≥0 is its s–t flow value.</p><p>Fix ε∈(0,1/10). Query(s,t) returns λ̂ with λ/(1+ε)≤λ̂≤λ. Seek P=Õ(M·poly(1/ε)), S=Õ(M·poly(1/ε)), expected amortized U=polylog n·poly(1/ε), and worst-case Q=Õ(√n·poly(1/ε)). Require simultaneous high-probability correctness for every query in a polynomial-length oblivious sequence. Only a scalar value is requested; neither a cut partition nor a feasible flow is included.</p>",
+      "significance": "<p>This isolates whether expansion enables accurate many-pair flow queries without a graph-wide max-flow computation per query. The approximation parameter must be stated: a generic constant-factor estimate is already elementary on a constant-conductance graph.</p>",
+      "known": "<p>The endpoint-degree estimate below is constant-factor but not (1+ε). Static approximate max-flow gives an Õ(M/ε) query baseline. Dynamic tree-flow approximations give different approximation/update tradeoffs; they do not establish this precision and query cost.</p>",
+      "comments": [
+        "Capacity-weighted expansion is required. Expansion of only the unweighted support would allow tiny-capacity edges to mask flow bottlenecks.",
+        "The graph is sparse but capacities and vertex degrees may grow. The bounded-degree unit-capacity local enumeration does not apply.",
+        "Reporting a feasible flow is a separate interface: an explicit edge vector may need Ω(m) output time."
+      ],
+      "literature": [
+        [
+          "FL26",
+          "Main approximate-flow result",
+          "Static time O(m log⁹n log log n+ε⁻¹m log⁶n) for (1−ε)-approximate undirected max-flow. Recomputing per query gives Õ(M/ε)."
+        ],
+        [
+          "CGHPS20",
+          "Theorem 6.1; adaptive extension",
+          "Fully dynamic nearly-logarithmic-factor all-pair flow/cut approximation: Õ(n^(2/3)) amortized operations, oblivious adversary; Õ(m^(3/4)) adaptive variant. The approximation is not 1+ε."
+        ],
+        [
+          "GRST21",
+          "Corollary 1.3",
+          "Unweighted deterministic dynamic flow/min-cut value estimates with n^o(1) approximation and worst-case update time, Q=O(log^(1/6)n). Related model, not a near-exact weighted result."
+        ],
+        [
+          "KK26",
+          "Theorem 1.5",
+          "Unweighted exact Gomory–Hu tree in n^(3/2+o(1)) worst-case update time. Does not directly cover arbitrary capacities."
+        ]
+      ],
+      "related": [
+        "DG11",
+        "DG12",
+        "DG04"
+      ],
+      "lastVerified": "2026-09-08",
+      "origin": "A newly specified query interface synthesized from the primary results in the literature table. The target is proposed here, not quoted as an author conjecture.",
+      "verification": "<p>Checked against exact versus approximate flow, fixed versus arbitrary query pairs, static versus fully dynamic algorithms, weighted versus unweighted graphs, and value versus witness output. The candidate is not claimed to be formally hard.</p>",
+      "audit": {
+        "status": "candidate",
+        "decision": "Added after rejecting the trivial constant-degree unit-capacity value problem.",
+        "gap": "Keep polylogarithmic updates, but improve accurate value-query work from Õ(M/ε) recomputation to Õ(√n·poly(1/ε)).",
+        "caution": "No matching near-exact, weighted-expander data structure was verified. The problem is an explicit proposed tradeoff, with both cheap weaker baselines shown."
+      },
+      "bounds": [
+        {
+          "label": "Same accuracy; recompute per query",
+          "runtime": "P,S=O(M); U=O(log n); Q=Õ(M/ε).",
+          "scope": "Store the graph and run the static approximate algorithm with internal accuracy ε/(1+ε). Union-bound its failure probability over the horizon.",
+          "source": "FL26",
+          "locator": "Main theorem; black-box dynamic specialization"
+        },
+        {
+          "label": "Elementary constant-factor oracle",
+          "runtime": "P=O(M); S=O(n+M); U=O(log n); Q=O(1).",
+          "scope": "Let d=min{volc(s),volc(t)}. Then φ₀d≤λ≤d, so φ₀d is a feasible lower estimate with factor 1/φ₀. This does not meet 1+ε.",
+          "source": "Elementary baseline",
+          "locator": "Derivation in this entry"
+        },
+        {
+          "label": "Known dynamic approximation tradeoff",
+          "runtime": "U,Q=Õ(n^(2/3)) amortized; approximation nearly logarithmic.",
+          "scope": "Oblivious adversary. This beats recomputation in operation time but not at the target precision.",
+          "source": "CGHPS20",
+          "locator": "Theorem 6.1"
+        },
+        {
+          "label": "Exact answers with slower updates",
+          "runtime": "P,U=M^(1+o(1)); Q=O(log n).",
+          "scope": "Rebuild a weighted Gomory–Hu tree; exact values also meet the requested approximation. This trades faster queries for much slower updates.",
+          "source": "KK26",
+          "locator": "Theorem 4.7; static rebuild"
+        }
+      ]
+    },
+    {
+      "id": "DG11",
+      "track": "dynamic",
+      "title": "Report maximum flows as edge-disjoint paths on unit-capacity expanders",
+      "question": "Can an always-expander return an actual maximum s–t flow as edge-disjoint simple paths in time polylog n plus the output length?",
+      "contribution": "Major",
+      "evidence": "B",
+      "tags": [
+        "unit capacities",
+        "bounded degree",
+        "flow witness",
+        "edge-disjoint paths",
+        "output-sensitive"
+      ],
+      "formulation": "<p>Gₜ is a simple, undirected, unweighted graph on n fixed vertices. Every edge insertion or deletion preserves maximum degree Δ₀ and conductance Φ(Gₜ)≥φ₀, for fixed positive constants Δ₀,φ₀. The class has no planar restriction; expansion is promised, not certified by the data structure.</p><div class=\"equation\">Φ(G)=min<sub>∅≠S⊊V</sub> |∂S| / min{vol(S),vol(V∖S)}, &nbsp; vol(S)=Σ<sub>v∈S</sub>deg(v).</div><div class=\"equation\">λₜ(s,t)=min<sub>s∈S, t∉S</sub>cₜ(∂S)=max{F: Bf=F(eₛ−eₜ), |fₑ|≤cₜ(e)}.</div><p>B is a vertex-by-edge incidence matrix for an arbitrary fixed orientation; f is signed and F≥0 is its s–t flow value.</p><p>Here c(e)=1. For arbitrary queried s,t, return λₜ(s,t) pairwise edge-disjoint simple s–t paths. Let L be their total number of reported edges. Seek deterministic P,S=n^(1+o(1)), amortized U=polylog n, and worst-case Q=polylog n+O(L) over polynomial-length adaptive legal sequences. No full n-bit cut partition is requested. There is no imposed O(log n) length bound on the flow paths; that would be an additional demand requiring a feasibility proof.</p>",
+      "significance": "<p>Even when an exact min-cut value can be found locally, constructing the global routes that realize it is a different task. This question explicitly asks for a feasible maximum flow, rather than reusing a scalar min-cut theorem as a path-reporting claim.</p>",
+      "known": "<p>There are at most Δ₀ paths. A fresh integral augmenting-path computation uses at most Δ₀ augmentations, each O(m), giving O(n) work. A value-only dynamic c-edge-connectivity theorem does not establish the requested path-reporting cost.</p>",
+      "comments": [
+        "The scalar value and a small minimum-cut side are already computable in constant time for fixed Δ₀,φ₀ by the local enumeration in the audit note. That solved variant is not the open question.",
+        "Q must hold for every query; permitting L=Θ(n) on some instances does not justify scanning Θ(n) edges when the returned witness is small.",
+        "For a fixed s,t maintained permanently, the problem changes: the index may be specialized to that pair. This record requires arbitrary query pairs."
+      ],
+      "literature": [
+        [
+          "JS21",
+          "Main s–t c-edge-connectivity theorem",
+          "For c=(log n)^o(1), deterministic fully dynamic threshold connectivity has n^o(1) worst-case update and query time. It does not by itself provide output-linear maximum-flow path reporting."
+        ],
+        [
+          "HLS24",
+          "Theorem 1.3; §12.4",
+          "For any fixed α>0, U=O(n^α) supports constant-stretch single-path reporting. A single short path is not a collection of λ edge-disjoint paths."
+        ],
+        [
+          "KK26",
+          "Theorem 1.5",
+          "Unweighted exact all-pair cut values represented by a maintained Gomory–Hu tree, U=n^(3/2+o(1)). A cut tree is not an explicit feasible flow in the input graph."
+        ]
+      ],
+      "related": [
+        "DG02",
+        "DG10",
+        "DG12"
+      ],
+      "lastVerified": "2026-09-08",
+      "origin": "A newly specified query interface synthesized from the primary results in the literature table. The target is proposed here, not quoted as an author conjecture.",
+      "verification": "<p>Checked against exact versus approximate flow, fixed versus arbitrary query pairs, static versus fully dynamic algorithms, weighted versus unweighted graphs, and value versus witness output. The candidate is not claimed to be formally hard.</p>",
+      "audit": {
+        "status": "candidate",
+        "decision": "Added as a witness problem; the scalar variant is excluded.",
+        "gap": "Improve O(n) fresh maximum-flow computation to polylog n plus actual output size, with fast updates.",
+        "caution": "No formal lower bound is claimed. A future result must be compared against flow-witness algorithms, not only edge-connectivity or cut-value data structures."
+      },
+      "bounds": [
+        {
+          "label": "Exact maximum-flow witness from scratch",
+          "runtime": "P,S=O(n); U=O(1); Q=O(Δ₀m+L)=O(n).",
+          "scope": "Integral unit capacities: each augmentation increases the value by one, and λ≤Δ₀. Decompose the resulting integral flow into simple paths.",
+          "source": "Elementary baseline",
+          "locator": "Derivation in this entry"
+        },
+        {
+          "label": "Exact value and small cut, already solved",
+          "runtime": "U=O(1); Q=Δ₀^O(Δ₀/φ₀)=O(1).",
+          "scope": "Enumerate connected sets of size ≤⌊Δ₀/φ₀⌋ rooted at s or t; the proof is in the excluded-variants audit. Does not produce global flow paths.",
+          "source": "Elementary baseline",
+          "locator": "Derivation in this entry"
+        }
+      ]
+    },
+    {
+      "id": "DG12",
+      "track": "dynamic",
+      "title": "Exact s–t min-cut values with growing integral capacities",
+      "question": "Can exact arbitrary-pair cut values on sparse capacitated always-expanders have Õ(√n) updates and polylogarithmic queries?",
+      "contribution": "Major",
+      "evidence": "B",
+      "tags": [
+        "exact s–t cut",
+        "capacities 1…nᴷ",
+        "weighted expansion",
+        "arbitrary pairs",
+        "word RAM"
+      ],
+      "formulation": "<p>Gₜ=(V,Eₜ,cₜ) is a simple undirected capacitated graph on n fixed vertices, with mₜ≤M=O(n log²n). Every nonzero capacity is an integer in [1,nᴷ], for a fixed K. An update inserts or deletes one edge, or changes one capacity. All states satisfy capacity-weighted conductance Φc(Gₜ)≥φ₀ for a fixed 0<φ₀≤1/4. There is no degree bound and no planar restriction. M is known; the initial graph is explicit.</p><div class=\"equation\">Φc(G)=min<sub>∅≠S⊊V</sub> c(∂S)/min{volc(S),volc(V∖S)}, &nbsp; volc(S)=Σ<sub>v∈S</sub>Σ<sub>e∋v</sub>c(e).</div><div class=\"equation\">λₜ(s,t)=min<sub>s∈S, t∉S</sub>cₜ(∂S)=max{F: Bf=F(eₛ−eₜ), |fₑ|≤cₜ(e)}.</div><p>B is a vertex-by-edge incidence matrix for an arbitrary fixed orientation; f is signed and F≥0 is its s–t flow value.</p><p>Return the exact integer λₜ(s,t). Target deterministic preprocessing P=M^(1+o(1)), space S=M^(1+o(1)) words, amortized U=Õ(√n), and worst-case Q=polylog n for arbitrary polynomial-length legal sequences. Arithmetic uses Θ(log n)-bit words, with the constant depending on K. The query returns a value only. The integer capacity bound is essential and is not expanded into unit parallel edges.</p>",
+      "significance": "<p>This separates exactness from the fixed-relative-error problem. The input size remains almost linear, while cut values can be polynomially large; exact small-connectivity routines no longer cover all queries.</p>",
+      "known": "<p>Theorem 4.7 of <a href=\"https://www.wisdom.weizmann.ac.il/~/robi/papers/KK-GHsparsifier2-STOC26.pdf\" target=\"_blank\" rel=\"noopener\">[KK26]</a> records a deterministic M^(1+o(1))-time static Gomory–Hu construction even for polynomially weighted graphs. Rebuilding it after each update gives exact arbitrary-pair values with U=M^(1+o(1)) and Q=O(log n). Its faster fully dynamic Theorem 1.5 is specifically unweighted. The open target here is a polynomial update improvement for capacitated expanders.</p>",
+      "comments": [
+        "A (1+ε) oracle with fixed ε does not yield exact cut values by rounding. A sufficient additive error below 1/2 would require ε=O(1/(Mnᴷ)) in the worst case; its cost must be substituted.",
+        "The O(1/φ₀) endpoint-degree estimate is again trivial but not exact. Graphs with a fixed maximum weighted degree would fall into a different parameter regime.",
+        "Maintaining a Gomory–Hu tree is stronger than merely answering exact values with this space bound; do not assume a tree representation has small update recourse."
+      ],
+      "literature": [
+        [
+          "BCKLST23",
+          "Main theorem",
+          "Deterministic static exact maximum flow/minimum-cost flow in m^(1+o(1)) time for polynomially bounded integral data. Fresh computation is a valid per-query baseline."
+        ],
+        [
+          "KK26",
+          "Theorems 1.5 and 4.7",
+          "Static weighted Gomory–Hu construction: m^(1+o(1)) deterministic time (Thm. 4.7). Fully dynamic unweighted tree: n^(3/2+o(1)) worst-case update (Thm. 1.5). Distinguish the two models."
+        ],
+        [
+          "JS21",
+          "Main theorem",
+          "Exact threshold c-edge-connectivity for c=(log n)^o(1) in n^o(1) worst-case update/query time. Polynomially large capacities and cut values exceed that regime."
+        ]
+      ],
+      "related": [
+        "DG10",
+        "DG11"
+      ],
+      "lastVerified": "2026-09-08",
+      "origin": "A newly specified query interface synthesized from the primary results in the literature table. The target is proposed here, not quoted as an author conjecture.",
+      "verification": "<p>Checked against exact versus approximate flow, fixed versus arbitrary query pairs, static versus fully dynamic algorithms, weighted versus unweighted graphs, and value versus witness output. The candidate is not claimed to be formally hard.</p>",
+      "audit": {
+        "status": "candidate",
+        "decision": "Added with integral capacity range and exact-output distinction.",
+        "gap": "Improve exact-value update time from M^(1+o(1)) static Gomory–Hu rebuilding to Õ(√n), preserving polylogarithmic arbitrary-pair queries.",
+        "caution": "This is a strong new tradeoff candidate, not a source-stated conjecture. Weighted expansion must be checked using capacities, and the known unweighted theorem cannot be transferred without a size-preserving reduction."
+      },
+      "bounds": [
+        {
+          "label": "Matching exact-value index by full rebuilding",
+          "runtime": "P,U=M^(1+o(1)); Q=O(log n); output tree and query index O(n) words.",
+          "scope": "Deterministic; weighted static construction. The tree plus input has O(M+n) space, in addition to construction workspace. Tree-path-minimum indexing takes O(n) time.",
+          "source": "KK26",
+          "locator": "Theorem 4.7; rebuilding and tree-index consequence"
+        },
+        {
+          "label": "Fully dynamic fallback: store and solve",
+          "runtime": "P,S=O(M) for graph storage; U=O(log n); Q=M^(1+o(1)).",
+          "scope": "Run a deterministic exact static solver per query; its workspace is additional. Polynomially bounded capacities fit the word model.",
+          "source": "BCKLST23",
+          "locator": "Main theorem"
+        },
+        {
+          "label": "Related exact all-pair dynamic result",
+          "runtime": "U=n^(3/2+o(1)) worst-case; query O(log n) via tree-path minimum.",
+          "scope": "Only unweighted graphs. O(n) tree indexing per rebuild is dominated by U; this is not the weighted baseline.",
+          "source": "KK26",
+          "locator": "Theorem 1.5; elementary tree indexing"
+        }
+      ]
     },
     {
       "id": "SP01",
@@ -443,29 +872,51 @@
         [
           "MN99",
           "Abstract and dimensional results",
-          "Foundational sandpile prediction classification."
+          "Prediction in d≥3 is P-complete; a one-dimensional version lies in NC³. These are dimension-dependent classifications, not an algorithm for the uniform two-dimensional case."
         ],
         [
           "FP20",
           "§2.2; §6, Open Question 4",
-          "Defines general versus avalanche prediction and lists the two-dimensional gap."
+          "Bounded-height explicit-input prediction is in P. Proposition 6 gives first-column ≤AC⁰ single-addition ≤AC⁰ general prediction; Open Question 4 includes the uniform 2D von Neumann and Moore gaps."
         ],
         [
           "CLP26",
           "Introduction and concluding discussion",
-          "2026 confirmation of the uniform-model gap despite nonuniform/weighted progress."
+          "Weighted/nonuniform crossing gates are constructed; the classical uniform 2D von Neumann/Moore classification remains unresolved. No uniform-model runtime improvement is supplied."
         ],
         [
           "MW26",
           "Institutional abstract",
-          "Fungal update rules are a separate model; their hardness is not a resolution here."
+          "Arbitrary Boolean circuits can be embedded for the stated fungal update model. This is a rule-specific hardness result, not a uniform 2D Abelian-sandpile runtime bound."
         ]
       ],
       "related": [
         "SP05",
         "SP09"
       ],
-      "lastVerified": "2026-09-08"
+      "lastVerified": "2026-09-08",
+      "audit": {
+        "status": "explicit",
+        "decision": "Retained as a source-explicit unresolved case.",
+        "gap": "Close the uniform parallel-classification gap for the precise two-dimensional prediction language stated here.",
+        "caution": "The classification concerns this exact uniform rule and input encoding; changing weights, neighborhoods, timing or freezing semantics changes the problem."
+      },
+      "bounds": [
+        {
+          "label": "Current verified complexity classification",
+          "runtime": "In P; no uniform-NC algorithm or P-completeness result for this exact case was verified.",
+          "scope": "Explicit finite rectangle and bounded heights. “In P” is the complexity bound, not an asserted optimal polynomial exponent.",
+          "source": "FP20",
+          "locator": "Prediction definitions; polynomial stabilization discussion; Open Question 4"
+        },
+        {
+          "label": "Neighboring dimension, different problem",
+          "runtime": "d≥3: P-complete; one-dimensional parallel upper bounds are known.",
+          "scope": "Neither side of this dimensional comparison settles the uniform two-dimensional rule.",
+          "source": "MN99",
+          "locator": "Dimensional classification"
+        }
+      ]
     },
     {
       "id": "SP02",
@@ -494,23 +945,45 @@
         [
           "FP20",
           "§2.2; Open Question 4",
-          "Single-addition prediction in the two-dimensional Moore case."
+          "Bounded-height explicit-input prediction is in P. Proposition 6 gives first-column ≤AC⁰ single-addition ≤AC⁰ general prediction; Open Question 4 includes the uniform 2D von Neumann and Moore gaps."
         ],
         [
           "CGMP25",
           "§2 and neighborhood classification",
-          "Ordinary prediction and crossover frontier inside the Moore neighborhood."
+          "Among 256 Moore-subset neighborhoods, 12 have ordinary crossover/P-completeness constructions and 244 lack ordinary crossover gates of the defined type. Nonexistence of that gadget is not an NC upper bound."
         ],
         [
           "CLP26",
           "Introduction; uniform-model comparison",
-          "Latest checked distinction between uniform and weighted/nonuniform crossing results."
+          "Weighted/nonuniform crossing gates are constructed; the classical uniform 2D von Neumann/Moore classification remains unresolved. No uniform-model runtime improvement is supplied."
         ]
       ],
       "related": [
         "SP08"
       ],
-      "lastVerified": "2026-09-08"
+      "lastVerified": "2026-09-08",
+      "audit": {
+        "status": "explicit",
+        "decision": "Retained as a source-explicit unresolved case.",
+        "gap": "Close the uniform parallel-classification gap for the precise two-dimensional prediction language stated here.",
+        "caution": "The classification concerns this exact uniform rule and input encoding; changing weights, neighborhoods, timing or freezing semantics changes the problem."
+      },
+      "bounds": [
+        {
+          "label": "Current verified complexity classification",
+          "runtime": "In P; no uniform-NC algorithm or P-completeness result for this exact case was verified.",
+          "scope": "Explicit finite rectangle and bounded heights. “In P” is the complexity bound, not an asserted optimal polynomial exponent.",
+          "source": "FP20",
+          "locator": "Prediction definitions; polynomial stabilization discussion; Open Question 4"
+        },
+        {
+          "label": "Neighboring dimension, different problem",
+          "runtime": "d≥3: P-complete; one-dimensional parallel upper bounds are known.",
+          "scope": "Neither side of this dimensional comparison settles the uniform two-dimensional rule.",
+          "source": "MN99",
+          "locator": "Dimensional classification"
+        }
+      ]
     },
     {
       "id": "SP03",
@@ -539,19 +1012,41 @@
         [
           "GMP21",
           "Definitions; §5; §6",
-          "Threshold-network equivalence, restricted cases, and remaining general FSPP gap."
+          "General freezing prediction remains unclassified. Table 1 gives restricted-alphabet parallel results; Proposition 14 equates {0,1,3,4} and {1,3,4}. O(M) sequential queue work follows from one firing per site."
         ],
         [
           "CGMP25",
           "§2, discussion of freezing prediction",
-          "Later explicit acknowledgment that the freezing classification remains unresolved."
+          "Among 256 Moore-subset neighborhoods, 12 have ordinary crossover/P-completeness constructions and 244 lack ordinary crossover gates of the defined type. Nonexistence of that gadget is not an NC upper bound."
         ]
       ],
       "related": [
         "SP04",
         "SP05"
       ],
-      "lastVerified": "2026-09-08"
+      "lastVerified": "2026-09-08",
+      "audit": {
+        "status": "explicit",
+        "decision": "Retained as a source-explicit unresolved case.",
+        "gap": "Determine a uniform NC upper bound or a justified hardness classification; the linear sequential queue does not imply small parallel depth.",
+        "caution": "The classification concerns this exact uniform rule and input encoding; changing weights, neighborhoods, timing or freezing semantics changes the problem."
+      },
+      "bounds": [
+        {
+          "label": "Direct sequential baseline",
+          "runtime": "O(M) time and O(M) space, where M is the explicit rectangle area.",
+          "scope": "Queue a vertex when it becomes eligible; each site fires at most once, causing at most four neighbor updates. Outside sites stay permanently frozen.",
+          "source": "Elementary baseline",
+          "locator": "Derivation in this entry"
+        },
+        {
+          "label": "Parallel frontier",
+          "runtime": "General FSPP classification unresolved; the no-height-2 case {0,1,3,4} is equivalent to {1,3,4}.",
+          "scope": "Restricted-alphabet NC results do not automatically classify this record. FSPP-hard does not mean P-complete while general FSPP remains unresolved.",
+          "source": "GMP21",
+          "locator": "Table 1; Proposition 14; Open Question 1"
+        }
+      ]
     },
     {
       "id": "SP04",
@@ -580,18 +1075,40 @@
         [
           "GMP21",
           "Open Question 1; Proposition 14; Table 1",
-          "Precise remaining alphabet case and equivalence of its two formulations."
+          "General freezing prediction remains unclassified. Table 1 gives restricted-alphabet parallel results; Proposition 14 equates {0,1,3,4} and {1,3,4}. O(M) sequential queue work follows from one firing per site."
         ],
         [
           "CGMP25",
           "§2",
-          "Broader freezing-prediction gap remains relevant in the later classification."
+          "Among 256 Moore-subset neighborhoods, 12 have ordinary crossover/P-completeness constructions and 244 lack ordinary crossover gates of the defined type. Nonexistence of that gadget is not an NC upper bound."
         ]
       ],
       "related": [
         "SP03"
       ],
-      "lastVerified": "2026-09-08"
+      "lastVerified": "2026-09-08",
+      "audit": {
+        "status": "explicit",
+        "decision": "Retained as a source-explicit unresolved case.",
+        "gap": "Determine a uniform NC upper bound or a justified hardness classification; the linear sequential queue does not imply small parallel depth.",
+        "caution": "The classification concerns this exact uniform rule and input encoding; changing weights, neighborhoods, timing or freezing semantics changes the problem."
+      },
+      "bounds": [
+        {
+          "label": "Direct sequential baseline",
+          "runtime": "O(M) time and O(M) space, where M is the explicit rectangle area.",
+          "scope": "Queue a vertex when it becomes eligible; each site fires at most once, causing at most four neighbor updates. Outside sites stay permanently frozen.",
+          "source": "Elementary baseline",
+          "locator": "Derivation in this entry"
+        },
+        {
+          "label": "Parallel frontier",
+          "runtime": "General FSPP classification unresolved; the no-height-2 case {0,1,3,4} is equivalent to {1,3,4}.",
+          "scope": "Restricted-alphabet NC results do not automatically classify this record. FSPP-hard does not mean P-complete while general FSPP remains unresolved.",
+          "source": "GMP21",
+          "locator": "Table 1; Proposition 14; Open Question 1"
+        }
+      ]
     },
     {
       "id": "SP05",
@@ -620,12 +1137,12 @@
         [
           "FP20",
           "§2.2; Proposition 6; Open Question 4",
-          "Defines first-column prediction and records its unresolved two-dimensional status."
+          "Bounded-height explicit-input prediction is in P. Proposition 6 gives first-column ≤AC⁰ single-addition ≤AC⁰ general prediction; Open Question 4 includes the uniform 2D von Neumann and Moore gaps."
         ],
         [
           "GMP21",
           "Remark 1; conclusion",
-          "Boundary single-seed connection with freezing dynamics."
+          "General freezing prediction remains unclassified. Table 1 gives restricted-alphabet parallel results; Proposition 14 equates {0,1,3,4} and {1,3,4}. O(M) sequential queue work follows from one firing per site."
         ]
       ],
       "related": [
@@ -633,7 +1150,29 @@
         "SP03",
         "SP09"
       ],
-      "lastVerified": "2026-09-08"
+      "lastVerified": "2026-09-08",
+      "audit": {
+        "status": "explicit",
+        "decision": "Retained as a source-explicit unresolved case.",
+        "gap": "Classify parallel depth despite the linear sequential work bound and restricted seed location.",
+        "caution": "The classification concerns this exact uniform rule and input encoding; changing weights, neighborhoods, timing or freezing semantics changes the problem."
+      },
+      "bounds": [
+        {
+          "label": "Sequential one-firing baseline",
+          "runtime": "O(M) time and O(M) space.",
+          "scope": "The specified boundary seed makes ordinary dynamics agree with one-firing dynamics; a queue processes each site once. The fixed addition-site convention is essential.",
+          "source": "GMP21",
+          "locator": "Remark 1; queue consequence"
+        },
+        {
+          "label": "Parallel classification",
+          "runtime": "Unresolved in the two-dimensional first-column setting.",
+          "scope": "The source explicitly includes the first-column restriction; openness is not inferred from the unrestricted case.",
+          "source": "FP20",
+          "locator": "Proposition 6; Open Question 4"
+        }
+      ]
     },
     {
       "id": "SP06",
@@ -650,7 +1189,7 @@
       "question": "What is the complexity of exact-time prediction for the uniform three-neighbor sandpile with offsets (0,1), (1,−1), (−1,−1)?",
       "origin": "An unresolved synchronization case in <a href=\"https://arxiv.org/html/2506.21084v1\" target=\"_blank\" rel=\"noopener\">[CP25]</a> §3.4, with the neighborhood written explicitly to avoid numbering ambiguity.",
       "significance": "<p>This is a small, concrete local rule left unresolved by an exhaustive neighborhood study. It separates the existence of signal interactions from the stronger synchronization requirements of exact-time prediction.</p>",
-      "formulation": "<p>Use the uniform, unweighted Abelian sandpile on ℤ², with the specified translation-invariant neighborhood ℕ. A site with at least θ=|ℕ| grains sends one grain to each x+a, a∈ℕ, in a firing. Configurations have finite support and are encoded by an explicit finite rectangle with zeros elsewhere. This is the infinite lattice with finite input, not a periodic torus.</p><div class=\"equation\">ℕ={(0,1),(1,−1),(−1,−1)}, θ=3. &nbsp; Code 131 in the paper’s bit convention.</div><p>Input: stable c with 0≤c(x)&lt;θ, two sites p,q, and t in binary. Let F be the parallel update that fires every eligible site once per step. A polynomial bound on t in the explicit input size may be imposed; the cited model has polynomial stabilization bounds.</p><div class=\"equation\">TIMED-PRED(c,p,q,t)=1 ⇔ Fᵗ(c+eₚ)(q)≥θ.</div><p>Classify this exact-time decision problem in uniform NC or as P-complete under logspace reductions, without assuming a dichotomy. Eventual firing is a different output.</p>",
+      "formulation": "<p>Use the uniform, unweighted Abelian sandpile on ℤ², with the specified translation-invariant neighborhood ℕ. A site with at least θ=|ℕ| grains sends one grain to each x+a, a∈ℕ, in a firing. Configurations have finite support and are encoded by an explicit finite rectangle with zeros elsewhere. This is the infinite lattice with finite input, not a periodic torus.</p><div class=\"equation\">ℕ={(0,1),(1,−1),(−1,−1)}, θ=3. &nbsp; Code 131 in the paper’s bit convention.</div><p>Input: stable c with 0≤c(x)&lt;θ, two sites p,q, and t in binary. Let F be the parallel update that fires every eligible site once per step. The integer t≥0 is unrestricted and binary encoded. For t beyond stabilization, the answer is 0. The cited polynomial stabilization bound makes sequential simulation polynomial in the rectangle size and log(t+1).</p><div class=\"equation\">TIMED-PRED(c,p,q,t)=1 ⇔ Fᵗ(c+eₚ)(q)≥θ.</div><p>Classify this exact-time decision problem in uniform NC or as P-complete under logspace reductions, without assuming a dichotomy. Eventual firing is a different output.</p>",
       "known": "<p><a href=\"https://arxiv.org/html/2506.21084v1\" target=\"_blank\" rel=\"noopener\">[CP25]</a> lists 131 among the neighborhoods with unresolved delay compatibility. Its known gadgets do not complete the complexity classification.</p>",
       "verification": "<p><b>A · Source-explicit unresolved case.</b> §3.4 was checked against the explicit offset encoding. No follow-up settling this uniform timed rule was found. The question is the full prediction classification, not the existence of one prespecified small gadget.</p>",
       "comments": [
@@ -662,19 +1201,41 @@
         [
           "CP25",
           "§2; §3.4, neighborhood 131",
-          "Defines exact-time prediction and records the unresolved synchronization case."
+          "Timed classification: 52 neighborhoods with P-completeness constructions, 99 planar cases with timed crossover nonexistence, and remaining cases including the listed delay and conjectured-nonexistence groups. These counts concern different conclusions."
         ],
         [
           "CGMP25",
           "Neighborhood conventions and ordinary-prediction classification",
-          "Earlier untimed classification is a separate baseline."
+          "Among 256 Moore-subset neighborhoods, 12 have ordinary crossover/P-completeness constructions and 244 lack ordinary crossover gates of the defined type. Nonexistence of that gadget is not an NC upper bound."
         ]
       ],
       "related": [
         "SP07",
         "SP08"
       ],
-      "lastVerified": "2026-09-08"
+      "lastVerified": "2026-09-08",
+      "audit": {
+        "status": "explicit",
+        "decision": "Retained as a source-explicit unresolved case.",
+        "gap": "Classify this exact-time language; failure to synchronize the listed gadgets is not a theorem excluding all gadgets.",
+        "caution": "The classification concerns this exact uniform rule and input encoding; changing weights, neighborhoods, timing or freezing semantics changes the problem."
+      },
+      "bounds": [
+        {
+          "label": "Current verified complexity frontier",
+          "runtime": "In P by simulation up to stabilization; exact-time NC/P-completeness classification unresolved.",
+          "scope": "The query is whether q is eligible at exactly t, not whether q ever fires.",
+          "source": "CP25",
+          "locator": "§2; §3.4"
+        },
+        {
+          "label": "Scope of the known classification",
+          "runtime": "52 neighborhoods have timed P-completeness constructions; this code is a remaining delay-compatibility case.",
+          "scope": "The number 52 includes the 12 already having ordinary crossover constructions. It is not a count of unresolved problems.",
+          "source": "CP25",
+          "locator": "§3, classification summary"
+        }
+      ]
     },
     {
       "id": "SP07",
@@ -691,7 +1252,7 @@
       "question": "What is the complexity of exact-time prediction for offsets (0,−1), (1,1), (1,−1), (−1,−1)?",
       "origin": "A second, inequivalent unresolved rule in <a href=\"https://arxiv.org/html/2506.21084v1\" target=\"_blank\" rel=\"noopener\">[CP25]</a> §3.4.",
       "significance": "<p>The four-neighbor rule has a different synchronization obstruction from the three-neighbor rule. Specifying the offsets makes it possible to study this question independently of the catalog and to compare it with the exact classification table.</p>",
-      "formulation": "<p>Use the uniform, unweighted Abelian sandpile on ℤ², with the specified translation-invariant neighborhood ℕ. A site with at least θ=|ℕ| grains sends one grain to each x+a, a∈ℕ, in a firing. Configurations have finite support and are encoded by an explicit finite rectangle with zeros elsewhere. This is the infinite lattice with finite input, not a periodic torus.</p><div class=\"equation\">ℕ={(0,−1),(1,1),(1,−1),(−1,−1)}, θ=4. &nbsp; Code 39 in the paper’s bit convention.</div><p>Input: stable c with 0≤c(x)&lt;θ, two sites p,q, and t in binary. Let F be the parallel update that fires every eligible site once per step. A polynomial bound on t in the explicit input size may be imposed; the cited model has polynomial stabilization bounds.</p><div class=\"equation\">TIMED-PRED(c,p,q,t)=1 ⇔ Fᵗ(c+eₚ)(q)≥θ.</div><p>Classify this exact-time decision problem in uniform NC or as P-complete under logspace reductions, without assuming a dichotomy. Eventual firing is a different output.</p>",
+      "formulation": "<p>Use the uniform, unweighted Abelian sandpile on ℤ², with the specified translation-invariant neighborhood ℕ. A site with at least θ=|ℕ| grains sends one grain to each x+a, a∈ℕ, in a firing. Configurations have finite support and are encoded by an explicit finite rectangle with zeros elsewhere. This is the infinite lattice with finite input, not a periodic torus.</p><div class=\"equation\">ℕ={(0,−1),(1,1),(1,−1),(−1,−1)}, θ=4. &nbsp; Code 39 in the paper’s bit convention.</div><p>Input: stable c with 0≤c(x)&lt;θ, two sites p,q, and t in binary. Let F be the parallel update that fires every eligible site once per step. The integer t≥0 is unrestricted and binary encoded. For t beyond stabilization, the answer is 0. The cited polynomial stabilization bound makes sequential simulation polynomial in the rectangle size and log(t+1).</p><div class=\"equation\">TIMED-PRED(c,p,q,t)=1 ⇔ Fᵗ(c+eₚ)(q)≥θ.</div><p>Classify this exact-time decision problem in uniform NC or as P-complete under logspace reductions, without assuming a dichotomy. Eventual firing is a different output.</p>",
       "known": "<p><a href=\"https://arxiv.org/html/2506.21084v1\" target=\"_blank\" rel=\"noopener\">[CP25]</a> describes a compatibility problem for its displayed size-11, delay-11 gadgets. That obstruction is to the particular gadget family, not a theorem classifying the entire timed prediction problem.</p>",
       "verification": "<p><b>A · Source-explicit unresolved case.</b> The exact neighborhood and §3.4 discussion were checked. This question permits arbitrary finite configurations and does not repeat the already-excluded fixed-size turn-gadget request.</p>",
       "comments": [
@@ -703,18 +1264,40 @@
         [
           "CP25",
           "§2; §3.4, neighborhood 39",
-          "Exact-time problem with an unresolved delay/turn compatibility issue."
+          "Timed classification: 52 neighborhoods with P-completeness constructions, 99 planar cases with timed crossover nonexistence, and remaining cases including the listed delay and conjectured-nonexistence groups. These counts concern different conclusions."
         ],
         [
           "CGMP25",
           "Ordinary neighborhood classification",
-          "Untimed results provide context, not a closure of this exact-time question."
+          "Among 256 Moore-subset neighborhoods, 12 have ordinary crossover/P-completeness constructions and 244 lack ordinary crossover gates of the defined type. Nonexistence of that gadget is not an NC upper bound."
         ]
       ],
       "related": [
         "SP06"
       ],
-      "lastVerified": "2026-09-08"
+      "lastVerified": "2026-09-08",
+      "audit": {
+        "status": "explicit",
+        "decision": "Retained as a source-explicit unresolved case.",
+        "gap": "Classify this exact-time language; failure to synchronize the listed gadgets is not a theorem excluding all gadgets.",
+        "caution": "The classification concerns this exact uniform rule and input encoding; changing weights, neighborhoods, timing or freezing semantics changes the problem."
+      },
+      "bounds": [
+        {
+          "label": "Current verified complexity frontier",
+          "runtime": "In P by simulation up to stabilization; exact-time NC/P-completeness classification unresolved.",
+          "scope": "The query is whether q is eligible at exactly t, not whether q ever fires.",
+          "source": "CP25",
+          "locator": "§2; §3.4"
+        },
+        {
+          "label": "Scope of the known classification",
+          "runtime": "52 neighborhoods have timed P-completeness constructions; this code is a remaining delay-compatibility case.",
+          "scope": "The number 52 includes the 12 already having ordinary crossover constructions. It is not a count of unresolved problems.",
+          "source": "CP25",
+          "locator": "§3, classification summary"
+        }
+      ]
     },
     {
       "id": "SP08",
@@ -743,24 +1326,46 @@
         [
           "CGMP25",
           "Ordinary crossover classification",
-          "Full Moore does not admit an ordinary crossover of the stated type."
+          "Among 256 Moore-subset neighborhoods, 12 have ordinary crossover/P-completeness constructions and 244 lack ordinary crossover gates of the defined type. Nonexistence of that gadget is not an NC upper bound."
         ],
         [
           "CP25",
           "Definition 1 and timed variant; §3.5",
-          "Defines the weaker timed object and lists the unresolved full-Moore case."
+          "Timed classification: 52 neighborhoods with P-completeness constructions, 99 planar cases with timed crossover nonexistence, and remaining cases including the listed delay and conjectured-nonexistence groups. These counts concern different conclusions."
         ]
       ],
       "related": [
         "SP02"
       ],
-      "lastVerified": "2026-09-08"
+      "lastVerified": "2026-09-08",
+      "audit": {
+        "status": "explicit",
+        "decision": "Retained as a source-explicit unresolved case.",
+        "gap": "Prove nonexistence for all finite gadgets in this timed definition, or give a verified construction.",
+        "caution": "The classification concerns this exact uniform rule and input encoding; changing weights, neighborhoods, timing or freezing semantics changes the problem."
+      },
+      "bounds": [
+        {
+          "label": "Established combinatorial boundary",
+          "runtime": "Ordinary full-Moore crossover: nonexistence proved. Timed full-Moore crossover: unresolved in the checked classification.",
+          "scope": "The timed condition allows some later unintended activity, so the ordinary obstruction is not enough.",
+          "source": "CGMP25",
+          "locator": "Ordinary crossover classification"
+        },
+        {
+          "label": "Nearest timed theorem",
+          "runtime": "Planar neighborhoods: timed crossover nonexistence proved; full Moore belongs to the conjectured nonexistence cases.",
+          "scope": "This is a gadget-existence problem. An algorithmic U/Q runtime would be inapplicable; the known result is a nonexistence theorem in a stricter class.",
+          "source": "CP25",
+          "locator": "§3.5; timed crossover definition"
+        }
+      ]
     },
     {
       "id": "SP09",
       "track": "sandpile",
       "title": "Reduce general two-dimensional prediction to a single avalanche",
-      "evidence": "B",
+      "evidence": "C",
       "contribution": "Major",
       "tags": [
         "reduction question",
@@ -773,7 +1378,7 @@
       "significance": "<p>A reduction would justify treating two commonly conflated formulations as equivalent. Without it, a result for arbitrary bounded configurations does not automatically classify a single avalanche. This question is about input expressiveness, independent of whether either problem is eventually shown in NC or P-complete.</p>",
       "formulation": "<p>Use the uniform, unweighted Abelian sandpile on ℤ², with the specified translation-invariant neighborhood ℕ. A site with at least θ=|ℕ| grains sends one grain to each x+a, a∈ℕ, in a firing. Configurations have finite support and are encoded by an explicit finite rectangle with zeros elsewhere. This is the infinite lattice with finite input, not a periodic torus.</p><div class=\"equation\">ℕ={(1,0),(−1,0),(0,1),(0,−1)}, θ=4.</div><p>General input: c(x)∈{0,…,7} and q, asking whether u<sub>c</sub>(q)&gt;0. Restricted input: stable c′(x)∈{0,…,3}, an addition site p′ and target q′, asking whether u<sub>c′+eₚ′</sub>(q′)&gt;0.</p><div class=\"equation\">PRED<sub>VN</sub> ≤<sup>NC</sup><sub>m</sub> S-PRED<sub>VN</sub> ?</div><p>Require a uniform NC-computable many-one mapping with polynomial output rectangle area, preserving the same uniform unit-weight nearest-neighbor rule. The output may not contain multiple additions or site-dependent rules.</p>",
       "known": "<p>The easy reduction goes from S-PRED to PRED by writing c+eₚ. <a href=\"https://arxiv.org/abs/1909.12150\" target=\"_blank\" rel=\"noopener\">[FP20]</a> explicitly raises strictness questions for prediction hierarchies. The reverse direction in this exact two-dimensional setting is not supplied by that inclusion.</p>",
-      "verification": "<p><b>B · Sharpened candidate.</b> The survey motivates a broader hierarchy problem; this exact same-model many-one reduction is formulated here. No matching reduction was found, but the catalog does not claim the survey states this sentence verbatim.</p>",
+      "verification": "<p><b>On hold as a paper-selection claim.</b> Kept as a reduction question; not conflated with the survey’s broader question.</p><p>The exact reduction question is synthesized here. NC versus P-complete is not an exhaustive dichotomy, and equality of complexity classes would not by itself supply the requested uniform reduction.</p>",
       "comments": [
         "A polynomial-time reduction is not informative here: both decision problems already have polynomial simulation algorithms.",
         "A Turing reduction with many adaptive avalanche queries is weaker than the requested many-one reduction.",
@@ -783,25 +1388,40 @@
         [
           "FP20",
           "§2.2; Proposition 6; §2.4, Open Question 3",
-          "Prediction interfaces, easy inclusions and questions about strictness."
+          "Bounded-height explicit-input prediction is in P. Proposition 6 gives first-column ≤AC⁰ single-addition ≤AC⁰ general prediction; Open Question 4 includes the uniform 2D von Neumann and Moore gaps."
         ],
         [
           "CGMP25",
           "Definitions",
-          "Later usage of PRED for single-addition inputs illustrates the terminology issue."
+          "Among 256 Moore-subset neighborhoods, 12 have ordinary crossover/P-completeness constructions and 244 lack ordinary crossover gates of the defined type. Nonexistence of that gadget is not an NC upper bound."
         ]
       ],
       "related": [
         "SP01",
         "SP05"
       ],
-      "lastVerified": "2026-09-08"
+      "lastVerified": "2026-09-08",
+      "audit": {
+        "status": "hold",
+        "decision": "Kept as a reduction question; not conflated with the survey’s broader question.",
+        "gap": "Prove or refute a uniform NC many-one reduction from general uniform-VN PRED to the single-addition language.",
+        "caution": "The exact reduction question is synthesized here. NC versus P-complete is not an exhaustive dichotomy, and equality of complexity classes would not by itself supply the requested uniform reduction."
+      },
+      "bounds": [
+        {
+          "label": "Verified reduction direction",
+          "runtime": "First-column ≤AC⁰ single-addition ≤AC⁰ general PRED.",
+          "scope": "The reverse reduction proposed here is not supplied by these inclusions.",
+          "source": "FP20",
+          "locator": "Proposition 6"
+        }
+      ]
     },
     {
       "id": "SP10",
       "track": "sandpile",
       "title": "Near-linear exact stabilization at treewidth two",
-      "evidence": "B",
+      "evidence": "C",
       "contribution": "Focused",
       "tags": [
         "finite graph with sink",
@@ -814,7 +1434,7 @@
       "significance": "<p>Trees and single-cycle components already admit fast exact algorithms. Treewidth two admits interacting cycles while retaining small separators, so it is a concrete next graph class rather than a request to solve every planar graph. Sandpile inputs in this catalog may be planar.</p>",
       "formulation": "<p>Input: a connected simple undirected graph G on n vertices, an absorbing sink s, and σ:V∖{s}→ℕ, given explicitly in binary, with N=Σσ(v)≤nᴷ for a fixed K. A nonsink v fires when it has at least deg<sub>G</sub>(v) grains, sending one grain along every incident edge; grains reaching s disappear. Let u(v) count all legal firings and σ° be the unique stable configuration.</p><p>Promise: G has treewidth at most two; a width-two tree decomposition with O(n) bags is supplied. No expansion assumption is imposed. Use a word RAM with Θ(log n)-bit words.</p><div class=\"equation\">σ° = σ − L<sub>s</sub>u, &nbsp; u∈ℕ<sup>n−1</sup>, &nbsp; 0≤σ°(v)&lt;deg<sub>G</sub>(v).</div><p>Output both u and σ° exactly in Õ(n) time and Õ(n) space. The odometer is the one obtained by legal stabilization, not an arbitrary integer solution of the displayed balance equation. Polynomially bounded N fixes the bit-complexity regime.</p>",
       "known": "<p><a href=\"https://arxiv.org/html/2307.07711v3\" target=\"_blank\" rel=\"noopener\">[CC24]</a> gives O(n log n) on trees and O(n log² n) on pseudotrees. The requested class permits unboundedly many interacting cycles; it is not covered merely by the one-cycle result.</p>",
-      "verification": "<p><b>B · Sharpened candidate.</b> Searches for sandpile/chip-firing algorithms on series-parallel and bounded-treewidth graphs did not locate this exact near-linear theorem. This is an extrapolated structural gap, not a source-numbered open problem.</p>",
+      "verification": "<p><b>On hold as a paper-selection claim.</b> Exact setting retained; no best-known bound for the entire width-two class is certified.</p><p>The neighboring-class bounds are concrete, but a complete bounded-treewidth literature frontier is still missing. This entry is visibly on hold rather than presented as a validated paper opportunity.</p>",
       "comments": [
         "The decomposition is supplied so recognition cost does not obscure the stabilization question.",
         "Calling arbitrary integer Laplacian solutions “odometers” loses the legality/minimality condition.",
@@ -824,16 +1444,38 @@
         [
           "RS17",
           "Tree prediction theorem",
-          "Historical near-linear exact stabilization on trees."
+          "Exact tree sandpile prediction in O(n log⁵n) time; superseded for this class by the O(n log n) tree algorithm in CC24."
         ],
         [
           "CC24",
           "Structured-graph results; tree and pseudotree algorithms",
-          "Latest checked exact baselines for the neighboring graph classes."
+          "Exact algorithms: trees O(n log n), pseudotrees O(n log²n), paths/cliques O(n). General bound O(Rm² log(nN)) counts batch iterations; per-iteration work must also be charged."
         ]
       ],
       "related": [],
-      "lastVerified": "2026-09-08"
+      "lastVerified": "2026-09-08",
+      "audit": {
+        "status": "hold",
+        "decision": "Exact setting retained; no best-known bound for the entire width-two class is certified.",
+        "gap": "Obtain Õ(n) exact stabilization on all width-two graphs, or establish that this target is already covered.",
+        "caution": "The neighboring-class bounds are concrete, but a complete bounded-treewidth literature frontier is still missing. This entry is visibly on hold rather than presented as a validated paper opportunity."
+      },
+      "bounds": [
+        {
+          "label": "Closest verified structural upper bounds",
+          "runtime": "Trees: O(n log n); pseudotrees: O(n log²n).",
+          "scope": "These are subclasses, not an upper bound for arbitrary treewidth two.",
+          "source": "CC24",
+          "locator": "Structured-graph algorithms"
+        },
+        {
+          "label": "Safe generic full-class baseline",
+          "runtime": "Polynomial time; the checked batch method gives O(Rm² log(nN)) iterations, each implementable in O(Δ log n).",
+          "scope": "On width-two simple graphs m=O(n), R≤n and Δ≤n, giving an O(n⁴ polylog n) conservative bound. This is not claimed as the best full-class bound.",
+          "source": "CC24",
+          "locator": "Theorem 1.3; direct heap implementation"
+        }
+      ]
     },
     {
       "id": "SP11",
@@ -862,17 +1504,17 @@
         [
           "CC24",
           "Theorem 1.3; Corollary 4.8; Theorem 4.9",
-          "Resistance-dependent iteration bound and expander specialization."
+          "Exact algorithms: trees O(n log n), pseudotrees O(n log²n), paths/cliques O(n). General bound O(Rm² log(nN)) counts batch iterations; per-iteration work must also be charged."
         ],
         [
           "HLW06",
           "Spectral expansion and random walks",
-          "Background for the constant-degree resistance estimate."
+          "Spectral-gap/conductance relations yield O(log n) mixing/diameter scales for fixed-gap bounded-degree expanders. Background theorem, not a dynamic-update or exact sandpile algorithm."
         ],
         [
           "FLP10",
           "Least action principle",
-          "Minimality perspective on legal stabilization; not a fast-algorithm claim."
+          "Least action characterizes the legal odometer as a minimal nonnegative stabilizing firing vector. Structural result; no fast-algorithm bound is asserted."
         ]
       ],
       "related": [
@@ -880,7 +1522,29 @@
         "SP14",
         "X01"
       ],
-      "lastVerified": "2026-09-08"
+      "lastVerified": "2026-09-08",
+      "audit": {
+        "status": "candidate",
+        "decision": "Retained with the iteration-to-runtime conversion made explicit.",
+        "gap": "Improve the verified Õ(n²) exact stabilization bound to Õ(n^(2−δ)) for a fixed δ>0.",
+        "caution": "Expansion controls the ungrounded spectrum. The grounded matrix with a single sink can still have condition number growing with n; a real linear solve does not recover the least legal integer odometer."
+      },
+      "bounds": [
+        {
+          "label": "Applicable exact algorithm",
+          "runtime": "O(Rm² log(nN)) batch iterations; O(Δ log n) time per iteration. Thus Õ(n²) here.",
+          "scope": "R=max effective resistance to the sink is O(1); m=Θ(n), Δ=O(1), N≤nᴷ. Uses exact word arithmetic.",
+          "source": "CC24",
+          "locator": "Theorem 1.3; Corollary 4.8; heap implementation"
+        },
+        {
+          "label": "Output lower bound",
+          "runtime": "Ω(n) words must be written.",
+          "scope": "The question asks for the full odometer and stable state; no quadratic lower bound is asserted.",
+          "source": "Elementary baseline",
+          "locator": "Derivation in this entry"
+        }
+      ]
     },
     {
       "id": "SP12",
@@ -899,7 +1563,7 @@
       "significance": "<p>A worst-case expander may hide local structure that makes integer stabilization expensive. Random topology provides a separate, testable input model. Requiring initial heights to be independent of the sampled graph prevents the average-case promise from silently reverting to an adaptive worst-case instance.</p>",
       "formulation": "<p>Input: a connected simple undirected graph G on n vertices, an absorbing sink s, and σ:V∖{s}→ℕ, given explicitly in binary, with N=Σσ(v)≤nᴷ for a fixed K. A nonsink v fires when it has at least deg<sub>G</sub>(v) grains, sending one grain along every incident edge; grains reaching s disappear. Let u(v) count all legal firings and σ° be the unique stable configuration.</p><p>Fix d≥3, a label s, and a configuration σ on the remaining labels, before sampling G uniformly from simple d-regular graphs on n labeled vertices (nd even), conditioned on Φ(G)≥φ₀ for a suitable fixed φ₀&gt;0. σ is not sampled from a recurrent sandpile measure.</p><div class=\"equation\">σ° = σ − L<sub>s</sub>u, &nbsp; u∈ℕ<sup>n−1</sup>, &nbsp; 0≤σ°(v)&lt;deg<sub>G</sub>(v).</div><p>Seek an always-correct algorithm whose runtime is Õ(n) with probability ≥1−n<sup>−c</sup>, for some fixed c&gt;0, over G and internal randomness, for every such fixed σ with N≤nᴷ. Permit a slower exact fallback. State space usage, with Õ(n) as the target.</p>",
       "known": "<p>The checked general expander stabilization bound <a href=\"https://arxiv.org/html/2307.07711v3\" target=\"_blank\" rel=\"noopener\">[CC24]</a> does not specialize to near-linear time merely from its displayed parameters. Random regularity offers a stronger input distribution, not an already-proved improvement.</p>",
-      "verification": "<p><b>C · Exploratory candidate.</b> No source explicitly posing this exact distributional theorem was located, and the sandpile/random-graph literature contains many different probabilistic observables. The claim here is a precise candidate setting, not a verified established open conjecture.</p>",
+      "verification": "<p><b>On hold as a paper-selection claim.</b> Distributional question retained as provisional.</p><p>The probability space, conditioning and independence of the initial configuration are explicit; no average-case runtime theorem matching the target was verified.</p>",
       "comments": [
         "High probability concerns runtime; correctness remains exact on every sampled instance.",
         "An initial configuration chosen after inspecting G is outside this statement.",
@@ -909,18 +1573,33 @@
         [
           "CC24",
           "Expander and regular-graph bounds",
-          "Exact worst-case computational baseline."
+          "Exact algorithms: trees O(n log n), pseudotrees O(n log²n), paths/cliques O(n). General bound O(Rm² log(nN)) counts batch iterations; per-iteration work must also be charged."
         ],
         [
           "HLW06",
           "Random regular graphs and expansion",
-          "Background for the graph-distribution promise."
+          "Spectral-gap/conductance relations yield O(log n) mixing/diameter scales for fixed-gap bounded-degree expanders. Background theorem, not a dynamic-update or exact sandpile algorithm."
         ]
       ],
       "related": [
         "SP11"
       ],
-      "lastVerified": "2026-09-08"
+      "lastVerified": "2026-09-08",
+      "audit": {
+        "status": "hold",
+        "decision": "Distributional question retained as provisional.",
+        "gap": "Improve Õ(n²) worst-case computation to Õ(n) with high probability over the sampled graph for each background fixed independently of it.",
+        "caution": "The probability space, conditioning and independence of the initial configuration are explicit; no average-case runtime theorem matching the target was verified."
+      },
+      "bounds": [
+        {
+          "label": "Applicable algorithm without distributional improvement",
+          "runtime": "Õ(n²) exact time under the expander event.",
+          "scope": "The same verified worst-case baseline as SP11; random input does not itself establish a faster bound.",
+          "source": "CC24",
+          "locator": "Theorem 1.3; expander specialization"
+        }
+      ]
     },
     {
       "id": "SP13",
@@ -939,7 +1618,7 @@
       "significance": "<p>A single fixed graph and background may be queried many times. An n-by-n truth table answers immediately but hides quadratic storage. A compact index would identify compressible structure in the complete avalanche-response relation.</p>",
       "formulation": "<p>Input for preprocessing: a simple undirected unweighted n-vertex graph G with maximum degree Δ₀, conductance at least φ₀, one absorbing sink s, and a fixed stable background σ with 0≤σ(v)&lt;deg(v). All are explicit. Every query is an independent experiment starting from that same σ.</p><div class=\"equation\">query(p,q)=1 ⇔ u<sub>σ+eₚ</sub>(q)&gt;0, &nbsp; p,q≠s.</div><p>Seek deterministic polynomial preprocessing, space Õ(n) words and worst-case polylog n query time. Stabilization uses threshold deg<sub>G</sub>(v) and absorption at s. The preprocessing may depend on both G and σ; neither changes. The query does not advance a physical sandpile state.</p>",
       "known": "<p>Precomputing all n−1 possible additions with a static solver gives a polynomial-preprocessing, O(n²)-bit table and O(1) queries. The proposed gain is space with retained fast queries, not a new way to obtain polynomial preprocessing.</p>",
-      "verification": "<p><b>C · Exploratory candidate.</b> The exact index interface is formulated here. No directly matching compact-index theorem or space lower bound was located; the literature search gives weaker novelty assurance than for source-explicit lattice questions.</p>",
+      "verification": "<p><b>On hold as a paper-selection claim.</b> Space/query tradeoff made explicit; novelty provisional.</p><p>No matching compact index or space lower bound was verified. This is a tradeoff question, not evidence that a polylogarithmic query is intrinsically hard.</p>",
       "comments": [
         "The task reports one Boolean firing event, not all final heights.",
         "Independent queries reset to σ; online additions would define a different data structure.",
@@ -949,18 +1628,40 @@
         [
           "FP20",
           "Prediction definitions",
-          "Decision versus full-configuration output interfaces."
+          "Bounded-height explicit-input prediction is in P. Proposition 6 gives first-column ≤AC⁰ single-addition ≤AC⁰ general prediction; Open Question 4 includes the uniform 2D von Neumann and Moore gaps."
         ],
         [
           "CC24",
           "Finite-graph exact stabilization",
-          "Supplies static computation underlying the truth-table baseline."
+          "Exact algorithms: trees O(n log n), pseudotrees O(n log²n), paths/cliques O(n). General bound O(Rm² log(nN)) counts batch iterations; per-iteration work must also be charged."
         ]
       ],
       "related": [
         "SP14"
       ],
-      "lastVerified": "2026-09-08"
+      "lastVerified": "2026-09-08",
+      "audit": {
+        "status": "hold",
+        "decision": "Space/query tradeoff made explicit; novelty provisional.",
+        "gap": "Reduce O(n²) bits of precomputed avalanche answers to Õ(n) words while retaining polylogarithmic query time.",
+        "caution": "No matching compact index or space lower bound was verified. This is a tradeoff question, not evidence that a polylogarithmic query is intrinsically hard."
+      },
+      "bounds": [
+        {
+          "label": "All-source truth table",
+          "runtime": "P=Õ(n³) using the expander solver; S=O(n²) bits plus input; Q=O(1).",
+          "scope": "Run the Õ(n²) static solver once for each possible addition site and store the firing set. Every query resets to the same background.",
+          "source": "CC24",
+          "locator": "Theorem 1.3, applied n times"
+        },
+        {
+          "label": "No truth table",
+          "runtime": "P,S=Õ(n); Q=Õ(n²).",
+          "scope": "Solve one avalanche from scratch per query.",
+          "source": "CC24",
+          "locator": "Expander specialization"
+        }
+      ]
     },
     {
       "id": "SP14",
@@ -979,7 +1680,7 @@
       "significance": "<p>An avalanche may topple the same site many times. Recording the odometer once per affected site can be far smaller than replaying every event. A data structure with this output measure would support repeated exact simulation without demanding an impossible constant-time full-state output.</p>",
       "formulation": "<p>Fix a simple unweighted undirected graph G with n vertices, max degree Δ₀, Φ(G)≥φ₀ and an absorbing sink s. Start from an explicitly given stable σ₀. Receive an arbitrary online sequence p₁,p₂,… of nonsink vertices, of length at most nᴷ.</p><div class=\"equation\">σₜ = stabilize<sub>G,s</sub>(σₜ₋₁+eₚₜ); &nbsp; uₜ = the odometer of this addition.</div><p>After each addition report every vertex in Aₜ={v:uₜ(v)&gt;0 or σₜ(v)≠σₜ₋₁(v)}, together with uₜ(v) and σₜ(v). Let kₜ=|Aₜ|. Target Õ(n) preprocessing/space and deterministic amortized Õ(1+kₜ) time per operation. Count the addition vertex even when no site fires and only its height changes.</p>",
       "known": "<p>Event simulation pays for individual firings, while a static exact solver recomputes a whole stabilization. Neither bound automatically gives the proposed coordinate-sensitive online cost.</p>",
-      "verification": "<p><b>C · Exploratory candidate.</b> The changing-state and output conventions are specified here; no matching exact dynamic theorem was located. This is not a claim that online sandpile addition itself is a new operation.</p>",
+      "verification": "<p><b>On hold as a paper-selection claim.</b> Output measure retained; temporal-reuse frontier provisional.</p><p>Near-linear work per avalanche, if known, would still differ from Õ(1+k) for small avalanches. No theorem establishing this exact output-sensitive dynamic guarantee was verified.</p>",
       "comments": [
         "kₜ counts distinct affected coordinates; Σᵥuₜ(v) counts events and may be much larger.",
         "The topology is fixed. Edge insertion/deletion would change thresholds and defines a separate problem.",
@@ -989,12 +1690,12 @@
         [
           "CC24",
           "Exact odometer and terminal-state algorithms",
-          "Static algorithms can avoid explicit event-by-event simulation, motivating a different online cost measure."
+          "Exact algorithms: trees O(n log n), pseudotrees O(n log²n), paths/cliques O(n). General bound O(Rm² log(nN)) counts batch iterations; per-iteration work must also be charged."
         ],
         [
           "FLP10",
           "Least action principle",
-          "Background for the uniquely defined legal odometer."
+          "Least action characterizes the legal odometer as a minimal nonnegative stabilizing firing vector. Structural result; no fast-algorithm bound is asserted."
         ]
       ],
       "related": [
@@ -1002,7 +1703,29 @@
         "SP13",
         "X01"
       ],
-      "lastVerified": "2026-09-08"
+      "lastVerified": "2026-09-08",
+      "audit": {
+        "status": "hold",
+        "decision": "Output measure retained; temporal-reuse frontier provisional.",
+        "gap": "Reduce Õ(n²) recomputation per addition to Õ(1+k), where k is the number of affected coordinates.",
+        "caution": "Near-linear work per avalanche, if known, would still differ from Õ(1+k) for small avalanches. No theorem establishing this exact output-sensitive dynamic guarantee was verified."
+      },
+      "bounds": [
+        {
+          "label": "Reset a static solver at each arrival",
+          "runtime": "Õ(n²) time per addition; report k≤n changed coordinates.",
+          "scope": "The current state is stable before each arrival and total grains remain polynomial; this gives a valid online baseline.",
+          "source": "CC24",
+          "locator": "Theorem 1.3; expansion specialization"
+        },
+        {
+          "label": "Output lower bound",
+          "runtime": "Ω(k); event simulation costs at least the number of firing events.",
+          "scope": "A vertex can fire many times; k counts distinct affected vertices, so event simulation need not be output-sensitive.",
+          "source": "Elementary baseline",
+          "locator": "Derivation in this entry"
+        }
+      ]
     },
     {
       "id": "X01",
@@ -1021,7 +1744,7 @@
       "significance": "<p>This formulation makes the overlap between the two requested domains explicit. A local edge change alters both transport and firing thresholds, and can change the exact legal odometer globally. The question is whether coordinate queries can avoid repeating a full stabilization.</p>",
       "formulation": "<p>Let Gₜ=(V,Eₜ) be a simple, undirected, unweighted graph on n fixed vertices. Each operation inserts or deletes one edge. Every resulting graph satisfies max degree ≤ Δ₀ and conductance Φ(Gₜ) ≥ φ₀, for fixed positive constants Δ₀, φ₀. The input is not restricted to planar graphs. Vertices need not remain regular.</p><div class=\"equation\">Φ(G) = min<sub>∅≠S⊊V</sub> |E(S,V∖S)| / min{vol(S), vol(V∖S)}, &nbsp; vol(S)=Σ<sub>v∈S</sub> deg(v).</div><p>Fix a sink s∈V and one original configuration σ:V∖{s}→ℕ with total N≤nᴷ. At every time t, independently stabilize this same original σ on Gₜ with sink s and thresholds deg<sub>Gₜ</sub>(v). Let the resulting odometer and stable state be uₜ and σₜ°. Heights are not carried over from the preceding graph.</p><div class=\"equation\">query(v) returns (uₜ(v), σₜ°(v)) exactly; &nbsp; σₜ° = σ − L<sub>ₜ,s</sub>uₜ.</div><p>Seek deterministic polynomial preprocessing, Õ(n²) space, amortized U=Õ(n<sup>1−δ</sup>) for some fixed δ&gt;0, and worst-case Q=polylog n, for arbitrary polynomial-length legal updates. The target is an index, not materializing every changed coordinate after each edge update.</p>",
       "known": "<p>Recomputing from scratch after each update is a static-solver baseline. An approximate dynamic Laplacian solver <a href=\"https://arxiv.org/html/1906.10530v1\" target=\"_blank\" rel=\"noopener\">[DGGP19]</a> does not enforce the integer legality and stability conditions that define the exact answer.</p>",
-      "verification": "<p><b>C · Exploratory candidate.</b> This combined interface is proposed here, not attributed as an existing named open problem. The search did not establish a matching dynamic stabilization theorem or a conditional lower bound. Novelty confidence is consequently lower.</p>",
+      "verification": "<p><b>On hold as a paper-selection claim.</b> Exploratory interface retained with a concrete fallback.</p><p>Approximate dynamic Laplacian solvers do not automatically respect legal integer stabilization. No directly matching dynamic sandpile theorem or lower bound was verified.</p>",
       "comments": [
         "The same original σ is reinterpreted on each graph; this is a deterministic function of (Gₜ,σ), not a physical sandpile with changing infrastructure.",
         "Both degrees and the grounded Laplacian change. Treating an edge update as a demand update alone is incorrect.",
@@ -1031,7 +1754,7 @@
         [
           "CC24",
           "Finite-sink formulation; general-graph algorithms",
-          "Static exact stabilization baseline."
+          "Exact algorithms: trees O(n log n), pseudotrees O(n log²n), paths/cliques O(n). General bound O(Rm² log(nN)) counts batch iterations; per-iteration work must also be charged."
         ],
         [
           "DGGP19",
@@ -1041,14 +1764,29 @@
         [
           "FLP10",
           "Least action principle",
-          "Explains the minimality condition absent from a bare linear solve."
+          "Least action characterizes the legal odometer as a minimal nonnegative stabilizing firing vector. Structural result; no fast-algorithm bound is asserted."
         ]
       ],
       "related": [
         "SP11",
         "SP14"
       ],
-      "lastVerified": "2026-09-08"
+      "lastVerified": "2026-09-08",
+      "audit": {
+        "status": "hold",
+        "decision": "Exploratory interface retained with a concrete fallback.",
+        "gap": "Reduce Õ(n²) fresh stabilization after a topology change to sublinear U while retaining exact coordinate queries.",
+        "caution": "Approximate dynamic Laplacian solvers do not automatically respect legal integer stabilization. No directly matching dynamic sandpile theorem or lower bound was verified."
+      },
+      "bounds": [
+        {
+          "label": "Recompute from the fixed original configuration",
+          "runtime": "P,U=Õ(n²); S=Õ(n); Q=O(1) per stored coordinate.",
+          "scope": "Every topology change starts from the same σ, not the previous stable configuration.",
+          "source": "CC24",
+          "locator": "Theorem 1.3; expander specialization"
+        }
+      ]
     }
   ],
   "references": [
@@ -1080,9 +1818,9 @@
       "id": "HLS24",
       "title": "Dynamic Deterministic Constant-Approximate Distance Oracles with n^ε Worst-Case Update Time",
       "authors": "Bernhard Haeupler; Yaowei Long; Thatchaphol Saranurak",
-      "when": "2024 (FOCS); arXiv April 2024",
+      "when": "2024-02 first preprint / FOCS 2024",
       "venue": "FOCS 2024",
-      "url": "https://arxiv.org/abs/2402.18541"
+      "url": "https://arxiv.org/pdf/2402.18541"
     },
     {
       "id": "KMS25",
@@ -1101,30 +1839,6 @@
       "url": "https://arxiv.org/abs/2211.01468"
     },
     {
-      "id": "DKS23",
-      "title": "Towards Optimal Effective Resistance Estimation",
-      "authors": "Rajat Vadiraj Dwaraknath; Ishani Karmarkar; Aaron Sidford",
-      "when": "2023 (NeurIPS)",
-      "venue": "NeurIPS 2023, Advances in Neural Information Processing Systems 36",
-      "url": "https://proceedings.neurips.cc/paper_files/paper/2023/hash/b8e2046160a568145af6d42eeef199f4-Abstract-Conference.html"
-    },
-    {
-      "id": "YL25",
-      "title": "Improved Algorithms for Effective Resistance Computation on Graphs",
-      "authors": "Yichun Yang; Rong-Hua Li; Meihao Liao; Guoren Wang",
-      "when": "2025-06/07",
-      "venue": "COLT 2025, PMLR 291, pp. 5892–5920",
-      "url": "https://arxiv.org/html/2507.04674v1"
-    },
-    {
-      "id": "YLL26",
-      "title": "Theoretically and Practically Efficient Resistance Distance Computation on Large Graphs",
-      "authors": "Yichun Yang; Longlong Lin; Rong-Hua Li; Meihao Liao; Guoren Wang",
-      "when": "2026-01-16 preprint / 2026 journal",
-      "venue": "PVLDB 2026; DOI 10.14778/3811243.3811244; arXiv v1 checked",
-      "url": "https://arxiv.org/html/2601.11159v1"
-    },
-    {
       "id": "L25",
       "title": "Efficient Index Maintenance for Effective Resistance Computation on Evolving Graphs",
       "authors": "Meihao Liao; Cheng Li; Rong-Hua Li; Guoren Wang",
@@ -1139,14 +1853,6 @@
       "when": "2019-06 / 2019",
       "venue": "STOC 2019",
       "url": "https://arxiv.org/html/1906.10530v1"
-    },
-    {
-      "id": "GLP21",
-      "title": "Fully Dynamic Electrical Flows: Sparse Maxflow Faster Than Goldberg-Rao",
-      "authors": "Yu Gao; Yang P. Liu; Richard Peng",
-      "when": "2021-06-10 v2 / 2021",
-      "venue": "FOCS 2021; arXiv v2 checked",
-      "url": "https://arxiv.org/html/2101.07233v2"
     },
     {
       "id": "JKLS25",
@@ -1277,14 +1983,6 @@
       "url": "https://arxiv.org/abs/2204.01936"
     },
     {
-      "id": "B20",
-      "title": "Bipartite Matching in Nearly-linear Time on Moderately Dense Graphs",
-      "authors": "Jan van den Brand; Yin-Tat Lee; Danupon Nanongkai; Richard Peng; Thatchaphol Saranurak; Aaron Sidford; Zhao Song; Di Wang",
-      "when": "2020-09 preprint",
-      "venue": "arXiv:2009.01802",
-      "url": "https://arxiv.org/abs/2009.01802"
-    },
-    {
       "id": "CPR25",
       "title": "Fully Dynamic Algorithms for Graph Spanners via Low-Diameter Router Decomposition",
       "authors": "Julia Chuzhoy; Merav Parter",
@@ -1293,12 +1991,137 @@
       "url": "https://arxiv.org/abs/2601.20718"
     },
     {
-      "id": "AGJL23",
-      "title": "Sublinear Time Shortest Path in Expander Graphs",
-      "authors": "Noga Alon; Allan Grønlund; Søren Fuglede Jørgensen; Kasper Green Larsen",
-      "when": "2023-07",
-      "venue": "arXiv:2307.06113v2",
-      "url": "https://arxiv.org/abs/2307.06113"
+      "id": "DKPPRS17",
+      "title": "Sampling Random Spanning Trees Faster than Matrix Multiplication",
+      "authors": "David Durfee; Rasmus Kyng; John Peebles; Anup B. Rao; Sushant Sachdeva",
+      "when": "2016 preprint / STOC 2017",
+      "venue": "STOC 2017; Theorem 2.2",
+      "url": "https://arxiv.org/pdf/1611.07451"
+    },
+    {
+      "id": "CGHPS20",
+      "title": "Fast Dynamic Cuts, Distances and Effective Resistances via Vertex Sparsifiers",
+      "authors": "Li Chen; Gramoz Goranci; Monika Henzinger; Richard Peng; Thatchaphol Saranurak",
+      "when": "2020-05-05",
+      "venue": "arXiv:2005.02368v1",
+      "url": "https://arxiv.org/html/2005.02368v1"
+    },
+    {
+      "id": "BGJLLPS22",
+      "title": "Faster Maxflow via Improved Dynamic Spectral Vertex Sparsifiers",
+      "authors": "Jan van den Brand; Yu Gao; Arun Jambulapati; Yin Tat Lee; Yang P. Liu; Richard Peng; Aaron Sidford",
+      "when": "2021 preprint / STOC 2022",
+      "venue": "STOC 2022, 543–556; Theorem 4.7",
+      "url": "https://arxiv.org/html/2112.00722v1"
+    },
+    {
+      "id": "CGPSSW18",
+      "title": "Graph Sparsification, Spectral Sketches, and Faster Resistance Computation, via Short Cycle Decompositions",
+      "authors": "Timothy Chu; Yu Gao; Richard Peng; Sushant Sachdeva; Saurabh Sawlani; Junxing Wang",
+      "when": "FOCS 2018 / SICOMP 2020",
+      "venue": "FOCS 2018; SIAM Journal on Computing 2020",
+      "url": "https://arxiv.org/abs/1805.12051"
+    },
+    {
+      "id": "PY19",
+      "title": "Optimal Short Cycle Decomposition in Almost Linear Time",
+      "authors": "Merav Parter; Eylon Yogev",
+      "when": "2019",
+      "venue": "ICALP 2019, 89:1–89:12",
+      "url": "https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.ICALP.2019.89"
+    },
+    {
+      "id": "GRST21",
+      "title": "The Expander Hierarchy and its Applications to Dynamic Graph Algorithms",
+      "authors": "Gramoz Goranci; Harald Räcke; Thatchaphol Saranurak; Zihan Tan",
+      "when": "2020 preprint / SODA 2021",
+      "venue": "SODA 2021, 2212–2228; Corollary 1.3",
+      "url": "https://arxiv.org/html/2005.02369v2"
+    },
+    {
+      "id": "JS21",
+      "title": "Fully Dynamic s-t Edge Connectivity in Subpolynomial Time",
+      "authors": "Wenyu Jin; Xiaorui Sun",
+      "when": "2020 preprint / FOCS 2021",
+      "venue": "FOCS 2021, 861–872",
+      "url": "https://arxiv.org/abs/2004.07650"
+    },
+    {
+      "id": "KK26",
+      "title": "Faster All-Pairs Minimum Cut: Bypassing Exact Max-Flow",
+      "authors": "Yotam Kenneth-Mordoch; Robert Krauthgamer",
+      "when": "2025-11 preprint / STOC 2026",
+      "venue": "STOC 2026; Theorem 1.5",
+      "url": "https://www.wisdom.weizmann.ac.il/~/robi/papers/KK-GHsparsifier2-STOC26.pdf"
+    },
+    {
+      "id": "BCKLST23",
+      "title": "A Deterministic Almost-Linear Time Algorithm for Minimum-Cost Flow",
+      "authors": "Jan van den Brand; Li Chen; Rasmus Kyng; Yang P. Liu; Richard Peng; Maximilian Probst Gutenberg; Sushant Sachdeva; Aaron Sidford",
+      "when": "2023-09 / FOCS 2023",
+      "venue": "FOCS 2023; arXiv:2309.16629",
+      "url": "https://arxiv.org/abs/2309.16629"
+    },
+    {
+      "id": "FL26",
+      "title": "Faster Weak Expander Decompositions and Approximate Max Flow",
+      "authors": "Henry Fleischmann; George Z. Li; Jason Li",
+      "when": "2025-11 preprint / ICALP 2026",
+      "venue": "ICALP 2026, Article 91",
+      "url": "https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.ICALP.2026.91"
     }
-  ]
+  ],
+  "edition": 3,
+  "auditLegend": {
+    "explicit": "Source-explicit open case",
+    "candidate": "Quantified candidate; novelty not certified",
+    "hold": "On hold: frontier or novelty check incomplete"
+  },
+  "auditProtocol": [
+    "Freeze the interface: graph family, expansion measure, degree/capacity range, input encoding, output, adversary, lifetime and all quantifiers.",
+    "Identify the strongest directly comparable result verified in the search. Record numerical costs and the theorem location. Separate different models and elementary baselines.",
+    "Substitute the parameters of the proposed setting. Charge preprocessing, epoch rebuilding, output size, recourse and failure probability over the full sequence.",
+    "Check triviality and already-solved variants. Test whether a cited reduction preserves every graph promise and whether its gap survives the requested approximation.",
+    "State one precise remaining gap. Source-explicit openness, an independently formulated candidate and an incompletely audited lead receive different visible statuses.",
+    "Check later primary work and record the search boundary. A failed search is not evidence of impossibility, nor a proof that a question is open."
+  ],
+  "exclusions": [
+    {
+      "title": "Exact s–t cut value on unit-capacity constant-degree, constant-conductance graphs is not a new open problem.",
+      "proof": "Let λ=λ(s,t)≤Δ₀. A minimum s–t cut can be chosen with both sides connected: any component containing neither terminal could be moved to the other side and strictly decrease the positive-capacity cut. Let A be its smaller-volume side. Expansion gives vol(A)≤λ/φ₀≤Δ₀/φ₀; connectivity of G gives |A|≤vol(A). Thus A is a connected set of at most ⌊Δ₀/φ₀⌋ vertices containing s or t. Enumerate connected sets of this size rooted at the two terminals, discard sets containing both, and minimize boundary size. There are Δ₀^O(Δ₀/φ₀) candidates and the same constant-parameter work suffices to return A and its cut edges. Maintain adjacency in O(1) per legal update. This establishes a value/small-cut oracle, not an oracle that reports maximum-flow paths."
+    },
+    {
+      "title": "A constant-factor capacitated flow-value estimate is also elementary.",
+      "proof": "For d=min{volc(s),volc(t)}, every separating cut has both side-volumes at least d. Consequently φ₀d≤λ(s,t)≤d. Maintaining weighted degrees yields a 1/φ₀ approximation in O(1) query time. DG10 requires 1+ε; DG12 requires the exact integer value."
+    },
+    {
+      "title": "Short-cycle hardness is not established for DG02.",
+      "proof": "The catalog has not verified a reduction from a named conjecture or a precise short-cycle benchmark to this promised dynamic interface. Deleting already extracted cycles can destroy conductance. The static cycle-decomposition literature therefore provides related algorithmic context, not a hardness certificate."
+    },
+    {
+      "title": "Other excluded variants.",
+      "proof": "Promised connectivity; bounded-degree maximal matching; deletion-only diameter-bounded path maintenance; fixed-error resistance estimation without additional requirements; exact tree/pseudotree stabilization already covered by CC24; ordinary crossover nonexistence already proved for full Moore."
+    }
+  ],
+  "revisionNotes": [
+    "DG01: explicit HLS24 P/U/Q/stretch tradeoff; distinguish a constant factor from a factor that grows when α shrinks.",
+    "DG02: add the directly applicable path-reporting bound, change contribution label to Major, remove any implied formal short-cycle hardness.",
+    "DG04: replace high-precision scalar resistance indexing by a fixed √n-terminal Schur complement with charged recourse and rebuilding; include STOC 2022 progress.",
+    "DG07: replace “rapid mixing” with O(m log m log(m/η)) sampling time and the O(n log²n) expander specialization.",
+    "DG10–DG12: add near-exact capacitated values, unit-capacity flow witnesses, and exact growing-capacity values; exclude trivial scalar variants.",
+    "All records: add numerical or complexity-class baselines, an exact remaining gap, and a visible audit disposition. Incomplete frontier checks stay on hold."
+  ],
+  "searchAudit": {
+    "date": "2026-09-08",
+    "sourcePolicy": "Primary papers, proceedings, author manuscripts and institutional publication records. Reviewer messages are private leads and are not published as source evidence.",
+    "families": [
+      "Dynamic constant-approximate distance oracles and path reporting (including 2024–2026 follow-ups)",
+      "Short-cycle decomposition and adaptive spanners; distinction between a relation and a proved reduction",
+      "Dynamic spectral vertex sparsifiers (2019/2020/2022), static prescribed-terminal SC, resistance indices (2023–2026)",
+      "Static/dynamic exact and approximate s–t cut/flow, Gomory–Hu maintenance, small edge connectivity; 2026 approximate-flow and exact unweighted APMC results",
+      "Spanning-tree sampling/counting, 2025–2026 maximal matching, robust-Hall online versus edge-update models",
+      "Uniform/freezing/timed 2D sandpile classifications and 2025–2026 weighted/nonuniform/fungal follow-ups; finite-graph exact stabilization"
+    ],
+    "limits": "This is a bounded literature audit. It does not certify that every B/C target is absent from unpublished or unlocated work. An item marked on hold is not presented as a validated open problem."
+  }
 }
