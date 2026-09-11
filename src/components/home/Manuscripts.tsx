@@ -82,24 +82,6 @@ const Manuscripts = () => {
       year: "2026",
       publications: [
         {
-          title: t("Manuscripts-2026-quasi-clique-title"),
-          authors: [
-            { name: "Jingbang Chen", href: "" },
-            { name: "Weinuo Li", href: "#" },
-            { name: "Yingli Zhou", href: "https://jaylzhou.github.io/" },
-            { name: "Hao Wu", href: "" },
-            { name: "Can Wang", href: "https://person.zju.edu.cn/wangcan" },
-            { name: "Yixiang Fang", href: "https://fangyixiang.github.io/" },
-            { name: "Chenhao Ma", href: "https://chenhao-ma.github.io/" },
-          ],
-          arXiv: [
-            {
-              name: "arXiv",
-              href: "https://arxiv.org/abs/2605.26235",
-            },
-          ],
-        },
-        {
           title: t("Manuscripts-2026-title"),
           authors: [
             { name: "Sichen Wang", href: "" },

@@ -170,6 +170,9 @@
   "recruit2": "【河套学院联培】对于有意向申请深圳河套学院（SLAI）或已经获得有条件录取的同学，如果有兴趣让我作为导师，请联系我咨询，如果合适，我们可以安排发放录取或者使满足入学条件。在这个情况下，除了上述研究方向，我目前比较感兴趣推理大模型、扩散模型等方向，但任何研究方向都欢迎来讨论看看，如果能和人工智能+科学与工程相关则更好。",
   "SelectedPublications": "主要著作",
   "SelectedPublications-1": "*代表通讯作者。",
+  "year-2027":"2027年",
+  "SelectedPublications-2027-publications-1-title":"Scalable Algorithm for Dynamic Quasi-clique Detection",
+  "SelectedPublications-2027-publications-1-venue":"IEEE International Conference on Data Engineering (ICDE 2027)",
   "year-2026":"2026年",
   "SelectedPublications-2026-publications-isaac-title":"Faster Distance Oracles for Dynamic Interval Graphs",
   "SelectedPublications-2026-publications-isaac-venue":"International Symposium on Algorithms and Computation (ISAAC 2026)",
@@ -181,7 +184,6 @@
   "year-2020":"2020年",
 
   "Manuscripts": "未发表原稿",
-  "Manuscripts-2026-quasi-clique-title":"Scalable Algorithm for Dynamic Quasi-clique Detection",
   "Manuscripts-2026-title":"The Price of Order in the Logarithmic Method",
   "Manuscripts-2026-skillbloat-title":"SkillBloat: Token Amplification Attacks via Skill Injection in LLM Coding Agents",
   "Manuscripts-2026-balance-title":"Finding the Balance Rate of Uncertain Signed Graphs",

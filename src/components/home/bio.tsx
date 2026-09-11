@@ -134,7 +134,14 @@ const Bio = () => {
             "B.S. at Zhejiang University",
             "M.S. at Zhejiang University",
           ],
-          highlight: ["VLDB 2026", "ICPC Gold", "ICPC Champion", "ICPC WF 10th"],
+          backgroundOnNewLine: true,
+          highlight: [
+            "VLDB 2026",
+            "ICDE 2027",
+            "ICPC Gold",
+            "ICPC Champion",
+            "ICPC WF 10th",
+          ],
         },
       ],
     },
@@ -177,7 +184,7 @@ const Bio = () => {
     if (item === "ICPC WF 10th") {
       return "bg-orange-100 text-orange-800 ring-1 ring-inset ring-orange-300";
     }
-    if (item === "VLDB 2026") {
+    if (item === "VLDB 2026" || item === "ICDE 2027") {
       return "bg-indigo-50 text-indigo-700 ring-1 ring-inset ring-indigo-200";
     }
     return "bg-amber-100 text-amber-800";
@@ -586,6 +593,9 @@ const Bio = () => {
                                   {item}
                                 </span>
                               ))}
+                              {person.backgroundOnNewLine && (
+                                <span aria-hidden="true" className="h-0 basis-full" />
+                              )}
                               {person.background?.map((item) => (
                                 <span
                                   key={item}
