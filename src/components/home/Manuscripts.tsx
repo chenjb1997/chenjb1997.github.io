@@ -82,6 +82,24 @@ const Manuscripts = () => {
       year: "2026",
       publications: [
         {
+          title: t("Manuscripts-2026-code-transfer-title"),
+          authors: [
+            { name: "Zheng Yu", href: "" },
+            { name: "Yiwei Li", href: "https://github.com/William-Li123" },
+            { name: "Yishen Chen", href: "" },
+            { name: "Xiang Li", href: "" },
+            { name: "Jiale Han", href: "https://hanjiale.github.io/" },
+            { name: "Benyou Wang", href: "https://wabyking.github.io/old.html" },
+            { name: "Jingbang Chen*", href: "" },
+          ],
+          arXiv: [
+            {
+              name: "arXiv",
+              href: "https://arxiv.org/abs/2609.33845",
+            },
+          ],
+        },
+        {
           title: t("Manuscripts-2026-title"),
           authors: [
             { name: "Sichen Wang", href: "" },
