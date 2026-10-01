@@ -82,6 +82,34 @@ const Manuscripts = () => {
       year: "2026",
       publications: [
         {
+          title: t("Manuscripts-2026-adagepa-title"),
+          authors: [
+            { name: "Junyang Chen", href: "" },
+            { name: "Zecheng Wang", href: "" },
+            { name: "Jingbang Chen*", href: "" },
+          ],
+          arXiv: [
+            {
+              name: "arXiv",
+              href: "https://arxiv.org/abs/2609.39927",
+            },
+          ],
+        },
+        {
+          title: t("Manuscripts-2026-dynamic-subhypergraphs-title"),
+          authors: [
+            { name: "Jingbang Chen*", href: "" },
+            { name: "Chenhao Ma", href: "https://chenhao-ma.github.io/" },
+            { name: "Yingli Zhou", href: "https://jaylzhou.github.io/" },
+          ],
+          arXiv: [
+            {
+              name: "arXiv",
+              href: "https://arxiv.org/abs/2609.39778",
+            },
+          ],
+        },
+        {
           title: t("Manuscripts-2026-code-transfer-title"),
           authors: [
             { name: "Zheng Yu", href: "" },
@@ -102,8 +130,8 @@ const Manuscripts = () => {
         {
           title: t("Manuscripts-2026-title"),
           authors: [
-            { name: "Sichen Wang", href: "" },
-            { name: "Zhipeng Lu", href: "" },
+            { name: "Sichen Wang", href: "https://sichen-wang.github.io/" },
+            { name: "Zhipeng Lu", href: "https://www.smbu.edu.cn/info/5741/77301.htm" },
             { name: "Jingbang Chen*", href: "" },
           ],
           arXiv: [
@@ -159,7 +187,7 @@ const Manuscripts = () => {
             { name: "Qingyu Shi", href: "https://qoj.ac/" },
             {
               name: "Zeyu Zheng",
-              href: "https://scholar.google.com/citations?user=sNENLo8AAAAJ&hl=en",
+              href: "https://zeyu-zheng.github.io/",
             },
           ],
           arXiv: [
@@ -178,6 +206,9 @@ const Manuscripts = () => {
       <h2 className="border-b-[1px] border-gray-300 pb-2 text-[24px] font-bold mb-3">
         {t("Manuscripts")}
       </h2>
+      <p className="mb-3 text-[13px] text-gray-600">
+        {t("SelectedPublications-1")}
+      </p>
       <div>
         {SelectedPublicationsList.map((item, index) => (
           <Publications key={index} publications={item} />
