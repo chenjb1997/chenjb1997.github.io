@@ -97,7 +97,10 @@ const Manuscripts = () => {
             { name: "Jingbang Chen*", href: "" },
             { name: "Sean Welleck", href: "https://wellecks.com/" },
           ],
-          arXiv: [],
+          arXiv: [
+            { name: "arXiv", href: "https://arxiv.org/abs/2610.27046" },
+            { name: "GitHub", href: "https://github.com/cmu-l3/reuF2F" },
+          ],
         },
         {
           title: t("Manuscripts-2026-adagepa-title"),
