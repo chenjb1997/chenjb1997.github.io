@@ -56,18 +56,20 @@ const Publications: React.FC<{ publications: SelectedPublicationsItem }> = ({
                 </span>
               ))}
             </div>
-            <div className="mt-1 flex flex-wrap gap-1">
-              {pub.arXiv.map(({ name, href }, index) => (
-                <a
-                  href={href}
-                  key={index}
-                  target="_blank"
-                  className="inline-flex rounded-sm border border-blue-200 bg-white px-1.5 py-0.5 text-[11px] font-medium leading-tight text-blue-700 hover:border-amber-300 hover:text-amber-700"
-                >
-                  {name}
-                </a>
-              ))}
-            </div>
+            {pub.arXiv.length > 0 && (
+              <div className="mt-1 flex flex-wrap gap-1">
+                {pub.arXiv.map(({ name, href }, index) => (
+                  <a
+                    href={href}
+                    key={index}
+                    target="_blank"
+                    className="inline-flex rounded-sm border border-blue-200 bg-white px-1.5 py-0.5 text-[11px] font-medium leading-tight text-blue-700 hover:border-amber-300 hover:text-amber-700"
+                  >
+                    {name}
+                  </a>
+                ))}
+              </div>
+            )}
           </div>
         ))}
       </div>
@@ -81,6 +83,22 @@ const Manuscripts = () => {
     {
       year: "2026",
       publications: [
+        {
+          title: t("Manuscripts-2026-reuf2f-title"),
+          authors: [
+            {
+              name: "Zeyu Zheng",
+              href: "https://zeyu-zheng.github.io/",
+            },
+            { name: "Yiyang Liu", href: "https://deep0thinking.com/" },
+            { name: "Yuyang Zhao", href: "https://github.com/astrainfinita" },
+            { name: "...", href: "" },
+            { name: "Prasad Tetali", href: "https://tetali.github.io/" },
+            { name: "Jingbang Chen*", href: "" },
+            { name: "Sean Welleck", href: "https://wellecks.com/" },
+          ],
+          arXiv: [],
+        },
         {
           title: t("Manuscripts-2026-adagepa-title"),
           authors: [

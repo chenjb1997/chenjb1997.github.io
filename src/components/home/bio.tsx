@@ -125,6 +125,24 @@ const Bio = () => {
           highlight: ["ICPC Gold", "NOI Silver"],
         },
         {
+          name: "Zihao Xiong",
+          zhName: "熊子豪",
+          period: "Fall 2026 - present",
+          affiliation: "Southern University of Science and Technology",
+          affiliationLabel: "",
+          background: ["UG at Southern University of Science and Technology"],
+          highlight: ["NOI Silver"],
+        },
+        {
+          name: "Shicheng Xiao",
+          zhName: "肖士程",
+          period: "Fall 2026 - present",
+          affiliation: "CUHK-Shenzhen",
+          affiliationLabel: "",
+          background: ["B.S. at Tsinghua University", "M.S. at CUHK-Shenzhen"],
+          highlight: ["ICPC Gold", "NOI Silver"],
+        },
+        {
           name: "Weinuo Li",
           zhName: "黎伟诺",
           period: "Fall 2024 - Spring 2026",
@@ -244,6 +262,8 @@ const Bio = () => {
           people: getPeople("Research Assistants", [
             "Hao Wu",
             "Sichen Wang",
+            "Zihao Xiong",
+            "Shicheng Xiao",
             "Weinuo Li",
           ]),
         },
