@@ -119,7 +119,7 @@ const SelectedPublications = () => {
             { name: "Hang Pan", href: "https://github.com/HungPaan" },
             { name: "Bingde Hu", href: "" },
             { name: "Can Wang", href: "https://person.zju.edu.cn/wangcan" },
-            { name: "Jiawei Chen*", href: "https://jiawei-chen.github.io/" },
+            { name: "Jiawei Chen", href: "https://jiawei-chen.github.io/" },
           ],
           venue: t("SelectedPublications-2027-lbr-venue"),
           arXiv: [
