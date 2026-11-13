@@ -176,6 +176,8 @@
   "SelectedPublications": "Selected Publications",
   "SelectedPublications-1": "* indicates the corresponding author.",
   "year-2027":"In the Year of 2027",
+  "SelectedPublications-2027-lbr-title":"LBR: Towards Mitigating Length Bias in Large Language Models for Recommendation",
+  "SelectedPublications-2027-lbr-venue":"ACM SIGKDD Conference on Knowledge Discovery and Data Mining (KDD 2027)",
   "SelectedPublications-2027-publications-1-title":"Scalable Algorithm for Dynamic Quasi-clique Detection",
   "SelectedPublications-2027-publications-1-venue":"IEEE International Conference on Data Engineering (ICDE 2027)",
   "year-2026":"In the Year of 2026",

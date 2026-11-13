@@ -109,6 +109,23 @@ const SelectedPublications = () => {
             },
           ],
         },
+        {
+          title: t("SelectedPublications-2027-lbr-title"),
+          authors: [
+            { name: "Hongchen Li", href: "https://zlstwebsite.github.io/Zlst/author/hongchen-li/" },
+            { name: "Bohao Wang", href: "https://zlstwebsite.github.io/Zlst/author/bohao-wang/" },
+            { name: "Jingbang Chen", href: "" },
+            { name: "Weiqin Yang", href: "https://tiny-snow.github.io/" },
+            { name: "Hang Pan", href: "https://github.com/HungPaan" },
+            { name: "Bingde Hu", href: "" },
+            { name: "Can Wang", href: "https://person.zju.edu.cn/wangcan" },
+            { name: "Jiawei Chen*", href: "https://jiawei-chen.github.io/" },
+          ],
+          venue: t("SelectedPublications-2027-lbr-venue"),
+          arXiv: [
+            { name: "arXiv", href: "https://arxiv.org/abs/2607.04270" },
+          ],
+        },
       ],
     },
     {
