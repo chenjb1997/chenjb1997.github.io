@@ -100,6 +100,7 @@ const Bio = () => {
       people: [
         {
           name: "Mofei Zhou",
+          zhName: "周莫非",
           period: "Spring 2027 - present",
           affiliation: "CUHK-Shenzhen",
           affiliationLabel: "",
@@ -107,12 +108,18 @@ const Bio = () => {
           highlight: ["ICPC Gold", "ICPC WF Finalist"],
         },
         {
-          name: "Jintai Chen",
+          name: "Jingtai Chen",
+          zhName: "陈景泰",
           period: "Spring 2027 - present",
           affiliation: "Sun Yat-sen University",
           affiliationLabel: "",
           background: ["UG at Sun Yat-sen University"],
-          highlight: ["CCPC Champion", "ICPC Gold", "ICPC WF Finalist"],
+          highlight: [
+            "CCPC Champion",
+            "CCSP Champion × 2",
+            "ICPC Gold",
+            "ICPC WF Finalist",
+          ],
         },
         {
           name: "Hao Wu",
@@ -172,8 +179,8 @@ const Bio = () => {
           highlight: [
             "VLDB 2026",
             "ICDE 2027",
-            "ICPC Gold",
             "ICPC Champion",
+            "ICPC Gold",
             "ICPC WF 10th",
           ],
         },
@@ -280,9 +287,9 @@ const Bio = () => {
           group: "Research Assistants",
           people: getPeople("Research Assistants", [
             "Mofei Zhou",
-            "Jintai Chen",
-            "Zihao Xiong",
+            "Jingtai Chen",
             "Shicheng Xiao",
+            "Zihao Xiong",
             "Sichen Wang",
             "Weinuo Li",
             "Hao Wu",

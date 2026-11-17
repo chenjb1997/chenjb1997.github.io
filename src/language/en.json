@@ -176,6 +176,8 @@
   "SelectedPublications": "Selected Publications",
   "SelectedPublications-1": "* indicates the corresponding author.",
   "year-2027":"In the Year of 2027",
+  "SelectedPublications-2027-lbr-title":"LBR: Towards Mitigating Length Bias in Large Language Models for Recommendation",
+  "SelectedPublications-2027-lbr-venue":"ACM SIGKDD Conference on Knowledge Discovery and Data Mining (KDD 2027)",
   "SelectedPublications-2027-publications-1-title":"Scalable Algorithm for Dynamic Quasi-clique Detection",
   "SelectedPublications-2027-publications-1-venue":"IEEE International Conference on Data Engineering (ICDE 2027)",
   "year-2026":"In the Year of 2026",
@@ -205,6 +207,7 @@
   "SelectedPublications-2020-publications-1-venue":"AAAI Conference on Artificial Intelligence (AAAI 2020)",
 
   "Manuscripts": "Manuscripts",
+  "Manuscripts-2026-influence-minimization-title":"Efficient Influence Minimization via Source-Integrated Sampling",
   "Manuscripts-2026-reuf2f-title":"REUF2F: Benchmarking Coding Agents on Formalized Undergraduate Research Problems",
   "Manuscripts-2026-adagepa-title":"AdaGEPA: Adaptive Feedback Allocation for Reflective Prompt Optimization",
   "Manuscripts-2026-dynamic-subhypergraphs-title":"Scalable Approximate Algorithm for Dynamic Densest Subhypergraphs with Solution-Guided Maintenance",
