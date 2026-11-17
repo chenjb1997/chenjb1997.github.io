@@ -99,9 +99,25 @@ const Bio = () => {
       group: "Research Assistants",
       people: [
         {
+          name: "Mofei Zhou",
+          period: "Spring 2027 - present",
+          affiliation: "CUHK-Shenzhen",
+          affiliationLabel: "",
+          background: ["UG at CUHK-Shenzhen"],
+          highlight: ["ICPC Gold", "ICPC WF Finalist"],
+        },
+        {
+          name: "Jintai Chen",
+          period: "Spring 2027 - present",
+          affiliation: "Sun Yat-sen University",
+          affiliationLabel: "",
+          background: ["UG at Sun Yat-sen University"],
+          highlight: ["CCPC Champion", "ICPC Gold", "ICPC WF Finalist"],
+        },
+        {
           name: "Hao Wu",
           zhName: "吴浩",
-          period: "Fall 2025 - present",
+          period: "Fall 2025 - Fall 2026",
           affiliation: "Zhejiang University",
           affiliationLabel: "",
           background: ["UG at Zhejiang University"],
@@ -202,6 +218,9 @@ const Bio = () => {
     if (item === "ICPC WF 10th") {
       return "bg-orange-100 text-orange-800 ring-1 ring-inset ring-orange-300";
     }
+    if (item === "ICPC WF Finalist") {
+      return "bg-teal-50 text-teal-800 ring-1 ring-inset ring-teal-300";
+    }
     if (item === "VLDB 2026" || item === "ICDE 2027") {
       return "bg-indigo-50 text-indigo-700 ring-1 ring-inset ring-indigo-200";
     }
@@ -260,11 +279,13 @@ const Bio = () => {
         {
           group: "Research Assistants",
           people: getPeople("Research Assistants", [
-            "Hao Wu",
-            "Sichen Wang",
+            "Mofei Zhou",
+            "Jintai Chen",
             "Zihao Xiong",
             "Shicheng Xiao",
+            "Sichen Wang",
             "Weinuo Li",
+            "Hao Wu",
           ]),
         },
       ],
