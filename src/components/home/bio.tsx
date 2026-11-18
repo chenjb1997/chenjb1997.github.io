@@ -139,6 +139,15 @@ const Bio = () => {
           background: ["UG at Shenzhen MSU-BIT University"],
         },
         {
+          name: "Jianian Chen",
+          zhName: "陈嘉年",
+          period: "Spring 2027 - present",
+          affiliation: "CUHK-Shenzhen",
+          affiliationLabel: "",
+          background: ["UG at CUHK-Shenzhen"],
+          highlight: ["ICPC Gold", "ICPC WF Finalist", "NOI Bronze"],
+        },
+        {
           name: "Jinrong Lai",
           zhName: "赖锦镕",
           period: "Fall 2026 - present",
@@ -222,7 +231,7 @@ const Bio = () => {
     if (item === "NOI Silver") {
       return "bg-slate-100 text-slate-700 ring-1 ring-inset ring-slate-300";
     }
-    if (item === "ICPC WF 10th") {
+    if (item === "ICPC WF 10th" || item === "NOI Bronze") {
       return "bg-orange-100 text-orange-800 ring-1 ring-inset ring-orange-300";
     }
     if (item === "ICPC WF Finalist") {
@@ -361,6 +370,7 @@ const Bio = () => {
         {
           group: "Research Assistants",
           people: getPeople("Research Assistants", [
+            "Jianian Chen",
             "Jinrong Lai",
           ]),
         },
