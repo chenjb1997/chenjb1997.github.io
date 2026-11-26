@@ -84,6 +84,16 @@ const Manuscripts = () => {
       year: "2026",
       publications: [
         {
+          title: t("Manuscripts-2026-contra-title"),
+          authors: [
+            { name: "Jiajun Hou", href: "" },
+            { name: "Jingbang Chen*", href: "" },
+          ],
+          arXiv: [
+            { name: "arXiv", href: "https://arxiv.org/abs/2611.34366" },
+          ],
+        },
+        {
           title: t("Manuscripts-2026-influence-minimization-title"),
           authors: [
             { name: "Jingbang Chen*", href: "" },
