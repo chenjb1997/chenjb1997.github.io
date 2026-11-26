@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter, Navigate, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Navigate, Outlet, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
+import Lab from './pages/Lab';
 import CompetitiveProgramming from './pages/CompetitiveProgramming';
 import Footprint from './pages/Footprint';
 import Contact from './pages/Contact.tsx';
@@ -51,8 +52,9 @@ function App() {
           isInverted={isInverted}
           toggleColorMode={toggleColorMode}
         />
-        <div className="page-enter container mx-auto px-2 py-8 md:px-6">
-          <Routes>
+        <Routes>
+          <Route path="/lab" element={<Lab />} />
+          <Route element={<div className="page-enter container mx-auto px-2 py-8 md:px-6"><Outlet /></div>}>
             <Route path="/" element={<Home />} />
             <Route path="/competitive-programming/*" element={<CompetitiveProgramming />} />
             <Route path="/footprint/*" element={<Footprint />} />
@@ -60,8 +62,8 @@ function App() {
             <Route path="/research/admin" element={<ResearchAdmin />} />
             <Route path="/research/*" element={<ResearchVault />} />
             <Route path="/research-vault/*" element={<Navigate to="/research" replace />} />
-          </Routes>
-        </div>
+          </Route>
+        </Routes>
       </div>
     </BrowserRouter>
   );

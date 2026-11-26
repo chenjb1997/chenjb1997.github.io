@@ -1,0 +1,555 @@
+.lab-page {
+  --lab-bg: #fafafb;
+  --lab-field: #eef0f4;
+  --lab-ink: #1c202a;
+  --lab-muted: #4a5261;
+  --lab-rule: #d6dae5;
+  --lab-selection-bg: #2548c2;
+  --lab-selection-ink: #ffffff;
+  --lab-focus: #2548c2;
+  --lab-hover: #e2e7f3;
+  --lab-algo: #2248b8;
+  --lab-ai: #68469a;
+  --lab-alumni: #a6431b;
+  background: var(--lab-bg);
+  color: var(--lab-ink);
+  color-scheme: light;
+}
+
+.lab-inner {
+  width: min(calc(100% - 64px), 1140px);
+  margin-inline: auto;
+}
+
+.lab-masthead {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  min-height: 256px;
+  align-items: center;
+  overflow: hidden;
+  background: var(--lab-bg);
+}
+
+.lab-masthead-image,
+.lab-masthead::after {
+  position: absolute;
+  inset: 0;
+  mask-image:
+    linear-gradient(to bottom, #000 76%, transparent),
+    linear-gradient(to right, transparent, #000 5%, #000 95%, transparent);
+  mask-composite: intersect;
+}
+
+.lab-masthead::after {
+  z-index: -1;
+  background: linear-gradient(90deg, transparent 24%, #0c1b3966 58%, #0c1b39c7);
+  content: "";
+}
+
+.lab-masthead-image {
+  z-index: -2;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 20%;
+}
+
+.lab-masthead-content {
+  display: grid;
+  justify-items: end;
+  padding-block: 28px 12px;
+  color: #fff;
+  text-align: right;
+}
+
+@font-face {
+  font-family: "Allura";
+  src: url("/fonts/allura-latin.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Ma Shan Zheng";
+  src: url("/fonts/ma-shan-zheng-lab-quote.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  unicode-range: U+3002, U+300C-300D, U+4E0A, U+4E5D, U+53EF, U+5929, U+63FD, U+6708;
+}
+
+.lab-masthead h1 {
+  max-width: min(670px, 72%);
+  font-family: "Allura", system-ui, sans-serif;
+  font-size: 120px;
+  font-weight: 400;
+  line-height: 1;
+  overflow-wrap: anywhere;
+  text-shadow: 0 2px 18px #08132e80;
+}
+
+.lab-masthead-footer {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) fit-content(66%);
+  align-items: end;
+  gap: 12px;
+  padding-bottom: 7px;
+}
+
+.lab-art-credit {
+  color: var(--lab-muted);
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.lab-masthead-quote {
+  margin-block-end: 32px;
+  color: #fff;
+  text-align: right;
+  text-shadow: 0 1px 3px #08132e, 0 1px 8px #08132e;
+}
+
+.lab-masthead-quote blockquote {
+  font: 16px/1.35 Georgia, serif;
+}
+
+.lab-masthead-quote:lang(zh) blockquote {
+  font: 22px/1.25 "Ma Shan Zheng", "Kaiti SC", KaiTi, serif;
+}
+
+.lab-art-credit a {
+  display: inline-block;
+  text-decoration: underline;
+  text-decoration-color: var(--lab-rule);
+  text-underline-offset: 2px;
+}
+
+.lab-masthead-quote figcaption {
+  margin-block-start: 5px;
+  color: #f0f6ff;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.lab-art-credit a:hover {
+  text-decoration-color: currentColor;
+}
+
+.lab-directory {
+  padding-block: 24px 72px;
+}
+
+.lab-directory-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px 24px;
+  padding-bottom: 17px;
+}
+
+.lab-directory-title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 14px;
+}
+
+.lab-directory-title h2 {
+  font-size: 32px;
+  font-weight: 750;
+  line-height: 1.12;
+}
+
+.lab-people-count {
+  color: var(--lab-muted);
+  font: 500 12px/1.4 ui-monospace, Consolas, monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+.lab-filters {
+  display: grid;
+  width: 325px;
+  max-width: 100%;
+  grid-template-columns: minmax(0, 0.65fr) minmax(0, 1fr) repeat(2, minmax(0, 1.2fr));
+  gap: 3px;
+  padding: 3px;
+  border: 1px solid var(--lab-rule);
+  border-radius: 6px;
+  background: var(--lab-field);
+}
+
+.lab-filters button {
+  min-width: 0;
+  min-height: 36px;
+  padding: 4px;
+  border-radius: 3px;
+  color: var(--lab-muted);
+  font-size: 13px;
+  font-weight: 650;
+  overflow-wrap: anywhere;
+}
+
+.lab-filters button:hover {
+  background: var(--lab-hover);
+  color: var(--lab-ink);
+}
+
+.lab-filters button[aria-pressed="true"] {
+  background: var(--lab-selection-bg);
+  color: var(--lab-selection-ink);
+}
+
+.lab-page :is(a, button, summary):focus-visible {
+  outline: 2px solid var(--lab-focus);
+  outline-offset: 3px;
+}
+
+.lab-branch {
+  --lab-accent: var(--lab-algo);
+  padding-top: 14px;
+  border-top: 1px solid var(--lab-rule);
+}
+
+.lab-branch + .lab-branch {
+  margin-top: 32px;
+}
+
+.lab-branch-ai {
+  --lab-accent: var(--lab-ai);
+}
+
+.lab-branch-alumni {
+  --lab-accent: var(--lab-alumni);
+  border-top-color: var(--lab-accent);
+}
+
+.lab-branch-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--lab-accent);
+}
+
+.lab-branch-header svg {
+  flex: none;
+}
+
+.lab-branch-index {
+  font: 600 12px/1 ui-monospace, Consolas, monospace;
+}
+
+.lab-branch-header h3 {
+  font-size: 26px;
+  font-weight: 750;
+  line-height: 1.2;
+}
+
+.lab-cohort {
+  margin-top: 16px;
+}
+
+.lab-cohort h4 {
+  margin-bottom: 6px;
+  color: var(--lab-muted);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.lab-person-list {
+  margin-top: 8px;
+}
+
+.lab-person {
+  display: grid;
+  grid-template-columns: minmax(155px, 0.85fr) minmax(0, 2.15fr);
+  gap: 10px 26px;
+  padding: 13px 0;
+  border-top: 1px solid var(--lab-rule);
+  overflow-wrap: anywhere;
+}
+
+.lab-person:last-child {
+  border-bottom: 1px solid var(--lab-rule);
+}
+
+.lab-person-identity,
+.lab-person-details {
+  min-width: 0;
+}
+
+.lab-person-name {
+  display: block;
+  font-size: 19px;
+  line-height: 1.28;
+}
+
+.lab-person-alternate,
+.lab-person-period,
+.lab-person-affiliation,
+.lab-person-role,
+.lab-education {
+  color: var(--lab-muted);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.lab-person-alternate {
+  display: block;
+  margin-top: 1px;
+}
+
+.lab-person-period {
+  margin-top: 5px;
+  font-family: ui-monospace, Consolas, monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+.lab-person-destination {
+  color: var(--lab-accent);
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.lab-education {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px 14px;
+}
+
+.lab-person-affiliation + .lab-education {
+  margin-top: 2px;
+}
+
+.lab-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 7px;
+}
+
+.lab-badges:first-child {
+  margin-top: 0;
+}
+
+.lab-badge {
+  max-width: 100%;
+  padding: 3px 7px;
+  border-radius: 3px;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.lab-award-gold { background: #ffd66d; color: #3a2604; }
+.lab-award-silver { background: #c8d6e4; color: #24364a; }
+.lab-award-bronze { background: #ffb288; color: #3d200f; }
+.lab-award-finalist { background: #b8dbff; color: #153e76; }
+.lab-award-paper { background: #c9bbff; color: #29204e; }
+
+.lab-work-list {
+  margin-top: 7px;
+}
+
+.lab-work-list summary {
+  display: flex;
+  width: fit-content;
+  max-width: 100%;
+  min-height: 33px;
+  align-items: center;
+  gap: 7px;
+  padding: 3px 8px;
+  border: 1px solid var(--lab-rule);
+  border-radius: 4px;
+  background: var(--lab-field);
+  color: var(--lab-ink);
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 650;
+  list-style: none;
+}
+
+.lab-work-list summary::-webkit-details-marker {
+  display: none;
+}
+
+.lab-work-list summary:hover,
+.lab-work-list[open] summary {
+  border-color: var(--lab-accent);
+}
+
+.lab-work-list summary > svg {
+  flex: none;
+  color: var(--lab-accent);
+}
+
+.lab-work-count {
+  color: var(--lab-muted);
+  font: 500 12px/1 ui-monospace, Consolas, monospace;
+}
+
+.lab-work-list[open] .lab-work-chevron {
+  transform: rotate(180deg);
+}
+
+.lab-works {
+  margin-top: 7px;
+  border-left: 2px solid var(--lab-accent);
+  background: var(--lab-field);
+}
+
+.lab-work {
+  padding: 9px 11px;
+}
+
+.lab-work + .lab-work {
+  border-top: 1px solid var(--lab-rule);
+}
+
+.lab-work-title {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.lab-work-authors,
+.lab-work-venue {
+  margin-top: 3px;
+  color: var(--lab-muted);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.lab-work-authors strong {
+  color: var(--lab-ink);
+}
+
+.lab-work a {
+  color: var(--lab-accent);
+}
+
+.lab-work-authors a:hover {
+  text-decoration: underline;
+}
+
+.lab-work-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 5px;
+}
+
+.lab-work-links a {
+  display: inline-flex;
+  min-height: 28px;
+  align-items: center;
+  gap: 3px;
+  padding-inline: 6px;
+  border: 1px solid var(--lab-rule);
+  border-radius: 3px;
+  font-size: 11px;
+  font-weight: 650;
+}
+
+.lab-work-links a:hover {
+  border-color: currentColor;
+}
+
+html.inverted-theme .lab-page {
+  --lab-bg: #15161a;
+  --lab-field: #20232b;
+  --lab-ink: #f4f5f9;
+  --lab-muted: #c0c6d1;
+  --lab-rule: #3c424e;
+  --lab-selection-bg: #b6c8ff;
+  --lab-selection-ink: #161e36;
+  --lab-focus: #b6c8ff;
+  --lab-hover: #30374a;
+  --lab-algo: #8facff;
+  --lab-ai: #d4bfff;
+  --lab-alumni: #ffb57c;
+  color-scheme: dark;
+  /* Cancel the site's global filter so the lab's dark colors render as defined. */
+  filter: invert(1) hue-rotate(180deg);
+}
+
+html.inverted-theme .lab-page img,
+html.inverted-theme .lab-page svg {
+  filter: none;
+}
+
+@media (max-width: 1024px) {
+  .lab-masthead h1 {
+    font-size: 82px;
+  }
+}
+
+@media (max-width: 560px) {
+  .lab-inner {
+    width: calc(100% - 36px);
+  }
+
+  .lab-masthead {
+    min-height: 198px;
+  }
+
+  .lab-masthead-content {
+    padding-block: 23px 12px;
+  }
+
+  .lab-masthead-quote {
+    margin-block-end: 18px;
+  }
+
+  .lab-masthead-quote blockquote {
+    font-size: 14px;
+  }
+
+  .lab-masthead-quote:lang(zh) blockquote {
+    font-size: 19px;
+  }
+
+  .lab-masthead::after {
+    background: linear-gradient(90deg, transparent 15%, #0c1b397a 52%, #0c1b39bf);
+  }
+
+  .lab-masthead h1 {
+    font-size: 45px;
+  }
+
+  .lab-directory {
+    padding-block: 17px 50px;
+  }
+
+  .lab-directory-title h2 {
+    font-size: 26px;
+  }
+
+  .lab-filters {
+    width: 100%;
+  }
+
+  .lab-person {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 7px;
+  }
+
+  .lab-person-period {
+    margin-top: 2px;
+  }
+}
+
+@media (max-width: 400px) {
+  .lab-masthead-footer {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .lab-masthead-quote {
+    grid-row: 1;
+    margin-block-end: 0;
+  }
+}

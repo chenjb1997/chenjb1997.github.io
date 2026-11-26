@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Languages, Menu, Moon, Sun, X } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { labName } from "../features/lab/brand";
 // 定义 Navbar 组件的 props 类型
 interface NavbarProps {
   currentLanguage: string;
@@ -24,6 +25,7 @@ const Navbar: React.FC<NavbarProps> = ({
 
   const navigation = [
     { name: t("Home"), href: "/" },
+    { name: labName, href: "/lab" },
     { name: t("Competitive-Programming"), href: "/competitive-programming" },
     { name: t("Footprint"), href: "/footprint" },
     // { name: t("Contact"), href: "/contact" },
@@ -55,11 +57,12 @@ const Navbar: React.FC<NavbarProps> = ({
             </div>
             <div className="flex items-center">
               {/* Desktop Navigation */}
-              <div className="hidden md:flex items-center space-x-8">
+              <div className="hidden items-center gap-2 md:flex lg:gap-8">
                 {navigation.map((item) => (
                   <Link
                     key={item.name}
                     to={item.href}
+                    aria-current={location.pathname === item.href ? "page" : undefined}
                     className={`${
                       location.pathname === item.href
                         ? "text-blue-600 border-b-2 border-blue-600"
@@ -82,9 +85,11 @@ const Navbar: React.FC<NavbarProps> = ({
               </div>
 
               {/* Mobile Navigation Button */}
-              <div className="md:hidden flex items-center space-x-2">
+              <div className="flex items-center space-x-2 md:hidden">
                 <button
                   onClick={() => setIsOpen(!isOpen)}
+                  aria-label={t("nav-menu")}
+                  aria-expanded={isOpen}
                   className="text-gray-600 hover:text-gray-900 focus:outline-none"
                 >
                   {isOpen ? <X size={24} /> : <Menu size={24} />}
@@ -111,6 +116,7 @@ const Navbar: React.FC<NavbarProps> = ({
                   <Link
                     key={item.name}
                     to={item.href}
+                    aria-current={location.pathname === item.href ? "page" : undefined}
                     className={`${
                       location.pathname === item.href
                         ? "bg-blue-50 text-blue-600"

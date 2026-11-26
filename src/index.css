@@ -75,20 +75,6 @@
     animation: page-enter 420ms ease-out both;
   }
 
-  .student-group-card {
-    transition: transform 180ms ease, box-shadow 180ms ease;
-  }
-
-  .student-group-card-algo {
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.72),
-      0 1px 2px rgba(15, 23, 42, 0.06);
-  }
-
-  .student-group-card-ai {
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.72),
-      0 1px 2px rgba(15, 23, 42, 0.06);
-  }
-
   @keyframes home-ambient-glow-arrive {
     from {
       opacity: 0;
@@ -227,14 +213,6 @@
       border-color 180ms ease;
   }
 
-  .home-student-row {
-    position: relative;
-    transition:
-      transform 180ms ease,
-      background-color 180ms ease,
-      box-shadow 180ms ease;
-  }
-
   .home-profile-photo {
     width: 220px;
     box-shadow: 0 12px 28px rgba(15, 23, 42, 0.1);
@@ -302,12 +280,6 @@
         0 1px 2px rgba(15, 23, 42, 0.06);
     }
 
-    .home-student-row:hover {
-      z-index: 1;
-      transform: translateY(-2px);
-      background: rgba(255, 255, 255, 0.72);
-      box-shadow: 0 5px 14px rgba(15, 23, 42, 0.07);
-    }
   }
 
   @media (max-width: 640px) {
@@ -329,15 +301,12 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .page-enter,
-    .student-group-card {
+    .page-enter {
       animation: none;
       transition: none;
     }
 
-    .student-group-card *,
     .home-academic-card,
-    .home-student-row,
     .home-profile-photo img,
     .home-section-reveal,
     .home-section-reveal h2::after {
@@ -436,31 +405,4 @@
     text-decoration-color: #b68a32;
   }
 
-  html.inverted-theme .student-group-header {
-    background: rgba(255, 255, 255, 0.12);
-    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12);
-  }
-
-  html.inverted-theme .student-group-header-algo {
-    background: rgba(59, 130, 246, 0.16);
-    border-color: rgba(96, 165, 250, 0.28);
-  }
-
-  html.inverted-theme .student-group-header-ai {
-    background: rgba(244, 63, 94, 0.14);
-    border-color: rgba(251, 113, 133, 0.26);
-  }
-
-  html.inverted-theme .student-group-card-algo {
-    background: rgba(59, 130, 246, 0.08);
-  }
-
-  html.inverted-theme .student-group-card-ai {
-    background: rgba(244, 63, 94, 0.08);
-  }
-
-  html.inverted-theme .home-student-row:hover {
-    background: rgba(255, 255, 255, 0.08);
-    box-shadow: 0 5px 14px rgba(0, 0, 0, 0.18);
-  }
 }

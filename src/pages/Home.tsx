@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import PersonalProfile from "../components/home/PersonalProfile";
 import Bio from "../components/home/bio";
 import Education from "../components/home/Education";
@@ -10,6 +11,16 @@ import {
 } from "../components/home/HomeMotion";
 
 const Home = () => {
+  const { hash } = useLocation();
+
+  useEffect(() => {
+    if (hash !== "#research-directions") return;
+    const frame = requestAnimationFrame(() => {
+      document.getElementById("research-directions")?.scrollIntoView();
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [hash]);
+
   return (
     <div className="max-w-4xl mx-auto px-4">
       <div className="prose max-w-none text-lg">
